@@ -2,7 +2,7 @@
 
 #### A GNOME extension to run shell commands using a GNOME quick toggle.
 
-Custom Command Toggle is a GNOME extension to run user defined shell commands by switching a customizable quick toggle button on or off.
+Custom Command Toggle is a GNOME extension to run user defined terminal/shell commands by switching a customizable quick toggle button on or off.
 
 <br>
 
@@ -12,7 +12,7 @@ Custom Command Toggle is a GNOME extension to run user defined shell commands by
 
 ## Features:
 
-- Run shell commands and launch custom scripts using a quick toggle button.
+- Run terminal commands and launch custom scripts using a quick toggle button.
 - Easily change the quick toggle button name and icon in the extension preferences.
 - Enter separate commands to run when the quick toggle is switched on and when it is switched off.
 
