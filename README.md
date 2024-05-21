@@ -6,7 +6,7 @@ Custom Command Toggle is a GNOME extension to run user defined shell commands by
 
 <br>
 
-[screenshot]
+![Screenshot-main](screenshots/Screenshot-main.png)
 
 <br>
 
@@ -32,7 +32,7 @@ Customize the behavior and appearance of the quick toggle by accessing the exten
 
 Enter the text and icon information to use for the quick toggle button. 
 
-[screenshot]
+![Screenshot-appearance](screenshots/Screenshot-appearance.png)
 
 For a list of available icons, navigate to icon directory on your computer at `/usr/share/icons/Adwaita/scalable`. Enter the file name of the icon you wish to use (without the file extension) in the "Icon" field.
 
@@ -42,7 +42,7 @@ For a list of available icons, navigate to icon directory on your computer at `/
 
 Enter the shell commands to associate with the quick toggle on/off actions.
 
-[screenshot]
+![Screenshot-commands](screenshots/Screenshot-commands.png)
 
 Tips:
 - Chain multiple commands together using `&&` between commands.
