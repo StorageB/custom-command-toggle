@@ -40,7 +40,7 @@ For a list of available icons, navigate to icon directory on your computer at `/
 
 ### Commands
 
-Enter the shell commands to associate with the quick toggle on/off actions.
+Enter the terminal/shell commands to associate with the quick toggle on/off actions.
 
 ![Screenshot-commands](screenshots/Screenshot-commands.png)
 
@@ -55,10 +55,11 @@ Tips:
 Here are some ideas on how this extension can be used:
 - Create a work/home mode toggle that automatically launches all the applications and web pages you need opened.
 - Use the quick toggle to launch custom bash scripts or python scripts. 
-- Create a presentation or streaming mode toggle that sets up your computer for presentations or for streaming video. You could input commands to do the following when enabled:
-    - Turn off night light.
-    - Turn on do not disturb mode.
-    - change sound output to HDMI.
+- Create a presentation or streaming mode toggle that sets up your computer for presentations or for streaming video on an HDMI connected TV. You could input commands to do the following:
+    - Turn off night light for presentation mode.
+    - Enable do not disturb to disable popup notifications for presentation mode.
+    - Change sound output to HDMI for presentation mode.
+    - Switch back to defaults when presentation mode is disabled.
 
 
 <br>
