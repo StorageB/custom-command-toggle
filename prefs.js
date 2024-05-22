@@ -35,7 +35,10 @@ export default class ExamplePreferences extends ExtensionPreferences {
 
         const group2 = new Adw.PreferencesGroup({
             title: _('Appearance'),
-            description: _('Customize the quick toggle name and icon.'),
+            description: _(
+                'Customize the quick toggle name and icon.'
+            ),
+            
         });
         page.add(group2);
 
@@ -48,6 +51,14 @@ export default class ExamplePreferences extends ExtensionPreferences {
             title: _('Icon:'),
         });
         group2.add(entryRow4);
+
+        const group3 = new Adw.PreferencesGroup({
+            description: _(
+                'Note: For a list of available icons, navigate to your system\'s icon directory (typically located at: /usr/share/icons/Adwaita/scalable). ' +
+                'Enter the icon file name (without the file extension) into the "Icon" field above.'
+            ),
+        });
+        page.add(group3);
 
 
         window._settings = this.getSettings();
