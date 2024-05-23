@@ -23,8 +23,8 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 import {QuickToggle, SystemIndicator} from 'resource:///org/gnome/shell/ui/quickSettings.js';
 
+import GLib from 'gi://GLib';
 
-const {GLib, St} = imports.gi;
 
 let entryRow1 = "";
 let entryRow2 = "";
@@ -128,5 +128,7 @@ export default class CustomQuickToggleExtension extends Extension {
     disable() {
         this._indicator.quickSettingsItems.forEach(item => item.destroy());
         this._indicator.destroy();
+        this._indicator = null;
+        this._settings = null;
     }
 }
