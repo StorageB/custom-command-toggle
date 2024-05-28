@@ -54,8 +54,9 @@ Enter the terminal/shell commands to associate with the quick toggle on/off acti
 ![Screenshot-commands](screenshots/Screenshot-commands.png)
 
 Tips:
-- Chain multiple commands together using `&&` between commands.
-- Test the command first by running it in the terminal before adding it to the extension to verify it is correct. Note that because the command is not running in a terminal window, there will not be any output or error messages.
+- Run multiple commands by using `&` between commands.
+- Chain multiple commands together to run one at a time using `&&` between commands.
+- Test the full command first by running it in the terminal before adding it to the extension to verify it is correct. Note that because the command is not running in a terminal window, there will not be any output or error messages.
 
 <br>
 
