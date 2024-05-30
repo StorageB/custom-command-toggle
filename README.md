@@ -43,7 +43,7 @@ Enter the text and icon information to use for the quick toggle button.
 
 ![Screenshot-appearance](screenshots/Screenshot-appearance.png)
 
-For a list of available icons, navigate to icon directory on your computer at `/usr/share/icons/Adwaita/scalable`. Enter the file name of the icon you wish to use (without the file extension) in the "Icon" field.
+For a list of available icons, navigate to the icon directory on your computer at `usr/share/icons`. For example, browse to `/usr/share/icons/Yaru/scalable` for GNOME 46 running the default Yaru theme in Ubuntu 24.04. Enter the file name of the icon you wish to use (without the file extension) in the "Icon" field.
 
 
 
