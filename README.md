@@ -43,9 +43,9 @@ Enter the text and icon information to use for the quick toggle button.
 
 ![Screenshot-appearance](screenshots/Screenshot-appearance.png)
 
-For a list of available icons, navigate to the icon directory on your computer at `usr/share/icons`. For example, browse to `/usr/share/icons/Yaru/scalable` for GNOME 46 running the default Yaru theme in Ubuntu 24.04. Enter the file name of the icon you wish to use (without the file extension) in the "Icon" field.
+For a list of available icons, navigate to the icon directory for your system's theme (typically located at: /usr/share/icons). For example, navigate to /usr/share/icons/Adwaita/symbolic for the default GNOME 46 symbolic icons. Alternativly, the [Icon Library app](https://flathub.org/apps/org.gnome.design.IconLibrary) lists all the default GNOME symbolic icons that an be used.
 
-
+Enter the icon file name (without the file extension) into the "Icon" field.
 
 ### Commands
 
