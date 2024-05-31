@@ -43,9 +43,15 @@ Enter the text and icon information to use for the quick toggle button.
 
 ![Screenshot-appearance](screenshots/Screenshot-appearance.png)
 
-For a list of available icons, navigate to the icon directory for your system's theme (typically located at: /usr/share/icons). For example, navigate to /usr/share/icons/Adwaita/symbolic for the default GNOME 46 symbolic icons. Alternativly, the [Icon Library app](https://flathub.org/apps/org.gnome.design.IconLibrary) lists all the default GNOME symbolic icons that an be used.
+For a list of available icons, navigate to the icon directory for your system's theme (/usr/share/icons). Enter the file name for the icon you wish to use (without the file extension) into the "Icon" field.
 
-Enter the icon file name (without the file extension) into the "Icon" field.
+For the default GNOME symbolic icons, navigate to the following directories:
+- GNOME 45: `/usr/share/icons/Adwaita/scalable`
+- GNOME 46: `/usr/share/icons/Adwaita/symbolic`
+
+Alternativly, the [Icon Library app](https://flathub.org/apps/org.gnome.design.IconLibrary) lists all the default GNOME symbolic icons that an be used.
+
+
 
 ### Commands
 
