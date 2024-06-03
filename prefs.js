@@ -54,12 +54,14 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
         const group3 = new Adw.PreferencesGroup({
             description: _(
-                'For a list of available icons, navigate to the icon directory for your system\'s theme (typically located at /usr/share/icons). ' +
-                'Enter the icon file name (without the file extension) into the "Icon" field above.\n\n' +
+                'To view available icons, navigate to the icon directory for your system\'s theme at /usr/share/icons. ' +
+                'Enter the icon file name (without the file extension) into the Icon field above.\n\n' +
                 
-                //'For the default GNOME 45 symbolic icons, navigate to the following directory:\n' +
+                // GNOME 45
+                //'For the default GNOME 45 icons, navigate to the following directory:\n' +
                 //'<a href="file:///usr/share/icons/Adwaita/scalable">/usr/share/icons/Adwaita/scalable</a>'
                 
+                // GNOME 46
                 'For the default GNOME 46 icons, navigate to the following directory:\n' +
                 '<a href="file:///usr/share/icons/Adwaita/symbolic">/usr/share/icons/Adwaita/symbolic</a>'
             ),
