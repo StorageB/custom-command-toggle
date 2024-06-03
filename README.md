@@ -26,7 +26,7 @@ OR
 
 Manual Installation:
 
-1. Download the  custom-command-toggle.zip file of the [latest release](https://github.com/StorageB/custom-command-toggle/releases) for your version of GNOME. 
+1. Download the custom-command-toggle.zip file of the latest release for your version of GNOME from the [releases page](https://github.com/StorageB/custom-command-toggle/releases). 
 2. Run the following command from the terminal:
 `gnome-extensions install --force custom-command-toggle.zip`
 3. Logout and login.
