@@ -2,7 +2,7 @@
 
 #### A GNOME extension to run shell commands using a GNOME quick toggle.
 
-Custom Command Toggle is a GNOME extension to run user defined terminal/shell commands by switching a customizable quick toggle button on or off.
+Custom Command Toggle is an extension for GNOME 45/46 to run user defined commands by switching a customizable quick toggle button on or off.
 
 <br>
 
@@ -37,21 +37,21 @@ Manual Installation:
 
 Customize the behavior and appearance of the quick toggle by accessing the extension preferences.
 
+<br>
+
 ### Appearance
 
 Enter the text and icon information to use for the quick toggle button. 
 
 ![Screenshot-appearance](screenshots/Screenshot-appearance.png)
 
-For a list of available icons, navigate to the icon directory for your system's theme (/usr/share/icons). Enter the file name for the icon you wish to use (without the file extension) into the "Icon" field.
+For a list of available icons to use: https://github.com/StorageB/icons/blob/main/Yaru/icons.md
 
-For the default GNOME symbolic icons, navigate to the following directories:
-- GNOME 45: `/usr/share/icons/Adwaita/scalable`
-- GNOME 46: `/usr/share/icons/Adwaita/symbolic`
+Alternatively, navigate to the icon directory for your system’s theme (located at /usr/share/icons), or use the [Icon Library app](https://flathub.org/apps/org.gnome.design.IconLibrary).
 
-Alternativly, the [Icon Library app](https://flathub.org/apps/org.gnome.design.IconLibrary) lists all the default GNOME symbolic icons that an be used.
+Enter the name of the icon (without the file extension) you want to use. Note that icon appearance will vary depending on your systems's theme.
 
-
+<br>
 
 ### Commands
 
