@@ -39,6 +39,21 @@ Customize the behavior and appearance of the quick toggle by accessing the exten
 
 <br>
 
+### Commands
+
+Enter the terminal/shell commands to associate with the quick toggle on/off actions.
+
+![Screenshot-commands](screenshots/Screenshot-commands.png)
+
+Tips:
+- Run multiple commands by using `&` between commands.
+- Chain multiple commands together to run one at a time using `&&` between commands.
+- By default, commands do not run in a terminal window and will not show any output or error messages. Test the full command first by running it in the terminal before adding it to the extension to verify it is correct. 
+- To run a command in a terminal window, use `gnome-terminal -- command`. Note that by default the GNOME terminal will close after the command is complete, but that can be changed in the terminal preferences if needed.
+- Sudo commands require a password input from the terminal, so they will not directly work by themselves since commands run without a terminal window by default. However, you can use `gnome-terminal -- command` to run the command in the terminal. For example, `gnome-terminal -- sudo apt-get update` will open a terminal, prompt for your password, and then run the command.
+
+<br>
+
 ### Appearance
 
 Enter the text and icon information to use for the quick toggle button. 
@@ -49,20 +64,7 @@ For a list of available icons to use: https://github.com/StorageB/icons/blob/mai
 
 Alternatively, navigate to the icon directory for your system’s theme (located at /usr/share/icons), or use the [Icon Library app](https://flathub.org/apps/org.gnome.design.IconLibrary).
 
-Enter the name of the icon (without the file extension) you want to use. Note that icon appearance will vary depending on your systems's theme.
-
-<br>
-
-### Commands
-
-Enter the terminal/shell commands to associate with the quick toggle on/off actions.
-
-![Screenshot-commands](screenshots/Screenshot-commands.png)
-
-Tips:
-- Run multiple commands by using `&` between commands.
-- Chain multiple commands together to run one at a time using `&&` between commands.
-- Test the full command first by running it in the terminal before adding it to the extension to verify it is correct. Note that because the command is not running in a terminal window, there will not be any output or error messages.
+Enter the name of the icon without the file extension. Note that icon appearance will vary depending on your systems's theme.
 
 <br>
 
@@ -83,6 +85,7 @@ Here are some ideas on how this extension can be used:
 ## Contributing
 
 Contributions are welcome! Feel free to open an issue or submit a pull request to contribute to this project.
+
 <br>
 
 ## License
