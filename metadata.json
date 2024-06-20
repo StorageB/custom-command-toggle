@@ -2,8 +2,11 @@
   "name": "Custom Command Toggle",
   "description": "Run user defined terminal/shell commands and launch custom scripts using a customizable quick toggle button.",
   "uuid": "custom-command-toggle@storageb.github.com",
-  "shell-version": [ "46" ],
-  "version": 3,
+  "shell-version": [
+    "45",
+    "46"
+  ],
+  "version": 4,
   "url": "https://github.com/StorageB/custom-command-toggle",
   "settings-schema": "org.gnome.shell.extensions.custom-command-toggle",
   "donations": {
