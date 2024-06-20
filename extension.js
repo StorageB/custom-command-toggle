@@ -38,7 +38,7 @@ class QuickToggle1 extends QuickToggle {
     constructor() {
         super({
             title: _(entryRow3),
-            iconName: entryRow4,
+            iconName: entryRow4.trim(),
             toggleMode: true,
         });
     }
@@ -50,7 +50,7 @@ class MyIndicator extends SystemIndicator {
         super();
 
         this._indicator = this._addIndicator();
-        this._indicator.iconName = entryRow4;
+        this._indicator.iconName = entryRow4.trim();
 
         const toggle = new QuickToggle1();
         toggle.bind_property('checked',
