@@ -20,13 +20,13 @@ Custom Command Toggle is an extension for GNOME 45/46 to run user defined comman
 
 ## Installation
 
+### Recommended
+
 Browse for and install this extension through the GNOME Extension tool, or install through the [GNOME Extensions website](https://extensions.gnome.org/extension/7012/custom-command-toggle/).
 
-OR
+### Manual
 
-Manual Installation:
-
-1. Download the custom-command-toggle.zip file of the latest release for your version of GNOME from the [releases page](https://github.com/StorageB/custom-command-toggle/releases). 
+1. Download the custom-command-toggle.zip file of the [latest release](https://github.com/StorageB/custom-command-toggle/releases/tag/v4). 
 2. Run the following command from the terminal:
 `gnome-extensions install --force custom-command-toggle.zip`
 3. Logout and login.
