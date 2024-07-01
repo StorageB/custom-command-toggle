@@ -31,6 +31,10 @@ let entryRow2 = "";
 let entryRow3 = "";
 let entryRow4 = "";
 let command = "";
+let toggleState = false;
+let runAtBoot = false;
+let delayTime = 3;
+let initialState = 2;
 
 
 const QuickToggle1 = GObject.registerClass(
@@ -46,7 +50,7 @@ class QuickToggle1 extends QuickToggle {
 
 const MyIndicator = GObject.registerClass(
 class MyIndicator extends SystemIndicator {
-    constructor() {
+    constructor(settings) {
         super();
 
         this._indicator = this._addIndicator();
@@ -57,8 +61,12 @@ class MyIndicator extends SystemIndicator {
             this._indicator, 'visible',
             GObject.BindingFlags.SYNC_CREATE);
         this.quickSettingsItems.push(toggle);
+        toggle.checked = toggleState;
 
         toggle.connect('notify::checked', () => {
+            toggleState = toggle.checked;
+            settings.set_boolean('togglestate-setting', toggleState);
+
             // run command when quick toggle is turned on
             if (toggle.checked) {
                 command = entryRow1;
@@ -114,13 +122,44 @@ export default class CustomQuickToggleExtension extends Extension {
         entryRow2 = this._settings.get_string('entryrow2-setting');     // toggle off command
         entryRow3 = this._settings.get_string('entryrow3-setting');     // button text label
         entryRow4 = this._settings.get_string('entryrow4-setting');     // button icon
+
+        initialState = this._settings.get_int('initialtogglestate-setting');
+        switch (initialState) {
+            case 0:
+                toggleState = true;
+                break;
+            case 1:
+                toggleState = false;
+                break;
+            case 2:
+                toggleState = this._settings.get_boolean('togglestate-setting'); 
+                break;
+            default:
+                console.log(`Custom Command Toggle extension: Unexpected togglestate-setting value: ${toggleState}`);
+                break;
+        }
+        
         refreshIndicator.call(this);
 
+        // Run command at boot if option is selected
+        runAtBoot = this._settings.get_boolean('runcommandatboot-setting'); 
+        delayTime = this._settings.get_int('delaytime-setting'); 
+        if (runAtBoot) {
+            if (toggleState)  {command = "sleep " + delayTime + " && " + entryRow1;}
+            if (!toggleState) {command = command = "sleep " + delayTime + " && " + entryRow2;}
+            console.log(`Custom Command Toggle extension attempting to execute startup command:\n${command}`);
+            let [success, pid] = GLib.spawn_async(null, ["/bin/bash", "-c", command], null, GLib.SpawnFlags.SEARCH_PATH, null);
+            if (!success) {
+                console.log(`Error running command:\n${command}`);
+            }
+        }
+        
+        
         // Refresh indicator after initial setup and if any text entry fields have changed
         function refreshIndicator() {
             this._indicator.quickSettingsItems.forEach(item => item.destroy());
             this._indicator.destroy();
-            this._indicator = new MyIndicator();
+            this._indicator = new MyIndicator(this.getSettings());
             Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator);
         }
     }

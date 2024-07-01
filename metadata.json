@@ -6,7 +6,7 @@
     "45",
     "46"
   ],
-  "version": 4,
+  "version": 5,
   "url": "https://github.com/StorageB/custom-command-toggle",
   "settings-schema": "org.gnome.shell.extensions.custom-command-toggle",
   "donations": {

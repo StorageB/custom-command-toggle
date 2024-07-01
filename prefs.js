@@ -6,6 +6,7 @@ import Gtk from 'gi://Gtk';
 
 import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
+let initialToggleState = 2;
 
 export default class CustomCommandTogglePreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
@@ -36,10 +37,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
         const group2 = new Adw.PreferencesGroup({
             title: _('Appearance'),
-            description: _(
-                'Customize the quick toggle name and icon.'
-            ),
-            
+            description: _('Customize the quick toggle name and icon.'),
         });
         page.add(group2);
 
@@ -59,6 +57,60 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         window._settings.bind('entryrow2-setting', entryRow2, 'text', Gio.SettingsBindFlags.DEFAULT);
         window._settings.bind('entryrow3-setting', entryRow3, 'text', Gio.SettingsBindFlags.DEFAULT);
         window._settings.bind('entryrow4-setting', entryRow4, 'text', Gio.SettingsBindFlags.DEFAULT);
+
+
+        const group3 = new Adw.PreferencesGroup({
+            title: _('Startup Behavior'),
+        });
+        page.add(group3);
+
+        initialToggleState = window._settings.get_int('initialtogglestate-setting');
+        const optionList = new Gtk.StringList();
+        [_('On'), _('Off'), _('Previous state')].forEach(choice => optionList.append(choice));
+
+        const comboRow1 = new Adw.ComboRow({
+            title: _('Initial Toggle State'),
+            subtitle: _('State of the toggle button at login/startup'),
+            model: optionList,
+            selected: initialToggleState,
+        });
+        comboRow1.connect('notify::selected', () => {
+            initialToggleState = comboRow1.selected;
+            window._settings.set_int('initialtogglestate-setting', initialToggleState);
+            console.log(initialToggleState);
+        });
+        group3.add(comboRow1);
+
+        const expanderRow1 = new Adw.ExpanderRow({
+            title: _('Run Command at Startup'),
+            subtitle: _('Run associated toggle command at login/startup'),
+            show_enable_switch: true,
+            expanded: window._settings.get_boolean('runcommandatboot-setting'),
+            enable_expansion: window._settings.get_boolean('runcommandatboot-setting'),
+        });
+        expanderRow1.connect('notify::expanded', widget => {
+            expanderRow1.enable_expansion = widget.expanded;
+            window._settings.set_boolean('runcommandatboot-setting', widget.expanded);
+        });
+
+        const spinRow = new Adw.SpinRow({
+            title: _('Delay Time (seconds)'),
+            subtitle: _('Amount of time to delay command from running after startup \n'  +
+                        '(it may be required to allow other processes to finish loading before running your command)'),
+            value: window._settings.get_int('initialtogglestate-setting'),
+            adjustment: new Gtk.Adjustment({
+                lower: 0,
+                upper: 10,
+                step_increment: 1,
+                page_increment: 1,
+            }),
+        });
+
+        window._settings = this.getSettings();
+        window._settings.bind('delaytime-setting', spinRow, 'value', Gio.SettingsBindFlags.DEFAULT);
+  
+        group3.add(expanderRow1);
+        expanderRow1.add_row(spinRow);
         
 
         const page2 = new Adw.PreferencesPage({
@@ -95,7 +147,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             activatable: true,
         });
         configRow3.connect('activated', () => {
-            Gio.app_info_launch_default_for_uri('https://github.com/StorageB/icons/blob/main/Yaru/icons.md', null);
+            Gio.app_info_launch_default_for_uri('https://github.com/StorageB/icons/blob/main/GNOME46Adwaita/icons.md', null);
         });
         configRow3.add_prefix(new Gtk.Image({icon_name: 'web-browser-symbolic'}));
         configRow3.add_suffix(new Gtk.Image({icon_name: 'go-next-symbolic'}));

@@ -13,5 +13,17 @@
     <key name="entryrow4-setting" type="s">
       <default>"face-smile-symbolic"</default>
     </key>
+    <key name="initialtogglestate-setting" type="i">
+      <default>2</default>
+    </key>
+    <key name="togglestate-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="runcommandatboot-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="delaytime-setting" type="i">
+      <default>3</default>
+    </key>    
   </schema>
 </schemalist>
