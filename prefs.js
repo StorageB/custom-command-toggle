@@ -74,11 +74,6 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             model: optionList,
             selected: initialToggleState,
         });
-        comboRow1.connect('notify::selected', () => {
-            initialToggleState = comboRow1.selected;
-            window._settings.set_int('initialtogglestate-setting', initialToggleState);
-            console.log(initialToggleState);
-        });
         group3.add(comboRow1);
 
         const expanderRow1 = new Adw.ExpanderRow({
@@ -90,7 +85,6 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         });
         expanderRow1.connect('notify::expanded', widget => {
             expanderRow1.enable_expansion = widget.expanded;
-            window._settings.set_boolean('runcommandatboot-setting', widget.expanded);
         });
 
         const spinRow = new Adw.SpinRow({
@@ -106,7 +100,8 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             }),
         });
 
-        window._settings = this.getSettings();
+        window._settings.bind('initialtogglestate-setting', comboRow1, 'selected', Gio.SettingsBindFlags.DEFAULT);
+        window._settings.bind('runcommandatboot-setting', expanderRow1, 'expanded', Gio.SettingsBindFlags.DEFAULT);
         window._settings.bind('delaytime-setting', spinRow, 'value', Gio.SettingsBindFlags.DEFAULT);
   
         group3.add(expanderRow1);
