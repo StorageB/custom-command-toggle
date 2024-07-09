@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
   <schema id="org.gnome.shell.extensions.custom-command-toggle" path="/org/gnome/shell/extensions/custom-command-toggle/">
+    
+    <key name="numbuttons-setting" type="i">
+      <default>1</default>
+    </key>
+
     <key name="entryrow1-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Hello world!"'</default>
     </key>
@@ -13,17 +18,143 @@
     <key name="entryrow4-setting" type="s">
       <default>"face-smile-symbolic"</default>
     </key>
-    <key name="initialtogglestate-setting" type="i">
+    <key name="initialtogglestate1-setting" type="i">
       <default>2</default>
     </key>
-    <key name="togglestate-setting" type="b">
+    <key name="togglestate1-setting" type="b">
       <default>false</default>
     </key>
-    <key name="runcommandatboot-setting" type="b">
+    <key name="runcommandatboot1-setting" type="b">
       <default>false</default>
     </key>
-    <key name="delaytime-setting" type="i">
+    <key name="delaytime1-setting" type="i">
       <default>3</default>
-    </key>    
+    </key>
+
+    <key name="entryrow12-setting" type="s">
+      <default>'notify-send "Custom Command Toggle" "Button 2 toggled on"'</default>
+    </key>
+    <key name="entryrow22-setting" type="s">
+      <default>""</default>
+    </key>
+    <key name="entryrow32-setting" type="s">
+      <default>"My Button 2"</default>
+    </key>
+    <key name="entryrow42-setting" type="s">
+      <default>"face-wink-symbolic"</default>
+    </key>
+    <key name="initialtogglestate2-setting" type="i">
+      <default>2</default>
+    </key>
+    <key name="togglestate2-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="runcommandatboot2-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="delaytime2-setting" type="i">
+      <default>3</default>
+    </key>
+
+    <key name="entryrow13-setting" type="s">
+      <default>'notify-send "Custom Command Toggle" "Button 3 toggled on"'</default>
+    </key>
+    <key name="entryrow23-setting" type="s">
+      <default>""</default>
+    </key>
+    <key name="entryrow33-setting" type="s">
+      <default>"My Button 3"</default>
+    </key>
+    <key name="entryrow43-setting" type="s">
+      <default>"face-laugh-symbolic"</default>
+    </key>
+    <key name="initialtogglestate3-setting" type="i">
+      <default>2</default>
+    </key>
+    <key name="togglestate3-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="runcommandatboot3-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="delaytime3-setting" type="i">
+      <default>3</default>
+    </key>  
+
+    <key name="entryrow14-setting" type="s">
+      <default>'notify-send "Custom Command Toggle" "Button 4 toggled on"'</default>
+    </key>
+    <key name="entryrow24-setting" type="s">
+      <default>""</default>
+    </key>
+    <key name="entryrow34-setting" type="s">
+      <default>"My Button 4"</default>
+    </key>
+    <key name="entryrow44-setting" type="s">
+      <default>"face-smirk-symbolic"</default>
+    </key>
+    <key name="initialtogglestate4-setting" type="i">
+      <default>2</default>
+    </key>
+    <key name="togglestate4-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="runcommandatboot4-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="delaytime4-setting" type="i">
+      <default>3</default>
+    </key>
+
+    <key name="entryrow15-setting" type="s">
+      <default>'notify-send "Custom Command Toggle" "Button 5 toggled on"'</default>
+    </key>
+    <key name="entryrow25-setting" type="s">
+      <default>""</default>
+    </key>
+    <key name="entryrow35-setting" type="s">
+      <default>"My Button 5"</default>
+    </key>
+    <key name="entryrow45-setting" type="s">
+      <default>"face-surprise-symbolic"</default>
+    </key>
+    <key name="initialtogglestate5-setting" type="i">
+      <default>2</default>
+    </key>
+    <key name="togglestate5-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="runcommandatboot5-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="delaytime5-setting" type="i">
+      <default>3</default>
+    </key>
+
+    <key name="entryrow16-setting" type="s">
+      <default>'notify-send "Custom Command Toggle" "Button 6 toggled on"'</default>
+    </key>
+    <key name="entryrow26-setting" type="s">
+      <default>""</default>
+    </key>
+    <key name="entryrow36-setting" type="s">
+      <default>"My Button 6"</default>
+    </key>
+    <key name="entryrow46-setting" type="s">
+      <default>"face-worried-symbolic"</default>
+    </key>
+    <key name="initialtogglestate6-setting" type="i">
+      <default>2</default>
+    </key>
+    <key name="togglestate6-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="runcommandatboot6-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="delaytime6-setting" type="i">
+      <default>3</default>
+    </key>
+
   </schema>
 </schemalist>

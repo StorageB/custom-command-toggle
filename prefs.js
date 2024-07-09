@@ -6,116 +6,170 @@ import Gtk from 'gi://Gtk';
 
 import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-let initialToggleState = 2;
+let numButtons = 1;
 
 export default class CustomCommandTogglePreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
-        
-        const page = new Adw.PreferencesPage({
-            title: _('Settings'),
-            icon_name: 'applications-system-symbolic',
-        });
-        window.add(page);
- 
-
-        const group1 = new Adw.PreferencesGroup({
-            title: _('Commands'),
-            description: _('Enter commands to run when the quick toggle is switched.'),
-        });
-        page.add(group1);
-
-        const entryRow1 = new Adw.EntryRow({
-            title: _('Toggle ON command:'),
-        });
-        group1.add(entryRow1);
-        
-        const entryRow2 = new Adw.EntryRow({
-            title: _('Toggle OFF command:'),
-        });
-        group1.add(entryRow2);
-
-
-        const group2 = new Adw.PreferencesGroup({
-            title: _('Appearance'),
-            description: _('Customize the quick toggle name and icon.'),
-        });
-        page.add(group2);
-
-        const entryRow3 = new Adw.EntryRow({
-            title: _('Name:'),
-        });
-        group2.add(entryRow3);
-
-        const entryRow4 = new Adw.EntryRow({
-            title: _('Icon:'),
-        });
-        group2.add(entryRow4);
-
 
         window._settings = this.getSettings();
-        window._settings.bind('entryrow1-setting', entryRow1, 'text', Gio.SettingsBindFlags.DEFAULT);
-        window._settings.bind('entryrow2-setting', entryRow2, 'text', Gio.SettingsBindFlags.DEFAULT);
-        window._settings.bind('entryrow3-setting', entryRow3, 'text', Gio.SettingsBindFlags.DEFAULT);
-        window._settings.bind('entryrow4-setting', entryRow4, 'text', Gio.SettingsBindFlags.DEFAULT);
 
+        // Number of toggle buttons to create
+        numButtons = window._settings.get_int('numbuttons-setting');
 
-        const group3 = new Adw.PreferencesGroup({
-            title: _('Startup Behavior'),
+        const pages = [];
+        
+
+        // Loop to create toggle button setting pages
+        for (let pageIndex = 1; pageIndex <= numButtons; pageIndex++) {
+
+            let buttonTitle = "";
+            if (numButtons === 1) { buttonTitle = "Toggle Button Settings";
+            } else { buttonTitle = `Button ${pageIndex}`; }
+
+            const page = new Adw.PreferencesPage({
+                title: _(buttonTitle),
+                icon_name: 'applications-system-symbolic',
+            });
+            window.add(page);
+        
+            const groups = [];
+        
+            // Group 1: Commands
+            const group1 = new Adw.PreferencesGroup({
+                title: _('Commands'),
+                description: _('Enter commands to run when the quick toggle is switched.'),
+            });
+            page.add(group1);
+            groups.push(group1);
+        
+            const entryRow1 = new Adw.EntryRow({
+                title: _('Toggle ON command:'),
+            });
+            group1.add(entryRow1);
+        
+            const entryRow2 = new Adw.EntryRow({
+                title: _('Toggle OFF command:'),
+            });
+            group1.add(entryRow2);
+        
+            // Group 2: Appearance
+            const group2 = new Adw.PreferencesGroup({
+                title: _('Appearance'),
+                description: _('Customize the quick toggle name and icon.'),
+            });
+            page.add(group2);
+            groups.push(group2);
+        
+            const entryRow3 = new Adw.EntryRow({
+                title: _('Name:'),
+            });
+            group2.add(entryRow3);
+        
+            const entryRow4 = new Adw.EntryRow({
+                title: _('Icon:'),
+            });
+            group2.add(entryRow4);
+        
+            // Group 3: Startup Behavior
+            const group3 = new Adw.PreferencesGroup({
+                title: _('Behavior'),
+            });
+            page.add(group3);
+            groups.push(group3);
+
+            // const switchRow = new Adw.SwitchRow({
+            //     title: _('Show Indicator'),
+            //     subtitle: _('Show the indicator on top bar when toggle enabled.'),
+            //     active: window._settings.get_boolean(`showindicator${pageIndex}-setting`),
+            // });
+            //group3.add(switchRow);
+        
+            const optionList = new Gtk.StringList();
+            [_('On'), _('Off'), _('Previous state')].forEach(choice => optionList.append(choice));
+        
+            const comboRow = new Adw.ComboRow({
+                title: _('Initial Toggle State'),
+                subtitle: _('State of the toggle button at login/startup'),
+                model: optionList,
+                selected: window._settings.get_int(`initialtogglestate${pageIndex}-setting`),
+            });
+            group3.add(comboRow);
+        
+            const expanderRow = new Adw.ExpanderRow({
+                title: _('Run Command at Startup'),
+                subtitle: _('Run associated toggle command at login/startup'),
+                show_enable_switch: true,
+                expanded: window._settings.get_boolean(`runcommandatboot${pageIndex}-setting`),
+                enable_expansion: window._settings.get_boolean(`runcommandatboot${pageIndex}-setting`),
+            });
+            expanderRow.connect('notify::expanded', widget => {
+                expanderRow.enable_expansion = widget.expanded;
+            });
+            group3.add(expanderRow);
+        
+            const spinRow = new Adw.SpinRow({
+                title: _('Delay Time (seconds)'),
+                subtitle: _('Amount of time to delay command from running after startup \n' +
+                    '(it may be required to allow other processes to finish loading before running the command)'),
+                value: window._settings.get_int(`initialtogglestate${pageIndex}-setting`),
+                adjustment: new Gtk.Adjustment({
+                    lower: 0,
+                    upper: 10,
+                    step_increment: 1,
+                    page_increment: 1,
+                }),
+            });
+            expanderRow.add_row(spinRow);
+        
+            // Bindings 
+            let i = pageIndex;
+            if (pageIndex === 1) {i='';}
+
+            window._settings.bind(`entryrow1${i}-setting`, entryRow1, 'text', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(`entryrow2${i}-setting`, entryRow2, 'text', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(`entryrow3${i}-setting`, entryRow3, 'text', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(`entryrow4${i}-setting`, entryRow4, 'text', Gio.SettingsBindFlags.DEFAULT);
+        
+            window._settings.bind(`initialtogglestate${pageIndex}-setting`, comboRow, 'selected', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(`runcommandatboot${pageIndex}-setting`, expanderRow, 'expanded', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(`delaytime${pageIndex}-setting`, spinRow, 'value', Gio.SettingsBindFlags.DEFAULT);
+
+            // Push the created page to the pages array
+            pages.push(page);
+        }
+        
+
+        // Information Page
+        const infoPage = new Adw.PreferencesPage({
+            title: _('Information'),
+            icon_name: 'help-about-symbolic',
         });
-        page.add(group3);
-
-        initialToggleState = window._settings.get_int('initialtogglestate-setting');
-        const optionList = new Gtk.StringList();
-        [_('On'), _('Off'), _('Previous state')].forEach(choice => optionList.append(choice));
-
-        const comboRow1 = new Adw.ComboRow({
-            title: _('Initial Toggle State'),
-            subtitle: _('State of the toggle button at login/startup'),
-            model: optionList,
-            selected: initialToggleState,
+        window.add(infoPage);
+        
+        // Group 0: Settings
+        const configGroup0 = new Adw.PreferencesGroup({
+            title: _('Settings'),
         });
-        group3.add(comboRow1);
+        infoPage.add(configGroup0);
 
-        const expanderRow1 = new Adw.ExpanderRow({
-            title: _('Run Command at Startup'),
-            subtitle: _('Run associated toggle command at login/startup'),
-            show_enable_switch: true,
-            expanded: window._settings.get_boolean('runcommandatboot-setting'),
-            enable_expansion: window._settings.get_boolean('runcommandatboot-setting'),
-        });
-        expanderRow1.connect('notify::expanded', widget => {
-            expanderRow1.enable_expansion = widget.expanded;
-        });
-
-        const spinRow = new Adw.SpinRow({
-            title: _('Delay Time (seconds)'),
-            subtitle: _('Amount of time to delay command from running after startup \n'  +
-                        '(it may be required to allow other processes to finish loading before running your command)'),
-            value: window._settings.get_int('initialtogglestate-setting'),
+        const spinRow0 = new Adw.SpinRow({
+            title: _('Number of toggle buttons'),
+            subtitle: _('Restart required for changes to take effect'),
+            value: window._settings.get_int('numbuttons-setting'),
             adjustment: new Gtk.Adjustment({
-                lower: 0,
-                upper: 10,
+                lower: 1,
+                upper: 6,
                 step_increment: 1,
                 page_increment: 1,
             }),
         });
-
-        window._settings.bind('initialtogglestate-setting', comboRow1, 'selected', Gio.SettingsBindFlags.DEFAULT);
-        window._settings.bind('runcommandatboot-setting', expanderRow1, 'expanded', Gio.SettingsBindFlags.DEFAULT);
-        window._settings.bind('delaytime-setting', spinRow, 'value', Gio.SettingsBindFlags.DEFAULT);
-  
-        group3.add(expanderRow1);
-        expanderRow1.add_row(spinRow);
+        configGroup0.add(spinRow0);
         
-
-        const page2 = new Adw.PreferencesPage({
-            title: _('Information'),
-            icon_name: 'help-about-symbolic',
-        });
-        window.add(page2);
+        window._settings.bind('numbuttons-setting', spinRow0, 'value', Gio.SettingsBindFlags.DEFAULT);
         
+        // Group 1: Resources
         const configGroup1 = new Adw.PreferencesGroup({
-            title: _('Configuration'),
+            title: _('Resources'),
         });
         
         const configRow1 = new Adw.ActionRow({
@@ -158,6 +212,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         configRow4.add_prefix(new Gtk.Image({icon_name: 'folder-symbolic'}));
         configRow4.add_suffix(new Gtk.Image({icon_name: 'go-next-symbolic'}));
         
+        // Group: About
         const aboutGroup = new Adw.PreferencesGroup({
             title: _('About'),
         });
@@ -184,14 +239,13 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         aboutRow2.add_prefix(new Gtk.Image({icon_name: 'web-browser-symbolic'}));
         aboutRow2.add_suffix(new Gtk.Image({icon_name: 'go-next-symbolic'}));
         
-        
-        page2.add(configGroup1);
+        infoPage.add(configGroup1);
         //configGroup1.add(configRow1);
         configGroup1.add(configRow2);
         configGroup1.add(configRow3);
         configGroup1.add(configRow4);
         
-        page2.add(aboutGroup);
+        infoPage.add(aboutGroup);
         aboutGroup.add(aboutRow1);
         aboutGroup.add(aboutRow2);
 
