@@ -38,9 +38,9 @@ Browse for and install this extension through the GNOME Extension tool, or insta
 
 ## Configuration
 
-### General Settings
+### Number of Buttons
 
-In the Information tab under Settings, select the number of toggle buttons to create. Note that this requires logging off/on or rebooting for changes to take effect.
+In the Information tab under Settings, select the number of toggle buttons to create (maximum of 6). Note that this requires logging off/on or rebooting for changes to take effect.
 
 ![Screenshot-settings](screenshots/Screenshot-settings.png)
 
