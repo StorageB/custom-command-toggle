@@ -2,7 +2,7 @@
 
 #### A GNOME extension to run shell commands using a GNOME quick toggle.
 
-Custom Command Toggle is an extension for GNOME 45/46 to run user defined commands by switching a customizable quick toggle button on or off.
+Custom Command Toggle is an extension for GNOME 45/46 to run user-defined commands by switching a customizable quick toggle button on or off.
 
 <br>
 
@@ -37,10 +37,6 @@ Browse for and install this extension through the GNOME Extension tool, or insta
 <br>
 
 ## Configuration
-
-Customize the behavior and appearance of the quick toggle by accessing the extension preferences.
-
-<br>
 
 ### General Settings
 
@@ -85,7 +81,7 @@ Specify the state of the toggle button at startup (on, off, or to remember the p
 
 ![Screenshot-appearance](screenshots/Screenshot-startup.png)
 
-If Run Command at Startup is selected, there is an option to specify a delay time before the command is executed. Because GNOME extensions load early in the startup process, it may be required to delay your command from running by a few seconds to allow other process to finish loading first. If this is not required, set the delay to 0.
+If Run Command at Startup is selected, there is an option to specify a delay time before the command is executed. Because GNOME extensions load early in the startup process, it may be required to delay your command from running by a few seconds to allow other processes to finish loading first. If this is not required, set the delay to 0.
 
 <br>
 
