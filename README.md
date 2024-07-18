@@ -6,15 +6,18 @@ Custom Command Toggle is an extension for GNOME 45/46 to run user defined comman
 
 <br>
 
-![Screenshot-main](screenshots/Screenshot-main.png)
+![Screenshot-main](screenshots/Screenshot-main-3.png)
 
 <br>
 
 ## Features:
 
-- Run terminal commands and launch custom scripts using a quick toggle button.
-- Easily change the quick toggle button name and icon in the extension preferences.
-- Enter separate commands to run when the quick toggle is switched on and when it is switched off.
+- Run terminal commands and launch custom scripts using quick toggle buttons.
+- Easily change the button name and icon in the extension preferences.
+- Enter separate commands to run when the button is switched on and when it is switched off.
+- Specify the state of the buttons at startup (on, off, or remember the last state it was in)
+- Run associated command at startup to match button state if needed.
+- Create up to 6 custom buttons.
 
 <br>
 
@@ -39,6 +42,14 @@ Customize the behavior and appearance of the quick toggle by accessing the exten
 
 <br>
 
+### General Settings
+
+In the Information tab under Settings, select the number of toggle buttons to create. Note that this requires logging off/on or rebooting for changes to take effect.
+
+![Screenshot-settings](screenshots/Screenshot-settings.png)
+
+<br>
+
 ### Commands
 
 Enter the terminal/shell commands to associate with the quick toggle on/off actions.
@@ -60,7 +71,7 @@ Enter the text and icon information to use for the quick toggle button.
 
 ![Screenshot-appearance](screenshots/Screenshot-appearance.png)
 
-For a list of available icons to use: https://github.com/StorageB/icons/blob/main/Yaru/icons.md
+For a list of available icons to use: https://github.com/StorageB/icons/blob/main/GNOME46Adwaita/icons.md
 
 Alternatively, navigate to the icon directory for your system’s theme (located at /usr/share/icons), or use the [Icon Library app](https://flathub.org/apps/org.gnome.design.IconLibrary).
 
@@ -68,19 +79,16 @@ Enter the name of the icon without the file extension. Note that icon appearance
 
 <br>
 
-## Usage Examples and Suggestions
+### Startup Behavior
 
-Here are some ideas on how this extension can be used:
-- Create a work/home mode toggle that automatically launches all the applications and web pages you need opened.
-- Use the quick toggle to launch custom bash scripts or python scripts. 
-- Create a presentation or streaming mode toggle that sets up your computer for presentations or for streaming video on an HDMI connected TV. You could input commands to do the following:
-    - Turn off night light for presentation mode.
-    - Enable do not disturb to disable popup notifications for presentation mode.
-    - Change sound output to HDMI for presentation mode.
-    - Switch back to defaults when presentation mode is disabled.
+Specify the state of the toggle button at startup (on, off, or to remember the previous state it was in), and select if you want that command to run at startup.
 
+![Screenshot-appearance](screenshots/Screenshot-startup.png)
+
+If Run Command at Startup is selected, there is an option to specify a delay time before the command is executed. Because GNOME extensions load early in the startup process, it may be required to delay your command from running by a few seconds to allow other process to finish loading first. If this is not required, set the delay to 0.
 
 <br>
+
 
 ## Contributing
 
