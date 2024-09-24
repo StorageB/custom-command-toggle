@@ -30,6 +30,12 @@
     <key name="delaytime1-setting" type="i">
       <default>3</default>
     </key>
+    <key name="showindicator1-setting" type="b">
+      <default>true</default>
+    </key>
+    <key name="buttonclick1-setting" type="i">
+      <default>2</default>
+    </key>
 
     <key name="entryrow12-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 2 toggled on"'</default>
@@ -54,6 +60,12 @@
     </key>
     <key name="delaytime2-setting" type="i">
       <default>3</default>
+    </key>
+    <key name="showindicator2-setting" type="b">
+      <default>true</default>
+    </key>
+    <key name="buttonclick2-setting" type="i">
+      <default>2</default>
     </key>
 
     <key name="entryrow13-setting" type="s">
@@ -80,6 +92,12 @@
     <key name="delaytime3-setting" type="i">
       <default>3</default>
     </key>  
+    <key name="showindicator3-setting" type="b">
+      <default>true</default>
+    </key>
+    <key name="buttonclick3-setting" type="i">
+      <default>2</default>
+    </key>
 
     <key name="entryrow14-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 4 toggled on"'</default>
@@ -104,6 +122,12 @@
     </key>
     <key name="delaytime4-setting" type="i">
       <default>3</default>
+    </key>
+    <key name="showindicator4-setting" type="b">
+      <default>true</default>
+    </key>
+    <key name="buttonclick4-setting" type="i">
+      <default>2</default>
     </key>
 
     <key name="entryrow15-setting" type="s">
@@ -130,6 +154,12 @@
     <key name="delaytime5-setting" type="i">
       <default>3</default>
     </key>
+    <key name="showindicator5-setting" type="b">
+      <default>true</default>
+    </key>
+    <key name="buttonclick5-setting" type="i">
+      <default>2</default>
+    </key>        
 
     <key name="entryrow16-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 6 toggled on"'</default>
@@ -155,6 +185,12 @@
     <key name="delaytime6-setting" type="i">
       <default>3</default>
     </key>
+    <key name="showindicator6-setting" type="b">
+      <default>true</default>
+    </key>
+    <key name="buttonclick6-setting" type="i">
+      <default>2</default>
+    </key>        
 
   </schema>
 </schemalist>

@@ -2,7 +2,7 @@
 
 #### A GNOME extension to run shell commands using a GNOME quick toggle.
 
-Custom Command Toggle is an extension for GNOME 45/46 to run user-defined commands by switching a customizable quick toggle button on or off.
+Custom Command Toggle is an extension for GNOME 45/46/47 to run user-defined commands by switching a customizable quick toggle button on or off.
 
 <br>
 
@@ -16,7 +16,8 @@ Custom Command Toggle is an extension for GNOME 45/46 to run user-defined comman
 - Easily change the button name and icon in the extension preferences.
 - Enter separate commands to run when the button is switched on and when it is switched off.
 - Specify the state of the buttons at startup (on, off, or remember the last state it was in)
-- Run associated command at startup to match button state if needed.
+- Run associated command at startup to match button state if required.
+- Customize toggle button behavior to toggle or be in an always on or off state.
 - Create up to 6 custom buttons.
 
 <br>
@@ -29,7 +30,7 @@ Browse for and install this extension through the GNOME Extension tool, or insta
 
 ### Manual
 
-1. Download the `custom-command-toggle.zip` file of the [latest release](https://github.com/StorageB/custom-command-toggle/releases/tag/v6). 
+1. Download the `custom-command-toggle.zip` file of the [latest release](https://github.com/StorageB/custom-command-toggle/releases). 
 2. Run the following command from the terminal:
 `gnome-extensions install --force custom-command-toggle.zip`
 3. Logout and login.

@@ -5,6 +5,7 @@ import Adw from 'gi://Adw';
 import Gtk from 'gi://Gtk';
 
 import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+import {releaseNotes} from './about.js';
 
 let numButtons = 1;
 
@@ -23,12 +24,12 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         for (let pageIndex = 1; pageIndex <= numButtons; pageIndex++) {
 
             let buttonTitle = "";
-            if (numButtons === 1) { buttonTitle = "Toggle Button Settings";
+            if (numButtons === 1) { buttonTitle = 'Toggle Button';
             } else { buttonTitle = `Button ${pageIndex}`; }
 
             const page = new Adw.PreferencesPage({
                 title: _(buttonTitle),
-                icon_name: 'applications-system-symbolic',
+                icon_name: 'utilities-terminal-symbolic',
             });
             window.add(page);
         
@@ -37,7 +38,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             // Group 1: Commands
             const group1 = new Adw.PreferencesGroup({
                 title: _('Commands'),
-                description: _('Enter commands to run when the quick toggle is switched.'),
+                //description: _('Enter commands to run when the toggle button is switched.'),
             });
             page.add(group1);
             groups.push(group1);
@@ -55,13 +56,13 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             // Group 2: Appearance
             const group2 = new Adw.PreferencesGroup({
                 title: _('Appearance'),
-                description: _('Customize the quick toggle name and icon.'),
+                //description: _('Customize the toggle button name and icon.'),
             });
             page.add(group2);
             groups.push(group2);
         
             const entryRow3 = new Adw.EntryRow({
-                title: _('Name:'),
+                title: _('Button name:'),
             });
             group2.add(entryRow3);
         
@@ -72,23 +73,16 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         
             // Group 3: Startup Behavior
             const group3 = new Adw.PreferencesGroup({
-                title: _('Behavior'),
+                title: _('Startup Behavior'),
             });
             page.add(group3);
             groups.push(group3);
 
-            // const switchRow = new Adw.SwitchRow({
-            //     title: _('Show Indicator'),
-            //     subtitle: _('Show the indicator on top bar when toggle enabled.'),
-            //     active: window._settings.get_boolean(`showindicator${pageIndex}-setting`),
-            // });
-            //group3.add(switchRow);
-        
             const optionList = new Gtk.StringList();
             [_('On'), _('Off'), _('Previous state')].forEach(choice => optionList.append(choice));
         
             const comboRow = new Adw.ComboRow({
-                title: _('Initial Toggle State'),
+                title: _('Initial State'),
                 subtitle: _('State of the toggle button at login/startup'),
                 model: optionList,
                 selected: window._settings.get_int(`initialtogglestate${pageIndex}-setting`),
@@ -120,7 +114,35 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 }),
             });
             expanderRow.add_row(spinRow);
+
+            // Group 4: Toggle Behavior
+            const group4 = new Adw.PreferencesGroup({
+                title: _('Toggle Behavior'),
+            });
+            groups.push(group4);
+            
+            const switchRow = new Adw.SwitchRow({
+                title: _('Show Indicator Icon'),
+                subtitle: _('Show top bar icon when toggle button is switched on'),
+                active: window._settings.get_boolean(`showindicator${pageIndex}-setting`),
+            });
+            group4.add(switchRow);
+
+            const toggleList = new Gtk.StringList();
+            [_('Always on'), _('Always off'), _('Toggle')].forEach(choice => toggleList.append(choice));
         
+            const comboRow2 = new Adw.ComboRow({
+                title: _('Button Click Action'),
+                subtitle: _(
+                    '• Toggle: Button will toggle on/off when clicked (default action)\n' +
+                    '• Always on/off: Button will remain in the selected on or off state when clicked ' +
+                    'and only execute the associated on or off command'
+                ),
+                model: toggleList,
+            });
+            group4.add(comboRow2);
+            page.add(group4);
+
             // Bindings 
             let i = pageIndex;
             if (pageIndex === 1) {i='';}
@@ -133,6 +155,8 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             window._settings.bind(`initialtogglestate${pageIndex}-setting`, comboRow, 'selected', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`runcommandatboot${pageIndex}-setting`, expanderRow, 'expanded', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`delaytime${pageIndex}-setting`, spinRow, 'value', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(`showindicator${pageIndex}-setting`, switchRow, 'active', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(`buttonclick${pageIndex}-setting`, comboRow2, 'selected', Gio.SettingsBindFlags.DEFAULT);
 
             // Push the created page to the pages array
             pages.push(page);
@@ -141,8 +165,8 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
         // Information Page
         const infoPage = new Adw.PreferencesPage({
-            title: _('Information'),
-            icon_name: 'help-about-symbolic',
+            title: _('Configuration'),
+            icon_name: 'applications-system-symbolic',
         });
         window.add(infoPage);
         
@@ -153,7 +177,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         infoPage.add(configGroup0);
 
         const spinRow0 = new Adw.SpinRow({
-            title: _('Number of toggle buttons'),
+            title: _('Number of Toggle Buttons'),
             subtitle: _('Restart required for changes to take effect'),
             value: window._settings.get_int('numbuttons-setting'),
             adjustment: new Gtk.Adjustment({
@@ -172,14 +196,6 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             title: _('Resources'),
         });
         
-        const configRow1 = new Adw.ActionRow({
-            title: _('Commands'),
-            subtitle: _(
-                        'Enter commands to run when the quick toggle is switched. ' +
-                        '' 
-                       ),
-            activatable: false,
-        });
         
         const configRow2 = new Adw.ActionRow({
             title: _('Icons'),
@@ -217,6 +233,25 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             title: _('About'),
         });
         
+        const aboutRow0 = new Adw.ActionRow({
+            title: _('What\'s New'),
+            subtitle: _('List of recent changes and improvements'),
+            activatable: true,
+        });
+        aboutRow0.connect('activated', () => {
+            const dialog = new Gtk.MessageDialog({
+                transient_for: window,
+                modal: true,
+                text: _('Release Notes'),
+                secondary_text: releaseNotes,
+                buttons: Gtk.ButtonsType.CLOSE,
+            });
+            dialog.connect('response', () => dialog.destroy());
+            dialog.show();
+        });
+        aboutRow0.add_prefix(new Gtk.Image({icon_name: 'dialog-information-symbolic'}));
+        aboutRow0.add_suffix(new Gtk.Image({icon_name: 'go-next-symbolic'}));
+
         const aboutRow1 = new Adw.ActionRow({
             title: _('Homepage'),
             subtitle: _('GitHub page for additional information and bug reporting'),
@@ -240,12 +275,12 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         aboutRow2.add_suffix(new Gtk.Image({icon_name: 'go-next-symbolic'}));
         
         infoPage.add(configGroup1);
-        //configGroup1.add(configRow1);
         configGroup1.add(configRow2);
         configGroup1.add(configRow3);
         configGroup1.add(configRow4);
         
         infoPage.add(aboutGroup);
+        aboutGroup.add(aboutRow0);
         aboutGroup.add(aboutRow1);
         aboutGroup.add(aboutRow2);
 
