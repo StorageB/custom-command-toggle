@@ -36,6 +36,12 @@
     <key name="buttonclick1-setting" type="i">
       <default>2</default>
     </key>
+    <key name="closemenu1-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name='keybinding1-setting' type='as'>
+      <default><![CDATA[['']]]></default>
+    </key>
 
     <key name="entryrow12-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 2 toggled on"'</default>
@@ -66,6 +72,12 @@
     </key>
     <key name="buttonclick2-setting" type="i">
       <default>2</default>
+    </key>
+    <key name="closemenu2-setting" type="b">
+      <default>false</default>
+    </key>    
+    <key name='keybinding2-setting' type='as'>
+      <default><![CDATA[['']]]></default>
     </key>
 
     <key name="entryrow13-setting" type="s">
@@ -98,6 +110,12 @@
     <key name="buttonclick3-setting" type="i">
       <default>2</default>
     </key>
+    <key name="closemenu3-setting" type="b">
+      <default>false</default>
+    </key>    
+    <key name='keybinding3-setting' type='as'>
+      <default><![CDATA[['']]]></default>
+    </key>
 
     <key name="entryrow14-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 4 toggled on"'</default>
@@ -129,6 +147,12 @@
     <key name="buttonclick4-setting" type="i">
       <default>2</default>
     </key>
+    <key name="closemenu4-setting" type="b">
+      <default>false</default>
+    </key>    
+    <key name='keybinding4-setting' type='as'>
+      <default><![CDATA[['']]]></default>
+    </key>
 
     <key name="entryrow15-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 5 toggled on"'</default>
@@ -159,7 +183,13 @@
     </key>
     <key name="buttonclick5-setting" type="i">
       <default>2</default>
-    </key>        
+    </key>
+    <key name="closemenu5-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name='keybinding5-setting' type='as'>
+      <default><![CDATA[['']]]></default>
+    </key>      
 
     <key name="entryrow16-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 6 toggled on"'</default>
@@ -190,6 +220,12 @@
     </key>
     <key name="buttonclick6-setting" type="i">
       <default>2</default>
+    </key>
+    <key name="closemenu6-setting" type="b">
+      <default>false</default>
+    </key>    
+    <key name='keybinding6-setting' type='as'>
+      <default><![CDATA[['']]]></default>
     </key>        
 
   </schema>

@@ -1,6 +1,6 @@
 # Custom Command Toggle
 
-#### A GNOME extension to run shell commands using a GNOME quick toggle.
+#### A GNOME extension to run commands using a GNOME quick toggle.
 
 Custom Command Toggle is an extension for GNOME 45/46/47 to run user-defined commands by switching a customizable quick toggle button on or off.
 
@@ -18,22 +18,27 @@ Custom Command Toggle is an extension for GNOME 45/46/47 to run user-defined com
 - Specify the state of the buttons at startup (on, off, or remember the last state it was in)
 - Run associated command at startup to match button state if required.
 - Customize toggle button behavior to toggle or be in an always on or off state.
+- Assign keyboard shortcuts to quick toggle buttons
 - Create up to 6 custom buttons.
 
 <br>
 
 ## Installation
 
+<!--
 ### Recommended
+-->
 
 Browse for and install this extension through the GNOME Extension tool, or install through the [GNOME Extensions website](https://extensions.gnome.org/extension/7012/custom-command-toggle/).
 
+<!--
 ### Manual
 
 1. Download the `custom-command-toggle.zip` file of the [latest release](https://github.com/StorageB/custom-command-toggle/releases). 
 2. Run the following command from the terminal:
 `gnome-extensions install --force custom-command-toggle.zip`
 3. Logout and login.
+-->
 
 <br>
 
@@ -68,7 +73,9 @@ Enter the text and icon information to use for the quick toggle button.
 
 ![Screenshot-appearance](screenshots/Screenshot-appearance.png)
 
-For a list of available icons to use: https://github.com/StorageB/icons/blob/main/GNOME46Adwaita/icons.md
+For a list of available symbolic icons to use refer to:
+[GNOME default icons](https://github.com/StorageB/icons/blob/main/GNOME46Adwaita/icons.md) or
+[Ubuntu Yaru icons](https://github.com/StorageB/icons/blob/main/Yaru/icons.md)
 
 Alternatively, navigate to the icon directory for your system’s theme (located at /usr/share/icons), or use the [Icon Library app](https://flathub.org/apps/org.gnome.design.IconLibrary).
 
@@ -87,19 +94,13 @@ If Run Command at Startup is selected, there is an option to specify a delay tim
 <br>
 
 
-## Contributing
-
-Contributions are welcome! Feel free to open an issue or submit a pull request to contribute to this project.
-
-<br>
-
 ## License
 
 This project is licensed under the [GNU General Public License](http://www.gnu.org/licenses/).
 
 <br>
 
-#### I hope you found this extension helpful!
+#### I hope you found this extension useful!
 
 <a href="https://www.buymeacoffee.com/StorageB" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 36px !important;width: 131px !important;" ></a>
 

@@ -1,4 +1,23 @@
-/* prefs.js */
+/* prefs.js
+ *
+ * This file is part of the Custom Command Toggle GNOME Shell extension
+ * https://github.com/StorageB/custom-command-toggle
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
  
 import Gio from 'gi://Gio';
 import Adw from 'gi://Adw';
@@ -6,6 +25,7 @@ import Gtk from 'gi://Gtk';
 
 import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 import {releaseNotes} from './about.js';
+import {KeybindingRow} from './keybinding.js';
 
 let numButtons = 1;
 
@@ -120,14 +140,15 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 title: _('Toggle Behavior'),
             });
             groups.push(group4);
-            
-            const switchRow = new Adw.SwitchRow({
-                title: _('Show Indicator Icon'),
-                subtitle: _('Show top bar icon when toggle button is switched on'),
-                active: window._settings.get_boolean(`showindicator${pageIndex}-setting`),
-            });
-            group4.add(switchRow);
 
+            const keybindRow = new KeybindingRow(
+                window._settings,
+                `keybinding${pageIndex}-setting`,
+                _('Keyboard Shortcut')
+            );
+            keybindRow.add_suffix(keybindRow.resetButton);
+            group4.add(keybindRow);
+            
             const toggleList = new Gtk.StringList();
             [_('Always on'), _('Always off'), _('Toggle')].forEach(choice => toggleList.append(choice));
         
@@ -143,6 +164,20 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             group4.add(comboRow2);
             page.add(group4);
 
+            const switchRow = new Adw.SwitchRow({
+                title: _('Show Indicator Icon'),
+                subtitle: _('Show top bar icon when toggle button is switched on'),
+                active: window._settings.get_boolean(`showindicator${pageIndex}-setting`),
+            });
+            group4.add(switchRow);
+
+            const switchRow2 = new Adw.SwitchRow({
+                title: _('Close Menu After Button Press'),
+                subtitle: _('Close quick settings menu immediately after clicking toggle button'),
+                active: window._settings.get_boolean(`closemenu${pageIndex}-setting`),
+            });
+            group4.add(switchRow2);            
+
             // Bindings 
             let i = pageIndex;
             if (pageIndex === 1) {i='';}
@@ -156,6 +191,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             window._settings.bind(`runcommandatboot${pageIndex}-setting`, expanderRow, 'expanded', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`delaytime${pageIndex}-setting`, spinRow, 'value', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`showindicator${pageIndex}-setting`, switchRow, 'active', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(`closemenu${pageIndex}-setting`, switchRow2, 'active', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`buttonclick${pageIndex}-setting`, comboRow2, 'selected', Gio.SettingsBindFlags.DEFAULT);
 
             // Push the created page to the pages array

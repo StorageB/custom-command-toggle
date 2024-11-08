@@ -1,6 +1,8 @@
-/* extension.js */
-
-/*
+/* extension.js
+ *
+ * This file is part of the Custom Command Toggle GNOME Shell extension
+ * https://github.com/StorageB/custom-command-toggle
+ * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -24,6 +26,8 @@ import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/ex
 import {QuickToggle, SystemIndicator} from 'resource:///org/gnome/shell/ui/quickSettings.js';
 
 import GLib from 'gi://GLib';
+import Meta from 'gi://Meta';
+import Shell from 'gi://Shell';
 
 
 let entryRow1 = "";  let entryRow2 = ""; 
@@ -41,6 +45,9 @@ let initialState4 = 2; let initialState5 = 2; let initialState6 = 2;
 
 let buttonClick1 = 2; let buttonClick2 = 2; let buttonClick3 = 2;
 let buttonClick4 = 2; let buttonClick5 = 2; let buttonClick6 = 2;
+
+let shortcutId1; let shortcutId2; let shortcutId3; 
+let shortcutId4; let shortcutId5; let shortcutId6;
 
 const QuickToggle1 = GObject.registerClass(
 class QuickToggle1 extends QuickToggle {
@@ -115,18 +122,19 @@ class MyIndicator1 extends SystemIndicator {
         this._indicator = this._addIndicator();
         this._indicator.iconName = icon1;
 
-        const toggle1 = new QuickToggle1(title1, icon1);
-        toggle1.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
-        this.quickSettingsItems.push(toggle1);
-        toggle1.checked = toggleState1;
+        this.toggle1 = new QuickToggle1(title1, icon1);
+        this.toggle1.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
+        this.quickSettingsItems.push(this.toggle1);
+        this.toggle1.checked = toggleState1;
 
-        toggle1.connect('notify::checked', () => {
+        this.toggle1.connect('notify::checked', () => {
+            if (settings.get_boolean('closemenu1-setting')) {Main.panel.closeQuickSettings();}
             switch (buttonClick1) {
-                case 0: if (toggle1.checked)  {executeCommand(toggle1.checked, entryRow1, entryRow2);} toggle1.checked = true; break; 
-                case 1: if (!toggle1.checked) {executeCommand(toggle1.checked, entryRow1, entryRow2);} toggle1.checked = false; break; 
-                case 2: {executeCommand(toggle1.checked, entryRow1, entryRow2);} break; 
+                case 0: if (this.toggle1.checked)  {executeCommand(this.toggle1.checked, entryRow1, entryRow2);} this.toggle1.checked = true; break; 
+                case 1: if (!this.toggle1.checked) {executeCommand(this.toggle1.checked, entryRow1, entryRow2);} this.toggle1.checked = false; break; 
+                case 2: {executeCommand(this.toggle1.checked, entryRow1, entryRow2);} break; 
             }
-            toggleState1 = toggle1.checked;
+            toggleState1 = this.toggle1.checked;
             settings.set_boolean('togglestate1-setting', toggleState1);
             if (!showIndicator1) {this._indicator.visible = false;}
         });
@@ -146,18 +154,19 @@ class MyIndicator2 extends SystemIndicator {
         this._indicator = this._addIndicator();
         this._indicator.iconName = icon2;
 
-        const toggle2 = new QuickToggle2(title2, icon2);
-        toggle2.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
-        this.quickSettingsItems.push(toggle2);
-        toggle2.checked = toggleState2;
+        this.toggle2 = new QuickToggle2(title2, icon2);
+        this.toggle2.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
+        this.quickSettingsItems.push(this.toggle2);
+        this.toggle2.checked = toggleState2;
 
-        toggle2.connect('notify::checked', () => {
+        this.toggle2.connect('notify::checked', () => {
+            if (settings.get_boolean('closemenu2-setting')) {Main.panel.closeQuickSettings();}
             switch (buttonClick2) {
-                case 0: if (toggle2.checked)  {executeCommand(toggle2.checked, entryRow12, entryRow22);} toggle2.checked = true; break; 
-                case 1: if (!toggle2.checked) {executeCommand(toggle2.checked, entryRow12, entryRow22);} toggle2.checked = false; break; 
-                case 2: {executeCommand(toggle2.checked, entryRow12, entryRow22);} break; 
+                case 0: if (this.toggle2.checked)  {executeCommand(this.toggle2.checked, entryRow12, entryRow22);} this.toggle2.checked = true; break; 
+                case 1: if (!this.toggle2.checked) {executeCommand(this.toggle2.checked, entryRow12, entryRow22);} this.toggle2.checked = false; break; 
+                case 2: {executeCommand(this.toggle2.checked, entryRow12, entryRow22);} break; 
             }
-            toggleState2 = toggle2.checked;
+            toggleState2 = this.toggle2.checked;
             settings.set_boolean('togglestate2-setting', toggleState2);
             if (!showIndicator2) {this._indicator.visible = false;}
         });
@@ -177,18 +186,19 @@ class MyIndicator3 extends SystemIndicator {
         this._indicator = this._addIndicator();
         this._indicator.iconName = icon3;
 
-        const toggle3 = new QuickToggle3(title3, icon3);
-        toggle3.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
-        this.quickSettingsItems.push(toggle3);
-        toggle3.checked = toggleState3;
+        this.toggle3 = new QuickToggle3(title3, icon3);
+        this.toggle3.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
+        this.quickSettingsItems.push(this.toggle3);
+        this.toggle3.checked = toggleState3;
 
-        toggle3.connect('notify::checked', () => {
+        this.toggle3.connect('notify::checked', () => {
+            if (settings.get_boolean('closemenu3-setting')) {Main.panel.closeQuickSettings();}
             switch (buttonClick3) {
-                case 0: if (toggle3.checked)  {executeCommand(toggle3.checked, entryRow13, entryRow23);} toggle3.checked = true; break; 
-                case 1: if (!toggle3.checked) {executeCommand(toggle3.checked, entryRow13, entryRow23);} toggle3.checked = false; break; 
-                case 2: {executeCommand(toggle3.checked, entryRow13, entryRow23);} break; 
+                case 0: if (this.toggle3.checked)  {executeCommand(this.toggle3.checked, entryRow13, entryRow23);} this.toggle3.checked = true; break; 
+                case 1: if (!this.toggle3.checked) {executeCommand(this.toggle3.checked, entryRow13, entryRow23);} this.toggle3.checked = false; break; 
+                case 2: {executeCommand(this.toggle3.checked, entryRow13, entryRow23);} break; 
             }
-            toggleState3 = toggle3.checked;
+            toggleState3 = this.toggle3.checked;
             settings.set_boolean('togglestate3-setting', toggleState3);
             if (!showIndicator3) {this._indicator.visible = false;}
         });
@@ -208,18 +218,19 @@ class MyIndicator4 extends SystemIndicator {
         this._indicator = this._addIndicator();
         this._indicator.iconName = icon4;
 
-        const toggle4 = new QuickToggle4(title4, icon4);
-        toggle4.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
-        this.quickSettingsItems.push(toggle4);
-        toggle4.checked = toggleState4;
+        this.toggle4 = new QuickToggle4(title4, icon4);
+        this.toggle4.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
+        this.quickSettingsItems.push(this.toggle4);
+        this.toggle4.checked = toggleState4;
 
-        toggle4.connect('notify::checked', () => {
+        this.toggle4.connect('notify::checked', () => {
+            if (settings.get_boolean('closemenu4-setting')) {Main.panel.closeQuickSettings();}
             switch (buttonClick4) {
-                case 0: if (toggle4.checked)  {executeCommand(toggle4.checked, entryRow14, entryRow24);} toggle4.checked = true; break; 
-                case 1: if (!toggle4.checked) {executeCommand(toggle4.checked, entryRow14, entryRow24);} toggle4.checked = false; break; 
-                case 2: {executeCommand(toggle4.checked, entryRow14, entryRow24);} break; 
+                case 0: if (this.toggle4.checked)  {executeCommand(this.toggle4.checked, entryRow14, entryRow24);} this.toggle4.checked = true; break; 
+                case 1: if (!this.toggle4.checked) {executeCommand(this.toggle4.checked, entryRow14, entryRow24);} this.toggle4.checked = false; break; 
+                case 2: {executeCommand(this.toggle4.checked, entryRow14, entryRow24);} break; 
             }
-            toggleState4 = toggle4.checked;
+            toggleState4 = this.toggle4.checked;
             settings.set_boolean('togglestate4-setting', toggleState4);
             if (!showIndicator4) {this._indicator.visible = false;}
         });
@@ -239,18 +250,19 @@ class MyIndicator5 extends SystemIndicator {
         this._indicator = this._addIndicator();
         this._indicator.iconName = icon5;
 
-        const toggle5 = new QuickToggle5(title5, icon5);
-        toggle5.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
-        this.quickSettingsItems.push(toggle5);
-        toggle5.checked = toggleState5;
+        this.toggle5 = new QuickToggle5(title5, icon5);
+        this.toggle5.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
+        this.quickSettingsItems.push(this.toggle5);
+        this.toggle5.checked = toggleState5;
 
-        toggle5.connect('notify::checked', () => {
+        this.toggle5.connect('notify::checked', () => {
+            if (settings.get_boolean('closemenu5-setting')) {Main.panel.closeQuickSettings();}
             switch (buttonClick5) {
-                case 0: if (toggle5.checked)  {executeCommand(toggle5.checked, entryRow15, entryRow25);} toggle5.checked = true; break; 
-                case 1: if (!toggle5.checked) {executeCommand(toggle5.checked, entryRow15, entryRow25);} toggle5.checked = false; break; 
-                case 2: {executeCommand(toggle5.checked, entryRow15, entryRow25);} break; 
+                case 0: if (this.toggle5.checked)  {executeCommand(this.toggle5.checked, entryRow15, entryRow25);} this.toggle5.checked = true; break; 
+                case 1: if (!this.toggle5.checked) {executeCommand(this.toggle5.checked, entryRow15, entryRow25);} this.toggle5.checked = false; break; 
+                case 2: {executeCommand(this.toggle5.checked, entryRow15, entryRow25);} break; 
             }
-            toggleState5 = toggle5.checked;
+            toggleState5 = this.toggle5.checked;
             settings.set_boolean('togglestate5-setting', toggleState5);
             if (!showIndicator5) {this._indicator.visible = false;}
         });
@@ -270,18 +282,19 @@ class MyIndicator6 extends SystemIndicator {
         this._indicator = this._addIndicator();
         this._indicator.iconName = icon6;
 
-        const toggle6 = new QuickToggle6(title6, icon6);
-        toggle6.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
-        this.quickSettingsItems.push(toggle6);
-        toggle6.checked = toggleState6;
+        this.toggle6 = new QuickToggle6(title6, icon6);
+        this.toggle6.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
+        this.quickSettingsItems.push(this.toggle6);
+        this.toggle6.checked = toggleState6;
 
-        toggle6.connect('notify::checked', () => {
+        this.toggle6.connect('notify::checked', () => {
+            if (settings.get_boolean('closemenu6-setting')) {Main.panel.closeQuickSettings();}
             switch (buttonClick6) {
-                case 0: if (toggle6.checked)  {executeCommand(toggle6.checked, entryRow16, entryRow26);} toggle6.checked = true; break; 
-                case 1: if (!toggle6.checked) {executeCommand(toggle6.checked, entryRow16, entryRow26);} toggle6.checked = false; break; 
-                case 2: {executeCommand(toggle6.checked, entryRow16, entryRow26);} break; 
+                case 0: if (this.toggle6.checked)  {executeCommand(this.toggle6.checked, entryRow16, entryRow26);} this.toggle6.checked = true; break; 
+                case 1: if (!this.toggle6.checked) {executeCommand(this.toggle6.checked, entryRow16, entryRow26);} this.toggle6.checked = false; break; 
+                case 2: {executeCommand(this.toggle6.checked, entryRow16, entryRow26);} break; 
             }
-            toggleState6 = toggle6.checked;
+            toggleState6 = this.toggle6.checked;
             settings.set_boolean('togglestate6-setting', toggleState6);
             if (!showIndicator6) {this._indicator.visible = false;}
         });
@@ -310,6 +323,31 @@ export default class CustomQuickToggleExtension extends Extension {
         if (numToggleButtons >= 4) { this._indicator4 = new MyIndicator4(this.getSettings()); }
         if (numToggleButtons >= 5) { this._indicator5 = new MyIndicator5(this.getSettings()); }
         if (numToggleButtons >= 6) { this._indicator6 = new MyIndicator6(this.getSettings()); }
+
+        shortcutId1 = Main.wm.addKeybinding(
+            'keybinding1-setting', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
+            () => this._indicator1.toggle1.checked = !this._indicator1.toggle1.checked
+        );
+        shortcutId2 = Main.wm.addKeybinding(
+            'keybinding2-setting', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
+            () => this._indicator2.toggle2.checked = !this._indicator2.toggle2.checked
+        );
+        shortcutId3 = Main.wm.addKeybinding(
+            'keybinding3-setting', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
+            () => this._indicator3.toggle3.checked = !this._indicator3.toggle3.checked
+        );
+        shortcutId4 = Main.wm.addKeybinding(
+            'keybinding4-setting', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
+            () => this._indicator4.toggle4.checked = !this._indicator4.toggle4.checked
+        );
+        shortcutId5 = Main.wm.addKeybinding(
+            'keybinding5-setting', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
+            () => this._indicator5.toggle5.checked = !this._indicator5.toggle5.checked
+        );
+        shortcutId6 = Main.wm.addKeybinding(
+            'keybinding6-setting', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
+            () => this._indicator6.toggle6.checked = !this._indicator6.toggle6.checked
+        );
         
         // Watch for changes to text entry fields:
         this._settings.connect('changed::entryrow1-setting', (settings, key) => {
@@ -602,6 +640,31 @@ export default class CustomQuickToggleExtension extends Extension {
             this._indicator6.quickSettingsItems.forEach(item => item.destroy());
             this._indicator6.destroy();
             this._indicator6 = null;
+        }
+
+        if (shortcutId1) {
+            Main.wm.removeKeybinding('keybinding1-setting');
+            shortcutId1 = null;
+        }
+        if (shortcutId2) {
+            Main.wm.removeKeybinding('keybinding2-setting');
+            shortcutId2 = null;
+        }
+        if (shortcutId3) {
+            Main.wm.removeKeybinding('keybinding3-setting');
+            shortcutId3 = null;
+        }
+        if (shortcutId4) {
+            Main.wm.removeKeybinding('keybinding4-setting');
+            shortcutId4 = null;
+        }
+        if (shortcutId5) {
+            Main.wm.removeKeybinding('keybinding5-setting');
+            shortcutId5 = null;
+        }
+        if (shortcutId6) {
+            Main.wm.removeKeybinding('keybinding6-setting');
+            shortcutId6 = null;
         }
 
         if (this._timeOut) {
