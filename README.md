@@ -2,7 +2,7 @@
 
 #### A GNOME extension to run commands using a GNOME quick toggle.
 
-Custom Command Toggle is an extension for GNOME 45/46/47 to run user-defined commands by switching a customizable quick toggle button on or off.
+Custom Command Toggle is an extension for GNOME 45/46/47 to run user-defined commands from a fully customizable quick toggle button.
 
 <br>
 
@@ -18,7 +18,7 @@ Custom Command Toggle is an extension for GNOME 45/46/47 to run user-defined com
 - Specify the state of the buttons at startup (on, off, or remember the last state it was in)
 - Run associated command at startup to match button state if required.
 - Customize toggle button behavior to toggle or be in an always on or off state.
-- Assign keyboard shortcuts to quick toggle buttons
+- Assign keyboard shortcuts to quick toggle buttons.
 - Create up to 6 custom buttons.
 
 <br>
@@ -85,11 +85,19 @@ Enter the name of the icon without the file extension. Note that icon appearance
 
 ### Startup Behavior
 
-Specify the state of the toggle button at startup (on, off, or to remember the previous state it was in), and select if you want that command to run at startup.
+Specify the state of each toggle button at startup (on, off, or to remember the previous state it was in), and select if you want that command to run at startup.
 
 ![Screenshot-appearance](screenshots/Screenshot-startup.png)
 
 If Run Command at Startup is selected, there is an option to specify a delay time before the command is executed. Because GNOME extensions load early in the startup process, it may be required to delay your command from running by a few seconds to allow other processes to finish loading first. If this is not required, set the delay to 0.
+
+<br>
+
+### Toggle Behavior
+
+Assign keyboard shortcuts for each button, and specify how the button and menu behave when the button is clicked.
+
+![Screenshot-appearance](screenshots/Screenshot-toggle.png)
 
 <br>
 
