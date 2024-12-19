@@ -99,7 +99,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             groups.push(group3);
 
             const optionList = new Gtk.StringList();
-            [_('On'), _('Off'), _('Previous state')].forEach(choice => optionList.append(choice));
+            [_('On'), _('Off'), _('Previous state'), _('Check state dynamically')].forEach(choice => optionList.append(choice));
 
             const comboRow = new Adw.ComboRow({
                 title: _('Initial State'),
