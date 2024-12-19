@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
   <schema id="org.gnome.shell.extensions.custom-command-toggle" path="/org/gnome/shell/extensions/custom-command-toggle/">
-    
+
     <key name="numbuttons-setting" type="i">
       <default>1</default>
     </key>
@@ -28,11 +28,6 @@
       <default>''</default>
       <summary>Check state command for button 1</summary>
       <description>Command to check current state for button 1</description>
-    </key>
-    <key name="checkregex1-setting" type="s">
-      <default>''</default>
-      <summary>Check state regex for button 1</summary>
-      <description>Regex pattern to match for ON state for button 1</description>
     </key>
     <key name="runcommandatboot1-setting" type="b">
       <default>false</default>
@@ -76,11 +71,6 @@
       <summary>Check state command for button 2</summary>
       <description>Command to check current state for button 2</description>
     </key>
-    <key name="checkregex2-setting" type="s">
-      <default>''</default>
-      <summary>Check state regex for button 2</summary>
-      <description>Regex pattern to match for ON state for button 2</description>
-    </key>
     <key name="runcommandatboot2-setting" type="b">
       <default>false</default>
     </key>
@@ -95,7 +85,7 @@
     </key>
     <key name="closemenu2-setting" type="b">
       <default>false</default>
-    </key>    
+    </key>
     <key name='keybinding2-setting' type='as'>
       <default><![CDATA[['']]]></default>
     </key>
@@ -170,11 +160,6 @@
       <summary>Check state command for button 2</summary>
       <description>Command to check current state for button 2</description>
     </key>
-    <key name="checkregex4-setting" type="s">
-      <default>''</default>
-      <summary>Check state regex for button 2</summary>
-      <description>Regex pattern to match for ON state for button 2</description>
-    </key>
     <key name="runcommandatboot4-setting" type="b">
       <default>false</default>
     </key>
@@ -189,7 +174,7 @@
     </key>
     <key name="closemenu4-setting" type="b">
       <default>false</default>
-    </key>    
+    </key>
     <key name='keybinding4-setting' type='as'>
       <default><![CDATA[['']]]></default>
     </key>
@@ -217,11 +202,6 @@
       <summary>Check state command for button 2</summary>
       <description>Command to check current state for button 2</description>
     </key>
-    <key name="checkregex5-setting" type="s">
-      <default>''</default>
-      <summary>Check state regex for button 2</summary>
-      <description>Regex pattern to match for ON state for button 2</description>
-    </key>
     <key name="runcommandatboot5-setting" type="b">
       <default>false</default>
     </key>
@@ -239,7 +219,7 @@
     </key>
     <key name='keybinding5-setting' type='as'>
       <default><![CDATA[['']]]></default>
-    </key>      
+    </key>
 
     <key name="entryrow16-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 6 toggled on"'</default>
@@ -264,11 +244,6 @@
       <summary>Check state command for button 2</summary>
       <description>Command to check current state for button 2</description>
     </key>
-    <key name="checkregex6-setting" type="s">
-      <default>''</default>
-      <summary>Check state regex for button 2</summary>
-      <description>Regex pattern to match for ON state for button 2</description>
-    </key>
     <key name="runcommandatboot6-setting" type="b">
       <default>false</default>
     </key>
@@ -283,10 +258,10 @@
     </key>
     <key name="closemenu6-setting" type="b">
       <default>false</default>
-    </key>    
+    </key>
     <key name='keybinding6-setting' type='as'>
       <default><![CDATA[['']]]></default>
-    </key>        
+    </key>
 
   </schema>
 </schemalist>
