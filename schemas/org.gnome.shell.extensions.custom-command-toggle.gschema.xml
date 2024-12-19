@@ -24,6 +24,16 @@
     <key name="togglestate1-setting" type="b">
       <default>false</default>
     </key>
+    <key name="checkcommand1-setting" type="s">
+      <default>''</default>
+      <summary>Check state command for button 1</summary>
+      <description>Command to check current state for button 1</description>
+    </key>
+    <key name="checkregex1-setting" type="s">
+      <default>''</default>
+      <summary>Check state regex for button 1</summary>
+      <description>Regex pattern to match for ON state for button 1</description>
+    </key>
     <key name="runcommandatboot1-setting" type="b">
       <default>false</default>
     </key>
@@ -60,6 +70,16 @@
     </key>
     <key name="togglestate2-setting" type="b">
       <default>false</default>
+    </key>
+    <key name="checkcommand2-setting" type="s">
+      <default>''</default>
+      <summary>Check state command for button 2</summary>
+      <description>Command to check current state for button 2</description>
+    </key>
+    <key name="checkregex2-setting" type="s">
+      <default>''</default>
+      <summary>Check state regex for button 2</summary>
+      <description>Regex pattern to match for ON state for button 2</description>
     </key>
     <key name="runcommandatboot2-setting" type="b">
       <default>false</default>
@@ -98,12 +118,22 @@
     <key name="togglestate3-setting" type="b">
       <default>false</default>
     </key>
+    <key name="checkcommand3-setting" type="s">
+      <default>''</default>
+      <summary>Check state command for button 2</summary>
+      <description>Command to check current state for button 2</description>
+    </key>
+    <key name="checkregex3-setting" type="s">
+      <default>''</default>
+      <summary>Check state regex for button 2</summary>
+      <description>Regex pattern to match for ON state for button 2</description>
+    </key>
     <key name="runcommandatboot3-setting" type="b">
       <default>false</default>
     </key>
     <key name="delaytime3-setting" type="i">
       <default>3</default>
-    </key>  
+    </key>
     <key name="showindicator3-setting" type="b">
       <default>true</default>
     </key>
@@ -112,7 +142,7 @@
     </key>
     <key name="closemenu3-setting" type="b">
       <default>false</default>
-    </key>    
+    </key>
     <key name='keybinding3-setting' type='as'>
       <default><![CDATA[['']]]></default>
     </key>
@@ -134,6 +164,16 @@
     </key>
     <key name="togglestate4-setting" type="b">
       <default>false</default>
+    </key>
+    <key name="checkcommand4-setting" type="s">
+      <default>''</default>
+      <summary>Check state command for button 2</summary>
+      <description>Command to check current state for button 2</description>
+    </key>
+    <key name="checkregex4-setting" type="s">
+      <default>''</default>
+      <summary>Check state regex for button 2</summary>
+      <description>Regex pattern to match for ON state for button 2</description>
     </key>
     <key name="runcommandatboot4-setting" type="b">
       <default>false</default>
@@ -172,6 +212,16 @@
     <key name="togglestate5-setting" type="b">
       <default>false</default>
     </key>
+    <key name="checkcommand5-setting" type="s">
+      <default>''</default>
+      <summary>Check state command for button 2</summary>
+      <description>Command to check current state for button 2</description>
+    </key>
+    <key name="checkregex5-setting" type="s">
+      <default>''</default>
+      <summary>Check state regex for button 2</summary>
+      <description>Regex pattern to match for ON state for button 2</description>
+    </key>
     <key name="runcommandatboot5-setting" type="b">
       <default>false</default>
     </key>
@@ -208,6 +258,16 @@
     </key>
     <key name="togglestate6-setting" type="b">
       <default>false</default>
+    </key>
+    <key name="checkcommand6-setting" type="s">
+      <default>''</default>
+      <summary>Check state command for button 2</summary>
+      <description>Command to check current state for button 2</description>
+    </key>
+    <key name="checkregex6-setting" type="s">
+      <default>''</default>
+      <summary>Check state regex for button 2</summary>
+      <description>Regex pattern to match for ON state for button 2</description>
     </key>
     <key name="runcommandatboot6-setting" type="b">
       <default>false</default>
