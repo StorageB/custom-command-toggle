@@ -115,12 +115,10 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             checkCommandRow.visible = comboRow.selected === 3;
             group3.add(checkCommandRow);
 
-            // Show/hide check fields based on selected option
             comboRow.connect("notify::selected", () => {
               checkCommandRow.visible = comboRow.selected === 3;
             });
 
-            // Add bindings
             window._settings.bind(
               `checkcommand${pageIndex}-setting`,
               checkCommandRow,
