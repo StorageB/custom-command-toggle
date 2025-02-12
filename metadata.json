@@ -9,9 +9,10 @@
   "shell-version": [
     "45",
     "46",
-    "47"
+    "47",
+    "48"
   ],
   "url": "https://github.com/StorageB/custom-command-toggle",
   "uuid": "custom-command-toggle@storageb.github.com",
-  "version": 8
+  "version": 9
 }
