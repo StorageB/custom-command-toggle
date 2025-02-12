@@ -99,8 +99,8 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             groups.push(group3);
 
             const optionList = new Gtk.StringList();
-            [_('On'), _('Off'), _('Previous state')].forEach(choice => optionList.append(choice));
-        
+            [_('On'), _('Off'), _('Previous state'), _('Check state dynamically')].forEach(choice => optionList.append(choice));
+
             const comboRow = new Adw.ComboRow({
                 title: _('Initial State'),
                 subtitle: _('State of the toggle button at login/startup'),
@@ -108,7 +108,24 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 selected: window._settings.get_int(`initialtogglestate${pageIndex}-setting`),
             });
             group3.add(comboRow);
-        
+
+            const checkCommandRow = new Adw.EntryRow({
+              title: _("Check State Command:"),
+            });
+            checkCommandRow.visible = comboRow.selected === 3;
+            group3.add(checkCommandRow);
+
+            comboRow.connect("notify::selected", () => {
+              checkCommandRow.visible = comboRow.selected === 3;
+            });
+
+            window._settings.bind(
+              `checkcommand${pageIndex}-setting`,
+              checkCommandRow,
+              "text",
+              Gio.SettingsBindFlags.DEFAULT,
+            );
+
             const expanderRow = new Adw.ExpanderRow({
                 title: _('Run Command at Startup'),
                 subtitle: _('Run associated toggle command at login/startup'),

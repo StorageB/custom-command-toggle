@@ -513,41 +513,162 @@ export default class CustomQuickToggleExtension extends Extension {
         buttonClick5 = this._settings.get_int('buttonclick5-setting');
         buttonClick6 = this._settings.get_int('buttonclick6-setting');
 
-        switch (initialState1) {
-            case 0: toggleState1 = true;  this._settings.set_boolean('togglestate1-setting', true);  break;
-            case 1: toggleState1 = false; this._settings.set_boolean('togglestate1-setting', false); break;
-            case 2: toggleState1 = this._settings.get_boolean('togglestate1-setting');               break;
+        function checkDynamicState(command, callback) {
+          try {
+            let [success, pid] = GLib.spawn_async(
+              null,
+              ["/bin/bash", "-c", command],
+              null,
+              GLib.SpawnFlags.SEARCH_PATH |
+                GLib.SpawnFlags.DO_NOT_REAP_CHILD |
+                GLib.SpawnFlags.STDOUT_TO_DEV_NULL,
+              null,
+            );
+
+            if (success) {
+              GLib.child_watch_add(GLib.PRIORITY_DEFAULT, pid, (pid, status) => {
+                try {
+                  let result = status === 0; // Assuming exit code 0 means true
+                  callback(result);
+                } catch (e) {
+                  console.log(`Error in dynamic state callback: ${e}`);
+                  callback(false);
+                }
+              });
+            } else {
+              console.log("Failed to spawn command");
+              callback(false);
+            }
+          } catch (e) {
+            console.log(`Error checking dynamic state: ${e}`);
+            callback(false);
+          }
         }
+
+        switch (initialState1) {
+          case 0:
+            toggleState1 = true;
+            break;
+          case 1:
+            toggleState1 = false;
+            break;
+          case 2:
+            toggleState1 = this._settings.get_boolean("togglestate1-setting");
+            break;
+          case 3:
+            let cmd = this._settings.get_string("checkcommand1-setting");
+            checkDynamicState(cmd, (result) => {
+              toggleState1 = result;
+              this._indicator1.toggle1.checked = result;
+            });
+            break;
+        }
+
         switch (initialState2) {
-            case 0: toggleState2 = true;  this._settings.set_boolean('togglestate2-setting', true);  break;
-            case 1: toggleState2 = false; this._settings.set_boolean('togglestate2-setting', false); break;
-            case 2: toggleState2 = this._settings.get_boolean('togglestate2-setting');               break;
+          case 0:
+            toggleState2 = true;
+            this._settings.set_boolean("togglestate2-setting", true);
+            break;
+          case 1:
+            toggleState2 = false;
+            this._settings.set_boolean("togglestate2-setting", false);
+            break;
+          case 2:
+            toggleState2 = this._settings.get_boolean("togglestate2-setting");
+            break;
+          case 3:
+            let cmd = this._settings.get_string("checkcommand2-setting");
+            checkDynamicState(cmd, (result) => {
+              toggleState2 = result;
+              this._indicator2.toggle1.checked = result;
+            });
+            break;
         }
         switch (initialState3) {
-            case 0: toggleState3 = true;  this._settings.set_boolean('togglestate3-setting', true);  break;
-            case 1: toggleState3 = false; this._settings.set_boolean('togglestate3-setting', false); break;
-            case 2: toggleState3 = this._settings.get_boolean('togglestate3-setting');               break;
+          case 0:
+            toggleState3 = true;
+            this._settings.set_boolean("togglestate3-setting", true);
+            break;
+          case 1:
+            toggleState3 = false;
+            this._settings.set_boolean("togglestate3-setting", false);
+            break;
+          case 2:
+            toggleState3 = this._settings.get_boolean("togglestate3-setting");
+            break;
+          case 3:
+            let cmd = this._settings.get_string("checkcommand3-setting");
+            checkDynamicState(cmd, (result) => {
+              toggleState3 = result;
+              this._indicator3.toggle1.checked = result;
+            });
+            break;
         }
         switch (initialState4) {
-            case 0: toggleState4 = true;  this._settings.set_boolean('togglestate4-setting', true);  break;
-            case 1: toggleState4 = false; this._settings.set_boolean('togglestate4-setting', false); break;
-            case 2: toggleState4 = this._settings.get_boolean('togglestate4-setting');               break;
+          case 0:
+            toggleState4 = true;
+            this._settings.set_boolean("togglestate4-setting", true);
+            break;
+          case 1:
+            toggleState4 = false;
+            this._settings.set_boolean("togglestate4-setting", false);
+            break;
+          case 2:
+            toggleState4 = this._settings.get_boolean("togglestate4-setting");
+            break;
+          case 3:
+            let cmd = this._settings.get_string("checkcommand4-setting");
+            checkDynamicState(cmd, (result) => {
+              toggleState4 = result;
+              this._indicator4.toggle1.checked = result;
+            });
+            break;
         }
         switch (initialState5) {
-            case 0: toggleState5 = true;  this._settings.set_boolean('togglestate5-setting', true);  break;
-            case 1: toggleState5 = false; this._settings.set_boolean('togglestate5-setting', false); break;
-            case 2: toggleState5 = this._settings.get_boolean('togglestate5-setting');               break;
+          case 0:
+            toggleState5 = true;
+            this._settings.set_boolean("togglestate5-setting", true);
+            break;
+          case 1:
+            toggleState5 = false;
+            this._settings.set_boolean("togglestate5-setting", false);
+            break;
+          case 2:
+            toggleState5 = this._settings.get_boolean("togglestate5-setting");
+            break;
+          case 3:
+            let cmd = this._settings.get_string("checkcommand5-setting");
+            checkDynamicState(cmd, (result) => {
+              toggleState5 = result;
+              this._indicator5.toggle1.checked = result;
+            });
+            break;
         }
         switch (initialState6) {
-            case 0: toggleState6 = true;  this._settings.set_boolean('togglestate6-setting', true);  break;
-            case 1: toggleState6 = false; this._settings.set_boolean('togglestate6-setting', false); break;
-            case 2: toggleState6 = this._settings.get_boolean('togglestate6-setting');               break;
+          case 0:
+            toggleState6 = true;
+            this._settings.set_boolean("togglestate6-setting", true);
+            break;
+          case 1:
+            toggleState6 = false;
+            this._settings.set_boolean("togglestate6-setting", false);
+            break;
+          case 2:
+            toggleState6 = this._settings.get_boolean("togglestate6-setting");
+            break;
+          case 3:
+            let cmd = this._settings.get_string("checkcommand6-setting");
+            checkDynamicState(cmd, (result) => {
+              toggleState6 = result;
+              this._indicator6.toggle1.checked = result;
+            });
+            break;
         }
-        
+
         refreshIndicator.call(this);
 
-    
-        // Run commands at boot 
+
+        // Run commands at boot
         let toggleStates = [ toggleState1, toggleState2, toggleState3, toggleState4, toggleState5, toggleState6 ];
         for (let i = 1; i <= numToggleButtons; i++) {
             const runAtBootSetting = this._settings.get_boolean(`runcommandatboot${i}-setting`);
