@@ -27,6 +27,8 @@ import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Ex
 import {releaseNotes} from './about.js';
 import {KeybindingRow} from './keybinding.js';
 
+import {exportConfiguration} from './backup.js';
+
 let numButtons = 1;
 
 export default class CustomCommandTogglePreferences extends ExtensionPreferences {
@@ -55,28 +57,10 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         
             const groups = [];
         
-            // Group 1: Commands
-            const group1 = new Adw.PreferencesGroup({
-                title: _('Commands'),
-                //description: _('Enter commands to run when the toggle button is switched.'),
-            });
-            page.add(group1);
-            groups.push(group1);
-        
-            const entryRow1 = new Adw.EntryRow({
-                title: _('Toggle ON command:'),
-            });
-            group1.add(entryRow1);
-        
-            const entryRow2 = new Adw.EntryRow({
-                title: _('Toggle OFF command:'),
-            });
-            group1.add(entryRow2);
-        
-            // Group 2: Appearance
+
+            //#region Appearance
             const group2 = new Adw.PreferencesGroup({
                 title: _('Appearance'),
-                //description: _('Customize the toggle button name and icon.'),
             });
             page.add(group2);
             groups.push(group2);
@@ -90,8 +74,29 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 title: _('Icon:'),
             });
             group2.add(entryRow4);
+            //#endregion Appearance
+
+
+            //#region Commands
+            const group1 = new Adw.PreferencesGroup({
+                title: _('Commands'),
+            });
+            page.add(group1);
+            groups.push(group1);
         
-            // Group 3: Startup Behavior
+            const entryRow1 = new Adw.EntryRow({
+                title: _('Toggle ON command:'),
+            });
+            group1.add(entryRow1);
+        
+            const entryRow2 = new Adw.EntryRow({
+                title: _('Toggle OFF command:'),
+            });
+            group1.add(entryRow2);
+            //#endregion Commands
+        
+
+            //#region Startup Behavior
             const group3 = new Adw.PreferencesGroup({
                 title: _('Startup Behavior'),
             });
@@ -99,8 +104,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             groups.push(group3);
 
             const optionList = new Gtk.StringList();
-            [_('On'), _('Off'), _('Previous state')].forEach(choice => optionList.append(choice));
-        
+            [_('On'), _('Off'), _('Previous state'), _('Command output')].forEach(choice => optionList.append(choice));
             const comboRow = new Adw.ComboRow({
                 title: _('Initial State'),
                 subtitle: _('State of the toggle button at login/startup'),
@@ -108,7 +112,37 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 selected: window._settings.get_int(`initialtogglestate${pageIndex}-setting`),
             });
             group3.add(comboRow);
-        
+
+            const checkCommandInfo = new Adw.ActionRow({
+                subtitle: _(
+                            'Enter a command below to check its output. If the specified Search Term appears in the command output, ' +
+                            'the button will be set to ON at startup. Otherwise, the button will be set to OFF.'
+                           ),
+                activatable: false,
+            });
+            checkCommandInfo.visible = comboRow.selected === 3;
+            group3.add(checkCommandInfo);
+
+            const checkCommandRow = new Adw.EntryRow({
+              title: _("Command to Check:"),
+            });
+            checkCommandRow.visible = comboRow.selected === 3;
+            group3.add(checkCommandRow);
+
+            const checkRegexRow = new Adw.EntryRow({
+                title: _("Search Term:"),
+            });
+            checkRegexRow.visible = comboRow.selected === 3;
+            group3.add(checkRegexRow);
+  
+            comboRow.connect("notify::selected", () => {
+                checkCommandInfo.visible = comboRow.selected === 3;
+                checkCommandRow.visible = comboRow.selected === 3;
+                checkRegexRow.visible = comboRow.selected === 3;
+                expanderRow.visible =  comboRow.selected === 0 || comboRow.selected === 1 || comboRow.selected === 2;
+                spinRow2.visible =  comboRow.selected === 3;
+            });
+
             const expanderRow = new Adw.ExpanderRow({
                 title: _('Run Command at Startup'),
                 subtitle: _('Run associated toggle command at login/startup'),
@@ -116,6 +150,8 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 expanded: window._settings.get_boolean(`runcommandatboot${pageIndex}-setting`),
                 enable_expansion: window._settings.get_boolean(`runcommandatboot${pageIndex}-setting`),
             });
+            expanderRow.visible =  comboRow.selected === 0 || comboRow.selected === 1 || comboRow.selected === 2;
+            
             expanderRow.connect('notify::expanded', widget => {
                 expanderRow.enable_expansion = widget.expanded;
             });
@@ -124,8 +160,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             const spinRow = new Adw.SpinRow({
                 title: _('Delay Time (seconds)'),
                 subtitle: _('Amount of time to delay command from running after startup \n' +
-                    '(it may be required to allow other processes to finish loading before running the command)'),
-                value: window._settings.get_int(`initialtogglestate${pageIndex}-setting`),
+                            '(it may be required to allow other processes to finish loading before running the command)'),
                 adjustment: new Gtk.Adjustment({
                     lower: 0,
                     upper: 10,
@@ -135,7 +170,23 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             });
             expanderRow.add_row(spinRow);
 
-            // Group 4: Toggle Behavior
+            const spinRow2 = new Adw.SpinRow({
+                title: _('Delay Time (seconds)'),
+                subtitle: _('Amount of time to delay command from running after startup \n' +
+                            '(it may be required to allow other processes to finish loading before running the command)'),
+                adjustment: new Gtk.Adjustment({
+                    lower: 0,
+                    upper: 10,
+                    step_increment: 1,
+                    page_increment: 1,
+                }),
+            });
+            spinRow2.visible =  comboRow.selected === 3;
+            group3.add(spinRow2);
+            //#endregion Startup Behavior
+
+
+            //#region Toggle Behavior
             const group4 = new Adw.PreferencesGroup({
                 title: _('Toggle Behavior'),
             });
@@ -164,6 +215,18 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             group4.add(comboRow2);
             page.add(group4);
 
+            const switchRow3 = new Adw.SwitchRow({
+                title: _('Check Command Exit Code'),
+                subtitle: _('Only toggle if the command executes succussfully (returns exit code 0)'),
+                active: window._settings.get_boolean(`checkexitcode${pageIndex}-setting`),
+            });
+            group4.add(switchRow3);
+            switchRow3.visible =  comboRow2.selected === 2;
+
+            comboRow2.connect("notify::selected", () => {
+                switchRow3.visible =  comboRow2.selected === 2;
+            });
+
             const switchRow = new Adw.SwitchRow({
                 title: _('Show Indicator Icon'),
                 subtitle: _('Show top bar icon when toggle button is switched on'),
@@ -176,9 +239,11 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 subtitle: _('Close quick settings menu immediately after clicking toggle button'),
                 active: window._settings.get_boolean(`closemenu${pageIndex}-setting`),
             });
-            group4.add(switchRow2);            
+            group4.add(switchRow2);
+            //#endregion Toggle Behavior
 
-            // Bindings 
+
+            //#region Bindings 
             let i = pageIndex;
             if (pageIndex === 1) {i='';}
 
@@ -186,27 +251,34 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             window._settings.bind(`entryrow2${i}-setting`, entryRow2, 'text', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`entryrow3${i}-setting`, entryRow3, 'text', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`entryrow4${i}-setting`, entryRow4, 'text', Gio.SettingsBindFlags.DEFAULT);
-        
+            
+            window._settings.bind(`checkcommand${pageIndex}-setting`, checkCommandRow, "text", Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(`checkregex${pageIndex}-setting`, checkRegexRow, "text", Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`initialtogglestate${pageIndex}-setting`, comboRow, 'selected', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`runcommandatboot${pageIndex}-setting`, expanderRow, 'expanded', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`delaytime${pageIndex}-setting`, spinRow, 'value', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(`checkcommanddelaytime${pageIndex}-setting`, spinRow2, 'value', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`showindicator${pageIndex}-setting`, switchRow, 'active', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`closemenu${pageIndex}-setting`, switchRow2, 'active', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(`checkexitcode${pageIndex}-setting`, switchRow3, 'active', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`buttonclick${pageIndex}-setting`, comboRow2, 'selected', Gio.SettingsBindFlags.DEFAULT);
+            //#endregion Bindings
 
             // Push the created page to the pages array
             pages.push(page);
-        }
+
+        }// End of for loop to create toggle button settings pages
         
 
-        // Information Page
+        //#region Information Page
         const infoPage = new Adw.PreferencesPage({
             title: _('Configuration'),
             icon_name: 'applications-system-symbolic',
         });
         window.add(infoPage);
+        //#endregion Information Page
         
-        // Group 0: Settings
+        //#region Settings
         const configGroup0 = new Adw.PreferencesGroup({
             title: _('Settings'),
         });
@@ -226,12 +298,23 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         configGroup0.add(spinRow0);
         
         window._settings.bind('numbuttons-setting', spinRow0, 'value', Gio.SettingsBindFlags.DEFAULT);
+
+        const exportRow = new Adw.ActionRow({
+            title: _('Export Toggle Settings'),
+            subtitle: _(`Click to export toggles.ini backup file to user's home directory`),
+            activatable: true,
+        });
+        exportRow.connect('activated', () => {
+            exportConfiguration(numButtons, window._settings, window);
+        });
+        configGroup0.add(exportRow);
+        //#endregion Settings
+
         
-        // Group 1: Resources
+        //#region Resources
         const configGroup1 = new Adw.PreferencesGroup({
             title: _('Resources'),
         });
-        
         
         const configRow2 = new Adw.ActionRow({
             title: _('Icons'),
@@ -263,8 +346,10 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         });
         configRow4.add_prefix(new Gtk.Image({icon_name: 'folder-symbolic'}));
         configRow4.add_suffix(new Gtk.Image({icon_name: 'go-next-symbolic'}));
+        //#endregion Resources
+
         
-        // Group: About
+        //#region About
         const aboutGroup = new Adw.PreferencesGroup({
             title: _('About'),
         });
@@ -319,6 +404,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         aboutGroup.add(aboutRow0);
         aboutGroup.add(aboutRow1);
         aboutGroup.add(aboutRow2);
+        //#endregion About
 
     }
 }
