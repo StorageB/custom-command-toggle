@@ -62,7 +62,7 @@ export function exportConfiguration(numButtons, settings, window) {
         ` check-exit-code: true or false \n` +
         ` show-indicator: true or false \n` +
         ` close-menu: true or false \n` +
-        ` keyboard-shortcut: shortcut combination \n` +
+        ` keyboard-shortcut: <shortcut> \n` +
         ` \n`
     );
     //#endregion Header
