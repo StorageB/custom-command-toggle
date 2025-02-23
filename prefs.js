@@ -236,7 +236,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
             const switchRow2 = new Adw.SwitchRow({
                 title: _('Close Menu After Button Press'),
-                subtitle: _('Close quick settings menu immediately after clicking toggle button'),
+                subtitle: _('Close the system menu immediately after clicking toggle button'),
                 active: window._settings.get_boolean(`closemenu${pageIndex}-setting`),
             });
             group4.add(switchRow2);
@@ -300,7 +300,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         window._settings.bind('numbuttons-setting', spinRow0, 'value', Gio.SettingsBindFlags.DEFAULT);
 
         const exportRow = new Adw.ActionRow({
-            title: _('Export Toggle Settings'),
+            title: _('Export Button Configurations'),
             subtitle: _(`Click to export toggles.ini backup file to user's home directory`),
             activatable: true,
         });
