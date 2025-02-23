@@ -534,7 +534,7 @@ export default class CustomQuickToggleExtension extends Extension {
             refreshIndicator.call(this);
         });
 
-        this._settings.connect('changed::entryrow52-setting', (settings, key) => {
+        this._settings.connect('changed::entryrow15-setting', (settings, key) => {
             entryRow15 = this._settings.get_string('entryrow15-setting');
         });
         this._settings.connect('changed::entryrow25-setting', (settings, key) => {
@@ -702,15 +702,6 @@ export default class CustomQuickToggleExtension extends Extension {
 
 
         //#region Run at Boot
-        //let toggleStates = [ toggleState1, toggleState2, toggleState3, toggleState4, toggleState5, toggleState6 ];
-        console.log(toggleStates);
-        console.log(toggleState1);
-        console.log(toggleState2);
-        console.log(toggleState3);
-        console.log(toggleState4);
-        console.log(toggleState5);
-        console.log(toggleState6);
-
         for (let i = 1; i <= numToggleButtons; i++) {
             let runAtBootSetting = this._settings.get_boolean(`runcommandatboot${i}-setting`);
             if (this._settings.get_int(`initialtogglestate${i}-setting`)===3){runAtBootSetting = false;}
