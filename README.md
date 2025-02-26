@@ -2,21 +2,21 @@
 
 #### A GNOME extension to create custom quick toggle buttons.
 
-Custom Command Toggle is an extension for GNOME 45/46/47/48 to create custom fully customizable quick toggle buttons.
+Custom Command Toggle is an extension for GNOME 45/46/47/48 to create fully customizable quick toggle buttons.
 
 <br>
 
-![Screenshot-main](screenshots/Screenshot-main-3.png)
+![Screenshot-main](screenshots/screenshot-main-4.png)
 
 <br>
 
 ## Features:
 
-- Assign custom button names and icons in the extension preferences.
 - Run terminal commands and launch custom scripts using quick toggle buttons.
+- Assign custom button names and icons.
 - Enter separate commands to run when the button is switched on and when it is switched off.
 - Run a command at startup to determine the button's initial state based on the command output, or manually specify whether the button starts as on, off, or in its last known state.
-- Run associated command at startup to sync button state if required.
+- Run associated on or off command at startup to sync button state if required.
 - Option to toggle the button only if the command executes successfully and returns exit code 0 (for use with sudo commands using `pkexec sudo` where the command could be canceled or incorrect password entered).
 - Customize toggle button behavior to toggle or be in an always on or off state.
 - Assign keyboard shortcuts to quick toggle buttons.
@@ -48,7 +48,7 @@ Browse for and install this extension through the GNOME Extension Manager, or in
 
 In the Configuration tab under Settings, select the number of toggle buttons to create (maximum of 6). Note that this requires logging off/on or rebooting for changes to take effect.
 
-There is also an option to export the current configuration for all of the toggle buttons to a file for backup purposes. 
+There is also an option to export the current configuration for all the toggle buttons to a file for backup purposes. 
 
 ![Screenshot-settings](screenshots/screenshot-settings-2.png)
 
@@ -56,7 +56,7 @@ There is also an option to export the current configuration for all of the toggl
 
 ### Appearance
 
-Enter the text and icon information to use for the quick toggle button. 
+Enter the name and icon information to use for the quick toggle button. 
 
 ![Screenshot-appearance](screenshots/Screenshot-appearance.png)
 
@@ -81,7 +81,7 @@ Tips:
 - Chain multiple commands together to run one at a time using `&&` between commands.
 - By default, commands do not run in a terminal window and will not show any output or error messages. Test the full command first by running it in the terminal before adding it to the extension to verify it is correct. 
 - To run a command in a terminal window, use `gnome-terminal -- command`. Note that by default the GNOME terminal will close after the command is complete, but that can be changed in the terminal preferences if needed.
-- For sudo commands that require a password, use `pkexec` before the command to get a password prompt. For example, p`kexec sudo command` will prompt for your password and then run the command. Alternatively, you can use `gnome-terminal -- sudo command` to open a terminal where you can enter your password.
+- For sudo commands that require a password, use `pkexec` before the command to get a password prompt. For example, `pkexec sudo command` will prompt for your password and then run the command. Alternatively, you can use `gnome-terminal -- sudo command` to open a terminal where you can enter your password.
 
 <br>
 
