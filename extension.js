@@ -618,7 +618,7 @@ export default class CustomQuickToggleExtension extends Extension {
         //#endregion Settings connections
 
 
-        // region Initial Setup
+        //#region Initial Setup
         entryRow1 = this._settings.get_string('entryrow1-setting');
         entryRow2 = this._settings.get_string('entryrow2-setting');
         entryRow12 = this._settings.get_string('entryrow12-setting');
@@ -694,8 +694,7 @@ export default class CustomQuickToggleExtension extends Extension {
         toggleState4 = toggleStates[3];
         toggleState5 = toggleStates[4];
         toggleState6 = toggleStates[5];
-
-        //endregion Initial Setup
+        //#endregion Initial Setup
 
 
         refreshIndicator.call(this);
@@ -787,7 +786,7 @@ export default class CustomQuickToggleExtension extends Extension {
             } catch (e) {
                 console.log(`[Custom Command Toggle] Error running command: ${e}`);
             }
-        }//endregion Check Output
+        }//#endregion Check Output
         
         
         //#region Refresh indicator
