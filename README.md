@@ -40,9 +40,24 @@ Browse for and install this extension through the GNOME Extension Manager, or in
 `gnome-extensions install --force custom-command-toggle.zip`
 3. Logout and login.
 
+- To enable the extension:
+`gnome-extensions enable custom-command-toggle@storageb.github.com`
+
+- To access extension prefrences to configure the toggle buttons:
+`gnome-extensions prefs custom-command-toggle@storageb.github.com`
+
+- For additional options, refer to: 
+`gnome-extensions -h`
+
+
+
 <br>
 
 ## Configuration
+
+Configure the toggle buttons by opening the prefrences from the Extension Manager, or by running the following command: 
+
+`gnome-extensions prefs custom-command-toggle@storageb.github.com`
 
 ### General Settings
 
