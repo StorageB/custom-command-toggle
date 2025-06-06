@@ -6,7 +6,7 @@ Custom Command Toggle is an extension for GNOME 45/46/47/48 to create fully cust
 
 <br>
 
-![Screenshot-main](screenshots/screenshot-main-4.png)
+![Screenshot-main](screenshots/screenshot-main-5.png)
 
 <br>
 
@@ -36,27 +36,21 @@ Browse for and install this extension through the GNOME Extension Manager, or in
 ### Manual
 
 1. Download the `custom-command-toggle.zip` file of the [latest release](https://github.com/StorageB/custom-command-toggle/releases). 
-2. Run the following command from the terminal:
+2. In the terminal run:
 `gnome-extensions install --force custom-command-toggle.zip`
 3. Logout and login.
 
-- To enable the extension:
-`gnome-extensions enable custom-command-toggle@storageb.github.com`
-
-- To access extension prefrences to configure the toggle buttons:
-`gnome-extensions prefs custom-command-toggle@storageb.github.com`
-
-- For additional options, refer to: 
-`gnome-extensions -h`
-
-
+To enable and configure the extension:
+```
+gnome-extensions enable custom-command-toggle@storageb.github.com
+gnome-extensions prefs custom-command-toggle@storageb.github.com
+```
 
 <br>
 
 ## Configuration
 
-Configure the toggle buttons by opening the prefrences from the Extension Manager, or by running the following command: 
-
+Open the extension preferences via the Extension Manager or run
 `gnome-extensions prefs custom-command-toggle@storageb.github.com`
 
 ### General Settings
@@ -75,13 +69,13 @@ Enter the name and icon information to use for the quick toggle button.
 
 ![Screenshot-appearance](screenshots/Screenshot-appearance.png)
 
-For a list of available symbolic icons to use refer to:
-[GNOME default icons](https://github.com/StorageB/icons/blob/main/GNOME46Adwaita/icons.md) or
-[Ubuntu Yaru icons](https://github.com/StorageB/icons/blob/main/Yaru/icons.md)
+**For a list of available symbolic icons to use refer to:**
+- [GNOME default icons](https://github.com/StorageB/icons/blob/main/GNOME46Adwaita/icons.md)
+- [Ubuntu Yaru icons](https://github.com/StorageB/icons/blob/main/Yaru/icons.md)
 
-Alternatively, navigate to the icon directory for your system’s theme (located at /usr/share/icons), or use the [Icon Library app](https://flathub.org/apps/org.gnome.design.IconLibrary).
+Alternatively, browse the icon directory for your system’s theme (typically /usr/share/icons), or use the [Icon Library app](https://flathub.org/apps/org.gnome.design.IconLibrary).
 
-Enter the name of the icon without the file extension. Note that icon appearance will vary depending on your system's theme.
+To use a custom icon, place an SVG icon in: `~/.local/share/icons/hicolor/scalable/apps/`. Reboot and then enter the icon name (without the file extension). 
 
 <br>
 
@@ -91,12 +85,13 @@ Enter the terminal/shell commands to associate with the quick toggle on/off acti
 
 ![Screenshot-commands](screenshots/Screenshot-commands.png)
 
-Tips:
-- Run multiple commands by using `&` between commands.
-- Chain multiple commands together to run one at a time using `&&` between commands.
-- By default, commands do not run in a terminal window and will not show any output or error messages. Test the full command first by running it in the terminal before adding it to the extension to verify it is correct. 
+Command tips:
+- Run multiple commands in parallel by using `&` between commands.
+- Run multiple commands one at a time using `&&` between commands.
+- Commands run silently (no terminal output), so test the full command in a terminal before adding it to the menu. 
 - To run a command in a terminal window, use `gnome-terminal -- command`. Note that by default the GNOME terminal will close after the command is complete, but that can be changed in the terminal preferences if needed.
-- For sudo commands that require a password, use `pkexec` before the command to get a password prompt. For example, `pkexec sudo command` will prompt for your password and then run the command. Alternatively, you can use `gnome-terminal -- sudo command` to open a terminal where you can enter your password.
+- For sudo commands that require a password, use `pkexec` before the command to get a password prompt. For example, `pkexec sudo command` prompts for your password and then runs the command. Alternatively, use `gnome-terminal -- sudo command` to open a terminal where you can enter your password.
+- To open the command configuration window for this extension directly, use the command `gnome-extensions prefs custom-command-list@storageb.github.com`.
 
 <br>
 
