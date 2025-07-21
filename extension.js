@@ -51,9 +51,8 @@ let shortcutId1; let shortcutId2; let shortcutId3;
 let shortcutId4; let shortcutId5; let shortcutId6;
 
 
-//#region Define Toggles
-const QuickToggle1 = GObject.registerClass(
-class QuickToggle1 extends QuickToggle {
+const myQuickToggle = GObject.registerClass(
+class myQuickToggle extends QuickToggle {
     constructor(title, icon) {
         super({
             title: _(title),
@@ -62,57 +61,6 @@ class QuickToggle1 extends QuickToggle {
         });
     }
 });
-const QuickToggle2 = GObject.registerClass(
-class QuickToggle2 extends QuickToggle {
-    constructor(title, icon) {
-        super({
-            title: _(title),
-            iconName: icon,
-            toggleMode: true,
-        });
-    }
-});
-const QuickToggle3 = GObject.registerClass(
-class QuickToggle3 extends QuickToggle {
-    constructor(title, icon) {
-        super({
-            title: _(title),
-            iconName: icon,
-            toggleMode: true,
-        });
-    }
-});
-const QuickToggle4 = GObject.registerClass(
-class QuickToggle4 extends QuickToggle {
-    constructor(title, icon) {
-        super({
-            title: _(title),
-            iconName: icon,
-            toggleMode: true,
-        });
-    }
-});
-const QuickToggle5 = GObject.registerClass(
-class QuickToggle5 extends QuickToggle {
-    constructor(title, icon) {
-        super({
-            title: _(title),
-            iconName: icon,
-            toggleMode: true,
-        });
-    }
-});
-const QuickToggle6 = GObject.registerClass(
-class QuickToggle6 extends QuickToggle {
-    constructor(title, icon) {
-        super({
-            title: _(title),
-            iconName: icon,
-            toggleMode: true,
-        });
-    }
-});
-//#endregion Define Toggles
 
 
 //#region Create Indicators
@@ -122,13 +70,15 @@ class MyIndicator1 extends SystemIndicator {
         super();
 
         let title1 = settings.get_string('entryrow3-setting');
-        let icon1 = settings.get_string('entryrow4-setting').trim();
+        let iconSetting1 = settings.get_string('entryrow4-setting').trim();
+        let [icon1on, icon1off] = iconSetting1.split(',').map(s => s.trim());
+        if (!icon1off) icon1off = icon1on;
         let showIndicator1 = settings.get_boolean('showindicator1-setting');
 
         this._indicator = this._addIndicator();
-        this._indicator.iconName = icon1;
+        this._indicator.iconName = toggleState1 ? icon1on : icon1off;
 
-        this.toggle1 = new QuickToggle1(title1, icon1);
+        this.toggle1 = new myQuickToggle(title1, toggleState1 ? icon1on : icon1off);
         this.toggle1.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
         this.quickSettingsItems.push(this.toggle1);
         this.toggle1.checked = toggleState1;
@@ -156,9 +106,11 @@ class MyIndicator1 extends SystemIndicator {
             }
             toggleState1 = this.toggle1.checked;
             settings.set_boolean('togglestate1-setting', toggleState1);
-            if (!showIndicator1) {this._indicator.visible = false;}
+            if (!showIndicator1) this._indicator.visible = false;
+            this._indicator.iconName = this.toggle1.checked ? icon1on : icon1off;
+            this.toggle1.iconName = this.toggle1.checked ? icon1on : icon1off;
         });
-        if (!showIndicator1) {this._indicator.visible = false;}
+        if (!showIndicator1) this._indicator.visible = false;
     }
 });
 
@@ -168,13 +120,15 @@ class MyIndicator2 extends SystemIndicator {
         super();
 
         let title2 = settings.get_string('entryrow32-setting');
-        let icon2 = settings.get_string('entryrow42-setting').trim();
+        let iconSetting2 = settings.get_string('entryrow42-setting').trim();
+        let [icon2on, icon2off] = iconSetting2.split(',').map(s => s.trim());
+        if (!icon2off) icon2off = icon2on;
         let showIndicator2 = settings.get_boolean('showindicator2-setting');
 
         this._indicator = this._addIndicator();
-        this._indicator.iconName = icon2;
+        this._indicator.iconName = toggleState2 ? icon2on : icon2off;
 
-        this.toggle2 = new QuickToggle2(title2, icon2);
+        this.toggle2 = new myQuickToggle(title2, toggleState2 ? icon2on : icon2off);
         this.toggle2.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
         this.quickSettingsItems.push(this.toggle2);
         this.toggle2.checked = toggleState2;
@@ -202,9 +156,11 @@ class MyIndicator2 extends SystemIndicator {
             }
             toggleState2 = this.toggle2.checked;
             settings.set_boolean('togglestate2-setting', toggleState2);
-            if (!showIndicator2) {this._indicator.visible = false;}
+            if (!showIndicator2) this._indicator.visible = false;
+            this._indicator.iconName = this.toggle2.checked ? icon2on : icon2off;
+            this.toggle2.iconName = this.toggle2.checked ? icon2on : icon2off;            
         });
-        if (!showIndicator2) {this._indicator.visible = false;}
+        if (!showIndicator2) this._indicator.visible = false;
     }
 });
 
@@ -214,13 +170,15 @@ class MyIndicator3 extends SystemIndicator {
         super();
         
         let title3 = settings.get_string('entryrow33-setting');
-        let icon3 = settings.get_string('entryrow43-setting').trim();
+        let iconSetting3 = settings.get_string('entryrow43-setting').trim();
+        let [icon3on, icon3off] = iconSetting3.split(',').map(s => s.trim());
+        if (!icon3off) icon3off = icon3on;
         let showIndicator3 = settings.get_boolean('showindicator3-setting');
 
         this._indicator = this._addIndicator();
-        this._indicator.iconName = icon3;
+        this._indicator.iconName = toggleState3 ? icon3on : icon3off;
 
-        this.toggle3 = new QuickToggle3(title3, icon3);
+        this.toggle3 = new myQuickToggle(title3, toggleState3 ? icon3on : icon3off);
         this.toggle3.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
         this.quickSettingsItems.push(this.toggle3);
         this.toggle3.checked = toggleState3;
@@ -248,9 +206,11 @@ class MyIndicator3 extends SystemIndicator {
             }
             toggleState3 = this.toggle3.checked;
             settings.set_boolean('togglestate3-setting', toggleState3);
-            if (!showIndicator3) {this._indicator.visible = false;}
+            if (!showIndicator3) this._indicator.visible = false;
+            this._indicator.iconName = this.toggle3.checked ? icon3on : icon3off;
+            this.toggle3.iconName = this.toggle3.checked ? icon3on : icon3off;
         });
-        if (!showIndicator3) {this._indicator.visible = false;}
+        if (!showIndicator3) this._indicator.visible = false;
     }
 });
 
@@ -260,13 +220,15 @@ class MyIndicator4 extends SystemIndicator {
         super();
 
         let title4 = settings.get_string('entryrow34-setting');
-        let icon4 = settings.get_string('entryrow44-setting').trim();
+        let iconSetting4 = settings.get_string('entryrow44-setting').trim();
+        let [icon4on, icon4off] = iconSetting4.split(',').map(s => s.trim());
+        if (!icon4off) icon4off = icon4on;
         let showIndicator4 = settings.get_boolean('showindicator4-setting');
 
         this._indicator = this._addIndicator();
-        this._indicator.iconName = icon4;
+        this._indicator.iconName = toggleState4 ? icon4on : icon4off;
 
-        this.toggle4 = new QuickToggle4(title4, icon4);
+        this.toggle4 = new myQuickToggle(title4, toggleState4 ? icon4on : icon4off);
         this.toggle4.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
         this.quickSettingsItems.push(this.toggle4);
         this.toggle4.checked = toggleState4;
@@ -294,9 +256,11 @@ class MyIndicator4 extends SystemIndicator {
             }
             toggleState4 = this.toggle4.checked;
             settings.set_boolean('togglestate4-setting', toggleState4);
-            if (!showIndicator4) {this._indicator.visible = false;}
+            if (!showIndicator4) this._indicator.visible = false;
+            this._indicator.iconName = this.toggle4.checked ? icon4on : icon4off;
+            this.toggle4.iconName = this.toggle4.checked ? icon4on : icon4off;
         });
-        if (!showIndicator4) {this._indicator.visible = false;}
+        if (!showIndicator4) this._indicator.visible = false;
     }
 });
 
@@ -306,13 +270,15 @@ class MyIndicator5 extends SystemIndicator {
         super();
 
         let title5 = settings.get_string('entryrow35-setting');
-        let icon5 = settings.get_string('entryrow45-setting').trim();
+        let iconSetting5 = settings.get_string('entryrow45-setting').trim();
+        let [icon5on, icon5off] = iconSetting5.split(',').map(s => s.trim());
+        if (!icon5off) icon5off = icon5on;
         let showIndicator5 = settings.get_boolean('showindicator5-setting');
 
         this._indicator = this._addIndicator();
-        this._indicator.iconName = icon5;
+        this._indicator.iconName = toggleState5 ? icon5on : icon5off;
 
-        this.toggle5 = new QuickToggle5(title5, icon5);
+        this.toggle5 = new myQuickToggle(title5, toggleState5 ? icon5on : icon5off);
         this.toggle5.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
         this.quickSettingsItems.push(this.toggle5);
         this.toggle5.checked = toggleState5;
@@ -340,9 +306,11 @@ class MyIndicator5 extends SystemIndicator {
             }
             toggleState5 = this.toggle5.checked;
             settings.set_boolean('togglestate5-setting', toggleState5);
-            if (!showIndicator5) {this._indicator.visible = false;}
+            if (!showIndicator5) this._indicator.visible = false;
+            this._indicator.iconName = this.toggle5.checked ? icon5on : icon5off;
+            this.toggle5.iconName = this.toggle5.checked ? icon5on : icon5off;            
         });
-        if (!showIndicator5) {this._indicator.visible = false;}
+        if (!showIndicator5) this._indicator.visible = false;
     }
 });
 
@@ -352,13 +320,15 @@ class MyIndicator6 extends SystemIndicator {
         super();
 
         let title6 = settings.get_string('entryrow36-setting');
-        let icon6 = settings.get_string('entryrow46-setting').trim();
+        let iconSetting6 = settings.get_string('entryrow46-setting').trim();
+        let [icon6on, icon6off] = iconSetting6.split(',').map(s => s.trim());
+        if (!icon6off) icon6off = icon6on;
         let showIndicator6 = settings.get_boolean('showindicator6-setting');
 
         this._indicator = this._addIndicator();
-        this._indicator.iconName = icon6;
+        this._indicator.iconName = toggleState6 ? icon6on : icon6off;
 
-        this.toggle6 = new QuickToggle6(title6, icon6);
+        this.toggle6 = new myQuickToggle(title6, toggleState6 ? icon6on : icon6off);
         this.toggle6.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
         this.quickSettingsItems.push(this.toggle6);
         this.toggle6.checked = toggleState6;
@@ -386,9 +356,11 @@ class MyIndicator6 extends SystemIndicator {
             }
             toggleState6 = this.toggle6.checked;
             settings.set_boolean('togglestate6-setting', toggleState6);
-            if (!showIndicator6) {this._indicator.visible = false;}
+            if (!showIndicator6) this._indicator.visible = false;
+            this._indicator.iconName = this.toggle6.checked ? icon6on : icon6off;
+            this.toggle6.iconName = this.toggle6.checked ? icon6on : icon6off;            
         });
-        if (!showIndicator6) {this._indicator.visible = false;}
+        if (!showIndicator6) this._indicator.visible = false;
     }
 });
 //#endregion Create Indicators
