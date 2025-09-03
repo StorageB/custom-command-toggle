@@ -45,6 +45,8 @@ export function exportConfiguration(numButtons, settings, window) {
         ` icon: <text> \n` +
         ` toggle-on-command: <command> \n` +
         ` toggle-off-command: <command> \n` +
+        ` check-output-command: <command> \n` +
+        ` search-term: <text> \n` +        
         ` initial-state: 0, 1, 2, or 3 \n` +
         `     0 = On \n` +
         `     1 = Off \n` +
@@ -52,8 +54,6 @@ export function exportConfiguration(numButtons, settings, window) {
         `     3 = Command output \n` +
         ` run-at-startup: true or false \n` +
         ` startup-delay-time: 0-10 (seconds) \n` +
-        ` check-output-command: <command> \n` +
-        ` search-term: <text> \n` +
         ` check-output-delay-time: 0-10 (seconds) \n` + 
         ` button-click-action: 0, 1, or 2 \n` +
         `     0 = Always on \n` +
@@ -62,6 +62,8 @@ export function exportConfiguration(numButtons, settings, window) {
         ` check-exit-code: true or false \n` +
         ` show-indicator: true or false \n` +
         ` close-menu: true or false \n` +
+        ` command-sync: true or false \n` +
+        ` polling-frequency: 2-900 (seconds) \n` + 
         ` keyboard-shortcut: <shortcut> \n` +
         ` \n`
     );
@@ -77,16 +79,18 @@ export function exportConfiguration(numButtons, settings, window) {
         keyFile.set_string(`Toggle ${i}`, 'icon', settings.get_string(`entryrow4${j}-setting`));
         keyFile.set_string(`Toggle ${i}`, 'toggle-on-command', settings.get_string(`entryrow1${j}-setting`));
         keyFile.set_string(`Toggle ${i}`, 'toggle-off-command', settings.get_string(`entryrow2${j}-setting`));
+        keyFile.set_string(`Toggle ${i}`, 'check-output-command', settings.get_string(`checkcommand${i}-setting`));
+        keyFile.set_string(`Toggle ${i}`, 'search-term', settings.get_string(`checkregex${i}-setting`));        
         keyFile.set_string(`Toggle ${i}`, 'initial-state', `${settings.get_int(`initialtogglestate${i}-setting`)}`);
         keyFile.set_string(`Toggle ${i}`, 'run-at-startup', `${settings.get_boolean(`runcommandatboot${i}-setting`)}`);
         keyFile.set_string(`Toggle ${i}`, 'startup-delay-time', `${settings.get_int(`delaytime${i}-setting`)}`);
-        keyFile.set_string(`Toggle ${i}`, 'check-output-command', settings.get_string(`checkcommand${i}-setting`));
-        keyFile.set_string(`Toggle ${i}`, 'search-term', settings.get_string(`checkregex${i}-setting`));
         keyFile.set_string(`Toggle ${i}`, 'check-output-delay-time', `${settings.get_int(`checkcommanddelaytime${i}-setting`)}`);
         keyFile.set_string(`Toggle ${i}`, 'button-click-action', `${settings.get_int(`buttonclick${i}-setting`)}`);
         keyFile.set_string(`Toggle ${i}`, 'check-exit-code', `${settings.get_boolean(`checkexitcode${i}-setting`)}`);
         keyFile.set_string(`Toggle ${i}`, 'show-indicator', `${settings.get_boolean(`showindicator${i}-setting`)}`);
         keyFile.set_string(`Toggle ${i}`, 'close-menu', `${settings.get_boolean(`closemenu${i}-setting`)}`); 
+        keyFile.set_string(`Toggle ${i}`, 'command-sync', `${settings.get_boolean(`checkcommandsync${i}-setting`)}`); 
+        keyFile.set_string(`Toggle ${i}`, 'polling-frequency', `${settings.get_int(`checkcommandinterval${i}-setting`)}`);
         const keybindings = settings.get_value(`keybinding${i}-setting`).deep_unpack();
         keyFile.set_string(`Toggle ${i}`, 'keyboard-shortcut', keybindings[0]);
     }

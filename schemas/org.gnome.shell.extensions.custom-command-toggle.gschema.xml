@@ -6,6 +6,10 @@
       <default>1</default>
       <summary>Number of toggle buttons</summary>
     </key>
+    <key name="debug-setting" type="b">
+      <default>false</default>
+       <summary>Enable debug logging</summary>
+    </key>    
 
     <key name="entryrow1-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Hello world!"'</default>
@@ -51,8 +55,16 @@
       <summary>Button 1 run command at boot delay setting</summary>
     </key>
     <key name="checkcommanddelaytime1-setting" type="i">
-      <default>2</default>
+      <default>3</default>
       <summary>Button 1 check command state at boot delay setting</summary>
+    </key>
+    <key name="checkcommandsync1-setting" type="b">
+      <default>false</default>
+       <summary>Check command output at regular intervals</summary>
+    </key>
+    <key name="checkcommandinterval1-setting" type="i">
+      <default>10</default>
+      <summary>Check command output interval in seconds</summary>
     </key>
     <key name="showindicator1-setting" type="b">
       <default>true</default>
@@ -107,8 +119,14 @@
       <default>3</default>
     </key>
     <key name="checkcommanddelaytime2-setting" type="i">
-      <default>2</default>
-    </key>    
+      <default>3</default>
+    </key>
+    <key name="checkcommandsync2-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="checkcommandinterval2-setting" type="i">
+      <default>10</default>
+    </key>
     <key name="showindicator2-setting" type="b">
       <default>true</default>
     </key>
@@ -156,8 +174,14 @@
       <default>3</default>
     </key>
     <key name="checkcommanddelaytime3-setting" type="i">
-      <default>2</default>
-    </key>    
+      <default>3</default>
+    </key>
+    <key name="checkcommandsync3-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="checkcommandinterval3-setting" type="i">
+      <default>10</default>
+    </key>
     <key name="showindicator3-setting" type="b">
       <default>true</default>
     </key>
@@ -205,8 +229,14 @@
       <default>3</default>
     </key>
     <key name="checkcommanddelaytime4-setting" type="i">
-      <default>2</default>
-    </key>    
+      <default>3</default>
+    </key>
+    <key name="checkcommandsync4-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="checkcommandinterval4-setting" type="i">
+      <default>10</default>
+    </key>
     <key name="showindicator4-setting" type="b">
       <default>true</default>
     </key>
@@ -254,8 +284,14 @@
       <default>3</default>
     </key>
     <key name="checkcommanddelaytime5-setting" type="i">
-      <default>2</default>
-    </key>    
+      <default>3</default>
+    </key>
+    <key name="checkcommandsync5-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="checkcommandinterval5-setting" type="i">
+      <default>10</default>
+    </key>
     <key name="showindicator5-setting" type="b">
       <default>true</default>
     </key>
@@ -303,8 +339,14 @@
       <default>3</default>
     </key>
     <key name="checkcommanddelaytime6-setting" type="i">
-      <default>2</default>
-    </key>    
+      <default>3</default>
+    </key>
+    <key name="checkcommandsync6-setting" type="b">
+      <default>false</default>
+    </key>
+    <key name="checkcommandinterval6-setting" type="i">
+      <default>10</default>
+    </key>
     <key name="showindicator6-setting" type="b">
       <default>true</default>
     </key>
