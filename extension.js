@@ -90,7 +90,7 @@ class MyIndicator1 extends SystemIndicator {
             if (settings.get_boolean('closemenu1-setting')) {Main.panel.closeQuickSettings();}
             if (settings.get_int('buttonclick1-setting') === 2 && settings.get_boolean('checkexitcode1-setting')) {
                 checkCommandExitCode(1, this.toggle1.checked, entryRow1, entryRow2, (exitCodeResult) => {
-                    if (debug) console.log(`[Custom Command Toggle] Toggle 1 | Exit code status check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);              
+                    if (debug) console.log(`[Custom Command Toggle] Toggle 1 | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);              
                     if (!exitCodeResult) {
                         GObject.signal_handler_block(this.toggle1, this.toggle1ConnectSignal);
                         this.toggle1.checked = !this.toggle1.checked;
@@ -801,6 +801,7 @@ export default class CustomQuickToggleExtension extends Extension {
                             if (bytes.get_size() === 0) {
                                 GLib.source_remove(timeoutId);
                                 const output = new TextDecoder().decode(Uint8Array.from(chunks.flat())).trim();
+                                const match = outputMatches(output, checkRegex);
 
                                 if (debug) {
                                     console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Command output:`);
@@ -812,12 +813,11 @@ export default class CustomQuickToggleExtension extends Extension {
                                         });
                                     }
                                     console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Search term: ${checkRegex}`);
-                                    console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Search term found in command output: ${output.includes(checkRegex)} ` +
-                                                `(toggle set to ${output.includes(checkRegex) ? 'ON' : 'OFF'})`);
-
+                                    console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Search term found in command output: ${match} ` +
+                                                `(toggle set to ${match ? 'ON' : 'OFF'})`);
                                 }
                                 cleanup();
-                                callback(output.includes(checkRegex));
+                                callback(match);
                                 return;
                             }
 
@@ -845,6 +845,27 @@ export default class CustomQuickToggleExtension extends Extension {
                 callback(false);
             }
         }//#endregion Check Output
+
+
+        //#region Output match
+        function outputMatches(output, searchTerm) {
+
+            const normalizedOutput = output.toLowerCase();
+            const normalizedSearch = searchTerm.toLowerCase();
+
+            // Remove punctuation (letters, numbers, spaces only)
+            const cleanedOutput = normalizedOutput.replace(/[^\p{L}\p{N}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
+            const cleanedSearch = normalizedSearch.replace(/[^\p{L}\p{N}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
+
+            const isSingleWord = !cleanedSearch.includes(' ');
+            if (isSingleWord) {
+                const regex = new RegExp(`\\b${cleanedSearch}\\b`, 'i');
+                return regex.test(cleanedOutput);
+            } else {
+                return cleanedOutput.includes(cleanedSearch);
+            }
+        }
+        //#endregion Output match
         
         
         //#region Refresh indicator

@@ -6,17 +6,17 @@ Custom Command Toggle is an extension for GNOME 45/46/47/48 to create fully cust
 
 <br>
 
-![Screenshot-main](screenshots/screenshot-main-5.png)
+![Screenshot-main](screenshots/screenshot-main-10.png)
 
 <br>
 
 ## Features:
 
-- Run terminal commands and launch custom scripts using quick toggle buttons.
+- Run commands and launch custom scripts using quick toggle buttons.
 - Assign custom button names and icons.
-- Enter separate commands to run when the button is switched on and when it is switched off.
 - Run a command at startup to determine the button's initial state based on the command output, or manually specify whether the button starts as on, off, or in its last known state.
 - Run associated on or off command at startup to sync button state if required.
+- Keep button states synced to a command's output.
 - Option to toggle the button only if the command executes successfully and returns exit code 0 (for use with sudo commands using `pkexec sudo` where the command could be canceled or incorrect password entered).
 - Customize toggle button behavior to toggle or be in an always on or off state.
 - Assign keyboard shortcuts to quick toggle buttons.
@@ -63,19 +63,21 @@ There is also an option to export the current configuration for all the toggle b
 
 <br>
 
-### Appearance
+### Icons
 
-Enter the name and icon information to use for the quick toggle button. 
+Enter the button name and icon information for each toggle button. 
 
 ![Screenshot-appearance](screenshots/Screenshot-appearance.png)
 
 **For a list of available symbolic icons to use refer to:**
-- [GNOME default icons](https://github.com/StorageB/icons/blob/main/GNOME46Adwaita/icons.md)
+- [GNOME default icons](https://github.com/StorageB/icons/blob/main/GNOME48Adwaita/icons.md)
 - [Ubuntu Yaru icons](https://github.com/StorageB/icons/blob/main/Yaru/icons.md)
 
-Alternatively, browse the icon directory for your system’s theme (typically /usr/share/icons), or use the [Icon Library app](https://flathub.org/apps/org.gnome.design.IconLibrary).
+Alternatively, browse the icon directory for your system’s theme (typically /usr/share/icons) and enter the name of an icon (without the file extension).
 
-To use a custom icon, place an SVG icon in: `~/.local/share/icons/hicolor/scalable/apps/`. Reboot and then enter the icon name (without the file extension). 
+To use a custom icon, place the icon in: `~/.local/share/icons/`. Reboot and then enter the icon name (without the file extension). 
+
+To use separate on/off icons, enter both icon names separated by a comma.
 
 <br>
 
@@ -83,15 +85,15 @@ To use a custom icon, place an SVG icon in: `~/.local/share/icons/hicolor/scalab
 
 Enter the terminal/shell commands to associate with the quick toggle on/off actions.
 
-![Screenshot-commands](screenshots/Screenshot-commands.png)
+![Screenshot-commands](screenshots/screenshot-commands-10.png)
 
 Command tips:
 - Run multiple commands in parallel by using `&` between commands.
 - Run multiple commands one at a time using `&&` between commands.
-- Commands run silently (no terminal output), so test the full command in a terminal before adding it to the menu. 
+- Commands run silently (no terminal output), so test them in a terminal before using. 
 - To run a command in a terminal window, use `gnome-terminal -- command`. Note that by default the GNOME terminal will close after the command is complete, but that can be changed in the terminal preferences if needed.
 - For sudo commands that require a password, use `pkexec` before the command to get a password prompt. For example, `pkexec sudo command` prompts for your password and then runs the command. Alternatively, use `gnome-terminal -- sudo command` to open a terminal where you can enter your password.
-- To open the command configuration window for this extension directly, use the command `gnome-extensions prefs custom-command-list@storageb.github.com`.
+- To open the command configuration window for this extension directly, use the command `gnome-extensions prefs custom-command-toggle@storageb.github.com`.
 
 <br>
 
@@ -100,24 +102,46 @@ Command tips:
 
 Specify the state of each toggle button at startup (on, off, the previous state it was in, or check a command's output to determine the state), and select if you want that command to run at startup to sync to the selected toggle state.
 
-![Screenshot-appearance](screenshots/Screenshot-startup.png)
+![Screenshot-startup](screenshots/Screenshot-startup.png)
 
 If "Run Command at Startup" is selected, there is an option to specify a delay time before the command is executed. Because GNOME extensions load early in the startup process, it may be required to delay your command from running by a few seconds to allow other processes to finish loading first. If this is not required, set the delay to 0.
 
-If "Command output" is selected as the Initial State, Enter a command to check its output. If the specified Search Term appears in the command output, the button will be set to ON at startup. Otherwise, the button will be OFF at startup.
+If "Command output" is selected as the Initial State, enter a command to check its output. If the specified Search Term appears in the command output, the button will be set to ON at startup. Otherwise, the button will be OFF at startup.
 
-![Screenshot-appearance](screenshots/screenshot-startup-2.png)
+Enable "Keep Toggle State Synced" to periodically check the output of a command and update the button state accordingly. Set "Polling Frequency" to specify how often the command should run in the background. 
+
+![Screenshot-startup-command](screenshots/screenshot-startup-command-10.png)
 
 
 <br>
 
 ### Toggle Behavior
 
-Assign keyboard shortcuts for each button, and specify how the button and menu behave when the button is clicked.
+Specify how the button and menu behave when the button is clicked.
 
-![Screenshot-appearance](screenshots/screenshot-toggle-2.png)
+![Screenshot-toggle](screenshots/screenshot-toggle-10.png)
 
 If using `pkexec` or `gnome-terminal -- command` to run sudo commands, it is recommended to enable Check Command Exit Code so that if an incorrect password is entered or the command is canceled, the button will not toggle if the command does not run.
+
+<br>
+
+### Keyboard Shortcuts
+
+Assign keyboard shortcuts to toggle buttons.
+
+![Screenshot-shortcuts](screenshots/screenshot-shortcuts-10.png)
+
+<br>
+
+### Advanced 
+
+In the Configuration tab under Advanced, enable "Detailed Logging" to view extension and command output for toggle button and command sync setup and troubleshooting purposes. Run the following command in a terminal to view the output (click the copy button to copy the command):
+
+`journalctl -f -o cat /usr/bin/gnome-shell | grep "Custom Command Toggle"`
+
+![Screenshot-advanced](screenshots/screenshot-advanced-10.png)
+
+Caution: Use detailed logging only for troubleshooting purposes. Leaving this option enabled could result in continuous excessive logging.
 
 <br>
 
