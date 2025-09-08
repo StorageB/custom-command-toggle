@@ -83,7 +83,7 @@ To use separate on/off icons, enter both icon names separated by a comma.
 
 ### Commands
 
-Enter the terminal/shell commands to associate with the quick toggle on/off actions.
+Enter the terminal/shell commands to associate with the quick toggle on/off actions. If applicable, enter the command and search term to be used for the "Command output" Initial State setting and/or the Keep Toggle State Synced setting. Refer to the Startup Behavior and Command Sync Behavior sections below.
 
 ![Screenshot-commands](screenshots/screenshot-commands-10.png)
 
@@ -106,9 +106,7 @@ Specify the state of each toggle button at startup (on, off, the previous state 
 
 If "Run Command at Startup" is selected, there is an option to specify a delay time before the command is executed. Because GNOME extensions load early in the startup process, it may be required to delay your command from running by a few seconds to allow other processes to finish loading first. If this is not required, set the delay to 0.
 
-If "Command output" is selected as the Initial State, enter a command to check its output. If the specified Search Term appears in the command output, the button will be set to ON at startup. Otherwise, the button will be OFF at startup.
-
-Enable "Keep Toggle State Synced" to periodically check the output of a command and update the button state accordingly. Set "Polling Frequency" to specify how often the command should run in the background. 
+If "Command output" is selected as the Initial State, enter a Check Output Command in the Commands section to check its output. If the specified Search Term appears in the command output, the button will be set to ON at startup. Otherwise, the button will be OFF at startup. To keep the toggle state synced to the command output, refer to the Command Sync Behavior section below.
 
 ![Screenshot-startup-command](screenshots/screenshot-startup-command-10.png)
 
@@ -124,6 +122,19 @@ Specify how the button and menu behave when the button is clicked.
 If using `pkexec` or `gnome-terminal -- command` to run sudo commands, it is recommended to enable Check Command Exit Code so that if an incorrect password is entered or the command is canceled, the button will not toggle if the command does not run.
 
 <br>
+
+
+### Command Sync Behavior
+
+Enable "Keep Toggle State Synced" to periodically check the output of the Check Output Command and update the button state accordingly. If the specified Search Term appears in the command output, the button will be set to ON. Otherwise, the button will be OFF at.
+
+Set "Polling Frequency" to specify how often the command should run in the background. 
+
+![Screenshot-commands](screenshots/screenshot-commands-10.png)
+![Screenshot-sync](screenshots/screenshot-sync-10.png)
+
+<br>
+
 
 ### Keyboard Shortcuts
 
