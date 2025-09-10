@@ -49,7 +49,7 @@ let buttonClick4 = 2; let buttonClick5 = 2; let buttonClick6 = 2;
 let shortcutId1; let shortcutId2; let shortcutId3; 
 let shortcutId4; let shortcutId5; let shortcutId6;
 
-let checkIntervals = [];
+let checkIntervals = []; let commandTimeouts = [];
 let isRunning = [];
 let debug = false;
 
@@ -786,8 +786,15 @@ export default class CustomQuickToggleExtension extends Extension {
                     return GLib.SOURCE_REMOVE;
                 });
 
+                commandTimeouts.push(timeoutId);
+
                 function cleanup() {
+                    if (didFinish) return;
                     didFinish = true;
+
+                    try { GLib.source_remove(timeoutId); } catch (_) {}
+                    commandTimeouts = commandTimeouts.filter(id => id !== timeoutId);
+
                     try { dataStream.close_async(GLib.PRIORITY_DEFAULT, null, () => {}); } catch (_) {}
                     try { baseStream.close_async(GLib.PRIORITY_DEFAULT, null, () => {}); } catch (_) {}
                 }
@@ -799,7 +806,6 @@ export default class CustomQuickToggleExtension extends Extension {
                         try {
                             const bytes = stream.read_bytes_finish(res);
                             if (bytes.get_size() === 0) {
-                                GLib.source_remove(timeoutId);
                                 const output = new TextDecoder().decode(Uint8Array.from(chunks.flat())).trim();
                                 const match = outputMatches(output, checkRegex);
 
@@ -990,6 +996,12 @@ export default class CustomQuickToggleExtension extends Extension {
                 GLib.source_remove(id);
         }
         checkIntervals = [];
+
+        for (let id of commandTimeouts) {
+            if (id)
+                GLib.source_remove(id);
+        }
+        commandTimeouts = [];        
 
         this._settings = null;
 

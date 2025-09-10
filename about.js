@@ -1,7 +1,7 @@
 /* about.js */
 
 export const releaseNotes = `
-Version 10 - What's new:
+What's new in this version:
 
 •  Keep toggle state synced with a command's output.
 •  Enable and view detailed logging for setup/troubleshooting.
