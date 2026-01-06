@@ -1,0 +1,1478 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Custom Command Toggle GNOME Extension">
+      
+      
+        <meta name="author" content="StorageB">
+      
+      
+      
+        <link rel="prev" href="../configuration/">
+      
+      
+        <link rel="next" href="../icons-light/">
+      
+      
+      <link rel="icon" href="../icons/custom-command-toggle-docs.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
+    
+    
+      
+        <title>GNOME Dark - Custom Command Toggle</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gnome-adwaita-dark-theme" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Custom Command Toggle" class="md-header__button md-logo" aria-label="Custom Command Toggle" data-md-component="logo">
+      
+  <img src="../icons/custom-command-toggle-docs.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Custom Command Toggle
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GNOME Dark
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/StorageB/custom-command-toggle" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    custom-command-toggle
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../installation/" class="md-tabs__link">
+        
+  
+    
+  
+  Installation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../configuration/" class="md-tabs__link">
+        
+  
+    
+  
+  Configuration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  Icons
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../troubleshooting/" class="md-tabs__link">
+        
+  
+    
+  
+  Troubleshooting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../changelog/" class="md-tabs__link">
+        
+  
+    
+  
+  Change Log
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Custom Command Toggle" class="md-nav__button md-logo" aria-label="Custom Command Toggle" data-md-component="logo">
+      
+  <img src="../icons/custom-command-toggle-docs.png" alt="logo">
+
+    </a>
+    Custom Command Toggle
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/StorageB/custom-command-toggle" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    custom-command-toggle
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Icons
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Icons
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    GNOME Dark
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    GNOME Dark
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      actions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      apps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      categories
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      devices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emotes" class="md-nav__link">
+    <span class="md-ellipsis">
+      emotes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      legacy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mimetypes" class="md-nav__link">
+    <span class="md-ellipsis">
+      mimetypes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#places" class="md-nav__link">
+    <span class="md-ellipsis">
+      places
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      status
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      ui
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../icons-light/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNOME Light
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../icons-yaru/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ubuntu Yaru
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Change Log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="gnome-adwaita-dark-theme">GNOME Adwaita – Dark Theme</h1>
+<div style="display: flex; gap: 10px;">
+
+  <a href="/icons-dark/" style="
+      background-color: #3f51b5;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: normal;
+  ">Dark Theme</a>
+
+  <a href="/icons-light/" style="
+      background-color: #3f51b5;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: normal;
+  ">Light Theme</a>  
+
+  <a href="/icons-yaru/" style="
+      background-color: #3f51b5;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: normal;
+  ">Ubuntu Yaru</a>
+
+</div>
+
+<hr />
+<h2 id="actions">actions <br></h2>
+<p><a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/action-unavailable-symbolic.svg" width="22" alt="action-unavailable-symbolic"></a>&nbsp; &nbsp; action-unavailable-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/address-book-new-symbolic.svg" width="22" alt="address-book-new-symbolic"></a>&nbsp; &nbsp; address-book-new-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/application-exit-rtl-symbolic.svg" width="22" alt="application-exit-rtl-symbolic"></a>&nbsp; &nbsp; application-exit-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/application-exit-symbolic-rtl.svg" width="22" alt="application-exit-symbolic-rtl"></a>&nbsp; &nbsp; application-exit-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/application-exit-symbolic.svg" width="22" alt="application-exit-symbolic"></a>&nbsp; &nbsp; application-exit-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/appointment-new-symbolic.svg" width="22" alt="appointment-new-symbolic"></a>&nbsp; &nbsp; appointment-new-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/bookmark-new-symbolic.svg" width="22" alt="bookmark-new-symbolic"></a>&nbsp; &nbsp; bookmark-new-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/call-start-symbolic.svg" width="22" alt="call-start-symbolic"></a>&nbsp; &nbsp; call-start-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/call-stop-symbolic.svg" width="22" alt="call-stop-symbolic"></a>&nbsp; &nbsp; call-stop-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/camera-switch-symbolic.svg" width="22" alt="camera-switch-symbolic"></a>&nbsp; &nbsp; camera-switch-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/chat-message-new-symbolic.svg" width="22" alt="chat-message-new-symbolic"></a>&nbsp; &nbsp; chat-message-new-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/color-select-symbolic.svg" width="22" alt="color-select-symbolic"></a>&nbsp; &nbsp; color-select-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/contact-new-symbolic.svg" width="22" alt="contact-new-symbolic"></a>&nbsp; &nbsp; contact-new-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-edit-symbolic.svg" width="22" alt="document-edit-symbolic"></a>&nbsp; &nbsp; document-edit-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-new-symbolic.svg" width="22" alt="document-new-symbolic"></a>&nbsp; &nbsp; document-new-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-open-recent-symbolic.svg" width="22" alt="document-open-recent-symbolic"></a>&nbsp; &nbsp; document-open-recent-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-open-symbolic.svg" width="22" alt="document-open-symbolic"></a>&nbsp; &nbsp; document-open-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-page-setup-symbolic.svg" width="22" alt="document-page-setup-symbolic"></a>&nbsp; &nbsp; document-page-setup-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-print-preview-symbolic.svg" width="22" alt="document-print-preview-symbolic"></a>&nbsp; &nbsp; document-print-preview-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-print-symbolic.svg" width="22" alt="document-print-symbolic"></a>&nbsp; &nbsp; document-print-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-properties-symbolic.svg" width="22" alt="document-properties-symbolic"></a>&nbsp; &nbsp; document-properties-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-revert-rtl-symbolic.svg" width="22" alt="document-revert-rtl-symbolic"></a>&nbsp; &nbsp; document-revert-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-revert-symbolic-rtl.svg" width="22" alt="document-revert-symbolic-rtl"></a>&nbsp; &nbsp; document-revert-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-revert-symbolic.svg" width="22" alt="document-revert-symbolic"></a>&nbsp; &nbsp; document-revert-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-save-as-symbolic.svg" width="22" alt="document-save-as-symbolic"></a>&nbsp; &nbsp; document-save-as-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-save-symbolic.svg" width="22" alt="document-save-symbolic"></a>&nbsp; &nbsp; document-save-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/document-send-symbolic.svg" width="22" alt="document-send-symbolic"></a>&nbsp; &nbsp; document-send-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-clear-all-symbolic.svg" width="22" alt="edit-clear-all-symbolic"></a>&nbsp; &nbsp; edit-clear-all-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-clear-rtl-symbolic.svg" width="22" alt="edit-clear-rtl-symbolic"></a>&nbsp; &nbsp; edit-clear-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-clear-symbolic-rtl.svg" width="22" alt="edit-clear-symbolic-rtl"></a>&nbsp; &nbsp; edit-clear-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-clear-symbolic.svg" width="22" alt="edit-clear-symbolic"></a>&nbsp; &nbsp; edit-clear-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-copy-symbolic.svg" width="22" alt="edit-copy-symbolic"></a>&nbsp; &nbsp; edit-copy-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-cut-symbolic.svg" width="22" alt="edit-cut-symbolic"></a>&nbsp; &nbsp; edit-cut-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-delete-symbolic.svg" width="22" alt="edit-delete-symbolic"></a>&nbsp; &nbsp; edit-delete-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-find-replace-symbolic.svg" width="22" alt="edit-find-replace-symbolic"></a>&nbsp; &nbsp; edit-find-replace-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-find-symbolic.svg" width="22" alt="edit-find-symbolic"></a>&nbsp; &nbsp; edit-find-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-paste-symbolic.svg" width="22" alt="edit-paste-symbolic"></a>&nbsp; &nbsp; edit-paste-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-redo-symbolic-rtl.svg" width="22" alt="edit-redo-symbolic-rtl"></a>&nbsp; &nbsp; edit-redo-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-redo-symbolic.svg" width="22" alt="edit-redo-symbolic"></a>&nbsp; &nbsp; edit-redo-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-select-all-symbolic.svg" width="22" alt="edit-select-all-symbolic"></a>&nbsp; &nbsp; edit-select-all-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-select-symbolic.svg" width="22" alt="edit-select-symbolic"></a>&nbsp; &nbsp; edit-select-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-undo-symbolic-rtl.svg" width="22" alt="edit-undo-symbolic-rtl"></a>&nbsp; &nbsp; edit-undo-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/edit-undo-symbolic.svg" width="22" alt="edit-undo-symbolic"></a>&nbsp; &nbsp; edit-undo-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/error-correct-symbolic.svg" width="22" alt="error-correct-symbolic"></a>&nbsp; &nbsp; error-correct-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/find-location-symbolic.svg" width="22" alt="find-location-symbolic"></a>&nbsp; &nbsp; find-location-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-new-symbolic.svg" width="22" alt="folder-new-symbolic"></a>&nbsp; &nbsp; folder-new-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/font-select-symbolic.svg" width="22" alt="font-select-symbolic"></a>&nbsp; &nbsp; font-select-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-indent-less-rtl-symbolic.svg" width="22" alt="format-indent-less-rtl-symbolic"></a>&nbsp; &nbsp; format-indent-less-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-indent-less-symbolic-rtl.svg" width="22" alt="format-indent-less-symbolic-rtl"></a>&nbsp; &nbsp; format-indent-less-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-indent-less-symbolic.svg" width="22" alt="format-indent-less-symbolic"></a>&nbsp; &nbsp; format-indent-less-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-indent-more-rtl-symbolic.svg" width="22" alt="format-indent-more-rtl-symbolic"></a>&nbsp; &nbsp; format-indent-more-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-indent-more-symbolic-rtl.svg" width="22" alt="format-indent-more-symbolic-rtl"></a>&nbsp; &nbsp; format-indent-more-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-indent-more-symbolic.svg" width="22" alt="format-indent-more-symbolic"></a>&nbsp; &nbsp; format-indent-more-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-justify-center-symbolic.svg" width="22" alt="format-justify-center-symbolic"></a>&nbsp; &nbsp; format-justify-center-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-justify-fill-symbolic.svg" width="22" alt="format-justify-fill-symbolic"></a>&nbsp; &nbsp; format-justify-fill-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-justify-left-symbolic.svg" width="22" alt="format-justify-left-symbolic"></a>&nbsp; &nbsp; format-justify-left-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-justify-right-symbolic.svg" width="22" alt="format-justify-right-symbolic"></a>&nbsp; &nbsp; format-justify-right-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-text-bold-symbolic.svg" width="22" alt="format-text-bold-symbolic"></a>&nbsp; &nbsp; format-text-bold-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-text-direction-ltr-symbolic.svg" width="22" alt="format-text-direction-ltr-symbolic"></a>&nbsp; &nbsp; format-text-direction-ltr-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-text-direction-rtl-symbolic.svg" width="22" alt="format-text-direction-rtl-symbolic"></a>&nbsp; &nbsp; format-text-direction-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-text-direction-symbolic-rtl.svg" width="22" alt="format-text-direction-symbolic-rtl"></a>&nbsp; &nbsp; format-text-direction-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-text-direction-symbolic.svg" width="22" alt="format-text-direction-symbolic"></a>&nbsp; &nbsp; format-text-direction-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-text-italic-symbolic.svg" width="22" alt="format-text-italic-symbolic"></a>&nbsp; &nbsp; format-text-italic-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-text-plaintext-symbolic.svg" width="22" alt="format-text-plaintext-symbolic"></a>&nbsp; &nbsp; format-text-plaintext-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-text-rich-symbolic.svg" width="22" alt="format-text-rich-symbolic"></a>&nbsp; &nbsp; format-text-rich-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-text-strikethrough-symbolic.svg" width="22" alt="format-text-strikethrough-symbolic"></a>&nbsp; &nbsp; format-text-strikethrough-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/format-text-underline-symbolic.svg" width="22" alt="format-text-underline-symbolic"></a>&nbsp; &nbsp; format-text-underline-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-bottom-symbolic.svg" width="22" alt="go-bottom-symbolic"></a>&nbsp; &nbsp; go-bottom-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-down-symbolic.svg" width="22" alt="go-down-symbolic"></a>&nbsp; &nbsp; go-down-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-first-symbolic-rtl.svg" width="22" alt="go-first-symbolic-rtl"></a>&nbsp; &nbsp; go-first-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-first-symbolic.svg" width="22" alt="go-first-symbolic"></a>&nbsp; &nbsp; go-first-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-home-symbolic.svg" width="22" alt="go-home-symbolic"></a>&nbsp; &nbsp; go-home-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-jump-rtl-symbolic.svg" width="22" alt="go-jump-rtl-symbolic"></a>&nbsp; &nbsp; go-jump-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-jump-symbolic-rtl.svg" width="22" alt="go-jump-symbolic-rtl"></a>&nbsp; &nbsp; go-jump-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-jump-symbolic.svg" width="22" alt="go-jump-symbolic"></a>&nbsp; &nbsp; go-jump-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-last-symbolic-rtl.svg" width="22" alt="go-last-symbolic-rtl"></a>&nbsp; &nbsp; go-last-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-last-symbolic.svg" width="22" alt="go-last-symbolic"></a>&nbsp; &nbsp; go-last-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-next-symbolic-rtl.svg" width="22" alt="go-next-symbolic-rtl"></a>&nbsp; &nbsp; go-next-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-next-symbolic.svg" width="22" alt="go-next-symbolic"></a>&nbsp; &nbsp; go-next-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-previous-symbolic-rtl.svg" width="22" alt="go-previous-symbolic-rtl"></a>&nbsp; &nbsp; go-previous-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-previous-symbolic.svg" width="22" alt="go-previous-symbolic"></a>&nbsp; &nbsp; go-previous-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-top-symbolic.svg" width="22" alt="go-top-symbolic"></a>&nbsp; &nbsp; go-top-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/go-up-symbolic.svg" width="22" alt="go-up-symbolic"></a>&nbsp; &nbsp; go-up-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/help-about-symbolic.svg" width="22" alt="help-about-symbolic"></a>&nbsp; &nbsp; help-about-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/insert-image-symbolic.svg" width="22" alt="insert-image-symbolic"></a>&nbsp; &nbsp; insert-image-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/insert-link-symbolic.svg" width="22" alt="insert-link-symbolic"></a>&nbsp; &nbsp; insert-link-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/insert-object-symbolic.svg" width="22" alt="insert-object-symbolic"></a>&nbsp; &nbsp; insert-object-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/insert-text-symbolic.svg" width="22" alt="insert-text-symbolic"></a>&nbsp; &nbsp; insert-text-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/list-add-symbolic.svg" width="22" alt="list-add-symbolic"></a>&nbsp; &nbsp; list-add-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/list-remove-all-symbolic.svg" width="22" alt="list-remove-all-symbolic"></a>&nbsp; &nbsp; list-remove-all-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/list-remove-symbolic.svg" width="22" alt="list-remove-symbolic"></a>&nbsp; &nbsp; list-remove-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-forward-symbolic-rtl.svg" width="22" alt="mail-forward-symbolic-rtl"></a>&nbsp; &nbsp; mail-forward-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-forward-symbolic.svg" width="22" alt="mail-forward-symbolic"></a>&nbsp; &nbsp; mail-forward-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-mark-important-symbolic.svg" width="22" alt="mail-mark-important-symbolic"></a>&nbsp; &nbsp; mail-mark-important-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-mark-junk-symbolic.svg" width="22" alt="mail-mark-junk-symbolic"></a>&nbsp; &nbsp; mail-mark-junk-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-mark-notjunk-symbolic.svg" width="22" alt="mail-mark-notjunk-symbolic"></a>&nbsp; &nbsp; mail-mark-notjunk-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-message-new-symbolic.svg" width="22" alt="mail-message-new-symbolic"></a>&nbsp; &nbsp; mail-message-new-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-reply-all-rtl-symbolic.svg" width="22" alt="mail-reply-all-rtl-symbolic"></a>&nbsp; &nbsp; mail-reply-all-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-reply-all-symbolic-rtl.svg" width="22" alt="mail-reply-all-symbolic-rtl"></a>&nbsp; &nbsp; mail-reply-all-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-reply-all-symbolic.svg" width="22" alt="mail-reply-all-symbolic"></a>&nbsp; &nbsp; mail-reply-all-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-reply-sender-symbolic-rtl.svg" width="22" alt="mail-reply-sender-symbolic-rtl"></a>&nbsp; &nbsp; mail-reply-sender-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-reply-sender-symbolic.svg" width="22" alt="mail-reply-sender-symbolic"></a>&nbsp; &nbsp; mail-reply-sender-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-send-receive-symbolic.svg" width="22" alt="mail-send-receive-symbolic"></a>&nbsp; &nbsp; mail-send-receive-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-send-symbolic.svg" width="22" alt="mail-send-symbolic"></a>&nbsp; &nbsp; mail-send-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mark-location-symbolic.svg" width="22" alt="mark-location-symbolic"></a>&nbsp; &nbsp; mark-location-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-eject-symbolic.svg" width="22" alt="media-eject-symbolic"></a>&nbsp; &nbsp; media-eject-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-playback-pause-symbolic.svg" width="22" alt="media-playback-pause-symbolic"></a>&nbsp; &nbsp; media-playback-pause-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-playback-start-symbolic.svg" width="22" alt="media-playback-start-symbolic"></a>&nbsp; &nbsp; media-playback-start-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-playback-stop-symbolic.svg" width="22" alt="media-playback-stop-symbolic"></a>&nbsp; &nbsp; media-playback-stop-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-record-symbolic.svg" width="22" alt="media-record-symbolic"></a>&nbsp; &nbsp; media-record-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-seek-backward-symbolic-rtl.svg" width="22" alt="media-seek-backward-symbolic-rtl"></a>&nbsp; &nbsp; media-seek-backward-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-seek-backward-symbolic.svg" width="22" alt="media-seek-backward-symbolic"></a>&nbsp; &nbsp; media-seek-backward-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-seek-forward-symbolic-rtl.svg" width="22" alt="media-seek-forward-symbolic-rtl"></a>&nbsp; &nbsp; media-seek-forward-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-seek-forward-symbolic.svg" width="22" alt="media-seek-forward-symbolic"></a>&nbsp; &nbsp; media-seek-forward-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-skip-backward-symbolic-rtl.svg" width="22" alt="media-skip-backward-symbolic-rtl"></a>&nbsp; &nbsp; media-skip-backward-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-skip-backward-symbolic.svg" width="22" alt="media-skip-backward-symbolic"></a>&nbsp; &nbsp; media-skip-backward-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-skip-forward-symbolic-rtl.svg" width="22" alt="media-skip-forward-symbolic-rtl"></a>&nbsp; &nbsp; media-skip-forward-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-skip-forward-symbolic.svg" width="22" alt="media-skip-forward-symbolic"></a>&nbsp; &nbsp; media-skip-forward-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-view-subtitles-symbolic.svg" width="22" alt="media-view-subtitles-symbolic"></a>&nbsp; &nbsp; media-view-subtitles-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/object-flip-horizontal-symbolic.svg" width="22" alt="object-flip-horizontal-symbolic"></a>&nbsp; &nbsp; object-flip-horizontal-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/object-flip-vertical-symbolic.svg" width="22" alt="object-flip-vertical-symbolic"></a>&nbsp; &nbsp; object-flip-vertical-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/object-rotate-left-symbolic.svg" width="22" alt="object-rotate-left-symbolic"></a>&nbsp; &nbsp; object-rotate-left-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/object-rotate-right-symbolic.svg" width="22" alt="object-rotate-right-symbolic"></a>&nbsp; &nbsp; object-rotate-right-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/object-select-symbolic.svg" width="22" alt="object-select-symbolic"></a>&nbsp; &nbsp; object-select-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/open-menu-symbolic.svg" width="22" alt="open-menu-symbolic"></a>&nbsp; &nbsp; open-menu-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/process-stop-symbolic.svg" width="22" alt="process-stop-symbolic"></a>&nbsp; &nbsp; process-stop-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/selection-mode-symbolic.svg" width="22" alt="selection-mode-symbolic"></a>&nbsp; &nbsp; selection-mode-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/send-to-symbolic.svg" width="22" alt="send-to-symbolic"></a>&nbsp; &nbsp; send-to-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/sidebar-show-right-symbolic-rtl.svg" width="22" alt="sidebar-show-right-symbolic-rtl"></a>&nbsp; &nbsp; sidebar-show-right-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/sidebar-show-right-symbolic.svg" width="22" alt="sidebar-show-right-symbolic"></a>&nbsp; &nbsp; sidebar-show-right-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/sidebar-show-symbolic-rtl.svg" width="22" alt="sidebar-show-symbolic-rtl"></a>&nbsp; &nbsp; sidebar-show-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/sidebar-show-symbolic.svg" width="22" alt="sidebar-show-symbolic"></a>&nbsp; &nbsp; sidebar-show-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/star-new-symbolic.svg" width="22" alt="star-new-symbolic"></a>&nbsp; &nbsp; star-new-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-log-out-rtl-symbolic.svg" width="22" alt="system-log-out-rtl-symbolic"></a>&nbsp; &nbsp; system-log-out-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-log-out-symbolic-rtl.svg" width="22" alt="system-log-out-symbolic-rtl"></a>&nbsp; &nbsp; system-log-out-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-log-out-symbolic.svg" width="22" alt="system-log-out-symbolic"></a>&nbsp; &nbsp; system-log-out-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-reboot-symbolic.svg" width="22" alt="system-reboot-symbolic"></a>&nbsp; &nbsp; system-reboot-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-run-symbolic.svg" width="22" alt="system-run-symbolic"></a>&nbsp; &nbsp; system-run-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-search-symbolic.svg" width="22" alt="system-search-symbolic"></a>&nbsp; &nbsp; system-search-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-shutdown-symbolic.svg" width="22" alt="system-shutdown-symbolic"></a>&nbsp; &nbsp; system-shutdown-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-switch-user-rtl-symbolic.svg" width="22" alt="system-switch-user-rtl-symbolic"></a>&nbsp; &nbsp; system-switch-user-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-switch-user-symbolic-rtl.svg" width="22" alt="system-switch-user-symbolic-rtl"></a>&nbsp; &nbsp; system-switch-user-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-switch-user-symbolic.svg" width="22" alt="system-switch-user-symbolic"></a>&nbsp; &nbsp; system-switch-user-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/tab-new-symbolic.svg" width="22" alt="tab-new-symbolic"></a>&nbsp; &nbsp; tab-new-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/tools-check-spelling-symbolic.svg" width="22" alt="tools-check-spelling-symbolic"></a>&nbsp; &nbsp; tools-check-spelling-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/value-decrease-symbolic.svg" width="22" alt="value-decrease-symbolic"></a>&nbsp; &nbsp; value-decrease-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/value-increase-symbolic.svg" width="22" alt="value-increase-symbolic"></a>&nbsp; &nbsp; value-increase-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-app-grid-symbolic.svg" width="22" alt="view-app-grid-symbolic"></a>&nbsp; &nbsp; view-app-grid-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-conceal-symbolic.svg" width="22" alt="view-conceal-symbolic"></a>&nbsp; &nbsp; view-conceal-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-continuous-symbolic.svg" width="22" alt="view-continuous-symbolic"></a>&nbsp; &nbsp; view-continuous-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-dual-symbolic.svg" width="22" alt="view-dual-symbolic"></a>&nbsp; &nbsp; view-dual-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-fullscreen-symbolic.svg" width="22" alt="view-fullscreen-symbolic"></a>&nbsp; &nbsp; view-fullscreen-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-grid-symbolic.svg" width="22" alt="view-grid-symbolic"></a>&nbsp; &nbsp; view-grid-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-list-bullet-rtl-symbolic.svg" width="22" alt="view-list-bullet-rtl-symbolic"></a>&nbsp; &nbsp; view-list-bullet-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-list-bullet-symbolic-rtl.svg" width="22" alt="view-list-bullet-symbolic-rtl"></a>&nbsp; &nbsp; view-list-bullet-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-list-bullet-symbolic.svg" width="22" alt="view-list-bullet-symbolic"></a>&nbsp; &nbsp; view-list-bullet-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-list-ordered-rtl-symbolic.svg" width="22" alt="view-list-ordered-rtl-symbolic"></a>&nbsp; &nbsp; view-list-ordered-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-list-ordered-symbolic-rtl.svg" width="22" alt="view-list-ordered-symbolic-rtl"></a>&nbsp; &nbsp; view-list-ordered-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-list-ordered-symbolic.svg" width="22" alt="view-list-ordered-symbolic"></a>&nbsp; &nbsp; view-list-ordered-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-list-rtl-symbolic.svg" width="22" alt="view-list-rtl-symbolic"></a>&nbsp; &nbsp; view-list-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-list-symbolic-rtl.svg" width="22" alt="view-list-symbolic-rtl"></a>&nbsp; &nbsp; view-list-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-list-symbolic.svg" width="22" alt="view-list-symbolic"></a>&nbsp; &nbsp; view-list-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-mirror-symbolic.svg" width="22" alt="view-mirror-symbolic"></a>&nbsp; &nbsp; view-mirror-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-more-horizontal-symbolic.svg" width="22" alt="view-more-horizontal-symbolic"></a>&nbsp; &nbsp; view-more-horizontal-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-more-symbolic.svg" width="22" alt="view-more-symbolic"></a>&nbsp; &nbsp; view-more-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-paged-rtl-symbolic.svg" width="22" alt="view-paged-rtl-symbolic"></a>&nbsp; &nbsp; view-paged-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-paged-symbolic-rtl.svg" width="22" alt="view-paged-symbolic-rtl"></a>&nbsp; &nbsp; view-paged-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-paged-symbolic.svg" width="22" alt="view-paged-symbolic"></a>&nbsp; &nbsp; view-paged-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-pin-symbolic.svg" width="22" alt="view-pin-symbolic"></a>&nbsp; &nbsp; view-pin-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-refresh-symbolic.svg" width="22" alt="view-refresh-symbolic"></a>&nbsp; &nbsp; view-refresh-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-restore-symbolic.svg" width="22" alt="view-restore-symbolic"></a>&nbsp; &nbsp; view-restore-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-reveal-symbolic.svg" width="22" alt="view-reveal-symbolic"></a>&nbsp; &nbsp; view-reveal-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-sort-ascending-rtl-symbolic.svg" width="22" alt="view-sort-ascending-rtl-symbolic"></a>&nbsp; &nbsp; view-sort-ascending-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-sort-ascending-symbolic-rtl.svg" width="22" alt="view-sort-ascending-symbolic-rtl"></a>&nbsp; &nbsp; view-sort-ascending-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-sort-ascending-symbolic.svg" width="22" alt="view-sort-ascending-symbolic"></a>&nbsp; &nbsp; view-sort-ascending-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-sort-descending-rtl-symbolic.svg" width="22" alt="view-sort-descending-rtl-symbolic"></a>&nbsp; &nbsp; view-sort-descending-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-sort-descending-symbolic-rtl.svg" width="22" alt="view-sort-descending-symbolic-rtl"></a>&nbsp; &nbsp; view-sort-descending-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-sort-descending-symbolic.svg" width="22" alt="view-sort-descending-symbolic"></a>&nbsp; &nbsp; view-sort-descending-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/zoom-fit-best-symbolic.svg" width="22" alt="zoom-fit-best-symbolic"></a>&nbsp; &nbsp; zoom-fit-best-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/zoom-in-symbolic.svg" width="22" alt="zoom-in-symbolic"></a>&nbsp; &nbsp; zoom-in-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/zoom-original-symbolic.svg" width="22" alt="zoom-original-symbolic"></a>&nbsp; &nbsp; zoom-original-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/zoom-out-symbolic.svg" width="22" alt="zoom-out-symbolic"></a>&nbsp; &nbsp; zoom-out-symbolic<br></p>
+<h2 id="apps">apps <br></h2>
+<p><a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/help-contents-symbolic.svg" width="22" alt="help-contents-symbolic"></a>&nbsp; &nbsp; help-contents-symbolic<br></p>
+<h2 id="categories">categories <br></h2>
+<p><a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/applications-engineering-symbolic.svg" width="22" alt="applications-engineering-symbolic"></a>&nbsp; &nbsp; applications-engineering-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/applications-games-symbolic.svg" width="22" alt="applications-games-symbolic"></a>&nbsp; &nbsp; applications-games-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/applications-graphics-symbolic.svg" width="22" alt="applications-graphics-symbolic"></a>&nbsp; &nbsp; applications-graphics-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/applications-multimedia-symbolic.svg" width="22" alt="applications-multimedia-symbolic"></a>&nbsp; &nbsp; applications-multimedia-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/applications-science-symbolic.svg" width="22" alt="applications-science-symbolic"></a>&nbsp; &nbsp; applications-science-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/applications-system-symbolic.svg" width="22" alt="applications-system-symbolic"></a>&nbsp; &nbsp; applications-system-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/applications-utilities-symbolic.svg" width="22" alt="applications-utilities-symbolic"></a>&nbsp; &nbsp; applications-utilities-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/emoji-activities-symbolic.svg" width="22" alt="emoji-activities-symbolic"></a>&nbsp; &nbsp; emoji-activities-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/emoji-body-symbolic.svg" width="22" alt="emoji-body-symbolic"></a>&nbsp; &nbsp; emoji-body-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/emoji-flags-symbolic.svg" width="22" alt="emoji-flags-symbolic"></a>&nbsp; &nbsp; emoji-flags-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/emoji-food-symbolic.svg" width="22" alt="emoji-food-symbolic"></a>&nbsp; &nbsp; emoji-food-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/emoji-nature-symbolic.svg" width="22" alt="emoji-nature-symbolic"></a>&nbsp; &nbsp; emoji-nature-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/emoji-objects-symbolic.svg" width="22" alt="emoji-objects-symbolic"></a>&nbsp; &nbsp; emoji-objects-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/emoji-people-symbolic.svg" width="22" alt="emoji-people-symbolic"></a>&nbsp; &nbsp; emoji-people-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/emoji-recent-symbolic.svg" width="22" alt="emoji-recent-symbolic"></a>&nbsp; &nbsp; emoji-recent-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/emoji-symbols-symbolic.svg" width="22" alt="emoji-symbols-symbolic"></a>&nbsp; &nbsp; emoji-symbols-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/emoji-travel-symbolic.svg" width="22" alt="emoji-travel-symbolic"></a>&nbsp; &nbsp; emoji-travel-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-other-symbolic.svg" width="22" alt="preferences-other-symbolic"></a>&nbsp; &nbsp; preferences-other-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-system-symbolic.svg" width="22" alt="preferences-system-symbolic"></a>&nbsp; &nbsp; preferences-system-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-help-symbolic.svg" width="22" alt="system-help-symbolic"></a>&nbsp; &nbsp; system-help-symbolic<br></p>
+<h2 id="devices">devices <br></h2>
+<p><a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/ac-adapter-symbolic.svg" width="22" alt="ac-adapter-symbolic"></a>&nbsp; &nbsp; ac-adapter-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-card-symbolic.svg" width="22" alt="audio-card-symbolic"></a>&nbsp; &nbsp; audio-card-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-headphones-symbolic.svg" width="22" alt="audio-headphones-symbolic"></a>&nbsp; &nbsp; audio-headphones-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-headset-symbolic.svg" width="22" alt="audio-headset-symbolic"></a>&nbsp; &nbsp; audio-headset-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-input-microphone-symbolic.svg" width="22" alt="audio-input-microphone-symbolic"></a>&nbsp; &nbsp; audio-input-microphone-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-speakers-rtl-symbolic.svg" width="22" alt="audio-speakers-rtl-symbolic"></a>&nbsp; &nbsp; audio-speakers-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-speakers-symbolic-rtl.svg" width="22" alt="audio-speakers-symbolic-rtl"></a>&nbsp; &nbsp; audio-speakers-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-speakers-symbolic.svg" width="22" alt="audio-speakers-symbolic"></a>&nbsp; &nbsp; audio-speakers-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/auth-face-symbolic.svg" width="22" alt="auth-face-symbolic"></a>&nbsp; &nbsp; auth-face-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/auth-fingerprint-symbolic.svg" width="22" alt="auth-fingerprint-symbolic"></a>&nbsp; &nbsp; auth-fingerprint-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/auth-sim-symbolic.svg" width="22" alt="auth-sim-symbolic"></a>&nbsp; &nbsp; auth-sim-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/auth-smartcard-symbolic.svg" width="22" alt="auth-smartcard-symbolic"></a>&nbsp; &nbsp; auth-smartcard-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-symbolic.svg" width="22" alt="battery-symbolic"></a>&nbsp; &nbsp; battery-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/bluetooth-symbolic.svg" width="22" alt="bluetooth-symbolic"></a>&nbsp; &nbsp; bluetooth-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/camera-photo-symbolic.svg" width="22" alt="camera-photo-symbolic"></a>&nbsp; &nbsp; camera-photo-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/camera-video-symbolic.svg" width="22" alt="camera-video-symbolic"></a>&nbsp; &nbsp; camera-video-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/camera-web-symbolic.svg" width="22" alt="camera-web-symbolic"></a>&nbsp; &nbsp; camera-web-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/colorimeter-colorhug-symbolic.svg" width="22" alt="colorimeter-colorhug-symbolic"></a>&nbsp; &nbsp; colorimeter-colorhug-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/computer-apple-ipad-symbolic.svg" width="22" alt="computer-apple-ipad-symbolic"></a>&nbsp; &nbsp; computer-apple-ipad-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/computer-symbolic.svg" width="22" alt="computer-symbolic"></a>&nbsp; &nbsp; computer-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/display-projector-symbolic.svg" width="22" alt="display-projector-symbolic"></a>&nbsp; &nbsp; display-projector-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/drive-harddisk-ieee1394-symbolic.svg" width="22" alt="drive-harddisk-ieee1394-symbolic"></a>&nbsp; &nbsp; drive-harddisk-ieee1394-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/drive-harddisk-solidstate-symbolic.svg" width="22" alt="drive-harddisk-solidstate-symbolic"></a>&nbsp; &nbsp; drive-harddisk-solidstate-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/drive-harddisk-symbolic.svg" width="22" alt="drive-harddisk-symbolic"></a>&nbsp; &nbsp; drive-harddisk-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/drive-harddisk-system-symbolic.svg" width="22" alt="drive-harddisk-system-symbolic"></a>&nbsp; &nbsp; drive-harddisk-system-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/drive-harddisk-usb-symbolic.svg" width="22" alt="drive-harddisk-usb-symbolic"></a>&nbsp; &nbsp; drive-harddisk-usb-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/drive-multidisk-symbolic.svg" width="22" alt="drive-multidisk-symbolic"></a>&nbsp; &nbsp; drive-multidisk-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/drive-optical-symbolic.svg" width="22" alt="drive-optical-symbolic"></a>&nbsp; &nbsp; drive-optical-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/drive-removable-media-symbolic.svg" width="22" alt="drive-removable-media-symbolic"></a>&nbsp; &nbsp; drive-removable-media-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/input-dialpad-symbolic.svg" width="22" alt="input-dialpad-symbolic"></a>&nbsp; &nbsp; input-dialpad-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/input-gaming-symbolic.svg" width="22" alt="input-gaming-symbolic"></a>&nbsp; &nbsp; input-gaming-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/input-keyboard-symbolic.svg" width="22" alt="input-keyboard-symbolic"></a>&nbsp; &nbsp; input-keyboard-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/input-mouse-symbolic.svg" width="22" alt="input-mouse-symbolic"></a>&nbsp; &nbsp; input-mouse-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/input-tablet-symbolic.svg" width="22" alt="input-tablet-symbolic"></a>&nbsp; &nbsp; input-tablet-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/input-touchpad-symbolic.svg" width="22" alt="input-touchpad-symbolic"></a>&nbsp; &nbsp; input-touchpad-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-flash-symbolic.svg" width="22" alt="media-flash-symbolic"></a>&nbsp; &nbsp; media-flash-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-floppy-symbolic.svg" width="22" alt="media-floppy-symbolic"></a>&nbsp; &nbsp; media-floppy-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-optical-bd-symbolic.svg" width="22" alt="media-optical-bd-symbolic"></a>&nbsp; &nbsp; media-optical-bd-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-optical-cd-audio-symbolic.svg" width="22" alt="media-optical-cd-audio-symbolic"></a>&nbsp; &nbsp; media-optical-cd-audio-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-optical-cd-symbolic.svg" width="22" alt="media-optical-cd-symbolic"></a>&nbsp; &nbsp; media-optical-cd-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-optical-dvd-symbolic.svg" width="22" alt="media-optical-dvd-symbolic"></a>&nbsp; &nbsp; media-optical-dvd-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-optical-symbolic.svg" width="22" alt="media-optical-symbolic"></a>&nbsp; &nbsp; media-optical-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-removable-symbolic.svg" width="22" alt="media-removable-symbolic"></a>&nbsp; &nbsp; media-removable-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-tape-symbolic.svg" width="22" alt="media-tape-symbolic"></a>&nbsp; &nbsp; media-tape-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-zip-symbolic.svg" width="22" alt="media-zip-symbolic"></a>&nbsp; &nbsp; media-zip-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/modem-symbolic.svg" width="22" alt="modem-symbolic"></a>&nbsp; &nbsp; modem-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/multimedia-player-apple-ipod-touch-symbolic.svg" width="22" alt="multimedia-player-apple-ipod-touch-symbolic"></a>&nbsp; &nbsp; multimedia-player-apple-ipod-touch-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/multimedia-player-symbolic.svg" width="22" alt="multimedia-player-symbolic"></a>&nbsp; &nbsp; multimedia-player-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-symbolic.svg" width="22" alt="network-cellular-symbolic"></a>&nbsp; &nbsp; network-cellular-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wired-symbolic.svg" width="22" alt="network-wired-symbolic"></a>&nbsp; &nbsp; network-wired-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-symbolic.svg" width="22" alt="network-wireless-symbolic"></a>&nbsp; &nbsp; network-wireless-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/pda-symbolic.svg" width="22" alt="pda-symbolic"></a>&nbsp; &nbsp; pda-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/phone-apple-iphone-symbolic.svg" width="22" alt="phone-apple-iphone-symbolic"></a>&nbsp; &nbsp; phone-apple-iphone-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/phone-old-symbolic.svg" width="22" alt="phone-old-symbolic"></a>&nbsp; &nbsp; phone-old-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/phone-symbolic.svg" width="22" alt="phone-symbolic"></a>&nbsp; &nbsp; phone-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/printer-network-symbolic.svg" width="22" alt="printer-network-symbolic"></a>&nbsp; &nbsp; printer-network-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/printer-symbolic.svg" width="22" alt="printer-symbolic"></a>&nbsp; &nbsp; printer-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/scanner-symbolic.svg" width="22" alt="scanner-symbolic"></a>&nbsp; &nbsp; scanner-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/tablet-symbolic.svg" width="22" alt="tablet-symbolic"></a>&nbsp; &nbsp; tablet-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/thunderbolt-symbolic.svg" width="22" alt="thunderbolt-symbolic"></a>&nbsp; &nbsp; thunderbolt-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/tv-symbolic.svg" width="22" alt="tv-symbolic"></a>&nbsp; &nbsp; tv-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/uninterruptible-power-supply-symbolic.svg" width="22" alt="uninterruptible-power-supply-symbolic"></a>&nbsp; &nbsp; uninterruptible-power-supply-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/video-display-symbolic.svg" width="22" alt="video-display-symbolic"></a>&nbsp; &nbsp; video-display-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/video-joined-displays-symbolic.svg" width="22" alt="video-joined-displays-symbolic"></a>&nbsp; &nbsp; video-joined-displays-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/video-single-display-symbolic.svg" width="22" alt="video-single-display-symbolic"></a>&nbsp; &nbsp; video-single-display-symbolic<br></p>
+<h2 id="emotes">emotes <br></h2>
+<p><a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/emote-love-symbolic.svg" width="22" alt="emote-love-symbolic"></a>&nbsp; &nbsp; emote-love-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-angel-symbolic.svg" width="22" alt="face-angel-symbolic"></a>&nbsp; &nbsp; face-angel-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-angry-symbolic.svg" width="22" alt="face-angry-symbolic"></a>&nbsp; &nbsp; face-angry-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-confused-symbolic.svg" width="22" alt="face-confused-symbolic"></a>&nbsp; &nbsp; face-confused-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-cool-symbolic.svg" width="22" alt="face-cool-symbolic"></a>&nbsp; &nbsp; face-cool-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-crying-symbolic.svg" width="22" alt="face-crying-symbolic"></a>&nbsp; &nbsp; face-crying-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-devilish-symbolic.svg" width="22" alt="face-devilish-symbolic"></a>&nbsp; &nbsp; face-devilish-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-embarrassed-symbolic.svg" width="22" alt="face-embarrassed-symbolic"></a>&nbsp; &nbsp; face-embarrassed-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-glasses-symbolic.svg" width="22" alt="face-glasses-symbolic"></a>&nbsp; &nbsp; face-glasses-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-kiss-symbolic.svg" width="22" alt="face-kiss-symbolic"></a>&nbsp; &nbsp; face-kiss-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-laugh-symbolic.svg" width="22" alt="face-laugh-symbolic"></a>&nbsp; &nbsp; face-laugh-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-monkey-symbolic.svg" width="22" alt="face-monkey-symbolic"></a>&nbsp; &nbsp; face-monkey-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-plain-symbolic.svg" width="22" alt="face-plain-symbolic"></a>&nbsp; &nbsp; face-plain-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-raspberry-symbolic.svg" width="22" alt="face-raspberry-symbolic"></a>&nbsp; &nbsp; face-raspberry-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-sad-symbolic.svg" width="22" alt="face-sad-symbolic"></a>&nbsp; &nbsp; face-sad-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-shutmouth-symbolic.svg" width="22" alt="face-shutmouth-symbolic"></a>&nbsp; &nbsp; face-shutmouth-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-sick-symbolic.svg" width="22" alt="face-sick-symbolic"></a>&nbsp; &nbsp; face-sick-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-smile-big-symbolic.svg" width="22" alt="face-smile-big-symbolic"></a>&nbsp; &nbsp; face-smile-big-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-smile-symbolic.svg" width="22" alt="face-smile-symbolic"></a>&nbsp; &nbsp; face-smile-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-smirk-symbolic.svg" width="22" alt="face-smirk-symbolic"></a>&nbsp; &nbsp; face-smirk-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-surprise-symbolic.svg" width="22" alt="face-surprise-symbolic"></a>&nbsp; &nbsp; face-surprise-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-tired-symbolic.svg" width="22" alt="face-tired-symbolic"></a>&nbsp; &nbsp; face-tired-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-uncertain-symbolic.svg" width="22" alt="face-uncertain-symbolic"></a>&nbsp; &nbsp; face-uncertain-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-wink-symbolic.svg" width="22" alt="face-wink-symbolic"></a>&nbsp; &nbsp; face-wink-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-worried-symbolic.svg" width="22" alt="face-worried-symbolic"></a>&nbsp; &nbsp; face-worried-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/face-yawn-symbolic.svg" width="22" alt="face-yawn-symbolic"></a>&nbsp; &nbsp; face-yawn-symbolic<br></p>
+<h2 id="legacy">legacy <br></h2>
+<p><a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/accessories-calculator-symbolic.svg" width="22" alt="accessories-calculator-symbolic"></a>&nbsp; &nbsp; accessories-calculator-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/accessories-character-map-symbolic.svg" width="22" alt="accessories-character-map-symbolic"></a>&nbsp; &nbsp; accessories-character-map-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/accessories-dictionary-symbolic.svg" width="22" alt="accessories-dictionary-symbolic"></a>&nbsp; &nbsp; accessories-dictionary-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/accessories-text-editor-symbolic.svg" width="22" alt="accessories-text-editor-symbolic"></a>&nbsp; &nbsp; accessories-text-editor-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/applets-screenshooter-symbolic.svg" width="22" alt="applets-screenshooter-symbolic"></a>&nbsp; &nbsp; applets-screenshooter-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-caution-charging-symbolic.svg" width="22" alt="battery-caution-charging-symbolic"></a>&nbsp; &nbsp; battery-caution-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-empty-charging-symbolic.svg" width="22" alt="battery-empty-charging-symbolic"></a>&nbsp; &nbsp; battery-empty-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-empty-symbolic.svg" width="22" alt="battery-empty-symbolic"></a>&nbsp; &nbsp; battery-empty-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-full-charged-symbolic.svg" width="22" alt="battery-full-charged-symbolic"></a>&nbsp; &nbsp; battery-full-charged-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-full-charging-symbolic.svg" width="22" alt="battery-full-charging-symbolic"></a>&nbsp; &nbsp; battery-full-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-full-symbolic.svg" width="22" alt="battery-full-symbolic"></a>&nbsp; &nbsp; battery-full-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-good-charging-symbolic.svg" width="22" alt="battery-good-charging-symbolic"></a>&nbsp; &nbsp; battery-good-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-good-symbolic.svg" width="22" alt="battery-good-symbolic"></a>&nbsp; &nbsp; battery-good-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-low-charging-symbolic.svg" width="22" alt="battery-low-charging-symbolic"></a>&nbsp; &nbsp; battery-low-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/gnome-power-manager-symbolic.svg" width="22" alt="gnome-power-manager-symbolic"></a>&nbsp; &nbsp; gnome-power-manager-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/goa-panel-symbolic.svg" width="22" alt="goa-panel-symbolic"></a>&nbsp; &nbsp; goa-panel-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/help-browser-symbolic.svg" width="22" alt="help-browser-symbolic"></a>&nbsp; &nbsp; help-browser-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/help-contents-symbolic.svg" width="22" alt="help-contents-symbolic"></a>&nbsp; &nbsp; help-contents-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/help-faq-symbolic.svg" width="22" alt="help-faq-symbolic"></a>&nbsp; &nbsp; help-faq-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/multimedia-volume-control-symbolic.svg" width="22" alt="multimedia-volume-control-symbolic"></a>&nbsp; &nbsp; multimedia-volume-control-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-color-symbolic.svg" width="22" alt="preferences-color-symbolic"></a>&nbsp; &nbsp; preferences-color-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-desktop-accessibility-symbolic.svg" width="22" alt="preferences-desktop-accessibility-symbolic"></a>&nbsp; &nbsp; preferences-desktop-accessibility-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-desktop-appearance-symbolic.svg" width="22" alt="preferences-desktop-appearance-symbolic"></a>&nbsp; &nbsp; preferences-desktop-appearance-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-desktop-apps-symbolic.svg" width="22" alt="preferences-desktop-apps-symbolic"></a>&nbsp; &nbsp; preferences-desktop-apps-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-desktop-display-symbolic.svg" width="22" alt="preferences-desktop-display-symbolic"></a>&nbsp; &nbsp; preferences-desktop-display-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-desktop-font-symbolic.svg" width="22" alt="preferences-desktop-font-symbolic"></a>&nbsp; &nbsp; preferences-desktop-font-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-desktop-keyboard-shortcuts-symbolic.svg" width="22" alt="preferences-desktop-keyboard-shortcuts-symbolic"></a>&nbsp; &nbsp; preferences-desktop-keyboard-shortcuts-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-desktop-keyboard-symbolic.svg" width="22" alt="preferences-desktop-keyboard-symbolic"></a>&nbsp; &nbsp; preferences-desktop-keyboard-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-desktop-locale-symbolic.svg" width="22" alt="preferences-desktop-locale-symbolic"></a>&nbsp; &nbsp; preferences-desktop-locale-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-desktop-multitasking-symbolic.svg" width="22" alt="preferences-desktop-multitasking-symbolic"></a>&nbsp; &nbsp; preferences-desktop-multitasking-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-desktop-remote-desktop-symbolic.svg" width="22" alt="preferences-desktop-remote-desktop-symbolic"></a>&nbsp; &nbsp; preferences-desktop-remote-desktop-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-desktop-screensaver-symbolic.svg" width="22" alt="preferences-desktop-screensaver-symbolic"></a>&nbsp; &nbsp; preferences-desktop-screensaver-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-desktop-wallpaper-symbolic.svg" width="22" alt="preferences-desktop-wallpaper-symbolic"></a>&nbsp; &nbsp; preferences-desktop-wallpaper-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-system-details-symbolic.svg" width="22" alt="preferences-system-details-symbolic"></a>&nbsp; &nbsp; preferences-system-details-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-system-devices-symbolic.svg" width="22" alt="preferences-system-devices-symbolic"></a>&nbsp; &nbsp; preferences-system-devices-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-system-network-proxy-symbolic.svg" width="22" alt="preferences-system-network-proxy-symbolic"></a>&nbsp; &nbsp; preferences-system-network-proxy-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-system-network-symbolic.svg" width="22" alt="preferences-system-network-symbolic"></a>&nbsp; &nbsp; preferences-system-network-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-system-notifications-symbolic.svg" width="22" alt="preferences-system-notifications-symbolic"></a>&nbsp; &nbsp; preferences-system-notifications-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-system-parental-controls-symbolic.svg" width="22" alt="preferences-system-parental-controls-symbolic"></a>&nbsp; &nbsp; preferences-system-parental-controls-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-system-privacy-symbolic.svg" width="22" alt="preferences-system-privacy-symbolic"></a>&nbsp; &nbsp; preferences-system-privacy-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-system-search-symbolic.svg" width="22" alt="preferences-system-search-symbolic"></a>&nbsp; &nbsp; preferences-system-search-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-system-sharing-symbolic.svg" width="22" alt="preferences-system-sharing-symbolic"></a>&nbsp; &nbsp; preferences-system-sharing-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/preferences-system-time-symbolic.svg" width="22" alt="preferences-system-time-symbolic"></a>&nbsp; &nbsp; preferences-system-time-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-file-manager-symbolic.svg" width="22" alt="system-file-manager-symbolic"></a>&nbsp; &nbsp; system-file-manager-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-software-install-symbolic.svg" width="22" alt="system-software-install-symbolic"></a>&nbsp; &nbsp; system-software-install-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-users-symbolic.svg" width="22" alt="system-users-symbolic"></a>&nbsp; &nbsp; system-users-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/text-editor-symbolic.svg" width="22" alt="text-editor-symbolic"></a>&nbsp; &nbsp; text-editor-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-info-symbolic.svg" width="22" alt="user-info-symbolic"></a>&nbsp; &nbsp; user-info-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/utilities-terminal-symbolic.svg" width="22" alt="utilities-terminal-symbolic"></a>&nbsp; &nbsp; utilities-terminal-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/web-browser-symbolic.svg" width="22" alt="web-browser-symbolic"></a>&nbsp; &nbsp; web-browser-symbolic<br></p>
+<h2 id="mimetypes">mimetypes <br></h2>
+<p><a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/application-certificate-symbolic.svg" width="22" alt="application-certificate-symbolic"></a>&nbsp; &nbsp; application-certificate-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/application-rss+xml-symbolic.svg" width="22" alt="application-rss+xml-symbolic"></a>&nbsp; &nbsp; application-rss+xml-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/application-x-addon-symbolic.svg" width="22" alt="application-x-addon-symbolic"></a>&nbsp; &nbsp; application-x-addon-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/application-x-appliance-symbolic.svg" width="22" alt="application-x-appliance-symbolic"></a>&nbsp; &nbsp; application-x-appliance-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/application-x-executable-symbolic.svg" width="22" alt="application-x-executable-symbolic"></a>&nbsp; &nbsp; application-x-executable-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/application-x-firmware-symbolic.svg" width="22" alt="application-x-firmware-symbolic"></a>&nbsp; &nbsp; application-x-firmware-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/application-x-sharedlib-symbolic.svg" width="22" alt="application-x-sharedlib-symbolic"></a>&nbsp; &nbsp; application-x-sharedlib-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-x-generic-symbolic.svg" width="22" alt="audio-x-generic-symbolic"></a>&nbsp; &nbsp; audio-x-generic-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/font-x-generic-symbolic.svg" width="22" alt="font-x-generic-symbolic"></a>&nbsp; &nbsp; font-x-generic-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/image-x-generic-symbolic.svg" width="22" alt="image-x-generic-symbolic"></a>&nbsp; &nbsp; image-x-generic-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/inode-directory-symbolic.svg" width="22" alt="inode-directory-symbolic"></a>&nbsp; &nbsp; inode-directory-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/package-x-generic-symbolic.svg" width="22" alt="package-x-generic-symbolic"></a>&nbsp; &nbsp; package-x-generic-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/text-x-generic-symbolic.svg" width="22" alt="text-x-generic-symbolic"></a>&nbsp; &nbsp; text-x-generic-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/video-x-generic-symbolic.svg" width="22" alt="video-x-generic-symbolic"></a>&nbsp; &nbsp; video-x-generic-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/x-office-address-book-symbolic.svg" width="22" alt="x-office-address-book-symbolic"></a>&nbsp; &nbsp; x-office-address-book-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/x-office-calendar-symbolic.svg" width="22" alt="x-office-calendar-symbolic"></a>&nbsp; &nbsp; x-office-calendar-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/x-office-document-symbolic.svg" width="22" alt="x-office-document-symbolic"></a>&nbsp; &nbsp; x-office-document-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/x-office-drawing-symbolic.svg" width="22" alt="x-office-drawing-symbolic"></a>&nbsp; &nbsp; x-office-drawing-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/x-office-presentation-symbolic.svg" width="22" alt="x-office-presentation-symbolic"></a>&nbsp; &nbsp; x-office-presentation-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/x-office-spreadsheet-symbolic.svg" width="22" alt="x-office-spreadsheet-symbolic"></a>&nbsp; &nbsp; x-office-spreadsheet-symbolic<br></p>
+<h2 id="places">places <br></h2>
+<p><a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-documents-symbolic.svg" width="22" alt="folder-documents-symbolic"></a>&nbsp; &nbsp; folder-documents-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-download-symbolic.svg" width="22" alt="folder-download-symbolic"></a>&nbsp; &nbsp; folder-download-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-drag-accept-symbolic.svg" width="22" alt="folder-drag-accept-symbolic"></a>&nbsp; &nbsp; folder-drag-accept-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-music-symbolic.svg" width="22" alt="folder-music-symbolic"></a>&nbsp; &nbsp; folder-music-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-pictures-symbolic.svg" width="22" alt="folder-pictures-symbolic"></a>&nbsp; &nbsp; folder-pictures-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-publicshare-symbolic.svg" width="22" alt="folder-publicshare-symbolic"></a>&nbsp; &nbsp; folder-publicshare-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-remote-symbolic.svg" width="22" alt="folder-remote-symbolic"></a>&nbsp; &nbsp; folder-remote-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-saved-search-symbolic.svg" width="22" alt="folder-saved-search-symbolic"></a>&nbsp; &nbsp; folder-saved-search-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-symbolic.svg" width="22" alt="folder-symbolic"></a>&nbsp; &nbsp; folder-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-templates-symbolic.svg" width="22" alt="folder-templates-symbolic"></a>&nbsp; &nbsp; folder-templates-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-videos-symbolic.svg" width="22" alt="folder-videos-symbolic"></a>&nbsp; &nbsp; folder-videos-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-server-symbolic.svg" width="22" alt="network-server-symbolic"></a>&nbsp; &nbsp; network-server-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-workgroup-symbolic.svg" width="22" alt="network-workgroup-symbolic"></a>&nbsp; &nbsp; network-workgroup-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/start-here-symbolic.svg" width="22" alt="start-here-symbolic"></a>&nbsp; &nbsp; start-here-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-bookmarks-symbolic.svg" width="22" alt="user-bookmarks-symbolic"></a>&nbsp; &nbsp; user-bookmarks-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-desktop-symbolic.svg" width="22" alt="user-desktop-symbolic"></a>&nbsp; &nbsp; user-desktop-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-home-symbolic.svg" width="22" alt="user-home-symbolic"></a>&nbsp; &nbsp; user-home-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-trash-symbolic.svg" width="22" alt="user-trash-symbolic"></a>&nbsp; &nbsp; user-trash-symbolic<br></p>
+<h2 id="status">status <br></h2>
+<p><a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/airplane-mode-disabled-symbolic.svg" width="22" alt="Airplane-mode-disabled-symbolic"></a>&nbsp; &nbsp; Airplane-mode-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/airplane-mode-symbolic.svg" width="22" alt="airplane-mode-symbolic"></a>&nbsp; &nbsp; airplane-mode-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/alarm-symbolic.svg" width="22" alt="alarm-symbolic"></a>&nbsp; &nbsp; alarm-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/appointment-missed-symbolic.svg" width="22" alt="appointment-missed-symbolic"></a>&nbsp; &nbsp; appointment-missed-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/appointment-soon-symbolic.svg" width="22" alt="appointment-soon-symbolic"></a>&nbsp; &nbsp; appointment-soon-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-high-rtl-symbolic.svg" width="22" alt="audio-volume-high-rtl-symbolic"></a>&nbsp; &nbsp; audio-volume-high-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-high-symbolic-rtl.svg" width="22" alt="audio-volume-high-symbolic-rtl"></a>&nbsp; &nbsp; audio-volume-high-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-high-symbolic.svg" width="22" alt="audio-volume-high-symbolic"></a>&nbsp; &nbsp; audio-volume-high-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-low-rtl-symbolic.svg" width="22" alt="audio-volume-low-rtl-symbolic"></a>&nbsp; &nbsp; audio-volume-low-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-low-symbolic-rtl.svg" width="22" alt="audio-volume-low-symbolic-rtl"></a>&nbsp; &nbsp; audio-volume-low-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-low-symbolic.svg" width="22" alt="audio-volume-low-symbolic"></a>&nbsp; &nbsp; audio-volume-low-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-medium-rtl-symbolic.svg" width="22" alt="audio-volume-medium-rtl-symbolic"></a>&nbsp; &nbsp; audio-volume-medium-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-medium-symbolic-rtl.svg" width="22" alt="audio-volume-medium-symbolic-rtl"></a>&nbsp; &nbsp; audio-volume-medium-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-medium-symbolic.svg" width="22" alt="audio-volume-medium-symbolic"></a>&nbsp; &nbsp; audio-volume-medium-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-muted-rtl-symbolic.svg" width="22" alt="audio-volume-muted-rtl-symbolic"></a>&nbsp; &nbsp; audio-volume-muted-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-muted-symbolic-rtl.svg" width="22" alt="audio-volume-muted-symbolic-rtl"></a>&nbsp; &nbsp; audio-volume-muted-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-muted-symbolic.svg" width="22" alt="audio-volume-muted-symbolic"></a>&nbsp; &nbsp; audio-volume-muted-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-overamplified-rtl-symbolic.svg" width="22" alt="audio-volume-overamplified-rtl-symbolic"></a>&nbsp; &nbsp; audio-volume-overamplified-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-overamplified-symbolic-rtl.svg" width="22" alt="audio-volume-overamplified-symbolic-rtl"></a>&nbsp; &nbsp; audio-volume-overamplified-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/audio-volume-overamplified-symbolic.svg" width="22" alt="audio-volume-overamplified-symbolic"></a>&nbsp; &nbsp; audio-volume-overamplified-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/auth-sim-locked-symbolic.svg" width="22" alt="auth-sim-locked-symbolic"></a>&nbsp; &nbsp; auth-sim-locked-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/auth-sim-missing-symbolic.svg" width="22" alt="auth-sim-missing-symbolic"></a>&nbsp; &nbsp; auth-sim-missing-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/avatar-default-symbolic.svg" width="22" alt="avatar-default-symbolic"></a>&nbsp; &nbsp; avatar-default-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-action-symbolic.svg" width="22" alt="battery-action-symbolic"></a>&nbsp; &nbsp; battery-action-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-caution-symbolic.svg" width="22" alt="battery-caution-symbolic"></a>&nbsp; &nbsp; battery-caution-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-0-charging-symbolic.svg" width="22" alt="battery-level-0-charging-symbolic"></a>&nbsp; &nbsp; battery-level-0-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-0-symbolic.svg" width="22" alt="battery-level-0-symbolic"></a>&nbsp; &nbsp; battery-level-0-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-100-charged-symbolic.svg" width="22" alt="battery-level-100-charged-symbolic"></a>&nbsp; &nbsp; battery-level-100-charged-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-100-symbolic.svg" width="22" alt="battery-level-100-symbolic"></a>&nbsp; &nbsp; battery-level-100-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-10-charging-symbolic.svg" width="22" alt="battery-level-10-charging-symbolic"></a>&nbsp; &nbsp; battery-level-10-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-10-symbolic.svg" width="22" alt="battery-level-10-symbolic"></a>&nbsp; &nbsp; battery-level-10-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-20-charging-symbolic.svg" width="22" alt="battery-level-20-charging-symbolic"></a>&nbsp; &nbsp; battery-level-20-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-20-symbolic.svg" width="22" alt="battery-level-20-symbolic"></a>&nbsp; &nbsp; battery-level-20-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-30-charging-symbolic.svg" width="22" alt="battery-level-30-charging-symbolic"></a>&nbsp; &nbsp; battery-level-30-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-30-symbolic.svg" width="22" alt="battery-level-30-symbolic"></a>&nbsp; &nbsp; battery-level-30-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-40-charging-symbolic.svg" width="22" alt="battery-level-40-charging-symbolic"></a>&nbsp; &nbsp; battery-level-40-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-40-symbolic.svg" width="22" alt="battery-level-40-symbolic"></a>&nbsp; &nbsp; battery-level-40-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-50-charging-symbolic.svg" width="22" alt="battery-level-50-charging-symbolic"></a>&nbsp; &nbsp; battery-level-50-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-50-symbolic.svg" width="22" alt="battery-level-50-symbolic"></a>&nbsp; &nbsp; battery-level-50-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-60-charging-symbolic.svg" width="22" alt="battery-level-60-charging-symbolic"></a>&nbsp; &nbsp; battery-level-60-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-60-symbolic.svg" width="22" alt="battery-level-60-symbolic"></a>&nbsp; &nbsp; battery-level-60-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-70-charging-symbolic.svg" width="22" alt="battery-level-70-charging-symbolic"></a>&nbsp; &nbsp; battery-level-70-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-70-symbolic.svg" width="22" alt="battery-level-70-symbolic"></a>&nbsp; &nbsp; battery-level-70-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-80-charging-symbolic.svg" width="22" alt="battery-level-80-charging-symbolic"></a>&nbsp; &nbsp; battery-level-80-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-80-symbolic.svg" width="22" alt="battery-level-80-symbolic"></a>&nbsp; &nbsp; battery-level-80-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-90-charging-symbolic.svg" width="22" alt="battery-level-90-charging-symbolic"></a>&nbsp; &nbsp; battery-level-90-charging-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-level-90-symbolic.svg" width="22" alt="battery-level-90-symbolic"></a>&nbsp; &nbsp; battery-level-90-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-low-symbolic.svg" width="22" alt="battery-low-symbolic"></a>&nbsp; &nbsp; battery-low-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/battery-missing-symbolic.svg" width="22" alt="battery-missing-symbolic"></a>&nbsp; &nbsp; battery-missing-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/bluetooth-acquiring-symbolic.svg" width="22" alt="bluetooth-acquiring-symbolic"></a>&nbsp; &nbsp; bluetooth-acquiring-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/bluetooth-active-symbolic.svg" width="22" alt="bluetooth-active-symbolic"></a>&nbsp; &nbsp; bluetooth-active-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/bluetooth-disabled-symbolic.svg" width="22" alt="bluetooth-disabled-symbolic"></a>&nbsp; &nbsp; bluetooth-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/bluetooth-disconnected-symbolic.svg" width="22" alt="bluetooth-disconnected-symbolic"></a>&nbsp; &nbsp; bluetooth-disconnected-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/bluetooth-hardware-disabled-symbolic.svg" width="22" alt="bluetooth-hardware-disabled-symbolic"></a>&nbsp; &nbsp; bluetooth-hardware-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/call-incoming-symbolic.svg" width="22" alt="call-incoming-symbolic"></a>&nbsp; &nbsp; call-incoming-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/call-missed-symbolic.svg" width="22" alt="call-missed-symbolic"></a>&nbsp; &nbsp; call-missed-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/call-outgoing-symbolic.svg" width="22" alt="call-outgoing-symbolic"></a>&nbsp; &nbsp; call-outgoing-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/camera-disabled-symbolic.svg" width="22" alt="camera-disabled-symbolic"></a>&nbsp; &nbsp; camera-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/camera-hardware-disabled-symbolic.svg" width="22" alt="camera-hardware-disabled-symbolic"></a>&nbsp; &nbsp; camera-hardware-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/changes-allow-symbolic.svg" width="22" alt="changes-allow-symbolic"></a>&nbsp; &nbsp; changes-allow-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/changes-prevent-symbolic.svg" width="22" alt="changes-prevent-symbolic"></a>&nbsp; &nbsp; changes-prevent-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/channel-insecure-symbolic.svg" width="22" alt="channel-insecure-symbolic"></a>&nbsp; &nbsp; channel-insecure-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/channel-secure-symbolic.svg" width="22" alt="channel-secure-symbolic"></a>&nbsp; &nbsp; channel-secure-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/computer-fail-symbolic.svg" width="22" alt="computer-fail-symbolic"></a>&nbsp; &nbsp; computer-fail-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/content-loading-symbolic.svg" width="22" alt="content-loading-symbolic"></a>&nbsp; &nbsp; content-loading-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/daytime-sunrise-symbolic.svg" width="22" alt="daytime-sunrise-symbolic"></a>&nbsp; &nbsp; daytime-sunrise-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/daytime-sunset-symbolic.svg" width="22" alt="daytime-sunset-symbolic"></a>&nbsp; &nbsp; daytime-sunset-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/dialog-error-symbolic.svg" width="22" alt="dialog-error-symbolic"></a>&nbsp; &nbsp; dialog-error-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/dialog-information-symbolic.svg" width="22" alt="dialog-information-symbolic"></a>&nbsp; &nbsp; dialog-information-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/dialog-password-symbolic.svg" width="22" alt="dialog-password-symbolic"></a>&nbsp; &nbsp; dialog-password-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/dialog-question-symbolic.svg" width="22" alt="dialog-question-symbolic"></a>&nbsp; &nbsp; dialog-question-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/dialog-warning-symbolic.svg" width="22" alt="dialog-warning-symbolic"></a>&nbsp; &nbsp; dialog-warning-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/display-brightness-symbolic.svg" width="22" alt="display-brightness-symbolic"></a>&nbsp; &nbsp; display-brightness-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-drag-accept-symbolic.svg" width="22" alt="folder-drag-accept-symbolic"></a>&nbsp; &nbsp; folder-drag-accept-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-open-symbolic.svg" width="22" alt="folder-open-symbolic"></a>&nbsp; &nbsp; folder-open-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/folder-visiting-symbolic.svg" width="22" alt="folder-visiting-symbolic"></a>&nbsp; &nbsp; folder-visiting-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/image-loading-symbolic.svg" width="22" alt="image-loading-symbolic"></a>&nbsp; &nbsp; image-loading-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/image-missing-symbolic.svg" width="22" alt="image-missing-symbolic"></a>&nbsp; &nbsp; image-missing-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/keyboard-brightness-symbolic.svg" width="22" alt="keyboard-brightness-symbolic"></a>&nbsp; &nbsp; keyboard-brightness-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/location-services-active-symbolic.svg" width="22" alt="location-services-active-symbolic"></a>&nbsp; &nbsp; location-services-active-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/location-services-disabled-symbolic.svg" width="22" alt="location-services-disabled-symbolic"></a>&nbsp; &nbsp; location-services-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-attachment-symbolic.svg" width="22" alt="mail-attachment-symbolic"></a>&nbsp; &nbsp; mail-attachment-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-read-symbolic.svg" width="22" alt="mail-read-symbolic"></a>&nbsp; &nbsp; mail-read-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-replied-rtl-symbolic.svg" width="22" alt="mail-replied-rtl-symbolic"></a>&nbsp; &nbsp; mail-replied-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-replied-symbolic-rtl.svg" width="22" alt="mail-replied-symbolic-rtl"></a>&nbsp; &nbsp; mail-replied-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-replied-symbolic.svg" width="22" alt="mail-replied-symbolic"></a>&nbsp; &nbsp; mail-replied-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/mail-unread-symbolic.svg" width="22" alt="mail-unread-symbolic"></a>&nbsp; &nbsp; mail-unread-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-playlist-consecutive-symbolic.svg" width="22" alt="media-playlist-consecutive-symbolic"></a>&nbsp; &nbsp; media-playlist-consecutive-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-playlist-repeat-song-symbolic.svg" width="22" alt="media-playlist-repeat-song-symbolic"></a>&nbsp; &nbsp; media-playlist-repeat-song-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-playlist-repeat-symbolic.svg" width="22" alt="media-playlist-repeat-symbolic"></a>&nbsp; &nbsp; media-playlist-repeat-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/media-playlist-shuffle-symbolic.svg" width="22" alt="media-playlist-shuffle-symbolic"></a>&nbsp; &nbsp; media-playlist-shuffle-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/microphone-disabled-symbolic.svg" width="22" alt="microphone-disabled-symbolic"></a>&nbsp; &nbsp; microphone-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/microphone-hardware-disabled-symbolic.svg" width="22" alt="microphone-hardware-disabled-symbolic"></a>&nbsp; &nbsp; microphone-hardware-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/microphone-sensitivity-high-symbolic.svg" width="22" alt="microphone-sensitivity-high-symbolic"></a>&nbsp; &nbsp; microphone-sensitivity-high-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/microphone-sensitivity-low-symbolic.svg" width="22" alt="microphone-sensitivity-low-symbolic"></a>&nbsp; &nbsp; microphone-sensitivity-low-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/microphone-sensitivity-medium-symbolic.svg" width="22" alt="microphone-sensitivity-medium-symbolic"></a>&nbsp; &nbsp; microphone-sensitivity-medium-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/microphone-sensitivity-muted-symbolic.svg" width="22" alt="microphone-sensitivity-muted-symbolic"></a>&nbsp; &nbsp; microphone-sensitivity-muted-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-2g-symbolic.svg" width="22" alt="network-cellular-2g-symbolic"></a>&nbsp; &nbsp; network-cellular-2g-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-3g-symbolic.svg" width="22" alt="network-cellular-3g-symbolic"></a>&nbsp; &nbsp; network-cellular-3g-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-4g-symbolic.svg" width="22" alt="network-cellular-4g-symbolic"></a>&nbsp; &nbsp; network-cellular-4g-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-5g-symbolic.svg" width="22" alt="network-cellular-5g-symbolic"></a>&nbsp; &nbsp; network-cellular-5g-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-acquiring-rtl-symbolic.svg" width="22" alt="network-cellular-acquiring-rtl-symbolic"></a>&nbsp; &nbsp; network-cellular-acquiring-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-acquiring-symbolic-rtl.svg" width="22" alt="network-cellular-acquiring-symbolic-rtl"></a>&nbsp; &nbsp; network-cellular-acquiring-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-acquiring-symbolic.svg" width="22" alt="network-cellular-acquiring-symbolic"></a>&nbsp; &nbsp; network-cellular-acquiring-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-connected-symbolic.svg" width="22" alt="network-cellular-connected-symbolic"></a>&nbsp; &nbsp; network-cellular-connected-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-disabled-rtl-symbolic.svg" width="22" alt="network-cellular-disabled-rtl-symbolic"></a>&nbsp; &nbsp; network-cellular-disabled-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-disabled-symbolic-rtl.svg" width="22" alt="network-cellular-disabled-symbolic-rtl"></a>&nbsp; &nbsp; network-cellular-disabled-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-disabled-symbolic.svg" width="22" alt="network-cellular-disabled-symbolic"></a>&nbsp; &nbsp; network-cellular-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-edge-symbolic.svg" width="22" alt="network-cellular-edge-symbolic"></a>&nbsp; &nbsp; network-cellular-edge-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-gprs-symbolic.svg" width="22" alt="network-cellular-gprs-symbolic"></a>&nbsp; &nbsp; network-cellular-gprs-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-hardware-disabled-rtl-symbolic.svg" width="22" alt="network-cellular-hardware-disabled-rtl-symbolic"></a>&nbsp; &nbsp; network-cellular-hardware-disabled-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-hardware-disabled-symbolic-rtl.svg" width="22" alt="network-cellular-hardware-disabled-symbolic-rtl"></a>&nbsp; &nbsp; network-cellular-hardware-disabled-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-hardware-disabled-symbolic.svg" width="22" alt="network-cellular-hardware-disabled-symbolic"></a>&nbsp; &nbsp; network-cellular-hardware-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-hspa-symbolic.svg" width="22" alt="network-cellular-hspa-symbolic"></a>&nbsp; &nbsp; network-cellular-hspa-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-no-route-rtl-symbolic.svg" width="22" alt="network-cellular-no-route-rtl-symbolic"></a>&nbsp; &nbsp; network-cellular-no-route-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-no-route-symbolic-rtl.svg" width="22" alt="network-cellular-no-route-symbolic-rtl"></a>&nbsp; &nbsp; network-cellular-no-route-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-no-route-symbolic.svg" width="22" alt="network-cellular-no-route-symbolic"></a>&nbsp; &nbsp; network-cellular-no-route-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-offline-rtl-symbolic.svg" width="22" alt="network-cellular-offline-rtl-symbolic"></a>&nbsp; &nbsp; network-cellular-offline-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-offline-symbolic-rtl.svg" width="22" alt="network-cellular-offline-symbolic-rtl"></a>&nbsp; &nbsp; network-cellular-offline-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-offline-symbolic.svg" width="22" alt="network-cellular-offline-symbolic"></a>&nbsp; &nbsp; network-cellular-offline-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-excellent-rtl-symbolic.svg" width="22" alt="network-cellular-signal-excellent-rtl-symbolic"></a>&nbsp; &nbsp; network-cellular-signal-excellent-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-excellent-symbolic-rtl.svg" width="22" alt="network-cellular-signal-excellent-symbolic-rtl"></a>&nbsp; &nbsp; network-cellular-signal-excellent-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-excellent-symbolic.svg" width="22" alt="network-cellular-signal-excellent-symbolic"></a>&nbsp; &nbsp; network-cellular-signal-excellent-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-good-rtl-symbolic.svg" width="22" alt="network-cellular-signal-good-rtl-symbolic"></a>&nbsp; &nbsp; network-cellular-signal-good-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-good-symbolic-rtl.svg" width="22" alt="network-cellular-signal-good-symbolic-rtl"></a>&nbsp; &nbsp; network-cellular-signal-good-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-good-symbolic.svg" width="22" alt="network-cellular-signal-good-symbolic"></a>&nbsp; &nbsp; network-cellular-signal-good-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-none-rtl-symbolic.svg" width="22" alt="network-cellular-signal-none-rtl-symbolic"></a>&nbsp; &nbsp; network-cellular-signal-none-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-none-symbolic-rtl.svg" width="22" alt="network-cellular-signal-none-symbolic-rtl"></a>&nbsp; &nbsp; network-cellular-signal-none-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-none-symbolic.svg" width="22" alt="network-cellular-signal-none-symbolic"></a>&nbsp; &nbsp; network-cellular-signal-none-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-ok-rtl-symbolic.svg" width="22" alt="network-cellular-signal-ok-rtl-symbolic"></a>&nbsp; &nbsp; network-cellular-signal-ok-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-ok-symbolic-rtl.svg" width="22" alt="network-cellular-signal-ok-symbolic-rtl"></a>&nbsp; &nbsp; network-cellular-signal-ok-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-ok-symbolic.svg" width="22" alt="network-cellular-signal-ok-symbolic"></a>&nbsp; &nbsp; network-cellular-signal-ok-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-weak-rtl-symbolic.svg" width="22" alt="network-cellular-signal-weak-rtl-symbolic"></a>&nbsp; &nbsp; network-cellular-signal-weak-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-weak-symbolic-rtl.svg" width="22" alt="network-cellular-signal-weak-symbolic-rtl"></a>&nbsp; &nbsp; network-cellular-signal-weak-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-cellular-signal-weak-symbolic.svg" width="22" alt="network-cellular-signal-weak-symbolic"></a>&nbsp; &nbsp; network-cellular-signal-weak-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-error-symbolic.svg" width="22" alt="network-error-symbolic"></a>&nbsp; &nbsp; network-error-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-idle-symbolic.svg" width="22" alt="network-idle-symbolic"></a>&nbsp; &nbsp; network-idle-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-no-route-symbolic.svg" width="22" alt="network-no-route-symbolic"></a>&nbsp; &nbsp; network-no-route-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-offline-symbolic.svg" width="22" alt="network-offline-symbolic"></a>&nbsp; &nbsp; network-offline-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-receive-symbolic-rtl.svg" width="22" alt="network-receive-symbolic-rtl"></a>&nbsp; &nbsp; network-receive-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-receive-symbolic.svg" width="22" alt="network-receive-symbolic"></a>&nbsp; &nbsp; network-receive-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-transmit-receive-symbolic.svg" width="22" alt="network-transmit-receive-symbolic"></a>&nbsp; &nbsp; network-transmit-receive-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-transmit-symbolic-rtl.svg" width="22" alt="network-transmit-symbolic-rtl"></a>&nbsp; &nbsp; network-transmit-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-transmit-symbolic.svg" width="22" alt="network-transmit-symbolic"></a>&nbsp; &nbsp; network-transmit-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-vpn-acquiring-symbolic.svg" width="22" alt="network-vpn-acquiring-symbolic"></a>&nbsp; &nbsp; network-vpn-acquiring-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-vpn-disabled-symbolic.svg" width="22" alt="network-vpn-disabled-symbolic"></a>&nbsp; &nbsp; network-vpn-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-vpn-disconnected-symbolic.svg" width="22" alt="network-vpn-disconnected-symbolic"></a>&nbsp; &nbsp; network-vpn-disconnected-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-vpn-no-route-symbolic.svg" width="22" alt="network-vpn-no-route-symbolic"></a>&nbsp; &nbsp; network-vpn-no-route-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-vpn-symbolic.svg" width="22" alt="network-vpn-symbolic"></a>&nbsp; &nbsp; network-vpn-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wired-acquiring-symbolic.svg" width="22" alt="network-wired-acquiring-symbolic"></a>&nbsp; &nbsp; network-wired-acquiring-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wired-disconnected-symbolic.svg" width="22" alt="network-wired-disconnected-symbolic"></a>&nbsp; &nbsp; network-wired-disconnected-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wired-no-route-symbolic.svg" width="22" alt="network-wired-no-route-symbolic"></a>&nbsp; &nbsp; network-wired-no-route-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-acquiring-symbolic.svg" width="22" alt="network-wireless-acquiring-symbolic"></a>&nbsp; &nbsp; network-wireless-acquiring-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-connected-symbolic.svg" width="22" alt="network-wireless-connected-symbolic"></a>&nbsp; &nbsp; network-wireless-connected-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-disabled-symbolic.svg" width="22" alt="network-wireless-disabled-symbolic"></a>&nbsp; &nbsp; network-wireless-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-encrypted-symbolic.svg" width="22" alt="network-wireless-encrypted-symbolic"></a>&nbsp; &nbsp; network-wireless-encrypted-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-hardware-disabled-symbolic.svg" width="22" alt="network-wireless-hardware-disabled-symbolic"></a>&nbsp; &nbsp; network-wireless-hardware-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-hotspot-symbolic.svg" width="22" alt="network-wireless-hotspot-symbolic"></a>&nbsp; &nbsp; network-wireless-hotspot-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-no-route-symbolic.svg" width="22" alt="network-wireless-no-route-symbolic"></a>&nbsp; &nbsp; network-wireless-no-route-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-offline-symbolic.svg" width="22" alt="network-wireless-offline-symbolic"></a>&nbsp; &nbsp; network-wireless-offline-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-signal-excellent-symbolic.svg" width="22" alt="network-wireless-signal-excellent-symbolic"></a>&nbsp; &nbsp; network-wireless-signal-excellent-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-signal-good-symbolic.svg" width="22" alt="network-wireless-signal-good-symbolic"></a>&nbsp; &nbsp; network-wireless-signal-good-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-signal-none-symbolic.svg" width="22" alt="network-wireless-signal-none-symbolic"></a>&nbsp; &nbsp; network-wireless-signal-none-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-signal-ok-symbolic.svg" width="22" alt="network-wireless-signal-ok-symbolic"></a>&nbsp; &nbsp; network-wireless-signal-ok-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/network-wireless-signal-weak-symbolic.svg" width="22" alt="network-wireless-signal-weak-symbolic"></a>&nbsp; &nbsp; network-wireless-signal-weak-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/night-light-disabled-symbolic.svg" width="22" alt="night-light-disabled-symbolic"></a>&nbsp; &nbsp; night-light-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/night-light-symbolic.svg" width="22" alt="night-light-symbolic"></a>&nbsp; &nbsp; night-light-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/non-starred-symbolic.svg" width="22" alt="non-starred-symbolic"></a>&nbsp; &nbsp; non-starred-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/notifications-disabled-symbolic.svg" width="22" alt="notifications-disabled-symbolic"></a>&nbsp; &nbsp; notifications-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/orientation-landscape-inverse-symbolic.svg" width="22" alt="orientation-landscape-inverse-symbolic"></a>&nbsp; &nbsp; orientation-landscape-inverse-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/orientation-landscape-symbolic.svg" width="22" alt="orientation-landscape-symbolic"></a>&nbsp; &nbsp; orientation-landscape-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/orientation-portrait-left-symbolic-rtl.svg" width="22" alt="orientation-portrait-left-symbolic-rtl"></a>&nbsp; &nbsp; orientation-portrait-left-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/orientation-portrait-left-symbolic.svg" width="22" alt="orientation-portrait-left-symbolic"></a>&nbsp; &nbsp; orientation-portrait-left-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/orientation-portrait-right-symbolic-rtl.svg" width="22" alt="orientation-portrait-right-symbolic-rtl"></a>&nbsp; &nbsp; orientation-portrait-right-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/orientation-portrait-right-symbolic.svg" width="22" alt="orientation-portrait-right-symbolic"></a>&nbsp; &nbsp; orientation-portrait-right-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/power-profile-balanced-symbolic.svg" width="22" alt="power-profile-balanced-symbolic"></a>&nbsp; &nbsp; power-profile-balanced-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/power-profile-performance-symbolic.svg" width="22" alt="power-profile-performance-symbolic"></a>&nbsp; &nbsp; power-profile-performance-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/power-profile-power-saver-symbolic.svg" width="22" alt="power-profile-power-saver-symbolic"></a>&nbsp; &nbsp; power-profile-power-saver-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/printer-error-symbolic.svg" width="22" alt="printer-error-symbolic"></a>&nbsp; &nbsp; printer-error-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/printer-printing-symbolic.svg" width="22" alt="printer-printing-symbolic"></a>&nbsp; &nbsp; printer-printing-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/printer-warning-symbolic.svg" width="22" alt="printer-warning-symbolic"></a>&nbsp; &nbsp; printer-warning-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/rotation-allowed-symbolic.svg" width="22" alt="rotation-allowed-symbolic"></a>&nbsp; &nbsp; rotation-allowed-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/rotation-locked-symbolic.svg" width="22" alt="rotation-locked-symbolic"></a>&nbsp; &nbsp; rotation-locked-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/screen-shared-symbolic.svg" width="22" alt="screen-shared-symbolic"></a>&nbsp; &nbsp; screen-shared-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/security-high-symbolic.svg" width="22" alt="security-high-symbolic"></a>&nbsp; &nbsp; security-high-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/security-low-symbolic.svg" width="22" alt="security-low-symbolic"></a>&nbsp; &nbsp; security-low-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/security-medium-rtl-symbolic.svg" width="22" alt="security-medium-rtl-symbolic"></a>&nbsp; &nbsp; security-medium-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/security-medium-symbolic-rtl.svg" width="22" alt="security-medium-symbolic-rtl"></a>&nbsp; &nbsp; security-medium-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/security-medium-symbolic.svg" width="22" alt="security-medium-symbolic"></a>&nbsp; &nbsp; security-medium-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/semi-starred-rtl-symbolic.svg" width="22" alt="semi-starred-rtl-symbolic"></a>&nbsp; &nbsp; semi-starred-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/semi-starred-symbolic-rtl.svg" width="22" alt="semi-starred-symbolic-rtl"></a>&nbsp; &nbsp; semi-starred-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/semi-starred-symbolic.svg" width="22" alt="semi-starred-symbolic"></a>&nbsp; &nbsp; semi-starred-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/software-update-available-symbolic.svg" width="22" alt="software-update-available-symbolic"></a>&nbsp; &nbsp; software-update-available-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/software-update-urgent-symbolic.svg" width="22" alt="software-update-urgent-symbolic"></a>&nbsp; &nbsp; software-update-urgent-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/starred-symbolic.svg" width="22" alt="starred-symbolic"></a>&nbsp; &nbsp; starred-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/system-lock-screen-symbolic.svg" width="22" alt="system-lock-screen-symbolic"></a>&nbsp; &nbsp; system-lock-screen-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/task-due-symbolic.svg" width="22" alt="task-due-symbolic"></a>&nbsp; &nbsp; task-due-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/task-past-due-symbolic.svg" width="22" alt="task-past-due-symbolic"></a>&nbsp; &nbsp; task-past-due-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/thunderbolt-acquiring-symbolic.svg" width="22" alt="thunderbolt-acquiring-symbolic"></a>&nbsp; &nbsp; thunderbolt-acquiring-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/touch-disabled-symbolic.svg" width="22" alt="touch-disabled-symbolic"></a>&nbsp; &nbsp; touch-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/touchpad-disabled-symbolic.svg" width="22" alt="touchpad-disabled-symbolic"></a>&nbsp; &nbsp; touchpad-disabled-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-available-symbolic.svg" width="22" alt="user-available-symbolic"></a>&nbsp; &nbsp; user-available-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-away-symbolic.svg" width="22" alt="user-away-symbolic"></a>&nbsp; &nbsp; user-away-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-busy-symbolic.svg" width="22" alt="user-busy-symbolic"></a>&nbsp; &nbsp; user-busy-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-idle-symbolic.svg" width="22" alt="user-idle-symbolic"></a>&nbsp; &nbsp; user-idle-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-invisible-symbolic.svg" width="22" alt="user-invisible-symbolic"></a>&nbsp; &nbsp; user-invisible-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-not-tracked-symbolic.svg" width="22" alt="user-not-tracked-symbolic"></a>&nbsp; &nbsp; user-not-tracked-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-offline-symbolic.svg" width="22" alt="user-offline-symbolic"></a>&nbsp; &nbsp; user-offline-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-status-pending-symbolic.svg" width="22" alt="user-status-pending-symbolic"></a>&nbsp; &nbsp; user-status-pending-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/user-trash-full-symbolic.svg" width="22" alt="user-trash-full-symbolic"></a>&nbsp; &nbsp; user-trash-full-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-wrapped-rtl-symbolic.svg" width="22" alt="view-wrapped-rtl-symbolic"></a>&nbsp; &nbsp; view-wrapped-rtl-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-wrapped-symbolic-rtl.svg" width="22" alt="view-wrapped-symbolic-rtl"></a>&nbsp; &nbsp; view-wrapped-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/view-wrapped-symbolic.svg" width="22" alt="view-wrapped-symbolic"></a>&nbsp; &nbsp; view-wrapped-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/weather-clear-night-symbolic.svg" width="22" alt="weather-clear-night-symbolic"></a>&nbsp; &nbsp; weather-clear-night-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/weather-clear-symbolic.svg" width="22" alt="weather-clear-symbolic"></a>&nbsp; &nbsp; weather-clear-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/weather-few-clouds-night-symbolic.svg" width="22" alt="weather-few-clouds-night-symbolic"></a>&nbsp; &nbsp; weather-few-clouds-night-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/weather-few-clouds-symbolic.svg" width="22" alt="weather-few-clouds-symbolic"></a>&nbsp; &nbsp; weather-few-clouds-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/weather-fog-symbolic.svg" width="22" alt="weather-fog-symbolic"></a>&nbsp; &nbsp; weather-fog-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/weather-overcast-symbolic.svg" width="22" alt="weather-overcast-symbolic"></a>&nbsp; &nbsp; weather-overcast-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/weather-severe-alert-symbolic.svg" width="22" alt="weather-severe-alert-symbolic"></a>&nbsp; &nbsp; weather-severe-alert-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/weather-showers-scattered-symbolic.svg" width="22" alt="weather-showers-scattered-symbolic"></a>&nbsp; &nbsp; weather-showers-scattered-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/weather-showers-symbolic.svg" width="22" alt="weather-showers-symbolic"></a>&nbsp; &nbsp; weather-showers-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/weather-snow-symbolic.svg" width="22" alt="weather-snow-symbolic"></a>&nbsp; &nbsp; weather-snow-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/weather-storm-symbolic.svg" width="22" alt="weather-storm-symbolic"></a>&nbsp; &nbsp; weather-storm-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/weather-tornado-symbolic.svg" width="22" alt="weather-tornado-symbolic"></a>&nbsp; &nbsp; weather-tornado-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/weather-windy-symbolic.svg" width="22" alt="weather-windy-symbolic"></a>&nbsp; &nbsp; weather-windy-symbolic<br></p>
+<h2 id="ui">ui <br></h2>
+<p><a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/checkbox-checked-symbolic.svg" width="22" alt="checkbox-checked-symbolic"></a>&nbsp; &nbsp; checkbox-checked-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/checkbox-mixed-symbolic.svg" width="22" alt="checkbox-mixed-symbolic"></a>&nbsp; &nbsp; checkbox-mixed-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/checkbox-symbolic.svg" width="22" alt="checkbox-symbolic"></a>&nbsp; &nbsp; checkbox-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/focus-legacy-systray-symbolic.svg" width="22" alt="focus-legacy-systray-symbolic"></a>&nbsp; &nbsp; focus-legacy-systray-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/focus-top-bar-symbolic.svg" width="22" alt="focus-top-bar-symbolic"></a>&nbsp; &nbsp; focus-top-bar-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/focus-windows-symbolic.svg" width="22" alt="focus-windows-symbolic"></a>&nbsp; &nbsp; focus-windows-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/list-drag-handle-symbolic.svg" width="22" alt="list-drag-handle-symbolic"></a>&nbsp; &nbsp; list-drag-handle-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/pan-down-symbolic.svg" width="22" alt="pan-down-symbolic"></a>&nbsp; &nbsp; pan-down-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/pan-end-symbolic-rtl.svg" width="22" alt="pan-end-symbolic-rtl"></a>&nbsp; &nbsp; pan-end-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/pan-end-symbolic.svg" width="22" alt="pan-end-symbolic"></a>&nbsp; &nbsp; pan-end-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/pan-start-symbolic-rtl.svg" width="22" alt="pan-start-symbolic-rtl"></a>&nbsp; &nbsp; pan-start-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/pan-start-symbolic.svg" width="22" alt="pan-start-symbolic"></a>&nbsp; &nbsp; pan-start-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/pan-up-symbolic.svg" width="22" alt="pan-up-symbolic"></a>&nbsp; &nbsp; pan-up-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/radio-checked-symbolic.svg" width="22" alt="radio-checked-symbolic"></a>&nbsp; &nbsp; radio-checked-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/radio-mixed-symbolic.svg" width="22" alt="radio-mixed-symbolic"></a>&nbsp; &nbsp; radio-mixed-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/radio-symbolic.svg" width="22" alt="radio-symbolic"></a>&nbsp; &nbsp; radio-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/selection-end-symbolic-rtl.svg" width="22" alt="selection-end-symbolic-rtl"></a>&nbsp; &nbsp; selection-end-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/selection-end-symbolic.svg" width="22" alt="selection-end-symbolic"></a>&nbsp; &nbsp; selection-end-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/selection-start-symbolic-rtl.svg" width="22" alt="selection-start-symbolic-rtl"></a>&nbsp; &nbsp; selection-start-symbolic-rtl<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/selection-start-symbolic.svg" width="22" alt="selection-start-symbolic"></a>&nbsp; &nbsp; selection-start-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/window-close-symbolic.svg" width="22" alt="window-close-symbolic"></a>&nbsp; &nbsp; window-close-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/window-maximize-symbolic.svg" width="22" alt="window-maximize-symbolic"></a>&nbsp; &nbsp; window-maximize-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/window-minimize-symbolic.svg" width="22" alt="window-minimize-symbolic"></a>&nbsp; &nbsp; window-minimize-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/window-new-symbolic.svg" width="22" alt="window-new-symbolic"></a>&nbsp; &nbsp; window-new-symbolic<br>
+<a href="#"><img src="https://raw.githubusercontent.com/StorageB/icons/main/GNOME46Adwaita/light/window-restore-symbolic.svg" width="22" alt="window-restore-symbolic"></a>&nbsp; &nbsp; window-restore-symbolic<br></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.sections", "navigation.top", "navigation.tracking", "content.code.copy", "toc.integrate"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      
+    
+  </body>
+</html>
