@@ -1,0 +1,40 @@
+site_name: Custom Command Toggle
+site_description: Documentation for the Custom Command Toggle GNOME Extension
+site_author: StorageB
+repo_url: https://github.com/StorageB/custom-command-toggle
+repo_name: custom-command-toggle
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.expand
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - content.code.copy
+    - toc.integrate
+  logo: icons/custom-command-toggle-docs.png
+  favicon: icons/custom-command-toggle-docs.png
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Configuration: configuration.md
+  - Icons:
+      - GNOME Dark: icons-dark.md
+      - GNOME Light: icons-light.md
+      - Ubuntu Yaru: icons-yaru.md
+  - Troubleshooting: troubleshooting.md
+  - Change Log: changelog.md
+  - About: about.md
+
+markdown_extensions:
+  - toc:
+      permalink: false
+  - footnotes
+  - admonition
+  - def_list
+  - codehilite
+  - tables
