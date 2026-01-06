@@ -31,6 +31,8 @@ import Meta from 'gi://Meta';
 import Shell from 'gi://Shell';
 
 
+const numberOfTogglesAllowed = 6;
+
 let entryRow1 = "";  let entryRow2 = ""; 
 let entryRow12 = ""; let entryRow22 = "";
 let entryRow13 = ""; let entryRow23 = "";
@@ -421,7 +423,8 @@ function checkCommandExitCode(toggleNumber, toggleChecked, commandChecked, comma
         if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Error checking command exit status: ${e}`);
         exitCodeCallback(false);
     }
-}//#endregion Check Exit Code
+}
+//#endregion Check Exit Code
 
 
 export default class CustomQuickToggleExtension extends Extension {
@@ -430,17 +433,11 @@ export default class CustomQuickToggleExtension extends Extension {
         
         this._settings = this.getSettings();
         debug = this._settings.get_boolean(`debug-setting`);
-        const numToggleButtons = this._settings.get_int('numbuttons-setting');
+        let numToggleButtons = this._settings.get_int('numbuttons-setting');
         if (debug) console.log(`[Custom Command Toggle] `);
         console.log(`[Custom Command Toggle] Extension enabled | Toggles created: ${numToggleButtons} | Detailed logging: ${debug}`);
 
-        this._indicator1 = new MyIndicator1(this.getSettings());
-        if (numToggleButtons >= 2) { this._indicator2 = new MyIndicator2(this.getSettings()); }
-        if (numToggleButtons >= 3) { this._indicator3 = new MyIndicator3(this.getSettings()); }
-        if (numToggleButtons >= 4) { this._indicator4 = new MyIndicator4(this.getSettings()); }
-        if (numToggleButtons >= 5) { this._indicator5 = new MyIndicator5(this.getSettings()); }
-        if (numToggleButtons >= 6) { this._indicator6 = new MyIndicator6(this.getSettings()); }
-
+        refreshIndicator.call(this);
 
         //#region Keybindings
         shortcutId1 = Main.wm.addKeybinding(
@@ -471,6 +468,55 @@ export default class CustomQuickToggleExtension extends Extension {
 
         
         //#region Settings Connections
+        this._settings.connect('changed::force-refresh', () => {
+            if (debug) console.log(`[Custom Command Toggle] `);
+            if (debug) console.log(`[Custom Command Toggle] Rebuilding and reinitializing all toggles`);
+
+
+            // Remove old intervals
+            checkIntervals.forEach((id, i) => {
+                if (id) GLib.source_remove(id);
+                checkIntervals[i] = 0;
+            });
+
+            // Reset running flags
+            isRunning.forEach((_, i) => isRunning[i] = false);
+
+            // Remove pending command timeouts
+            commandTimeouts.forEach(id => id && GLib.source_remove(id));
+            commandTimeouts = [];
+
+            numToggleButtons = this._settings.get_int('numbuttons-setting');
+            initialSetup.call(this);
+            refreshIndicator.call(this);
+            runAtBoot.call(this);
+        });
+
+        for (let i = 1; i <= numberOfTogglesAllowed; i++) {
+            this._settings.connect(`changed::enabled${i}-setting`, () => {
+                if (debug) console.log(`[Custom Command Toggle] Toggle ${i} | ${this._settings.get_boolean(`enabled${i}-setting`) ? 'ENABLED' : 'DISABLED'}`);
+                if (this._settings.get_boolean(`enabled${i}-setting`)) {
+                    initialSetup.call(this, i);
+                    refreshIndicator.call(this);
+                    runAtBoot.call(this, i);
+                } else {
+                    if (checkIntervals[i - 1]) {
+                        GLib.source_remove(checkIntervals[i - 1]);
+                        checkIntervals[i - 1] = 0;
+                    }
+
+                    isRunning[i - 1] = false;
+
+                    if (commandTimeouts[i - 1]) {
+                        GLib.source_remove(commandTimeouts[i - 1]);
+                        commandTimeouts[i - 1] = null;
+                    }
+         
+                    refreshIndicator.call(this);
+                }
+            });
+        }
+
         this._settings.connect('changed::entryrow1-setting', (settings, key) => {
             entryRow1 = this._settings.get_string('entryrow1-setting');
         });
@@ -597,7 +643,7 @@ export default class CustomQuickToggleExtension extends Extension {
             });
         }
 
-        for (let i = 1; i <= numToggleButtons; i++) {
+        for (let i = 1; i <= numberOfTogglesAllowed; i++) {
             this._settings.connect(`changed::initialtogglestate${i}-setting`,   () => debounce(i, () => setupCheckSync.call(this, i)));
             this._settings.connect(`changed::checkregex${i}-setting`,           () => debounce(i, () => setupCheckSync.call(this, i)));
             this._settings.connect(`changed::checkcommand${i}-setting`,         () => debounce(i, () => setupCheckSync.call(this, i)));
@@ -613,81 +659,88 @@ export default class CustomQuickToggleExtension extends Extension {
 
 
         //#region Initial Setup
-        entryRow1 = this._settings.get_string('entryrow1-setting');
-        entryRow2 = this._settings.get_string('entryrow2-setting');
-        entryRow12 = this._settings.get_string('entryrow12-setting');
-        entryRow22 = this._settings.get_string('entryrow22-setting');
-        entryRow13 = this._settings.get_string('entryrow13-setting');
-        entryRow23 = this._settings.get_string('entryrow23-setting');
-        entryRow14 = this._settings.get_string('entryrow14-setting');
-        entryRow24 = this._settings.get_string('entryrow24-setting');
-        entryRow15 = this._settings.get_string('entryrow15-setting');
-        entryRow25 = this._settings.get_string('entryrow25-setting');
-        entryRow16 = this._settings.get_string('entryrow16-setting');
-        entryRow26 = this._settings.get_string('entryrow26-setting');
+        function initialSetup (toggleIndex = null) {
+            entryRow1 = this._settings.get_string('entryrow1-setting');
+            entryRow2 = this._settings.get_string('entryrow2-setting');
+            entryRow12 = this._settings.get_string('entryrow12-setting');
+            entryRow22 = this._settings.get_string('entryrow22-setting');
+            entryRow13 = this._settings.get_string('entryrow13-setting');
+            entryRow23 = this._settings.get_string('entryrow23-setting');
+            entryRow14 = this._settings.get_string('entryrow14-setting');
+            entryRow24 = this._settings.get_string('entryrow24-setting');
+            entryRow15 = this._settings.get_string('entryrow15-setting');
+            entryRow25 = this._settings.get_string('entryrow25-setting');
+            entryRow16 = this._settings.get_string('entryrow16-setting');
+            entryRow26 = this._settings.get_string('entryrow26-setting');
 
-        initialState1 = this._settings.get_int('initialtogglestate1-setting');
-        initialState2 = this._settings.get_int('initialtogglestate2-setting');
-        initialState3 = this._settings.get_int('initialtogglestate3-setting');
-        initialState4 = this._settings.get_int('initialtogglestate4-setting');
-        initialState5 = this._settings.get_int('initialtogglestate5-setting');
-        initialState6 = this._settings.get_int('initialtogglestate6-setting');
+            initialState1 = this._settings.get_int('initialtogglestate1-setting');
+            initialState2 = this._settings.get_int('initialtogglestate2-setting');
+            initialState3 = this._settings.get_int('initialtogglestate3-setting');
+            initialState4 = this._settings.get_int('initialtogglestate4-setting');
+            initialState5 = this._settings.get_int('initialtogglestate5-setting');
+            initialState6 = this._settings.get_int('initialtogglestate6-setting');
 
-        buttonClick1 = this._settings.get_int('buttonclick1-setting');
-        buttonClick2 = this._settings.get_int('buttonclick2-setting');
-        buttonClick3 = this._settings.get_int('buttonclick3-setting');
-        buttonClick4 = this._settings.get_int('buttonclick4-setting');
-        buttonClick5 = this._settings.get_int('buttonclick5-setting');
-        buttonClick6 = this._settings.get_int('buttonclick6-setting');
-        
-        const initialStates = [initialState1, initialState2, initialState3, initialState4, initialState5, initialState6];
+            buttonClick1 = this._settings.get_int('buttonclick1-setting');
+            buttonClick2 = this._settings.get_int('buttonclick2-setting');
+            buttonClick3 = this._settings.get_int('buttonclick3-setting');
+            buttonClick4 = this._settings.get_int('buttonclick4-setting');
+            buttonClick5 = this._settings.get_int('buttonclick5-setting');
+            buttonClick6 = this._settings.get_int('buttonclick6-setting');
+            
+            const initialStates = [initialState1, initialState2, initialState3, initialState4, initialState5, initialState6];
 
-        for (let i = 1; i <= numToggleButtons; i++) {
-            let initialState = initialStates[i - 1];
-            let toggleStateKey = `togglestate${i}-setting`;
-        
-            switch (initialState) {
-                case 0:
-                    toggleStates[i - 1] = true; 
-                    this._settings.set_boolean(toggleStateKey, true); 
-                    break;
-                case 1:
-                    toggleStates[i - 1] = false; 
-                    this._settings.set_boolean(toggleStateKey, false);
-                    break;
-                case 2:
-                    toggleStates[i - 1] = this._settings.get_boolean(toggleStateKey);
-                    break;
-                case 3:
-                    setupCheckSync.call(this, i, { startup: true });
-                    break;
-            }
+            for (let i = 1; i <= numToggleButtons; i++) {
+                if (toggleIndex !== null && i !== toggleIndex)          continue;
+                if (!this._settings.get_boolean(`enabled${i}-setting`)) continue;
+                
+                let initialState = initialStates[i - 1];
+                let toggleStateKey = `togglestate${i}-setting`;
+            
+                switch (initialState) {
+                    case 0:
+                        toggleStates[i - 1] = true; 
+                        this._settings.set_boolean(toggleStateKey, true); 
+                        break;
+                    case 1:
+                        toggleStates[i - 1] = false; 
+                        this._settings.set_boolean(toggleStateKey, false);
+                        break;
+                    case 2:
+                        toggleStates[i - 1] = this._settings.get_boolean(toggleStateKey);
+                        break;
+                    case 3:
+                        setupCheckSync.call(this, i, { startup: true });
+                        break;
+                }
 
-            if (initialState !== 3 && this._settings.get_boolean(`checkcommandsync${i}-setting`)) {
-                setupCheckSync.call(this, i);
+                if (initialState !== 3 && this._settings.get_boolean(`checkcommandsync${i}-setting`)) {
+                    setupCheckSync.call(this, i);
+                }
             }
         }
         //#endregion Initial Setup
 
 
-        refreshIndicator.call(this);
-
-
         //#region Run at Boot
-        for (let i = 1; i <= numToggleButtons; i++) {
-            let runAtBootSetting = this._settings.get_boolean(`runcommandatboot${i}-setting`);
-            if (this._settings.get_int(`initialtogglestate${i}-setting`)===3){runAtBootSetting = false;}
-            const delayTime = this._settings.get_int(`delaytime${i}-setting`);
-            const toggleState = toggleStates[i-1];
-            let command = "";
-            if (runAtBootSetting) {
-                if (i===1) {command = `sleep ${delayTime} && (${toggleState ? entryRow1 : entryRow2})`;}
-                if (i===2) {command = `sleep ${delayTime} && (${toggleState ? entryRow12 : entryRow22})`;}
-                if (i===3) {command = `sleep ${delayTime} && (${toggleState ? entryRow13 : entryRow23})`;}
-                if (i===4) {command = `sleep ${delayTime} && (${toggleState ? entryRow14 : entryRow24})`;}
-                if (i===5) {command = `sleep ${delayTime} && (${toggleState ? entryRow15 : entryRow25})`;}
-                if (i===6) {command = `sleep ${delayTime} && (${toggleState ? entryRow16 : entryRow26})`;}
-                executeCommand(i, toggleState, command, command);
+        function runAtBoot(toggleIndex = null) {
+            for (let i = 1; i <= numToggleButtons; i++) {
+                if (toggleIndex !== null && i !== toggleIndex)          continue;
+                if (!this._settings.get_boolean(`enabled${i}-setting`)) continue;
+
+                let runAtBootSetting = this._settings.get_boolean(`runcommandatboot${i}-setting`);
+                if (this._settings.get_int(`initialtogglestate${i}-setting`)===3){runAtBootSetting = false;}
+                const delayTime = this._settings.get_int(`delaytime${i}-setting`);
+                const toggleState = toggleStates[i-1];
+                let command = "";
+                if (runAtBootSetting) {
+                    if (i===1) {command = `sleep ${delayTime} && (${toggleState ? entryRow1  : entryRow2})`;}
+                    if (i===2) {command = `sleep ${delayTime} && (${toggleState ? entryRow12 : entryRow22})`;}
+                    if (i===3) {command = `sleep ${delayTime} && (${toggleState ? entryRow13 : entryRow23})`;}
+                    if (i===4) {command = `sleep ${delayTime} && (${toggleState ? entryRow14 : entryRow24})`;}
+                    if (i===5) {command = `sleep ${delayTime} && (${toggleState ? entryRow15 : entryRow25})`;}
+                    if (i===6) {command = `sleep ${delayTime} && (${toggleState ? entryRow16 : entryRow26})`;}
+                    executeCommand(i, toggleState, command, command);
+                }
             }
         }
         //#endregion Run at Boot
@@ -706,6 +759,13 @@ export default class CustomQuickToggleExtension extends Extension {
                 GLib.source_remove(checkIntervals[i - 1]);
                 checkIntervals[i - 1] = 0;
             }
+
+            if (!this._settings.get_boolean(`enabled${i}-setting`)) {
+                if (debug) console.log(`[Custom Command Toggle] Toggle ${i} | Sync skipped (visibility off)`);
+                return;
+            }
+
+            isRunning[i - 1] = false;            
 
             if (startup) {
                 checkCommandOutput(i, startupCmd, key, (result) => {
@@ -876,58 +936,74 @@ export default class CustomQuickToggleExtension extends Extension {
         
         //#region Refresh indicator
         function refreshIndicator() {
-            
-            this._indicator1.quickSettingsItems.forEach(item => item.destroy());
-            this._indicator1.destroy();
-            this._indicator1 = new MyIndicator1(this.getSettings());
-            Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator1);
-            
+            for (let i = 1; i <= 6; i++) {
+                const indicator = this[`_indicator${i}`];
+                if (indicator) {
+                    indicator.quickSettingsItems.forEach(item => item.destroy());
+                    indicator.destroy();
+                    this[`_indicator${i}`] = null;
+                }
+            }
+
+            if (numToggleButtons >=1) {
+                if ((this._settings.get_boolean(`enabled1-setting`))) {
+                    this._indicator1 = new MyIndicator1(this.getSettings());
+                    Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator1);
+                }
+            }
             if (numToggleButtons >=2) {
-                this._indicator2.quickSettingsItems.forEach(item => item.destroy());
-                this._indicator2.destroy();
-                this._indicator2 = new MyIndicator2(this.getSettings());
-                Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator2);
+                if ((this._settings.get_boolean(`enabled2-setting`))) {
+                    this._indicator2 = new MyIndicator2(this.getSettings());
+                    Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator2);
+                }
             }
             if (numToggleButtons >=3) {
-                this._indicator3.quickSettingsItems.forEach(item => item.destroy());
-                this._indicator3.destroy();
-                this._indicator3 = new MyIndicator3(this.getSettings());
-                Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator3);
+                if ((this._settings.get_boolean(`enabled3-setting`))) {
+                    this._indicator3 = new MyIndicator3(this.getSettings());
+                    Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator3);
+                }
             }
             if (numToggleButtons >=4) {
-                this._indicator4.quickSettingsItems.forEach(item => item.destroy());
-                this._indicator4.destroy();
-                this._indicator4 = new MyIndicator4(this.getSettings());
-                Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator4);
+                if ((this._settings.get_boolean(`enabled4-setting`))) {
+                    this._indicator4 = new MyIndicator4(this.getSettings());
+                    Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator4);
+                }
             }
             if (numToggleButtons >=5) {
-                this._indicator5.quickSettingsItems.forEach(item => item.destroy());
-                this._indicator5.destroy();
-                this._indicator5 = new MyIndicator5(this.getSettings());
-                Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator5);
+                if ((this._settings.get_boolean(`enabled5-setting`))) {
+                    this._indicator5 = new MyIndicator5(this.getSettings());
+                    Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator5);
+                }
             }
             if (numToggleButtons >=6) {
-                this._indicator6.quickSettingsItems.forEach(item => item.destroy());
-                this._indicator6.destroy();
-                this._indicator6 = new MyIndicator6(this.getSettings());
-                Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator6);
+                if ((this._settings.get_boolean(`enabled6-setting`))) {
+                    this._indicator6 = new MyIndicator6(this.getSettings());
+                    Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator6);
+                }
             }
         }
         //#endregion Refresh Indicator
+
+
+        refreshIndicator.call(this);
+        initialSetup.call(this);
+        runAtBoot.call(this);
 
         this._timeOut = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 3, () => {
             refreshIndicator.call(this);
             return GLib.SOURCE_REMOVE;
         });
     }
-    //endregion Enable
+    //#endregion Enable
+
 
     //#region Disable
     disable() {
-        this._indicator1.quickSettingsItems.forEach(item => item.destroy());
-        this._indicator1.destroy();
-        this._indicator1 = null;
-
+        if (this._indicator1) {
+            this._indicator1.quickSettingsItems.forEach(item => item.destroy());
+            this._indicator1.destroy();
+            this._indicator1 = null;
+        }
         if (this._indicator2) {
             this._indicator2.quickSettingsItems.forEach(item => item.destroy());
             this._indicator2.destroy();

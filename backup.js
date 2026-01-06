@@ -45,7 +45,7 @@ export function exportConfiguration(numButtons, settings, window) {
         ` icon: <text> \n` +
         ` toggle-on-command: <command> \n` +
         ` toggle-off-command: <command> \n` +
-        ` check-output-command: <command> \n` +
+        ` check-status-command: <command> \n` +
         ` search-term: <text> \n` +        
         ` initial-state: 0, 1, 2, or 3 \n` +
         `     0 = On \n` +
@@ -54,7 +54,7 @@ export function exportConfiguration(numButtons, settings, window) {
         `     3 = Command output \n` +
         ` run-at-startup: true or false \n` +
         ` startup-delay-time: 0-10 (seconds) \n` +
-        ` check-output-delay-time: 0-10 (seconds) \n` + 
+        ` check-status-delay-time: 0-10 (seconds) \n` + 
         ` button-click-action: 0, 1, or 2 \n` +
         `     0 = Always on \n` +
         `     1 = Always off \n` +
@@ -65,6 +65,7 @@ export function exportConfiguration(numButtons, settings, window) {
         ` command-sync: true or false \n` +
         ` polling-frequency: 2-900 (seconds) \n` + 
         ` keyboard-shortcut: <shortcut> \n` +
+        ` enabled: true or false \n` +
         ` \n`
     );
     //#endregion Header
@@ -79,12 +80,12 @@ export function exportConfiguration(numButtons, settings, window) {
         keyFile.set_string(`Toggle ${i}`, 'icon', settings.get_string(`entryrow4${j}-setting`));
         keyFile.set_string(`Toggle ${i}`, 'toggle-on-command', settings.get_string(`entryrow1${j}-setting`));
         keyFile.set_string(`Toggle ${i}`, 'toggle-off-command', settings.get_string(`entryrow2${j}-setting`));
-        keyFile.set_string(`Toggle ${i}`, 'check-output-command', settings.get_string(`checkcommand${i}-setting`));
+        keyFile.set_string(`Toggle ${i}`, 'check-status-command', settings.get_string(`checkcommand${i}-setting`));
         keyFile.set_string(`Toggle ${i}`, 'search-term', settings.get_string(`checkregex${i}-setting`));        
         keyFile.set_string(`Toggle ${i}`, 'initial-state', `${settings.get_int(`initialtogglestate${i}-setting`)}`);
         keyFile.set_string(`Toggle ${i}`, 'run-at-startup', `${settings.get_boolean(`runcommandatboot${i}-setting`)}`);
         keyFile.set_string(`Toggle ${i}`, 'startup-delay-time', `${settings.get_int(`delaytime${i}-setting`)}`);
-        keyFile.set_string(`Toggle ${i}`, 'check-output-delay-time', `${settings.get_int(`checkcommanddelaytime${i}-setting`)}`);
+        keyFile.set_string(`Toggle ${i}`, 'check-status-delay-time', `${settings.get_int(`checkcommanddelaytime${i}-setting`)}`);
         keyFile.set_string(`Toggle ${i}`, 'button-click-action', `${settings.get_int(`buttonclick${i}-setting`)}`);
         keyFile.set_string(`Toggle ${i}`, 'check-exit-code', `${settings.get_boolean(`checkexitcode${i}-setting`)}`);
         keyFile.set_string(`Toggle ${i}`, 'show-indicator', `${settings.get_boolean(`showindicator${i}-setting`)}`);
@@ -93,6 +94,7 @@ export function exportConfiguration(numButtons, settings, window) {
         keyFile.set_string(`Toggle ${i}`, 'polling-frequency', `${settings.get_int(`checkcommandinterval${i}-setting`)}`);
         const keybindings = settings.get_value(`keybinding${i}-setting`).deep_unpack();
         keyFile.set_string(`Toggle ${i}`, 'keyboard-shortcut', keybindings[0]);
+        keyFile.set_string(`Toggle ${i}`, 'enabled', `${settings.get_boolean(`enabled${i}-setting`)}`);
     }
     //#endregion Export Settings
 
@@ -102,7 +104,7 @@ export function exportConfiguration(numButtons, settings, window) {
         keyFile.save_to_file(filePath);
         console.log(`[Custom Command Toggle] Toggle button settings exported to ${filePath}`);
         const toast = Adw.Toast.new(_(`Settings exported to: ${filePath}`));
-        toast.set_timeout(3);
+        toast.set_timeout(4);
         toast.set_button_label(_('Open'));
         toast.connect('button-clicked', () => {
             // Determine if there is a default text editor available and open the saved file
@@ -133,7 +135,7 @@ export function exportConfiguration(numButtons, settings, window) {
     } catch (e) {
         console.log(`[Custom Command Toggle] Failed to export settings\n${e}`);
         const toast = Adw.Toast.new(_(`Export Error`));
-        toast.set_timeout(3);
+        toast.set_timeout(4);
         toast.set_button_label(_('Details'));
         toast.connect('button-clicked', () => {
             let errorDialog = new Adw.MessageDialog({
@@ -149,5 +151,156 @@ export function exportConfiguration(numButtons, settings, window) {
         window.add_toast(toast);
     }
     //#endregion Save File
+}
+
+
+//#region Import
+export function importConfiguration(settings, window) {
+
+    let keyFile = new GLib.KeyFile();
+
+    if (!GLib.file_test(filePath, GLib.FileTest.EXISTS)) {
+        const toast = Adw.Toast.new(_(`File not found`));
+        toast.set_timeout(4);
+        toast.set_button_label(_('Details'));
+        toast.connect('button-clicked', () => {
+            let errorDialog = new Adw.MessageDialog({
+                transient_for: window,
+                modal: true,
+                heading: _('File Not Found'),
+                body: _(`The ${fileName} configuration file was not be found in the user\'s home directory. ` +
+                        `Verify the following file exists:\n\n` +
+                        `${filePath}`),
+            });
+            errorDialog.add_response('ok', _('OK'));
+            errorDialog.connect('response', () => errorDialog.destroy());
+            errorDialog.show();
+        });
+        window.add_toast(toast);
+        console.log(`[Custom Command Toggle] Failed to import settings. File not found.`);
+        return;
+    }
+    
+    try {
+        keyFile.load_from_file(filePath, GLib.KeyFileFlags.NONE);
+    } catch (e) {
+        console.log('[Custom Command Toggle] Failed to import configuration\n%s'.format(e));
+        const toast = Adw.Toast.new(_(`Import Error`));
+        toast.set_timeout(4);
+        toast.set_button_label(_('Details'));
+        toast.connect('button-clicked', () => {
+            let errorDialog = new Adw.MessageDialog({
+                transient_for: window,
+                modal: true,
+                heading: _('Import Error'),
+                body: _('Failed to import configuration\n\n%s').format(e),
+            });
+            errorDialog.add_response('ok', _('OK'));
+            errorDialog.connect('response', () => errorDialog.destroy());
+            errorDialog.show();
+        });
+        window.add_toast(toast);
+        return;
+    }
+
+    let buttonCount = 0;
+
+    for (let i = 1; i <= 6; i++) {
+
+        if (keyFile.has_group(`Toggle ${i}`)) {
+
+            buttonCount++;
+            let j = buttonCount === 1 ? '' : buttonCount;
+
+            const getString = (k, def) => {
+                try { return keyFile.get_string(`Toggle ${i}`, k); } catch (_) { return def; }
+            };
+            const getBool = (k, def) => {
+                try { return keyFile.get_boolean(`Toggle ${i}`, k); } catch (_) { return def; }
+            };
+            const getInt = (k, def) => {
+                try { return keyFile.get_integer(`Toggle ${i}`, k); } catch (_) { return def; }
+            };    
+
+            let button_name         = getString('button-name', 'My Button');
+            let icon                = getString('icon', 'face-smile-symbolic');
+            let toggle_on_command   = getString('toggle-on-command', 'notify-send "Custom Command Toggle" "ON"');
+            let toggle_off_command  = getString('toggle-off-command', 'notify-send "Custom Command Toggle" "OFF"');
+            let check_status_command= getString('check-status-command', '');
+            let search_term         = getString('search-term', '');
+            let initial_state       = getInt('initial-state', 2);
+            let run_at_startup      = getBool('run-at-startup', false);
+            let startup_delay_time  = getInt('startup-delay-time', 3);
+            let check_status_delay  = getInt('check-status-delay-time', 3);
+            let button_click_action = getInt('button-click-action', 2);
+            let check_exit_code     = getBool('check-exit-code', false);
+            let show_indicator      = getBool('show-indicator', true);
+            let close_menu          = getBool('close-menu', false);
+            let command_sync        = getBool('command-sync', false);
+            let polling_frequency   = getInt('polling-frequency', 10);
+            let keyboard_shortcut   = getString('keyboard-shortcut', '');
+            let enabled             = getBool('enabled', true);
+
+            settings.set_string(`entryrow3${j}-setting`, button_name);
+            settings.set_string(`entryrow4${j}-setting`, icon);
+            settings.set_string(`entryrow1${j}-setting`, toggle_on_command);
+            settings.set_string(`entryrow2${j}-setting`, toggle_off_command);
+            settings.set_string(`checkcommand${buttonCount}-setting`, check_status_command);
+            settings.set_string(`checkregex${buttonCount}-setting`, search_term);
+            settings.set_int(`initialtogglestate${buttonCount}-setting`, initial_state);
+            settings.set_boolean(`runcommandatboot${buttonCount}-setting`, run_at_startup);
+            settings.set_int(`delaytime${buttonCount}-setting`, startup_delay_time);
+            settings.set_int(`checkcommanddelaytime${buttonCount}-setting`, check_status_delay);
+            settings.set_int(`buttonclick${buttonCount}-setting`, button_click_action);
+            settings.set_boolean(`checkexitcode${buttonCount}-setting`, check_exit_code);
+            settings.set_boolean(`showindicator${buttonCount}-setting`, show_indicator);
+            settings.set_boolean(`closemenu${buttonCount}-setting`, close_menu);
+            settings.set_boolean(`checkcommandsync${buttonCount}-setting`, command_sync);
+            settings.set_int(`checkcommandinterval${buttonCount}-setting`, polling_frequency);
+            settings.set_strv(`keybinding${buttonCount}-setting`, keyboard_shortcut ? [keyboard_shortcut] : ['']);
+            settings.set_boolean(`enabled${buttonCount}-setting`, enabled);
+        } 
+    }
+
+    if (buttonCount === 0) {
+        const toast = Adw.Toast.new(_('No toggles found in %s.').format(fileName));
+        toast.set_timeout(4);
+        window.add_toast(toast);
+        return; 
+    }    
+
+    settings.set_int('numbuttons-setting', buttonCount === 0 ? 1 : buttonCount);
+    console.log('[Custom Command Toggle] Configuration imported from %s'.format(filePath));
+
+    const toast = Adw.Toast.new(
+    buttonCount === 1
+        ? _('Successfully imported 1 toggle')
+        : _('Successfully imported %d toggles').format(buttonCount)
+    );  
+    toast.set_timeout(4);
+    window.add_toast(toast);
+
+    //#endregion Import
+}
+
+
+export function reset(settings, window) {
+    try {
+        const schema = settings.settings_schema;
+        const keys = schema.list_keys();
+
+        for (const key of keys)
+            settings.reset(key);
+
+        const toast = Adw.Toast.new(_('All settings reset to defaults'));
+        window.add_toast(toast);
+
+        console.log('[Custom Command Toggle] All settings successfully reset to defaults');
+    } catch (e) {
+        console.log('[Custom Command Toggle] Failed to reset settings:', e);
+
+        const errorToast = Adw.Toast.new(_('Failed to reset settings'));
+        window.add_toast(errorToast);
+    }
 }
         

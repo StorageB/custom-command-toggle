@@ -70,10 +70,11 @@ export const KeybindingRow = GObject.registerClass(
             // Button to reset keybinding
             this.resetButton = new Gtk.Button({
                 icon_name: 'edit-delete-symbolic',
-                css_classes: ['error'],
-                hexpand: false,
-                vexpand: false,
+                has_frame: false,
+                valign: Gtk.Align.CENTER,
+                halign: Gtk.Align.END,
             });
+            this.resetButton.add_css_class('destructive-action');
             this.resetButton.connect('clicked', this.resetKeybind.bind(this));
 
             // Hide reset button if no shortcut is set
