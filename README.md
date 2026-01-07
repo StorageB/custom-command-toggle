@@ -6,7 +6,7 @@ Custom Command Toggle is an extension for GNOME 45+ that lets you create fully c
 
 <br>
 
-![Screenshot-main](screenshots/screenshot-main-10.png)
+![screenshot-main](docs/screenshots/screenshot-main-12.png)
 
 <br>
 
