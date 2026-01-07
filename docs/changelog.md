@@ -1,6 +1,6 @@
 <!-- changelog.md -->
 
-## Version 12 (2025-XX-XX)
+## Version 12 (2026-01-XX)
 
 **Features**
 
