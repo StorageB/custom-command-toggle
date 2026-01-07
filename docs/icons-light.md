@@ -2,7 +2,7 @@
 
 <div style="display: flex; gap: 10px;">
   
-  <a href="https://storageb.github.io/custom-command-toggle/icons-dark/" target="_self" style="
+  <a href="https://storageb.github.io/custom-command-toggle/icons-dark/" target="_blank" style="
       background-color: #3f51b5;
       color: white;
       padding: 6px 12px;
@@ -11,7 +11,7 @@
       font-weight: normal;
   ">Dark Theme</a>
 
-  <a href="https://storageb.github.io/custom-command-toggle/icons-light/" target="_self" style="
+  <a href="https://storageb.github.io/custom-command-toggle/icons-light/" target="_blank" style="
       background-color: #3f51b5;
       color: white;
       padding: 6px 12px;
@@ -20,7 +20,7 @@
       font-weight: normal;
   ">Light Theme</a>  
 
-  <a href="https://storageb.github.io/custom-command-toggle/icons-yaru/" target="_self" style="
+  <a href="https://storageb.github.io/custom-command-toggle/icons-yaru/" target="_blank" style="
       background-color: #3f51b5;
       color: white;
       padding: 6px 12px;
