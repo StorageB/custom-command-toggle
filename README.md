@@ -28,7 +28,7 @@ Custom Command Toggle is an extension for GNOME 45+ that lets you create fully c
 ## Documentation
 
 For detailed configuration instructions and setup tips, refer to the  
-📘 **[User Guide](docs/USERGUIDE.md)**
+📘 **[User Guide](https://StorageB.github.io/custom-command-toggle/)**
 
 <br>
 
