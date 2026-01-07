@@ -26,10 +26,12 @@ import Gdk from 'gi://Gdk';
 import GObject from 'gi://GObject';
 
 import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
-import {releaseNotes} from './about.js';
 import {KeybindingRow} from './keybinding.js';
 
 import {exportConfiguration} from './backup.js';
+import {importConfiguration} from './backup.js';
+import {reset} from './backup.js';
+import {showAboutDialog} from './about.js';
 
 let numButtons = 1;
 
@@ -37,12 +39,90 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
     fillPreferencesWindow(window) {
 
         window._settings = this.getSettings();
+        const settings = window._settings;
+        this.populateTogglePages(window);
+
+        this._window = window;
+        const page = new Adw.PreferencesPage();
+        this._window.add(page);
+
+        const menuModel = new Gio.Menu();
+
+        const menuSection1 = new Gio.Menu();
+        menuSection1.append(_("Icon List"), "app.iconList");
+        menuSection1.append(_("User Guide"), "app.userGuide");
+
+        const menuSection2 = new Gio.Menu();
+        menuSection2.append(_("About"), "app.about");
+
+        menuModel.append_section(null, menuSection1);
+        menuModel.append_section(null, menuSection2);
+
+        const menuButton = new Gtk.MenuButton({
+            icon_name: "open-menu-symbolic",
+            can_focus: false,
+        });
+        menuButton.add_css_class("flat");
+        menuButton.set_tooltip_text(_('Help and resources'));
+        menuButton.set_menu_model(menuModel);
+
+        menuButton.connect('realize', () => {
+            const popover = menuButton.get_popover();
+            popover.halign = Gtk.Align.START;
+            popover.set_has_arrow(false);
+        });
+
+        const actionGroup = new Gio.SimpleActionGroup();
+
+        const iconListAction = new Gio.SimpleAction({ name: "iconList" });
+        iconListAction.connect("activate", () => {
+            Gio.app_info_launch_default_for_uri('https://github.com/StorageB/icons/blob/main/GNOME48Adwaita/icons.md', null);
+        });
+        actionGroup.add_action(iconListAction);
+
+        const userGuideAction = new Gio.SimpleAction({ name: "userGuide" });
+        userGuideAction.connect("activate", () => {
+            Gio.app_info_launch_default_for_uri('https://storageb.github.io/custom-command-toggle/icons-dark/', null);
+        });
+        actionGroup.add_action(userGuideAction);
+
+        const aboutAction = new Gio.SimpleAction({ name: "about" });
+        aboutAction.connect("activate", () => {
+            console.log("about");
+            showAboutDialog(window, this.metadata, this.path);
+        });
+        actionGroup.add_action(aboutAction);
+
+        window.insert_action_group("app", actionGroup);
+
+        const pagesStack = page.get_parent();
+        const contentStack = pagesStack.get_parent().get_parent(); // GtkStack
+        const preferences = contentStack.get_parent(); // GtkBox
+        
+        const headerBar = preferences
+            .get_first_child()
+            .get_next_sibling()
+            .get_first_child()
+            .get_first_child()
+            .get_first_child(); // This gets the AdwHeaderBar
+        
+            this._window.remove(page);
+            headerBar.pack_start(menuButton);
+    }
+
+
+    //#region Toggle Pages
+    populateTogglePages(window) {
+    
+        if (this._pages) {
+            this._pages.forEach(page => {
+                window.remove(page);
+            });
+        }
 
         // Number of toggle buttons to create
         numButtons = window._settings.get_int('numbuttons-setting');
-
-        const pages = [];
-        
+        this._pages = []; 
 
         // Loop to create toggle button setting pages
         for (let pageIndex = 1; pageIndex <= numButtons; pageIndex++) {
@@ -51,13 +131,13 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             if (numButtons === 1) { buttonTitle = 'Toggle Button';
             } else { buttonTitle = `Button ${pageIndex}`; }
 
+            let isVisible = window._settings.get_boolean(`enabled${pageIndex}-setting`);
+
             const page = new Adw.PreferencesPage({
                 title: _(buttonTitle),
-                icon_name: 'utilities-terminal-symbolic',
+                icon_name: isVisible ? 'utilities-terminal-symbolic' : 'view-conceal-symbolic',
             });
             window.add(page);
-        
-            const groups = [];
         
 
             //#region Appearance
@@ -65,8 +145,30 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 title: _('Appearance'),
             });
             page.add(group2);
-            groups.push(group2);
         
+            const hideButton = new Gtk.Button({
+                icon_name:    isVisible ? 'view-reveal-symbolic' : 'view-conceal-symbolic',
+                tooltip_text: isVisible ? _('Hide this toggle') : _('Show this toggle'),
+            });
+            hideButton.add_css_class('flat');
+
+            hideButton.connect('clicked', () => {
+                isVisible = !isVisible;
+                window._settings.set_boolean(`enabled${pageIndex}-setting`, isVisible);
+
+                hideButton.icon_name =    isVisible ? 'view-reveal-symbolic' : 'view-conceal-symbolic';
+                hideButton.tooltip_text = isVisible ? _('Hide this toggle') : _('Show this toggle');
+
+                [ entryRow1, entryRow2, entryRow3, entryRow4, checkCommandRow, checkRegexRow,
+                  comboRow, expanderRow, spinRow, spinRow2, comboRow2, switchRow, switchRow2, switchRow3,
+                  commandSyncExpanderRow, pollingFreqSpinRow, keybindRow
+                ].forEach(widget => widget.set_sensitive(isVisible));
+
+                page.icon_name = isVisible ? 'utilities-terminal-symbolic' : 'view-conceal-symbolic';
+            });
+
+            group2.set_header_suffix(hideButton);
+            
             const entryRow3 = new Adw.EntryRow({
                 title: _('Button name:'),
             });
@@ -84,7 +186,6 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 title: _('Commands'),
             });
             page.add(group1);
-            groups.push(group1);
         
             const entryRow1 = new Adw.EntryRow({
                 title: _('Toggle ON Command:'),
@@ -97,12 +198,12 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             group1.add(entryRow2);
 
             const checkCommandRow = new Adw.EntryRow({
-              title: _("Check Output Command:"),
+                title: _("Check Status Command:"),
             });
             group1.add(checkCommandRow);
 
             const checkRegexRow = new Adw.EntryRow({
-                title: _("Search Term:"),
+                title: _("Check Status Search Term:"),
             });
             group1.add(checkRegexRow);
             //#endregion Commands
@@ -113,7 +214,6 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 title: _('Startup Behavior'),
             });
             page.add(group3);
-            groups.push(group3);
 
             const optionList = new Gtk.StringList();
             [_('On'), _('Off'), _('Previous state'), _('Command output')].forEach(choice => optionList.append(choice));
@@ -128,7 +228,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             const checkCommandInfo = new Adw.ActionRow({
                 title: _('Command Configuration'),
                 subtitle: _(
-                            'Enter the Check Output Command and Search Term in the Commands section above. If the specified Search Term appears ' +
+                            'Enter the Check Status Command and Search Term in the Commands section above. If the specified Search Term appears ' +
                             'in the command\'s output, the button will be set to ON at startup. Otherwise, the button will be set to OFF.'
                            ),
                 activatable: false,
@@ -158,8 +258,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         
             const spinRow = new Adw.SpinRow({
                 title: _('Startup Delay (seconds)'),
-                subtitle: _('Amount of time to delay command from running after startup \n' +
-                            '(it may be required to allow other processes to finish loading before running the command)'),
+                subtitle: _('Amount of time to delay command from running after startup'),
                 adjustment: new Gtk.Adjustment({
                     lower: 0,
                     upper: 10,
@@ -171,8 +270,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
             const spinRow2 = new Adw.SpinRow({
                 title: _('Startup Delay (seconds)'),
-                subtitle: _('Amount of time to delay command from running after startup \n' +
-                            '(it may be required to allow other processes to finish loading before running the command)'),
+                subtitle: _('Amount of time to delay command from running after startup'),
                 adjustment: new Gtk.Adjustment({
                     lower: 0,
                     upper: 10,
@@ -189,18 +287,13 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             const group4 = new Adw.PreferencesGroup({
                 title: _('Toggle Behavior'),
             });
-            groups.push(group4);
             
             const toggleList = new Gtk.StringList();
             [_('Always on'), _('Always off'), _('Toggle')].forEach(choice => toggleList.append(choice));
         
             const comboRow2 = new Adw.ComboRow({
                 title: _('Button Click Action'),
-                subtitle: _(
-                    '• Toggle: Button will toggle on/off when clicked (default action)\n' +
-                    '• Always on/off: Button will remain in the selected on or off state when clicked ' +
-                    'and only execute the associated on or off command'
-                ),
+                subtitle: _('Button behavior when clicked'),
                 model: toggleList,
             });
             group4.add(comboRow2);
@@ -248,7 +341,6 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             const group5 = new Adw.PreferencesGroup({
                 title: _('Command Sync Behavior'),
             });
-            groups.push(group5);
 
             const commandSyncExpanderRow = new Adw.ExpanderRow({
                 title: _('Keep Toggle State Synced'),
@@ -263,13 +355,16 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             } else {
                 commandSyncExpanderRow.expanded = window._settings.get_boolean(`checkcommandsync${pageIndex}-setting`);
                 commandSyncExpanderRow.show_enable_switch = true;
-            }            
+            }
+            commandSyncExpanderRow.connect('notify::expanded', widget => {
+                commandSyncExpanderRow.enable_expansion = widget.expanded;
+            });       
             group5.add(commandSyncExpanderRow);
 
             const checkCommandInfo2 = new Adw.ActionRow({
                 title: _('Command Configuration'),
                 subtitle: _(
-                            'Enter the Check Output Command and Search Term in the Commands section above. If the specified Search Term appears ' +
+                            'Enter the Check Status Command and Search Term in the Commands section above. If the specified Search Term appears ' +
                             'in the command\'s output, the button will be set to ON. Otherwise, the button will be set to OFF.'
                            ),
                 activatable: false,
@@ -338,21 +433,31 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             window._settings.bind(`checkcommandsync${pageIndex}-setting`, commandSyncExpanderRow, 'expanded', Gio.SettingsBindFlags.DEFAULT);
             //#endregion Bindings
 
+
             // Push the created page to the pages array
-            pages.push(page);
+            this._pages.push(page);
+
+
+            //#region Visibility
+            [   entryRow1, entryRow2, entryRow3, entryRow4, checkCommandRow, checkRegexRow,
+                comboRow, expanderRow, spinRow, spinRow2, comboRow2, switchRow, switchRow2, switchRow3,
+                commandSyncExpanderRow, pollingFreqSpinRow, keybindRow
+            ].forEach(widget => widget.set_sensitive(isVisible));
+            //#endregion Visibility
 
         }// End of for loop to create toggle button settings pages
         
 
-        //#region Information Page
+        //#region Config Page
         const infoPage = new Adw.PreferencesPage({
             title: _('Configuration'),
             icon_name: 'applications-system-symbolic',
         });
         window.add(infoPage);
-        //#endregion Information Page
+        this._pages.push(infoPage);
+        //#endregion Config Page
 
-        
+
         //#region Settings
         const configGroup0 = new Adw.PreferencesGroup({
             title: _('Settings'),
@@ -361,8 +466,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
         const spinRow0 = new Adw.SpinRow({
             title: _('Number of Toggle Buttons'),
-            subtitle: _('Restart required for changes to take effect'),
-            value: window._settings.get_int('numbuttons-setting'),
+            subtitle: _('Click Apply to save and reinitialize toggle states.'),
             adjustment: new Gtk.Adjustment({
                 lower: 1,
                 upper: 6,
@@ -370,119 +474,66 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 page_increment: 1,
             }),
         });
+        spinRow0.value = window._settings.get_int('numbuttons-setting');
+
+        const applyButton = new Gtk.Button({
+            label: _('Apply'),
+            valign: Gtk.Align.CENTER,
+            visible: true,
+        });
+        applyButton.add_css_class('flat');
+        applyButton.set_sensitive(false);
+
+        spinRow0.connect('notify::value', () => {
+            applyButton.set_sensitive(spinRow0.value !== numButtons);
+        });
+
+        applyButton.connect('clicked', () => {
+            if(window._settings.get_int('numbuttons-setting') !== spinRow0.value) {
+                window._settings.set_int('numbuttons-setting', spinRow0.value); 
+                this.populateTogglePages(window);
+            }
+            const lastIndex = this._pages.length - 1;
+            window.set_visible_page(this._pages[lastIndex]);
+            window._settings.set_boolean('force-refresh', !window._settings.get_boolean('force-refresh'));
+
+        });
+        spinRow0.add_suffix(applyButton);
+        spinRow0.activatable_widget = applyButton;
         configGroup0.add(spinRow0);
+        //#endregion Settings
         
-        window._settings.bind('numbuttons-setting', spinRow0, 'value', Gio.SettingsBindFlags.DEFAULT);
+
+        //#region Backup
+        const backupGroup = new Adw.PreferencesGroup({
+            title: _('Backup and Restore'),
+        });
+        infoPage.add(backupGroup);
+        
+        const importRow = new Adw.ActionRow({
+            title: _('Import Configuration'),
+            subtitle: _('Click to import the toggles.ini configuration file from the home directory'),
+            activatable: true,
+        });
+        importRow.connect('activated', () => {
+            importConfiguration(window._settings, window);
+            this.populateTogglePages(window);
+            window._settings.set_boolean('force-refresh', !window._settings.get_boolean('force-refresh'));
+            const lastIndex = this._pages.length - 1; // Configuration tab is last
+            window.set_visible_page(this._pages[lastIndex]);
+        });
+        backupGroup.add(importRow);
 
         const exportRow = new Adw.ActionRow({
-            title: _('Export Button Configurations'),
-            subtitle: _(`Click to export the toggles.ini backup file to the home directory`),
+            title: _('Export Configuration'),
+            subtitle: _('Click to export the toggles.ini configuration file to the home directory'),
             activatable: true,
         });
         exportRow.connect('activated', () => {
             exportConfiguration(numButtons, window._settings, window);
         });
-        configGroup0.add(exportRow);
-        //#endregion Settings
-
-        
-        //#region Resources
-        const configGroup1 = new Adw.PreferencesGroup({
-            title: _('Resources'),
-        });
-        
-        const configRow2 = new Adw.ActionRow({
-            title: _('Icons'),
-            subtitle: _(
-                        '•  For a list of icons, refer to the Icon List link below.\n' +
-                        '•  Enter the icon name in the Icon field, or leave blank for no icon.\n' +
-                        '•  To use separate on/off icons, enter both names separated by a comma.\n' +
-                        '•  To use custom icons, place them in ~/.local/share/icons/.   ' + 
-                        'Then reboot and enter the icon name (without the file extension) in the Icon field.'
-                       ),
-            activatable: false,
-        });
-        
-        const configRow3 = new Adw.ActionRow({
-            title: _('Icon List'),
-            subtitle: _('List of default symbolic icons'),
-            activatable: true,
-        });
-        configRow3.connect('activated', () => {
-            Gio.app_info_launch_default_for_uri('https://github.com/StorageB/icons/blob/main/GNOME48Adwaita/icons.md', null);
-        });
-        configRow3.add_prefix(new Gtk.Image({icon_name: 'web-browser-symbolic'}));
-        configRow3.add_suffix(new Gtk.Image({icon_name: 'go-next-symbolic'}));
-        
-        const configRow4 = new Adw.ActionRow({
-            title: _('Local Icons'),
-            subtitle: _('Local icon directory (/usr/share/icons)'),
-            activatable: true,
-        });
-        configRow4.connect('activated', () => {
-            Gio.app_info_launch_default_for_uri('file:///usr/share/icons', null);
-        });
-        configRow4.add_prefix(new Gtk.Image({icon_name: 'folder-symbolic'}));
-        configRow4.add_suffix(new Gtk.Image({icon_name: 'go-next-symbolic'}));
-        //#endregion Resources
-
-        
-        //#region About
-        const aboutGroup = new Adw.PreferencesGroup({
-            title: _('About'),
-        });
-        
-        const aboutRow0 = new Adw.ActionRow({
-            title: _('What\'s New'),
-            subtitle: _('List of recent changes and improvements'),
-            activatable: true,
-        });
-        aboutRow0.connect('activated', () => {
-            const dialog = new Gtk.MessageDialog({
-                transient_for: window,
-                modal: true,
-                text: _('Release Notes'),
-                secondary_text: releaseNotes,
-                buttons: Gtk.ButtonsType.CLOSE,
-            });
-            dialog.connect('response', () => dialog.destroy());
-            dialog.show();
-        });
-        aboutRow0.add_prefix(new Gtk.Image({icon_name: 'dialog-information-symbolic'}));
-        aboutRow0.add_suffix(new Gtk.Image({icon_name: 'go-next-symbolic'}));
-
-        const aboutRow1 = new Adw.ActionRow({
-            title: _('Homepage'),
-            subtitle: _('GitHub page for additional information and bug reporting'),
-            activatable: true,
-        });
-        aboutRow1.connect('activated', () => {
-            Gio.app_info_launch_default_for_uri('https://github.com/StorageB/custom-command-toggle', null);
-        });
-        aboutRow1.add_prefix(new Gtk.Image({icon_name: 'go-home-symbolic'}));
-        aboutRow1.add_suffix(new Gtk.Image({icon_name: 'go-next-symbolic'}));
-        
-        const aboutRow2 = new Adw.ActionRow({
-            title: _('Extension Page'),
-            subtitle: _('GNOME extension page'),
-            activatable: true,
-        });
-        aboutRow2.connect('activated', () => {
-            Gio.app_info_launch_default_for_uri('https://extensions.gnome.org/extension/7012/custom-command-toggle/', null);
-        });
-        aboutRow2.add_prefix(new Gtk.Image({icon_name: 'web-browser-symbolic'}));
-        aboutRow2.add_suffix(new Gtk.Image({icon_name: 'go-next-symbolic'}));
-        
-        infoPage.add(configGroup1);
-        configGroup1.add(configRow2);
-        configGroup1.add(configRow3);
-        //configGroup1.add(configRow4);
-        
-        infoPage.add(aboutGroup);
-        aboutGroup.add(aboutRow0);
-        aboutGroup.add(aboutRow1);
-        aboutGroup.add(aboutRow2);
-        //#endregion About
+        backupGroup.add(exportRow);        
+        //#endregion Backup
 
 
         //#region Advanced
@@ -495,8 +546,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             title: _('Detailed Logging'),
             subtitle: _(
                 'To view output, run the following in a terminal then restart extension:\n' +
-                'journalctl -f -o cat /usr/bin/gnome-shell | grep "Custom Command Toggle"\n\n' +
-                '(May generate excessive logs. Use for setup/troubleshooting only.)'
+                'journalctl -f -o cat /usr/bin/gnome-shell | grep "Custom Command Toggle"'
             ),
             active: window._settings.get_boolean(`debug-setting`),
         });
@@ -522,7 +572,56 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         });
 
         debugSwitchRow.add_suffix(copyButton);
+
+        const resetRow = new Adw.ActionRow({
+            title: _('Reset to Defaults'),
+            subtitle: _('Click to restore all toggles and settings to their default values'),
+            activatable: true,
+        });
+        resetRow.connect('activated', () => {
+            const dialog = new Adw.MessageDialog({
+                transient_for: window,
+                heading: _('Confirm Reset'),
+                body: _('All toggles and extension settings will be reset to their default values. This action cannot be undone.'),
+                default_response: 'cancel',
+                close_response: 'cancel',
+            });
+
+            dialog.add_response('cancel', _('Cancel'));
+            dialog.add_response('reset', _('Reset'));
+            dialog.set_response_appearance('reset', Adw.ResponseAppearance.DESTRUCTIVE);
+
+            dialog.connect('response', (dlg, response) => {
+                if (response === 'reset') {
+                    console.log("RESET CLICKED");
+                    reset(window._settings, window);
+                    this.populateTogglePages(window);
+                }
+                dlg.destroy();
+            });
+
+            dialog.show();
+        });
         advancedGroup.add(debugSwitchRow);
+        advancedGroup.add(resetRow);
         //#endregion Advanced
+
+
+        //#region Resources
+        const resourcesGroup = new Adw.PreferencesGroup({
+            title: _('Resources'),
+        });
+
+        const gettingStartedActionRow = new Adw.ActionRow({
+            subtitle: _('Find links to the User Guide, Icon List, and other helpful information in the menu at the top of this window.'),
+            activatable: false,
+        });
+        gettingStartedActionRow.add_prefix(new Gtk.Image({icon_name: 'dialog-information-symbolic'}));
+
+        infoPage.add(resourcesGroup);
+        resourcesGroup.add(gettingStartedActionRow);
+        //#endregion Resources
+
+
     }
 }
