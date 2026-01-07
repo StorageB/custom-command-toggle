@@ -20,7 +20,7 @@ Custom Command Toggle is an extension for GNOME 45+ that lets you create fully c
 - Option to toggle the button only if the command executes successfully and returns exit code 0 (for use with sudo commands using `pkexec sudo` where the command could be canceled or incorrect password entered).
 - Customize toggle button behavior to toggle or be in an always on or off state.
 - Assign keyboard shortcuts to quick toggle buttons.
-- Export and import button configurations using an easy-to-edit .ini file.
+- Import and export button configurations using an easy-to-edit .ini file.
 - Create up to 6 custom buttons.
 
 <br>
