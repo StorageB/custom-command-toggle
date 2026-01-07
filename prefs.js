@@ -76,13 +76,13 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
         const iconListAction = new Gio.SimpleAction({ name: "iconList" });
         iconListAction.connect("activate", () => {
-            Gio.app_info_launch_default_for_uri('https://github.com/StorageB/icons/blob/main/GNOME48Adwaita/icons.md', null);
+            Gio.app_info_launch_default_for_uri('https://storageb.github.io/custom-command-toggle/icons-dark/', null);
         });
         actionGroup.add_action(iconListAction);
 
         const userGuideAction = new Gio.SimpleAction({ name: "userGuide" });
         userGuideAction.connect("activate", () => {
-            Gio.app_info_launch_default_for_uri('https://storageb.github.io/custom-command-toggle/icons-dark/', null);
+            Gio.app_info_launch_default_for_uri('https://storageb.github.io/custom-command-toggle/', null);
         });
         actionGroup.add_action(userGuideAction);
 
