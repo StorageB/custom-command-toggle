@@ -9,8 +9,14 @@
     <key name="debug-setting" type="b">
       <default>false</default>
        <summary>Enable debug logging</summary>
-    </key>    
-
+    </key>
+    <key name="force-refresh" type="b">
+        <default>false</default>
+        <summary>Forces extension refresh after settings update</summary>
+        <description>
+            This key is toggled to trigger an extension rebuild toggles and refresh indicators.
+        </description>
+    </key>
     <key name="entryrow1-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Hello world!"'</default>
       <summary>Button 1 ON command</summary>
@@ -39,11 +45,11 @@
     <key name="checkcommand1-setting" type="s">
       <default>""</default>
       <summary>Button 1 check state command</summary>
-      <description>Command to check state at startup for button 1</description>
+      <description>Command to check state at startup and command sync for button 1</description>
     </key>
     <key name="checkregex1-setting" type="s">
       <default>""</default>
-      <summary>Button 1 check state string</summary>
+      <summary>Button 1 search term</summary>
       <description>String to search for in the command output to set button state ON at startup for button 1</description>
     </key>    
     <key name="runcommandatboot1-setting" type="b">
@@ -86,6 +92,10 @@
     <key name="checkexitcode1-setting" type="b">
       <default>false</default>
       <summary>Button 1 check exit code setting</summary>
+    </key>
+    <key name="enabled1-setting" type="b">
+      <default>true</default>
+      <summary>Enable or disable toggle button 1</summary>
     </key>
 
     <key name="entryrow12-setting" type="s">
@@ -141,7 +151,10 @@
     </key>
     <key name="checkexitcode2-setting" type="b">
       <default>false</default>
-    </key>    
+    </key>
+    <key name="enabled2-setting" type="b">
+      <default>true</default>
+    </key>      
 
     <key name="entryrow13-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 3 toggled on"'</default>
@@ -196,8 +209,11 @@
     </key>
     <key name="checkexitcode3-setting" type="b">
       <default>false</default>
-    </key>    
-
+    </key>
+    <key name="enabled3-setting" type="b">
+      <default>true</default>
+    </key>  
+  
     <key name="entryrow14-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 4 toggled on"'</default>
     </key>
@@ -251,6 +267,9 @@
     </key>
     <key name="checkexitcode4-setting" type="b">
       <default>false</default>
+    </key>
+    <key name="enabled4-setting" type="b">
+      <default>true</default>
     </key>    
 
     <key name="entryrow15-setting" type="s">
@@ -306,7 +325,10 @@
     </key>
     <key name="checkexitcode5-setting" type="b">
       <default>false</default>
-    </key>    
+    </key>
+    <key name="enabled5-setting" type="b">
+      <default>true</default>
+    </key>  
 
     <key name="entryrow16-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 6 toggled on"'</default>
@@ -361,7 +383,10 @@
     </key>
     <key name="checkexitcode6-setting" type="b">
       <default>false</default>
-    </key>    
+    </key>
+    <key name="enabled6-setting" type="b">
+      <default>true</default>
+    </key>      
 
   </schema>
 </schemalist>
