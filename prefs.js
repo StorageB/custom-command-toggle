@@ -49,8 +49,8 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         const menuModel = new Gio.Menu();
 
         const menuSection1 = new Gio.Menu();
-        menuSection1.append(_("Icon List"), "app.iconList");
         menuSection1.append(_("User Guide"), "app.userGuide");
+        menuSection1.append(_("Icon List"), "app.iconList");
 
         const menuSection2 = new Gio.Menu();
         menuSection2.append(_("About"), "app.about");
