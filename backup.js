@@ -222,24 +222,30 @@ export function importConfiguration(settings, window) {
                 try { return keyFile.get_integer(`Toggle ${i}`, k); } catch (_) { return def; }
             };    
 
-            let button_name         = getString('button-name', 'My Button');
-            let icon                = getString('icon', 'face-smile-symbolic');
-            let toggle_on_command   = getString('toggle-on-command', 'notify-send "Custom Command Toggle" "ON"');
-            let toggle_off_command  = getString('toggle-off-command', 'notify-send "Custom Command Toggle" "OFF"');
-            let check_status_command= getString('check-status-command', '');
-            let search_term         = getString('search-term', '');
-            let initial_state       = getInt('initial-state', 2);
-            let run_at_startup      = getBool('run-at-startup', false);
-            let startup_delay_time  = getInt('startup-delay-time', 3);
-            let check_status_delay  = getInt('check-status-delay-time', 3);
-            let button_click_action = getInt('button-click-action', 2);
-            let check_exit_code     = getBool('check-exit-code', false);
-            let show_indicator      = getBool('show-indicator', true);
-            let close_menu          = getBool('close-menu', false);
-            let command_sync        = getBool('command-sync', false);
-            let polling_frequency   = getInt('polling-frequency', 10);
-            let keyboard_shortcut   = getString('keyboard-shortcut', '');
-            let enabled             = getBool('enabled', true);
+            let button_name          = getString('button-name', 'My Button');
+            let icon                 = getString('icon', 'face-smile-symbolic');
+            let toggle_on_command    = getString('toggle-on-command', 'notify-send "Custom Command Toggle" "ON"');
+            let toggle_off_command   = getString('toggle-off-command', 'notify-send "Custom Command Toggle" "OFF"');
+            let check_status_command = getString('check-status-command', '');
+            let search_term          = getString('search-term', '');
+            let initial_state        = getInt('initial-state', 2);
+            let run_at_startup       = getBool('run-at-startup', false);
+            let startup_delay_time   = getInt('startup-delay-time', 3);
+            let check_status_delay   = getInt('check-status-delay-time', 3);
+            let button_click_action  = getInt('button-click-action', 2);
+            let check_exit_code      = getBool('check-exit-code', false);
+            let show_indicator       = getBool('show-indicator', true);
+            let close_menu           = getBool('close-menu', false);
+            let command_sync         = getBool('command-sync', false);
+            let polling_frequency    = getInt('polling-frequency', 10);
+            let keyboard_shortcut    = getString('keyboard-shortcut', '');
+            let enabled              = getBool('enabled', true);
+
+            if (initial_state < 0 || initial_state > 3) initial_state = 2;
+            if (startup_delay_time < 0 || startup_delay_time > 10) startup_delay_time = 3;
+            if (check_status_delay < 0 || check_status_delay > 10) check_status_delay = 3;
+            if (button_click_action < 0 || button_click_action > 2) button_click_action = 2;
+            if (polling_frequency < 2 || polling_frequency > 900) polling_frequency = 10;
 
             settings.set_string(`entryrow3${j}-setting`, button_name);
             settings.set_string(`entryrow4${j}-setting`, icon);
