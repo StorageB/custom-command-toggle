@@ -18,7 +18,7 @@ journalctl -f -o cat /usr/bin/gnome-shell | grep "Custom Command Toggle"
 
 # Reset to Defaults
 
-To fully reset the extension and restore all default settings, use the Reset to Defaults function under Confuguration Tab and Advanced.
+To fully reset the extension and restore all default settings, use the _Reset to Defaults_ function under Confuguration Tab and Advanced.
 
 ![Screenshot-advanced](screenshots/screenshot-advanced-12.png)
 
