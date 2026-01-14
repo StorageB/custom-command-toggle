@@ -12,6 +12,8 @@ journalctl -f -o cat /usr/bin/gnome-shell | grep "Custom Command Toggle"
 
 ![screenshot-advanced](screenshots/screenshot-advanced-12.png)
 
+To view logs of startup behavior, enable detailed logging, disable the extension, wait a few seconds, and then enable the extension.
+
 !!! note "Use detailed logging for troubleshooting purposes only. Enabling may result in continuous excessive logging."
 
 ---

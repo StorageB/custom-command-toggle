@@ -7,28 +7,30 @@ To set up and configure, open the extension preferences via the Extension Manage
 gnome-extensions prefs custom-command-toggle@storageb.github.com
 ```
 
-
 ---
 
+## Appearance
 
+Enter the _Button name_ and _Icon_ to use for each button. Refer to the Icons section below for additional information.
 
+To temporarily remove a toggle button without deleting its configuration, use the hide/reveal button at the top of the Appearance section. Hidden toggles do not appear in the quick settings menu and are fully disabled while hidden.
+
+![screenshot-appearance](screenshots/screenshot-appearance-12.png)
+
+---
 
 ## Icons
 
 Enter the icon name for each toggle button. <!--This extension uses GNOME symbolic icons by default that will display the correct size and use the correct color based on your system's theme. Enter the icon name only – -->Do not use the icon path or include a file extension.
 
-![screenshot-appearance](screenshots/screenshot-appearance-12.png)
-
 <u>**Available Icons**</u>
 
 For a list of available symbolic icons to use refer to:
 
-- [GNOME default icons](icons-dark.md)
+- [GNOME default icons](icons-adwaita.md)
 - [Ubuntu Yaru icons](icons-yaru.md)
 
 Alternatively, browse the icon directory for your system’s theme (typically `/usr/share/icons`) and enter the name of an icon (without the file extension).
-
-
 
 <u>**Custom Icons**</u>
 
@@ -105,6 +107,8 @@ It may be helpful to enable [Detailed Logging](troubleshooting.md/#detailed-logg
 
 ![Screenshot-sync](screenshots/screenshot-sync-12.png)
 
+!!! note "Using a polling frequency under 5 seconds may impact system performance, especially when multiple toggles have command sync enabled."
+
 ---
 
 ## Keyboard Shortcuts
@@ -125,7 +129,7 @@ _Export_ saves your current configuration to a file.
 
 Configurations are imported from and saved to the user's home directory (`~/toggles.ini`).
 
-![screenshot-settings](screenshots/screenshot-settings-2.png)
+![screenshot-settings](screenshots/screenshot-backup-12.png)
 
 !!! tip "The toggles.ini file can be viewed and edited using any text editor"
 
@@ -189,7 +193,7 @@ enabled = true
 
 A maximum of 6 custom toggles can be created.
 
-In the Configuration tab under Settings, select the number of buttons to create and click Apply. 
+In the Configuration tab under Settings, select the number of buttons to create and click _Apply_.
 
 !!! note "Clicking Apply will reinitialize all existing toggles setting them to their startup state and running associated startup commands"
 

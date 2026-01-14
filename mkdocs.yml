@@ -23,8 +23,7 @@ nav:
   - Installation: installation.md
   - Configuration: configuration.md
   - Icons:
-      - GNOME Dark: icons-dark.md
-      - GNOME Light: icons-light.md
+      - GNOME Adwaita: icons-adwaita.md
       - Ubuntu Yaru: icons-yaru.md
   - Troubleshooting: troubleshooting.md
   - Change Log: changelog.md

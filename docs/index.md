@@ -26,7 +26,9 @@ Custom Command Toggle is an extension for GNOME 45+ to create fully customizable
 
 ## Getting Started
 
-Open extension prefrences through the extension manager or by running:
+Install through the [GNOME Extensions website](https://extensions.gnome.org/extension/7012/custom-command-toggle/) or the [GNOME Extension Manager](https://mattjakeman.com/apps/extension-manager).
+
+To configure the extension, open extension prefrences through the extension manager or by running:
 
 ```
 gnome-extensions prefs custom-command-toggle@storageb.github.com

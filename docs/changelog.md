@@ -5,7 +5,7 @@
 **Features**
 
 - Full import and export functionality for button configurations.
-- Option to hide individual toggle buttons from the panel menu.
+- Option to hide/disable individual toggle buttons from the panel menu.
 - Changing the number of toggle buttons no longer requires logging out or rebooting.
 - Option to reset all settings to default values.
 - Created a more user-friendly and detailed user guide.

@@ -18,6 +18,7 @@ Discussion:
 
 [https://github.com/StorageB/custom-command-toggle/discussions](https://github.com/StorageB/custom-command-toggle/discussions)
 
+---
 
 ## License
 
