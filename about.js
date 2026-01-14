@@ -49,7 +49,7 @@ const releaseNotes = '\
     </ul >\
     <p>Fixes &amp; Improvements:</p>\
     <ul>\
-        <li>Added a menu button at the top left of the header bar for quick access to the icon lists, the new user guide, and a new about dialog</li>\
+        <li>Added a menu button to the top of the header bar for quick access to the icon lists, the new user guide, and a new about dialog</li>\
         <li>Minor UI improvements</li>\
     </ul >\
 ';
