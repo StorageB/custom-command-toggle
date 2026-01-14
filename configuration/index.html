@@ -16,7 +16,7 @@
         <link rel="prev" href="../installation/">
       
       
-        <link rel="next" href="../icons-dark/">
+        <link rel="next" href="../icons-adwaita/">
       
       
       <link rel="icon" href="../icons/custom-command-toggle-docs.png">
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#icons" class="md-skip">
+        <a href="#appearance" class="md-skip">
           Skip to content
         </a>
       
@@ -231,7 +231,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../icons-dark/" class="md-tabs__link">
+        <a href="../icons-adwaita/" class="md-tabs__link">
           
   
   Icons
@@ -438,6 +438,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#appearance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appearance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#icons" class="md-nav__link">
     <span class="md-ellipsis">
       Icons
@@ -567,33 +576,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../icons-dark/" class="md-nav__link">
+      <a href="../icons-adwaita/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    GNOME Dark
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../icons-light/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    GNOME Light
+    GNOME Adwaita
     
   </span>
   
@@ -724,13 +711,17 @@
 </code></pre></div>
 
 <hr />
+<h2 id="appearance">Appearance</h2>
+<p>Enter the <em>Button name</em> and <em>Icon</em> to use for each button. Refer to the Icons section below for additional information.</p>
+<p>To temporarily remove a toggle button without deleting its configuration, use the hide/reveal button at the top of the Appearance section. Hidden toggles do not appear in the quick settings menu and are fully disabled while hidden.</p>
+<p><img alt="screenshot-appearance" src="../screenshots/screenshot-appearance-12.png" /></p>
+<hr />
 <h2 id="icons">Icons</h2>
 <p>Enter the icon name for each toggle button. <!--This extension uses GNOME symbolic icons by default that will display the correct size and use the correct color based on your system's theme. Enter the icon name only – -->Do not use the icon path or include a file extension.</p>
-<p><img alt="screenshot-appearance" src="../screenshots/screenshot-appearance-12.png" /></p>
 <p><u><strong>Available Icons</strong></u></p>
 <p>For a list of available symbolic icons to use refer to:</p>
 <ul>
-<li><a href="../icons-dark/">GNOME default icons</a></li>
+<li><a href="../icons-adwaita/">GNOME default icons</a></li>
 <li><a href="../icons-yaru/">Ubuntu Yaru icons</a></li>
 </ul>
 <p>Alternatively, browse the icon directory for your system’s theme (typically <code>/usr/share/icons</code>) and enter the name of an icon (without the file extension).</p>
@@ -784,6 +775,9 @@
 <p>It may be helpful to enable <a href="../troubleshooting/#detailed-logging">Detailed Logging</a> to help with setting up this feature, </p>
 <p><img alt="Screenshot-commands" src="../screenshots/screenshot-commands-12.png" /></p>
 <p><img alt="Screenshot-sync" src="../screenshots/screenshot-sync-12.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Using a polling frequency under 5 seconds may impact system performance, especially when multiple toggles have command sync enabled.</p>
+</div>
 <hr />
 <h2 id="keyboard-shortcuts">Keyboard Shortcuts</h2>
 <p>Assign keyboard shortcuts to toggle buttons.</p>
@@ -793,7 +787,7 @@
 <p><em>Import</em> loads an existing configuration and replaces your current toggle settings.</p>
 <p><em>Export</em> saves your current configuration to a file.</p>
 <p>Configurations are imported from and saved to the user's home directory (<code>~/toggles.ini</code>).</p>
-<p><img alt="screenshot-settings" src="screenshots/screenshot-settings-2.png" /></p>
+<p><img alt="screenshot-settings" src="../screenshots/screenshot-backup-12.png" /></p>
 <div class="admonition tip">
 <p class="admonition-title">The toggles.ini file can be viewed and edited using any text editor</p>
 </div>
@@ -850,7 +844,7 @@
 <hr />
 <h2 id="number-of-buttons">Number of Buttons</h2>
 <p>A maximum of 6 custom toggles can be created.</p>
-<p>In the Configuration tab under Settings, select the number of buttons to create and click Apply. </p>
+<p>In the Configuration tab under Settings, select the number of buttons to create and click <em>Apply</em>.</p>
 <div class="admonition note">
 <p class="admonition-title">Clicking Apply will reinitialize all existing toggles setting them to their startup state and running associated startup commands</p>
 </div>
