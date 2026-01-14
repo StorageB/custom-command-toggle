@@ -42,7 +42,7 @@ const releaseNotes = '\
     <p>Whats new in this version:</p>\
     <ul>\
         <li>Full import and export functionality for button configurations</li>\
-        <li>Option to hide individual toggle buttons from the panel menu</li>\
+        <li>Option to hide/disable individual toggle buttons from the panel menu</li>\
         <li>Changing the number of toggle buttons no longer requires logging out or rebooting</li>\
         <li>Option to reset all settings to default values</li>\
         <li>Created a more detailed and user-friendly user guide</li>\

@@ -68,15 +68,15 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
         menuButton.connect('realize', () => {
             const popover = menuButton.get_popover();
-            popover.halign = Gtk.Align.START;
-            popover.set_has_arrow(false);
+            //popover.halign = Gtk.Align.START;
+            //popover.set_has_arrow(false);
         });
 
         const actionGroup = new Gio.SimpleActionGroup();
 
         const iconListAction = new Gio.SimpleAction({ name: "iconList" });
         iconListAction.connect("activate", () => {
-            Gio.app_info_launch_default_for_uri('https://storageb.github.io/custom-command-toggle/icons-dark/', null);
+            Gio.app_info_launch_default_for_uri('https://storageb.github.io/custom-command-toggle/icons-adwaita/', null);
         });
         actionGroup.add_action(iconListAction);
 
@@ -88,7 +88,6 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
         const aboutAction = new Gio.SimpleAction({ name: "about" });
         aboutAction.connect("activate", () => {
-            console.log("about");
             showAboutDialog(window, this.metadata, this.path);
         });
         actionGroup.add_action(aboutAction);
@@ -107,7 +106,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             .get_first_child(); // This gets the AdwHeaderBar
         
             this._window.remove(page);
-            headerBar.pack_start(menuButton);
+            headerBar.pack_end(menuButton);
     }
 
 
@@ -593,7 +592,6 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
             dialog.connect('response', (dlg, response) => {
                 if (response === 'reset') {
-                    console.log("RESET CLICKED");
                     reset(window._settings, window);
                     this.populateTogglePages(window);
                 }
