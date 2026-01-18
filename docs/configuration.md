@@ -1,7 +1,6 @@
 <!-- config.md -->
 
-To set up and configure, open the extension preferences via the Extension Manager or run:
-
+To set up and configure, open extension preferences through the extension manager or by running:
 
 ```
 gnome-extensions prefs custom-command-toggle@storageb.github.com
@@ -36,7 +35,7 @@ Alternatively, browse the icon directory for your system’s theme (typically `/
 
 To use a custom icon, place the icon in: `~/.local/share/icons/`. Reboot and then enter the icon name (without the file extension). 
 
-<u>**Seprate On/Off Icons**</u>
+<u>**Separate On/Off Icons**</u>
 
 To display different icons when the toggle button is on and off, enter both icon names separated by a comma.
 
@@ -60,7 +59,7 @@ If using the _Command output_ option for the _Initial State_ setting or the _Kee
 **sudo Commands:**
 
 - Use `pkexec` before the command to prompt for a password. For example, `pkexec sudo command` prompts for your password and then runs the command. Alternatively, use `gnome-terminal -- sudo command` to open a terminal where you can enter your password.
-- Enable the _Check Command Exit Code_ option under [Toggle Behaviour](#toggle-behavior) for sudo commands. This will prevent the toggle button from changing status if the wrong password is entered or the command is canceled.
+- Enable the _Check Command Exit Code_ option under [Toggle Behavior](#toggle-behavior) for sudo commands. This will prevent the toggle button from changing status if the wrong password is entered or the command is canceled.
 
 ---
 
