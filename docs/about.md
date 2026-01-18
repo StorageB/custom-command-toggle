@@ -36,8 +36,10 @@ Run commands from a custom drop-down menu!
 
 ![Screenshot-advanced](screenshots/custom-command-menu-12.png)
 
-[<img src="https://raw.githubusercontent.com/andyholmes/gnome-shell-extensions-badge/master/get-it-on-ego.svg?sanitize=true" alt="Get it on GNOME Extensions" height="100" width="220">](https://extensions.gnome.org/extension/7024/custom-command-list/)
+<!--[<img src="https://raw.githubusercontent.com/andyholmes/gnome-shell-extensions-badge/master/get-it-on-ego.svg?sanitize=true" alt="Get it on GNOME Extensions" height="100" width="220">](https://extensions.gnome.org/extension/7024/custom-command-list/)-->
 
 ---
+
+**I hope you found this extension useful!**
 
 [<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 36px;width: 131px;">](https://www.buymeacoffee.com/StorageB)
