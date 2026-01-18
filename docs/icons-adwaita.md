@@ -1,25 +1,9 @@
 # GNOME Adwaita
 
-<div style="display: flex; gap: 10px;">
-
-<a href="https://storageb.github.io/custom-command-toggle/icons-adwaita/" target="_self" style="
-    background-color: #3f51b5;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: normal;
-">GNOME Adwaita</a>
-
-<a href="https://storageb.github.io/custom-command-toggle/icons-yaru/" target="_self" style="
-    background-color: #3f51b5;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: normal;
-">Ubuntu Yaru</a>
-
+<div class="icon-set-switch">
+  <a class="active" href="https://storageb.github.io/custom-command-toggle/icons-adwaita/" target="_self" >GNOME Adwaita</a>
+  <span class="sep">•</span>
+  <a href="https://storageb.github.io/custom-command-toggle/icons-yaru/" target="_self" >Ubuntu Yaru</a>
 </div>
 
 ---

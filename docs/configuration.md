@@ -198,7 +198,3 @@ In the Configuration tab under Settings, select the number of buttons to create 
 !!! note "Clicking Apply will reinitialize all existing toggles setting them to their startup state and running associated startup commands"
 
 ![screenshot-numbuttons](screenshots/screenshot-numbuttons-12.png)
-
-
-
----

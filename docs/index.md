@@ -12,15 +12,13 @@ Custom Command Toggle is an extension for GNOME 45+ to create fully customizable
 
 ## Key Features
 
-- Run commands and launch scripts directly from toggle buttons.
-- Use custom names and icons for buttons.
-- Sync button states automatically to a command output.
-- Configure startup behavior of toggle buttons.
-- Check command exit code to verify command executed succussfully.
-- Create always on or always off buttons.
-- Assign keyboard shortcuts to buttons.
-- Export and import button configurations.
-- Create up to 6 custom toggle buttons.
+- Run commands or launch scripts directly from GNOME Quick Toggle buttons
+- Smart startup behavior (auto-detect, restore previous state, or manually set on/off)
+- Optional command-based state syncing
+- Customize button names and icons (with a quick-reference icon list in the User Guide)
+- Assign keyboard shortcuts to buttons
+- Import and export button configurations
+- Create up to 6 independent custom toggle buttons
 
 ---
 
@@ -39,7 +37,17 @@ From the prefrences window, use the top-left menu for quick access to this User 
 ![screenshot-menu](screenshots/screenshot-menu-12.png)
 
 
-    
+Quick links:
+
+<a href="installation">Installation</a> |
+<a href="configuration">Configuration</a> |
+<a href="icons-adwaita">Icon Reference</a> |
+<a href="troubleshooting">Troubleshooting</a> |
+<a href="changelog">Change Log</a> |
+<a href="about">About</a>
+
+
+
 
     
 

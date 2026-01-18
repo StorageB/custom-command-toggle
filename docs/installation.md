@@ -47,6 +47,3 @@ gnome-extensions prefs custom-command-toggle@storageb.github.com
 ```
 -->
 
-<!--
-Install through the [GNOME Extensions website](https://extensions.gnome.org/extension/7012/custom-command-toggle/).
--->

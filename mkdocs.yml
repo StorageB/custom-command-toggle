@@ -2,7 +2,7 @@ site_name: Custom Command Toggle
 site_description: Documentation for the Custom Command Toggle GNOME Extension
 site_author: StorageB
 repo_url: https://github.com/StorageB/custom-command-toggle
-repo_name: custom-command-toggle
+#repo_name: custom-command-toggle
 
 theme:
   name: material
@@ -17,6 +17,9 @@ theme:
     - toc.integrate
   logo: icons/custom-command-toggle-docs.png
   favicon: icons/custom-command-toggle-docs.png
+
+extra_css:
+  - stylesheets/extra.css
 
 nav:
   - Home: index.md
