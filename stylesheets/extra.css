@@ -1,0 +1,30 @@
+.icon-set-switch {
+  font-size: 0.795rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.icon-set-switch .label {
+  opacity: 0.6;
+}
+
+.icon-set-switch a {
+  text-decoration: none;
+  color: var(--md-typeset-a-color);
+}
+
+.icon-set-switch a:hover {
+  text-decoration: underline;
+}
+
+.icon-set-switch a.active {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.icon-set-switch .sep {
+  opacity: 0.4;
+}
