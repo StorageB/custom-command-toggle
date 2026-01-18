@@ -32,8 +32,6 @@ For detailed configuration instructions and setup tips, refer to the
 
 ## Installation
 
-<!--[<img src="https://raw.githubusercontent.com/andyholmes/gnome-shell-extensions-badge/master/get-it-on-ego.svg?sanitize=true" alt="Get it on GNOME Extensions" height="" width="100">](https://extensions.gnome.org/extension/2932/executor/)-->
-
 ### Recommended Installation
 
 Browse for and install this extension through the GNOME Extension Manager, or install through the [GNOME Extensions website](https://extensions.gnome.org/extension/7012/custom-command-toggle/).
