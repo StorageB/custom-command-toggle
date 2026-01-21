@@ -32,7 +32,7 @@ To configure the extension, open extension preferences through the extension man
 gnome-extensions prefs custom-command-toggle@storageb.github.com
 ```
 
-From the preferences window, use the top-left menu for quick access to this User Guide, the Icon List, and other useful information.
+From the preferences window, use the top menu for quick access to this User Guide, the Icon List, and other useful information.
 
 ![screenshot-menu](screenshots/screenshot-menu-12.png)
 
