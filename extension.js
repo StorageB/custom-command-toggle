@@ -60,7 +60,7 @@ const myQuickToggle = GObject.registerClass(
 class myQuickToggle extends QuickToggle {
     constructor(title, icon) {
         super({
-            title: _(title),
+            title: title,
             iconName: icon,
             toggleMode: true,
         });

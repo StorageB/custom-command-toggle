@@ -15,5 +15,6 @@
   ],
   "url": "https://github.com/StorageB/custom-command-toggle",
   "uuid": "custom-command-toggle@storageb.github.com",
+  "gettext-domain": "custom-command-toggle",  
   "version": 12
 }

@@ -23,7 +23,7 @@ import Adw from 'gi://Adw';
 import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 
-import { gettext as _, } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 const developerName = 'StorageB';
 const issueUrl =      'https://github.com/StorageB/custom-command-toggle/issues';
@@ -31,28 +31,7 @@ const extensionUrl =  'https://extensions.gnome.org/extension/7012/custom-comman
 const discussionUrl = 'https://github.com/StorageB/custom-command-toggle/discussions';
 const githubUrl =     'https://github.com/StorageB/custom-command-toggle';
 const userGuideUrl =  'https://storageb.github.io/custom-command-toggle/';
-
-/* The string for `release_notes` supports: 
- *   <p> paragraphs
- *   <em> emphasis (italic)
- *   <code> code
- *   <ol> ordered (numbered) and <ul> unordered (bullet points) lists with <li> list items
- */
-const releaseNotes = '\
-    <p>Whats new in this version:</p>\
-    <ul>\
-        <li>Full import and export functionality for button configurations</li>\
-        <li>Option to hide/disable individual toggle buttons from the panel menu</li>\
-        <li>Changing the number of toggle buttons no longer requires logging out or rebooting</li>\
-        <li>Option to reset all settings to default values</li>\
-        <li>Created a more detailed and user-friendly user guide</li>\
-    </ul >\
-    <p>Fixes &amp; Improvements:</p>\
-    <ul>\
-        <li>Added a menu button to the top of the header bar for quick access to the icon lists, the new user guide, and a new about dialog</li>\
-        <li>Minor UI improvements</li>\
-    </ul >\
-';
+const changeLogUrl =  'https://storageb.github.io/custom-command-toggle/changelog/'
 
 
 export function showAboutDialog(window, metadata, path) {
@@ -67,15 +46,14 @@ export function showAboutDialog(window, metadata, path) {
         developer_name: developerName,
         version: metadata['version-name'] || metadata.version.toString(),
         issue_url: issueUrl,
-        release_notes: releaseNotes,
         comments: metadata.description,
-        //website: metadata.url, 
     });
 
-    aboutDialog.add_link(_('GitHub Page'), githubUrl);
-    aboutDialog.add_link(_('Extension Page'), extensionUrl);
-    aboutDialog.add_link(_('User Guide'), userGuideUrl);
-    aboutDialog.add_link(_('Discussion'), discussionUrl);
+    aboutDialog.add_link(_("What's New"), changeLogUrl);
+    aboutDialog.add_link(_("GitHub Page"), githubUrl);
+    aboutDialog.add_link(_("Extension Page"), extensionUrl);
+    aboutDialog.add_link(_("User Guide"), userGuideUrl);
+    aboutDialog.add_link(_("Discussions"), discussionUrl);
 
     aboutDialog.present(window);
 }

@@ -24,7 +24,7 @@ import Adw from 'gi://Adw';
 import Gtk from 'gi://Gtk';
 import GLib from 'gi://GLib';
 
-import {gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+import {gettext as _, ngettext} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 let fileName = 'toggles.ini';
 let filePath = GLib.build_filenamev([GLib.get_home_dir(), fileName]);
@@ -103,7 +103,7 @@ export function exportConfiguration(numButtons, settings, window) {
     try {
         keyFile.save_to_file(filePath);
         console.log(`[Custom Command Toggle] Toggle button settings exported to ${filePath}`);
-        const toast = Adw.Toast.new(_(`Settings exported to: ${filePath}`));
+        const toast = Adw.Toast.new(_('Settings exported to: %s').format(filePath));
         toast.set_timeout(4);
         toast.set_button_label(_('Open'));
         toast.connect('button-clicked', () => {
@@ -134,7 +134,7 @@ export function exportConfiguration(numButtons, settings, window) {
         window.add_toast(toast);
     } catch (e) {
         console.log(`[Custom Command Toggle] Failed to export settings\n${e}`);
-        const toast = Adw.Toast.new(_(`Export Error`));
+        const toast = Adw.Toast.new(_('Export Error'));
         toast.set_timeout(4);
         toast.set_button_label(_('Details'));
         toast.connect('button-clicked', () => {
@@ -142,7 +142,7 @@ export function exportConfiguration(numButtons, settings, window) {
                 transient_for: window,
                 modal: true,
                 heading: _('Export Error'),
-                body: _(`Failed to export settings\n\n${e}`),
+                body: _('Failed to export settings\n\n%s').format(e),
             });
             errorDialog.add_response('ok', _('OK'));
             errorDialog.connect('response', () => errorDialog.destroy());
@@ -160,7 +160,7 @@ export function importConfiguration(settings, window) {
     let keyFile = new GLib.KeyFile();
 
     if (!GLib.file_test(filePath, GLib.FileTest.EXISTS)) {
-        const toast = Adw.Toast.new(_(`File not found`));
+        const toast = Adw.Toast.new(_('File not found'));
         toast.set_timeout(4);
         toast.set_button_label(_('Details'));
         toast.connect('button-clicked', () => {
@@ -168,9 +168,10 @@ export function importConfiguration(settings, window) {
                 transient_for: window,
                 modal: true,
                 heading: _('File Not Found'),
-                body: _(`The ${fileName} configuration file was not be found in the user\'s home directory. ` +
-                        `Verify the following file exists:\n\n` +
-                        `${filePath}`),
+                body: _(
+                    "The %s configuration file was not found in the user's home directory.\n\n" +
+                    "Verify the following file exists:\n\n%s"
+                ).format(fileName, filePath),
             });
             errorDialog.add_response('ok', _('OK'));
             errorDialog.connect('response', () => errorDialog.destroy());
@@ -185,7 +186,7 @@ export function importConfiguration(settings, window) {
         keyFile.load_from_file(filePath, GLib.KeyFileFlags.NONE);
     } catch (e) {
         console.log('[Custom Command Toggle] Failed to import configuration\n%s'.format(e));
-        const toast = Adw.Toast.new(_(`Import Error`));
+        const toast = Adw.Toast.new(_('Import Error'));
         toast.set_timeout(4);
         toast.set_button_label(_('Details'));
         toast.connect('button-clicked', () => {
@@ -222,7 +223,7 @@ export function importConfiguration(settings, window) {
                 try { return keyFile.get_integer(`Toggle ${i}`, k); } catch (_) { return def; }
             };    
 
-            let button_name          = getString('button-name', 'My Button');
+            let button_name          = getString('button-name', _('My Button'));
             let icon                 = getString('icon', 'face-smile-symbolic');
             let toggle_on_command    = getString('toggle-on-command', 'notify-send "Custom Command Toggle" "ON"');
             let toggle_off_command   = getString('toggle-off-command', 'notify-send "Custom Command Toggle" "OFF"');
@@ -279,10 +280,12 @@ export function importConfiguration(settings, window) {
     console.log('[Custom Command Toggle] Configuration imported from %s'.format(filePath));
 
     const toast = Adw.Toast.new(
-    buttonCount === 1
-        ? _('Successfully imported 1 toggle')
-        : _('Successfully imported %d toggles').format(buttonCount)
-    );  
+        ngettext(
+            'Successfully imported %d toggle',
+            'Successfully imported %d toggles',
+            buttonCount
+        ).format(buttonCount)
+    );
     toast.set_timeout(4);
     window.add_toast(toast);
 

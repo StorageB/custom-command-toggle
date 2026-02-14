@@ -127,13 +127,13 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         for (let pageIndex = 1; pageIndex <= numButtons; pageIndex++) {
 
             let buttonTitle = "";
-            if (numButtons === 1) { buttonTitle = 'Toggle Button';
-            } else { buttonTitle = `Button ${pageIndex}`; }
+            if (numButtons === 1) { buttonTitle = _("Toggle Button");
+            } else { buttonTitle = _("Button %d").format(pageIndex); }
 
             let isVisible = window._settings.get_boolean(`enabled${pageIndex}-setting`);
 
             const page = new Adw.PreferencesPage({
-                title: _(buttonTitle),
+                title: buttonTitle,
                 icon_name: isVisible ? 'utilities-terminal-symbolic' : 'view-conceal-symbolic',
             });
             window.add(page);
@@ -227,8 +227,9 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             const checkCommandInfo = new Adw.ActionRow({
                 title: _('Command Configuration'),
                 subtitle: _(
-                            'Enter the Check Status Command and Search Term in the Commands section above. If the specified Search Term appears ' +
-                            'in the command\'s output, the button will be set to ON at startup. Otherwise, the button will be set to OFF.'
+                            "Enter the Check Status Command and Search Term in the Commands section above. " +
+                            "If the specified Search Term appears in the command\'s output, the button will be set to ON at startup. " +
+                            "Otherwise, the button will be set to OFF."
                            ),
                 activatable: false,
             });
@@ -363,8 +364,9 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             const checkCommandInfo2 = new Adw.ActionRow({
                 title: _('Command Configuration'),
                 subtitle: _(
-                            'Enter the Check Status Command and Search Term in the Commands section above. If the specified Search Term appears ' +
-                            'in the command\'s output, the button will be set to ON. Otherwise, the button will be set to OFF.'
+                            "Enter the Check Status Command and Search Term in the Commands section above. " +
+                            "If the specified Search Term appears in the command\'s output, the button will be set to ON. " +
+                            "Otherwise, the button will be set to OFF."
                            ),
                 activatable: false,
             });
@@ -465,7 +467,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
         const spinRow0 = new Adw.SpinRow({
             title: _('Number of Toggle Buttons'),
-            subtitle: _('Click Apply to save and reinitialize toggle states.'),
+            subtitle: _('Click Apply to save and reinitialize toggle states'),
             adjustment: new Gtk.Adjustment({
                 lower: 1,
                 upper: 6,
@@ -536,6 +538,8 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
 
         //#region Advanced
+        const debugCommand = 'journalctl -f -o cat /usr/bin/gnome-shell | grep "Custom Command Toggle"';
+
         const advancedGroup = new Adw.PreferencesGroup({
             title: _('Advanced'),
         });
@@ -543,10 +547,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
         const debugSwitchRow = new Adw.SwitchRow({
             title: _('Detailed Logging'),
-            subtitle: _(
-                'To view output, run the following in a terminal then restart extension:\n' +
-                'journalctl -f -o cat /usr/bin/gnome-shell | grep "Custom Command Toggle"'
-            ),
+            subtitle: _("To view output, run the following in a terminal then restart extension:\n%s").format(debugCommand),
             active: window._settings.get_boolean(`debug-setting`),
         });
         window._settings.bind(`debug-setting`, debugSwitchRow, 'active', Gio.SettingsBindFlags.DEFAULT); 
@@ -562,7 +563,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         copyButton.connect('clicked', () => {
             const value = new GObject.Value();
             value.init(GObject.TYPE_STRING);
-            value.set_string('journalctl -f -o cat /usr/bin/gnome-shell | grep "Custom Command Toggle"');
+            value.set_string(debugCommand);
             const clipboard = Gdk.Display.get_default().get_clipboard();
             const provider = Gdk.ContentProvider.new_for_value(value);
             clipboard.set_content(provider); 
