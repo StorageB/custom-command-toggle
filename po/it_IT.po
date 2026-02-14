@@ -1,0 +1,458 @@
+# Italian translations for PACKAGE package.
+# Copyright (C) 2026 StorageB
+# This file is distributed under the same license as the Custom Command Toggle extension.
+# Automatically generated <>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: custom-command-toggle-v13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-14 14:31-0600\n"
+"PO-Revision-Date: 2026-02-14 14:36-0600\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 49.0\n"
+
+#: about.js:52
+msgid "What's New"
+msgstr ""
+
+#: about.js:53
+msgid "GitHub Page"
+msgstr ""
+
+#: about.js:54
+msgid "Extension Page"
+msgstr ""
+
+#: about.js:55 prefs.js:52
+msgid "User Guide"
+msgstr ""
+
+#: about.js:56
+msgid "Discussions"
+msgstr ""
+
+#: backup.js:106
+#, javascript-format
+msgid "Settings exported to: %s"
+msgstr ""
+
+#: backup.js:108
+msgid "Open"
+msgstr ""
+
+#: backup.js:118
+msgid "Application Not Found"
+msgstr ""
+
+#: backup.js:120
+msgid ""
+"No default application found to open .ini files.\n"
+"\n"
+"The toggles.ini file can be opened and modified in any text editor. To open "
+"the file, it may first be required to manually associate the .ini file with "
+"the default text editor by doing the following:\n"
+"\n"
+"1. Open the home directory and locate the toggles.ini file\n"
+"2. Right-click on the file and select \"Open with...\"\n"
+"3. Choose a default text editor, and select the option \"Always use for this "
+"file type\""
+msgstr ""
+
+#: backup.js:137 backup.js:144
+msgid "Export Error"
+msgstr ""
+
+#: backup.js:139 backup.js:165 backup.js:191
+msgid "Details"
+msgstr ""
+
+#: backup.js:145
+#, javascript-format
+msgid ""
+"Failed to export settings\n"
+"\n"
+"%s"
+msgstr ""
+
+#: backup.js:147 backup.js:176 backup.js:199
+msgid "OK"
+msgstr ""
+
+#: backup.js:163
+msgid "File not found"
+msgstr ""
+
+#: backup.js:170
+msgid "File Not Found"
+msgstr ""
+
+#: backup.js:172
+#, javascript-format
+msgid ""
+"The %s configuration file was not found in the user's home directory.\n"
+"\n"
+"Verify the following file exists:\n"
+"\n"
+"%s"
+msgstr ""
+
+#: backup.js:189 backup.js:196
+msgid "Import Error"
+msgstr ""
+
+#: backup.js:197
+#, javascript-format
+msgid ""
+"Failed to import configuration\n"
+"\n"
+"%s"
+msgstr ""
+
+#: backup.js:226
+msgid "My Button"
+msgstr ""
+
+#: backup.js:273
+#, javascript-format
+msgid "No toggles found in %s."
+msgstr ""
+
+#: backup.js:284
+#, javascript-format
+msgid "Successfully imported %d toggle"
+msgid_plural "Successfully imported %d toggles"
+msgstr[0] ""
+msgstr[1] ""
+
+#: backup.js:304
+msgid "All settings reset to defaults"
+msgstr ""
+
+#: backup.js:311
+msgid "Failed to reset settings"
+msgstr ""
+
+#: keybinding.js:51
+msgid "Set a keyboard shortcut for toggle button"
+msgstr ""
+
+#: keybinding.js:60
+msgid "Not assigned"
+msgstr ""
+
+#: keybinding.js:105
+msgid "Press Esc to cancel or Backspace to disable the shortcut"
+msgstr ""
+
+#: prefs.js:53
+msgid "Icon List"
+msgstr ""
+
+#: prefs.js:56
+msgid "About"
+msgstr ""
+
+#: prefs.js:66
+msgid "Help and resources"
+msgstr ""
+
+#: prefs.js:130
+msgid "Toggle Button"
+msgstr ""
+
+#: prefs.js:131
+#, javascript-format
+msgid "Button %d"
+msgstr ""
+
+#: prefs.js:144
+msgid "Appearance"
+msgstr ""
+
+#: prefs.js:150 prefs.js:159
+msgid "Hide this toggle"
+msgstr ""
+
+#: prefs.js:150 prefs.js:159
+msgid "Show this toggle"
+msgstr ""
+
+#: prefs.js:172
+msgid "Button name:"
+msgstr ""
+
+#: prefs.js:177
+msgid "Icon:"
+msgstr ""
+
+#: prefs.js:185
+msgid "Commands"
+msgstr ""
+
+#: prefs.js:190
+msgid "Toggle ON Command:"
+msgstr ""
+
+#: prefs.js:195
+msgid "Toggle OFF Command:"
+msgstr ""
+
+#: prefs.js:200
+msgid "Check Status Command:"
+msgstr ""
+
+#: prefs.js:205
+msgid "Check Status Search Term:"
+msgstr ""
+
+#: prefs.js:213
+msgid "Startup Behavior"
+msgstr ""
+
+#: prefs.js:218
+msgid "On"
+msgstr ""
+
+#: prefs.js:218
+msgid "Off"
+msgstr ""
+
+#: prefs.js:218
+msgid "Previous state"
+msgstr ""
+
+#: prefs.js:218
+msgid "Command output"
+msgstr ""
+
+#: prefs.js:220
+msgid "Initial State"
+msgstr ""
+
+#: prefs.js:221
+msgid "State of the toggle button at login/startup"
+msgstr ""
+
+#: prefs.js:228 prefs.js:365
+msgid "Command Configuration"
+msgstr ""
+
+#: prefs.js:230
+msgid ""
+"Enter the Check Status Command and Search Term in the Commands section "
+"above. If the specified Search Term appears in the command's output, the "
+"button will be set to ON at startup. Otherwise, the button will be set to "
+"OFF."
+msgstr ""
+
+#: prefs.js:246
+msgid "Run Command at Startup"
+msgstr ""
+
+#: prefs.js:247
+msgid "Run associated toggle command at login/startup"
+msgstr ""
+
+#: prefs.js:260 prefs.js:272
+msgid "Startup Delay (seconds)"
+msgstr ""
+
+#: prefs.js:261 prefs.js:273
+msgid "Amount of time to delay command from running after startup"
+msgstr ""
+
+#: prefs.js:288
+msgid "Toggle Behavior"
+msgstr ""
+
+#: prefs.js:292
+msgid "Always on"
+msgstr ""
+
+#: prefs.js:292
+msgid "Always off"
+msgstr ""
+
+#: prefs.js:292
+msgid "Toggle"
+msgstr ""
+
+#: prefs.js:295
+msgid "Button Click Action"
+msgstr ""
+
+#: prefs.js:296
+msgid "Button behavior when clicked"
+msgstr ""
+
+#: prefs.js:303
+msgid "Check Command Exit Code"
+msgstr ""
+
+#: prefs.js:304
+msgid "Only toggle if the command executes successfully (returns exit code 0)"
+msgstr ""
+
+#: prefs.js:325
+msgid "Show Indicator Icon"
+msgstr ""
+
+#: prefs.js:326
+msgid "Show top bar icon when toggle button is switched on"
+msgstr ""
+
+#: prefs.js:332
+msgid "Close Menu After Button Press"
+msgstr ""
+
+#: prefs.js:333
+msgid "Close the system menu immediately after clicking toggle button"
+msgstr ""
+
+#: prefs.js:342
+msgid "Command Sync Behavior"
+msgstr ""
+
+#: prefs.js:346
+msgid "Keep Toggle State Synced"
+msgstr ""
+
+#: prefs.js:347
+msgid "Keep toggle button state synced with a command's output"
+msgstr ""
+
+#: prefs.js:367
+msgid ""
+"Enter the Check Status Command and Search Term in the Commands section "
+"above. If the specified Search Term appears in the command's output, the "
+"button will be set to ON. Otherwise, the button will be set to OFF."
+msgstr ""
+
+#: prefs.js:376
+msgid "Polling Frequency (seconds)"
+msgstr ""
+
+#: prefs.js:377
+msgid "How often to check the command output and update button state"
+msgstr ""
+
+#: prefs.js:388
+msgid ""
+"Command sync is disabled. To enable, set the Button Click Action to Toggle."
+msgstr ""
+
+#: prefs.js:400
+msgid "Keyboard Shortcut"
+msgstr ""
+
+#: prefs.js:407
+msgid "Assign Shortcut"
+msgstr ""
+
+#: prefs.js:454
+msgid "Configuration"
+msgstr ""
+
+#: prefs.js:464
+msgid "Settings"
+msgstr ""
+
+#: prefs.js:469
+msgid "Number of Toggle Buttons"
+msgstr ""
+
+#: prefs.js:470
+msgid "Click Apply to save and reinitialize toggle states"
+msgstr ""
+
+#: prefs.js:481
+msgid "Apply"
+msgstr ""
+
+#: prefs.js:510
+msgid "Backup and Restore"
+msgstr ""
+
+#: prefs.js:515
+msgid "Import Configuration"
+msgstr ""
+
+#: prefs.js:516
+msgid ""
+"Click to import the toggles.ini configuration file from the home directory"
+msgstr ""
+
+#: prefs.js:529
+msgid "Export Configuration"
+msgstr ""
+
+#: prefs.js:530
+msgid ""
+"Click to export the toggles.ini configuration file to the home directory"
+msgstr ""
+
+#: prefs.js:544
+msgid "Advanced"
+msgstr ""
+
+#: prefs.js:549
+msgid "Detailed Logging"
+msgstr ""
+
+#: prefs.js:550
+#, javascript-format
+msgid ""
+"To view output, run the following in a terminal then restart extension:\n"
+"%s"
+msgstr ""
+
+#: prefs.js:557
+msgid "Copy command to clipboard"
+msgstr ""
+
+#: prefs.js:570
+msgid "Command copied to clipboard"
+msgstr ""
+
+#: prefs.js:577
+msgid "Reset to Defaults"
+msgstr ""
+
+#: prefs.js:578
+msgid "Click to restore all toggles and settings to their default values"
+msgstr ""
+
+#: prefs.js:584
+msgid "Confirm Reset"
+msgstr ""
+
+#: prefs.js:585
+msgid ""
+"All toggles and extension settings will be reset to their default values. "
+"This action cannot be undone."
+msgstr ""
+
+#: prefs.js:590
+msgid "Cancel"
+msgstr ""
+
+#: prefs.js:591
+msgid "Reset"
+msgstr ""
+
+#: prefs.js:611
+msgid "Resources"
+msgstr ""
+
+#: prefs.js:615
+msgid ""
+"Find links to the User Guide, Icon List, and other helpful information in "
+"the menu at the top of this window."
+msgstr ""
