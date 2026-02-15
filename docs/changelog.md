@@ -1,8 +1,19 @@
 <!-- changelog.md -->
 
+## Version 13 (2026-XX-XX)
+
+**New Features** (work in progress)
+
+- [ French translation provided by p-sage. ]
+- [ Dutch translation provided by Vistaus. ]
+- Italian translation provided by Kasui92.
+- [ Support for GNOME 50. ]
+
+---
+
 ## Version 12 (2026-01-14)
 
-**Features**
+**New Features**
 
 - Full import and export functionality for button configurations.
 - Option to hide/disable individual toggle buttons from the panel menu.
