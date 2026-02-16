@@ -1,7 +1,6 @@
-# Italian translations for PACKAGE package.
+# Italian translations for Custom Command Toggle.
 # Copyright (C) 2026 StorageB
 # This file is distributed under the same license as the Custom Command Toggle extension.
-# Automatically generated <>, 2026.
 #
 msgid ""
 msgstr ""
@@ -13,7 +12,7 @@ msgstr ""
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 49.0\n"
