@@ -11,7 +11,8 @@ $(PACKAGE):
 	gnome-extensions pack \
 		--extra-source=about.js \
 		--extra-source=backup.js \
-		--extra-source=keybinding.js
+		--extra-source=keybinding.js \
+		--extra-source=settings-utils.js
 
 install: $(PACKAGE)
 	gnome-extensions install --force $(PACKAGE)

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+start() {
+    touch /tmp/custom-command-toggle-test
+}
+
+stop() {
+    rm -f /tmp/custom-command-toggle-test
+}
+
+status() {
+    sleep 1
+    if [ -f /tmp/custom-command-toggle-test ]; then
+        echo "Custom Command Toggle is running"
+        exit 0
+    else
+        echo "Custom Command Toggle is not running"
+        exit 1
+    fi
+}
+
+
+"$@"

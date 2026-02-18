@@ -25,6 +25,7 @@ import Gtk from 'gi://Gtk';
 import GLib from 'gi://GLib';
 
 import {gettext as _, ngettext} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+import {numberOfTogglesAllowed, SettingTypes, getSettingKey} from './settings-utils.js';
 
 let fileName = 'toggles.ini';
 let filePath = GLib.build_filenamev([GLib.get_home_dir(), fileName]);
@@ -73,25 +74,25 @@ export function exportConfiguration(numButtons, settings, window) {
 
     //#region Export Settings
     for (let i = 1; i <= numButtons; i++) {
-        keyFile.set_string(`Toggle ${i}`, 'button-name', settings.get_string(`toggle${i}-title`));
-        keyFile.set_string(`Toggle ${i}`, 'icon', settings.get_string(`toggle${i}-icons`));
-        keyFile.set_string(`Toggle ${i}`, 'toggle-on-command', settings.get_string(`toggle${i}-command-on`));
-        keyFile.set_string(`Toggle ${i}`, 'toggle-off-command', settings.get_string(`toggle${i}-command-off`));
-        keyFile.set_string(`Toggle ${i}`, 'check-status-command', settings.get_string(`toggle${i}-checkcommand`));
-        keyFile.set_string(`Toggle ${i}`, 'search-term', settings.get_string(`toggle${i}-checkregex`));
-        keyFile.set_string(`Toggle ${i}`, 'initial-state', `${settings.get_int(`toggle${i}-initialstate`)}`);
-        keyFile.set_string(`Toggle ${i}`, 'run-at-startup', `${settings.get_boolean(`toggle${i}-runcommandatboot`)}`);
-        keyFile.set_string(`Toggle ${i}`, 'startup-delay-time', `${settings.get_int(`toggle${i}-delaytime`)}`);
-        keyFile.set_string(`Toggle ${i}`, 'check-status-delay-time', `${settings.get_int(`toggle${i}-checkcommanddelaytime`)}`);
-        keyFile.set_string(`Toggle ${i}`, 'button-click-action', `${settings.get_int(`toggle${i}-buttonclick`)}`);
-        keyFile.set_string(`Toggle ${i}`, 'check-exit-code', `${settings.get_boolean(`toggle${i}-checkexitcode`)}`);
-        keyFile.set_string(`Toggle ${i}`, 'show-indicator', `${settings.get_boolean(`toggle${i}-showindicator`)}`);
-        keyFile.set_string(`Toggle ${i}`, 'close-menu', `${settings.get_boolean(`toggle${i}-closemenu`)}`);
-        keyFile.set_string(`Toggle ${i}`, 'command-sync', `${settings.get_boolean(`toggle${i}-checkcommandsync`)}`);
-        keyFile.set_string(`Toggle ${i}`, 'polling-frequency', `${settings.get_int(`toggle${i}-checkcommandinterval`)}`);
-        const keybindings = settings.get_value(`toggle${i}-keybinding`).deep_unpack();
+        keyFile.set_string(`Toggle ${i}`, 'button-name', settings.get_string(getSettingKey(i, SettingTypes.TITLE)));
+        keyFile.set_string(`Toggle ${i}`, 'icon', settings.get_string(getSettingKey(i, SettingTypes.ICONS)));
+        keyFile.set_string(`Toggle ${i}`, 'toggle-on-command', settings.get_string(getSettingKey(i, SettingTypes.COMMAND_ON)));
+        keyFile.set_string(`Toggle ${i}`, 'toggle-off-command', settings.get_string(getSettingKey(i, SettingTypes.COMMAND_OFF)));
+        keyFile.set_string(`Toggle ${i}`, 'check-status-command', settings.get_string(getSettingKey(i, SettingTypes.CHECK_COMMAND)));
+        keyFile.set_string(`Toggle ${i}`, 'search-term', settings.get_string(getSettingKey(i, SettingTypes.CHECK_REGEX)));
+        keyFile.set_string(`Toggle ${i}`, 'initial-state', `${settings.get_int(getSettingKey(i, SettingTypes.INITIAL_STATE))}`);
+        keyFile.set_string(`Toggle ${i}`, 'run-at-startup', `${settings.get_boolean(getSettingKey(i, SettingTypes.RUN_COMMAND_AT_BOOT))}`);
+        keyFile.set_string(`Toggle ${i}`, 'startup-delay-time', `${settings.get_int(getSettingKey(i, SettingTypes.DELAY_TIME))}`);
+        keyFile.set_string(`Toggle ${i}`, 'check-status-delay-time', `${settings.get_int(getSettingKey(i, SettingTypes.CHECK_COMMAND_DELAY_TIME))}`);
+        keyFile.set_string(`Toggle ${i}`, 'button-click-action', `${settings.get_int(getSettingKey(i, SettingTypes.BUTTON_CLICK))}`);
+        keyFile.set_string(`Toggle ${i}`, 'check-exit-code', `${settings.get_boolean(getSettingKey(i, SettingTypes.CHECK_EXIT_CODE))}`);
+        keyFile.set_string(`Toggle ${i}`, 'show-indicator', `${settings.get_boolean(getSettingKey(i, SettingTypes.SHOW_INDICATOR))}`);
+        keyFile.set_string(`Toggle ${i}`, 'close-menu', `${settings.get_boolean(getSettingKey(i, SettingTypes.CLOSE_MENU))}`);
+        keyFile.set_string(`Toggle ${i}`, 'command-sync', `${settings.get_boolean(getSettingKey(i, SettingTypes.CHECK_COMMAND_SYNC))}`);
+        keyFile.set_string(`Toggle ${i}`, 'polling-frequency', `${settings.get_int(getSettingKey(i, SettingTypes.CHECK_COMMAND_INTERVAL))}`);
+        const keybindings = settings.get_value(getSettingKey(i, SettingTypes.KEYBINDING)).deep_unpack();
         keyFile.set_string(`Toggle ${i}`, 'keyboard-shortcut', keybindings[0]);
-        keyFile.set_string(`Toggle ${i}`, 'enabled', `${settings.get_boolean(`toggle${i}-enabled`)}`);
+        keyFile.set_string(`Toggle ${i}`, 'enabled', `${settings.get_boolean(getSettingKey(i, SettingTypes.ENABLED))}`);
     }
     //#endregion Export Settings
 
@@ -203,7 +204,7 @@ export function importConfiguration(settings, window) {
 
     let buttonCount = 0;
 
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= numberOfTogglesAllowed; i++) {
 
         if (keyFile.has_group(`Toggle ${i}`)) {
 
@@ -245,24 +246,24 @@ export function importConfiguration(settings, window) {
             if (polling_frequency < 2 || polling_frequency > 900) polling_frequency = 10;
 
             // Write to settings using new unified naming scheme
-            settings.set_string(`toggle${buttonCount}-title`, button_name);
-            settings.set_string(`toggle${buttonCount}-icons`, icon);
-            settings.set_string(`toggle${buttonCount}-command-on`, toggle_on_command);
-            settings.set_string(`toggle${buttonCount}-command-off`, toggle_off_command);
-            settings.set_string(`toggle${buttonCount}-checkcommand`, check_status_command);
-            settings.set_string(`toggle${buttonCount}-checkregex`, search_term);
-            settings.set_int(`toggle${buttonCount}-initialstate`, initial_state);
-            settings.set_boolean(`toggle${buttonCount}-runcommandatboot`, run_at_startup);
-            settings.set_int(`toggle${buttonCount}-delaytime`, startup_delay_time);
-            settings.set_int(`toggle${buttonCount}-checkcommanddelaytime`, check_status_delay);
-            settings.set_int(`toggle${buttonCount}-buttonclick`, button_click_action);
-            settings.set_boolean(`toggle${buttonCount}-checkexitcode`, check_exit_code);
-            settings.set_boolean(`toggle${buttonCount}-showindicator`, show_indicator);
-            settings.set_boolean(`toggle${buttonCount}-closemenu`, close_menu);
-            settings.set_boolean(`toggle${buttonCount}-checkcommandsync`, command_sync);
-            settings.set_int(`toggle${buttonCount}-checkcommandinterval`, polling_frequency);
-            settings.set_strv(`toggle${buttonCount}-keybinding`, keyboard_shortcut ? [keyboard_shortcut] : ['']);
-            settings.set_boolean(`toggle${buttonCount}-enabled`, enabled);
+            settings.set_string(getSettingKey(buttonCount, SettingTypes.TITLE), button_name);
+            settings.set_string(getSettingKey(buttonCount, SettingTypes.ICONS), icon);
+            settings.set_string(getSettingKey(buttonCount, SettingTypes.COMMAND_ON), toggle_on_command);
+            settings.set_string(getSettingKey(buttonCount, SettingTypes.COMMAND_OFF), toggle_off_command);
+            settings.set_string(getSettingKey(buttonCount, SettingTypes.CHECK_COMMAND), check_status_command);
+            settings.set_string(getSettingKey(buttonCount, SettingTypes.CHECK_REGEX), search_term);
+            settings.set_int(getSettingKey(buttonCount, SettingTypes.INITIAL_STATE), initial_state);
+            settings.set_boolean(getSettingKey(buttonCount, SettingTypes.RUN_COMMAND_AT_BOOT), run_at_startup);
+            settings.set_int(getSettingKey(buttonCount, SettingTypes.DELAY_TIME), startup_delay_time);
+            settings.set_int(getSettingKey(buttonCount, SettingTypes.CHECK_COMMAND_DELAY_TIME), check_status_delay);
+            settings.set_int(getSettingKey(buttonCount, SettingTypes.BUTTON_CLICK), button_click_action);
+            settings.set_boolean(getSettingKey(buttonCount, SettingTypes.CHECK_EXIT_CODE), check_exit_code);
+            settings.set_boolean(getSettingKey(buttonCount, SettingTypes.SHOW_INDICATOR), show_indicator);
+            settings.set_boolean(getSettingKey(buttonCount, SettingTypes.CLOSE_MENU), close_menu);
+            settings.set_boolean(getSettingKey(buttonCount, SettingTypes.CHECK_COMMAND_SYNC), command_sync);
+            settings.set_int(getSettingKey(buttonCount, SettingTypes.CHECK_COMMAND_INTERVAL), polling_frequency);
+            settings.set_strv(getSettingKey(buttonCount, SettingTypes.KEYBINDING), keyboard_shortcut ? [keyboard_shortcut] : ['']);
+            settings.set_boolean(getSettingKey(buttonCount, SettingTypes.ENABLED), enabled);
         }
     }
 

@@ -30,23 +30,22 @@ import Gio from 'gi://Gio';
 import Meta from 'gi://Meta';
 import Shell from 'gi://Shell';
 
-
-const numberOfTogglesAllowed = 6;
+import {numberOfTogglesAllowed, SettingTypes, getSettingKey} from './settings-utils.js';
 
 // Toggle configuration: stores command on/off for each toggle
-let toggleCommands = [
-    { on: "", off: "" },  // Toggle 1
-    { on: "", off: "" },  // Toggle 2
-    { on: "", off: "" },  // Toggle 3
-    { on: "", off: "" },  // Toggle 4
-    { on: "", off: "" },  // Toggle 5
-    { on: "", off: "" }   // Toggle 6
-];
+let toggleCommands = [];
+let toggleStates = [];
+let initialStates = [];
+let buttonClicks = [];
+let shortcutIds = [];
 
-let toggleStates = [false, false, false, false, false, false];
-let initialStates = [2, 2, 2, 2, 2, 2];
-let buttonClicks = [2, 2, 2, 2, 2, 2];
-let shortcutIds = [null, null, null, null, null, null];
+for (let i = 0; i < numberOfTogglesAllowed; i++) {
+    toggleCommands[i] = { on: "", off: "" };
+    toggleStates[i] = false;
+    initialStates[i] = 2;
+    buttonClicks[i] = 2;
+    shortcutIds[i] = null;
+}
 
 let checkIntervals = []; let commandTimeouts = [];
 let isRunning = [];
@@ -67,13 +66,6 @@ class myQuickToggle extends QuickToggle {
     }
 });
 
-// Get setting key by toggle number and setting type
-// All toggles follow the same consistent pattern
-function getSettingKey(toggleNumber, settingType) {
-    return `toggle${toggleNumber}-${settingType}`;
-}
-
-
 //#region Create Indicators
 function createIndicatorClass(toggleNumber) {
     return GObject.registerClass(
@@ -85,11 +77,11 @@ function createIndicatorClass(toggleNumber) {
                 super();
 
                 const idx = toggleNumber - 1;
-                let title = settings.get_string(getSettingKey(toggleNumber, 'title'));
-                let iconSetting = settings.get_string(getSettingKey(toggleNumber, 'icons')).trim();
+                let title = settings.get_string(getSettingKey(toggleNumber, SettingTypes.TITLE));
+                let iconSetting = settings.get_string(getSettingKey(toggleNumber, SettingTypes.ICONS)).trim();
                 let [iconOn, iconOff] = iconSetting.split(',').map(s => s.trim());
                 if (!iconOff) iconOff = iconOn;
-                let showIndicator = settings.get_boolean(`toggle${toggleNumber}-showindicator`);
+                let showIndicator = settings.get_boolean(getSettingKey(toggleNumber, SettingTypes.SHOW_INDICATOR));
 
                 this._indicator = this._addIndicator();
                 this._indicator.iconName = toggleStates[idx] ? iconOn : iconOff;
@@ -100,15 +92,15 @@ function createIndicatorClass(toggleNumber) {
                 this.toggle.checked = toggleStates[idx];
 
                 this.toggleConnectSignal = this.toggle.connect('notify::checked', () => {
-                    if (settings.get_boolean(`toggle${toggleNumber}-closemenu`)) {Main.panel.closeQuickSettings();}
-                    if (settings.get_int(`toggle${toggleNumber}-buttonclick`) === 2 && settings.get_boolean(`toggle${toggleNumber}-checkexitcode`)) {
+                    if (settings.get_boolean(getSettingKey(toggleNumber, SettingTypes.CLOSE_MENU))) {Main.panel.closeQuickSettings();}
+                    if (settings.get_int(getSettingKey(toggleNumber, SettingTypes.BUTTON_CLICK)) === 2 && settings.get_boolean(getSettingKey(toggleNumber, SettingTypes.CHECK_EXIT_CODE))) {
                         checkCommandExitCode(toggleNumber, this.toggle.checked, toggleCommands[idx].on, toggleCommands[idx].off, (exitCodeResult) => {
                             if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);
                             if (!exitCodeResult) {
                                 GObject.signal_handler_block(this.toggle, this.toggleConnectSignal);
                                 this.toggle.checked = !this.toggle.checked;
                                 toggleStates[idx] = this.toggle.checked;
-                                settings.set_boolean(`togglestate${toggleNumber}`, toggleStates[idx]);
+                                settings.set_boolean(getSettingKey(toggleNumber, SettingTypes.STATE), toggleStates[idx]);
                                 this._indicator.iconName = this.toggle.checked ? iconOn : iconOff;
                                 this.toggle.iconName = this.toggle.checked ? iconOn : iconOff;
                                 if (!showIndicator) {this._indicator.visible = false;}
@@ -123,7 +115,7 @@ function createIndicatorClass(toggleNumber) {
                         }
                     }
                     toggleStates[idx] = this.toggle.checked;
-                    settings.set_boolean(`togglestate${toggleNumber}`, toggleStates[idx]);
+                    settings.set_boolean(getSettingKey(toggleNumber, SettingTypes.STATE), toggleStates[idx]);
                     if (!showIndicator) this._indicator.visible = false;
                     this._indicator.iconName = this.toggle.checked ? iconOn : iconOff;
                     this.toggle.iconName = this.toggle.checked ? iconOn : iconOff;
@@ -201,7 +193,7 @@ export default class CustomQuickToggleExtension extends Extension {
         //#region Keybindings
         for (let i = 1; i <= numToggleButtons; i++) {
             shortcutIds[i - 1] = Main.wm.addKeybinding(
-                `toggle${i}-keybinding`, this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
+                getSettingKey(i, SettingTypes.KEYBINDING), this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
                 () => {
                     const indicator = this[`_indicator${i}`];
                     if (indicator) indicator.toggle.checked = !indicator.toggle.checked;
@@ -236,9 +228,9 @@ export default class CustomQuickToggleExtension extends Extension {
         });
 
         for (let i = 1; i <= numToggleButtons; i++) {
-            this._settings.connect(`changed::toggle${i}-enabled`, () => {
-                if (debug) console.log(`[Custom Command Toggle] Toggle ${i} | ${this._settings.get_boolean(`toggle${i}-enabled`) ? 'ENABLED' : 'DISABLED'}`);
-                if (this._settings.get_boolean(`toggle${i}-enabled`)) {
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.ENABLED)}`, () => {
+                if (debug) console.log(`[Custom Command Toggle] Toggle ${i} | ${this._settings.get_boolean(getSettingKey(i, SettingTypes.ENABLED)) ? 'ENABLED' : 'DISABLED'}`);
+                if (this._settings.get_boolean(getSettingKey(i, SettingTypes.ENABLED))) {
                     initialSetup.call(this, i);
                     refreshIndicator.call(this);
                     runAtBoot.call(this, i);
@@ -262,23 +254,23 @@ export default class CustomQuickToggleExtension extends Extension {
 
         // Settings connections for toggle commands and display settings
         for (let i = 1; i <= numToggleButtons; i++) {
-            this._settings.connect(`changed::${getSettingKey(i, 'command-on')}`, (settings, key) => {
-                toggleCommands[i - 1].on = this._settings.get_string(getSettingKey(i, 'command-on'));
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.COMMAND_ON)}`, (settings, key) => {
+                toggleCommands[i - 1].on = this._settings.get_string(getSettingKey(i, SettingTypes.COMMAND_ON));
             });
-            this._settings.connect(`changed::${getSettingKey(i, 'command-off')}`, (settings, key) => {
-                toggleCommands[i - 1].off = this._settings.get_string(getSettingKey(i, 'command-off'));
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.COMMAND_OFF)}`, (settings, key) => {
+                toggleCommands[i - 1].off = this._settings.get_string(getSettingKey(i, SettingTypes.COMMAND_OFF));
             });
-            this._settings.connect(`changed::${getSettingKey(i, 'title')}`, (settings, key) => {
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.TITLE)}`, (settings, key) => {
                 refreshIndicator.call(this);
             });
-            this._settings.connect(`changed::${getSettingKey(i, 'icons')}`, (settings, key) => {
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.ICONS)}`, (settings, key) => {
                 refreshIndicator.call(this);
             });
 
-            this._settings.connect(`changed::toggle${i}-buttonclick`, (settings, key) => {
-                buttonClicks[i - 1] = this._settings.get_int(`toggle${i}-buttonclick`);
-                if (buttonClicks[i - 1] === 0) { toggleStates[i - 1] = true;  settings.set_boolean(`toggle${i}-state`, toggleStates[i - 1]); }
-                if (buttonClicks[i - 1] === 1) { toggleStates[i - 1] = false; settings.set_boolean(`toggle${i}-state`, toggleStates[i - 1]); }
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.BUTTON_CLICK)}`, (settings, key) => {
+                buttonClicks[i - 1] = this._settings.get_int(getSettingKey(i, SettingTypes.BUTTON_CLICK));
+                if (buttonClicks[i - 1] === 0) { toggleStates[i - 1] = true;  settings.set_boolean(getSettingKey(i, SettingTypes.STATE), toggleStates[i - 1]); }
+                if (buttonClicks[i - 1] === 1) { toggleStates[i - 1] = false; settings.set_boolean(getSettingKey(i, SettingTypes.STATE), toggleStates[i - 1]); }
                 refreshIndicator.call(this);
             });
         }
@@ -295,12 +287,12 @@ export default class CustomQuickToggleExtension extends Extension {
         }
 
         for (let i = 1; i <= numToggleButtons; i++) {
-            this._settings.connect(`changed::toggle${i}-initialstate`,   () => debounce(i, () => setupCheckSync.call(this, i)));
-            this._settings.connect(`changed::toggle${i}-checkregex`,           () => debounce(i, () => setupCheckSync.call(this, i)));
-            this._settings.connect(`changed::toggle${i}-checkcommand`,         () => debounce(i, () => setupCheckSync.call(this, i)));
-            this._settings.connect(`changed::toggle${i}-checkcommandinterval`, () => debounce(i, () => setupCheckSync.call(this, i)));
-            this._settings.connect(`changed::toggle${i}-checkcommandsync`,     () => debounce(i, () => setupCheckSync.call(this, i)));
-            this._settings.connect(`changed::toggle${i}-showindicator`,        () => refreshIndicator.call(this));
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.INITIAL_STATE)}`,           () => debounce(i, () => setupCheckSync.call(this, i)));
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.CHECK_REGEX)}`,                   () => debounce(i, () => setupCheckSync.call(this, i)));
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.CHECK_COMMAND)}`,                 () => debounce(i, () => setupCheckSync.call(this, i)));
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.CHECK_COMMAND_INTERVAL)}`, () => debounce(i, () => setupCheckSync.call(this, i)));
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.CHECK_COMMAND_SYNC)}`,     () => debounce(i, () => setupCheckSync.call(this, i)));
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.SHOW_INDICATOR)}`,        () => refreshIndicator.call(this));
         }
 
         this._settings.connect('changed::debug', () => {
@@ -313,22 +305,22 @@ export default class CustomQuickToggleExtension extends Extension {
         function initialSetup (toggleIndex = null) {
             // Load toggle commands
             for (let i = 1; i <= numToggleButtons; i++) {
-                toggleCommands[i - 1].on = this._settings.get_string(getSettingKey(i, 'command-on'));
-                toggleCommands[i - 1].off = this._settings.get_string(getSettingKey(i, 'command-off'));
+                toggleCommands[i - 1].on = this._settings.get_string(getSettingKey(i, SettingTypes.COMMAND_ON));
+                toggleCommands[i - 1].off = this._settings.get_string(getSettingKey(i, SettingTypes.COMMAND_OFF));
             }
 
             // Load initial states and button clicks
             for (let i = 1; i <= numToggleButtons; i++) {
-                initialStates[i - 1] = this._settings.get_int(`toggle${i}-initialstate`);
-                buttonClicks[i - 1] = this._settings.get_int(`toggle${i}-buttonclick`);
+                initialStates[i - 1] = this._settings.get_int(getSettingKey(i, SettingTypes.INITIAL_STATE));
+                buttonClicks[i - 1] = this._settings.get_int(getSettingKey(i, SettingTypes.BUTTON_CLICK));
             }
 
             for (let i = 1; i <= numToggleButtons; i++) {
                 if (toggleIndex !== null && i !== toggleIndex)          continue;
-                if (!this._settings.get_boolean(`toggle${i}-enabled`)) continue;
+                if (!this._settings.get_boolean(getSettingKey(i, SettingTypes.ENABLED))) continue;
 
                 let initialState = initialStates[i - 1];
-                let toggleStateKey = `toggle${i}-state`;
+                let toggleStateKey = getSettingKey(i, SettingTypes.STATE);
 
                 switch (initialState) {
                     case 0:
@@ -347,7 +339,7 @@ export default class CustomQuickToggleExtension extends Extension {
                         break;
                 }
 
-                if (initialState !== 3 && this._settings.get_boolean(`toggle${i}-checkcommandsync`)) {
+                if (initialState !== 3 && this._settings.get_boolean(getSettingKey(i, SettingTypes.CHECK_COMMAND_SYNC))) {
                     setupCheckSync.call(this, i);
                 }
             }
@@ -358,12 +350,12 @@ export default class CustomQuickToggleExtension extends Extension {
         //#region Run at Boot
         function runAtBoot(toggleIndex = null) {
             for (let i = 1; i <= numToggleButtons; i++) {
-                if (toggleIndex !== null && i !== toggleIndex)          continue;
-                if (!this._settings.get_boolean(`toggle${i}-enabled`)) continue;
+                if (toggleIndex !== null && i !== toggleIndex) continue;
+                if (!this._settings.get_boolean(getSettingKey(i, SettingTypes.ENABLED))) continue;
 
-                let runAtBootSetting = this._settings.get_boolean(`toggle${i}-runcommandatboot`);
-                if (this._settings.get_int(`toggle${i}-initialstate`)===3){runAtBootSetting = false;}
-                const delayTime = this._settings.get_int(`toggle${i}-delaytime`);
+                let runAtBootSetting = this._settings.get_boolean(getSettingKey(i, SettingTypes.RUN_COMMAND_AT_BOOT));
+                if (this._settings.get_int(getSettingKey(i, SettingTypes.INITIAL_STATE))===3){runAtBootSetting = false;}
+                const delayTime = this._settings.get_int(getSettingKey(i, SettingTypes.DELAY_TIME));
                 const toggleState = toggleStates[i-1];
                 const command = toggleState ? toggleCommands[i-1].on : toggleCommands[i-1].off;
                 if (runAtBootSetting) {
@@ -377,10 +369,10 @@ export default class CustomQuickToggleExtension extends Extension {
         //#region Setup Check Sync
         function setupCheckSync(i, { startup = false } = {}) {
             isRunning[i - 1] = false;
-            let toggleStateKey = `toggle${i}-state`;
-            let key = this._settings.get_string(`toggle${i}-checkregex`);
-            let checkCommandDelayTime = this._settings.get_int(`toggle${i}-checkcommanddelaytime`);
-            let cmd = this._settings.get_string(`toggle${i}-checkcommand`);
+            let toggleStateKey = getSettingKey(i, SettingTypes.STATE);
+            let key = this._settings.get_string(getSettingKey(i, SettingTypes.CHECK_REGEX));
+            let checkCommandDelayTime = this._settings.get_int(getSettingKey(i, SettingTypes.CHECK_COMMAND_DELAY_TIME));
+            let cmd = this._settings.get_string(getSettingKey(i, SettingTypes.CHECK_COMMAND));
             let startupCmd = `sleep ${checkCommandDelayTime} && ( ${cmd} )`;
 
             if (checkIntervals[i - 1]) {
@@ -388,7 +380,7 @@ export default class CustomQuickToggleExtension extends Extension {
                 checkIntervals[i - 1] = 0;
             }
 
-            if (!this._settings.get_boolean(`toggle${i}-enabled`)) {
+            if (!this._settings.get_boolean(getSettingKey(i, SettingTypes.ENABLED))) {
                 if (debug) console.log(`[Custom Command Toggle] Toggle ${i} | Sync skipped (visibility off)`);
                 return;
             }
@@ -403,8 +395,8 @@ export default class CustomQuickToggleExtension extends Extension {
                 });
             }
 
-            if (this._settings.get_boolean(`toggle${i}-checkcommandsync`)) {
-                let interval = Math.max(1, this._settings.get_int(`toggle${i}-checkcommandinterval`));
+            if (this._settings.get_boolean(getSettingKey(i, SettingTypes.CHECK_COMMAND_SYNC))) {
+                let interval = Math.max(1, this._settings.get_int(getSettingKey(i, SettingTypes.CHECK_COMMAND_INTERVAL)));
                 checkCommandOutput(i, cmd, key, (result) => {
                     if (toggleStates[i - 1] !== result) {
                         toggleStates[i - 1] = result;
@@ -440,19 +432,20 @@ export default class CustomQuickToggleExtension extends Extension {
 
             if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Attempting to execute command with output check:`);
             if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | ${checkCommand.trim() === '' ? '(no command provided)' : checkCommand}`);
-
+            let spawnFlags = GLib.SpawnFlags.SEARCH_PATH | GLib.SpawnFlags.DO_NOT_REAP_CHILD;
+            let useExitCode = (checkRegex.trim() === '');
             try {
                 let [success, pid, stdinFd, stdoutFd, stderrFd] = GLib.spawn_async_with_pipes(
                     null,
                     ["/usr/bin/env", "bash", "-c", checkCommand],
                     null,
-                    GLib.SpawnFlags.SEARCH_PATH | GLib.SpawnFlags.DO_NOT_REAP_CHILD,
+                    spawnFlags,
                     null
                 );
-
+                
                 try { if (stdinFd !== -1) GLib.close(stdinFd); } catch (e) {}
                 try { if (stderrFd !== -1) GLib.close(stderrFd); } catch (e) {}
-
+                
                 if (!success) {
                     if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Failed to spawn command`);
                     callback(false);
@@ -524,13 +517,18 @@ export default class CustomQuickToggleExtension extends Extension {
                         }
                     });
                 }
-                readNext();
-
-                GLib.child_watch_add(GLib.PRIORITY_DEFAULT, pid, () => {
+                if (!useExitCode) {
+                    readNext();
+                }
+                GLib.child_watch_add(GLib.PRIORITY_DEFAULT, pid, (pid, status) => {
                     try {
                         GLib.spawn_close_pid(pid);
                     } catch (e) {
                         if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Error closing process: ${e}`);
+                    }
+                    cleanup();
+                    if (useExitCode) {
+                        callback(status === 0);
                     }
                 });
 
@@ -574,7 +572,7 @@ export default class CustomQuickToggleExtension extends Extension {
             }
 
             for (let i = 1; i <= numToggleButtons; i++) {
-                if (this._settings.get_boolean(`toggle${i}-enabled`)) {
+                if (this._settings.get_boolean(getSettingKey(i, SettingTypes.ENABLED))) {
                     this[`_indicator${i}`] = new indicatorClasses[i](this.getSettings());
                     Main.panel.statusArea.quickSettings.addExternalIndicator(this[`_indicator${i}`]);
                 }
@@ -610,7 +608,7 @@ export default class CustomQuickToggleExtension extends Extension {
         // Remove all keybindings
         for (let i = 1; i <= numberOfTogglesAllowed; i++) {
             if (shortcutIds[i - 1]) {
-                Main.wm.removeKeybinding(`toggle${i}-keybinding`);
+                Main.wm.removeKeybinding(getSettingKey(i, SettingTypes.KEYBINDING));
                 shortcutIds[i - 1] = null;
             }
         }
