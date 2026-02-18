@@ -7,48 +7,48 @@ msgstr ""
 "Project-Id-Version: custom-command-toggle-v13.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-14 14:31-0600\n"
-"PO-Revision-Date: 2026-02-14 14:37-0600\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-02-18 10:56+0100\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: none\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 49.0\n"
+"X-Generator: Poedit 3.8\n"
 
 #: about.js:52
 msgid "What's New"
-msgstr ""
+msgstr "Wijzigingslog"
 
 #: about.js:53
 msgid "GitHub Page"
-msgstr ""
+msgstr "GitHub-pagina"
 
 #: about.js:54
 msgid "Extension Page"
-msgstr ""
+msgstr "Extensiepagina"
 
 #: about.js:55 prefs.js:52
 msgid "User Guide"
-msgstr ""
+msgstr "Handleiding"
 
 #: about.js:56
 msgid "Discussions"
-msgstr ""
+msgstr "Discussies"
 
 #: backup.js:106
 #, javascript-format
 msgid "Settings exported to: %s"
-msgstr ""
+msgstr "De voorkeuren zijn geëxporteerd naar %s"
 
 #: backup.js:108
 msgid "Open"
-msgstr ""
+msgstr "Openen"
 
 #: backup.js:118
 msgid "Application Not Found"
-msgstr ""
+msgstr "Toepassing niet aangetroffen"
 
 #: backup.js:120
 msgid ""
@@ -63,14 +63,24 @@ msgid ""
 "3. Choose a default text editor, and select the option \"Always use for this "
 "file type\""
 msgstr ""
+"Er is geen standaardtoepassing voor het openen van .ini-bestanden.\n"
+"\n"
+"Het toggles.ini-bestand kan met iedere tekstbewerker worden geopend en "
+"bewerkt. Hiervoor kan het noodzakelijk zijn om .ini-bestanden toe te wijzen "
+"aan de tekstbewerker. Dit kan als volgt:\n"
+"\n"
+"1. Open uw persoonlijke map en zoek het toggles.ini-bestand;\n"
+"2. Klik met de rechtermuisknop op het bestand en kies ‘Openen met…’;\n"
+"3. Kies de standaard tekstbewerker en geef aan dat dit soort bestandstypen "
+"er altijd mee moeten worden geopend."
 
 #: backup.js:137 backup.js:144
 msgid "Export Error"
-msgstr ""
+msgstr "Exportfout"
 
 #: backup.js:139 backup.js:165 backup.js:191
 msgid "Details"
-msgstr ""
+msgstr "Details"
 
 #: backup.js:145
 #, javascript-format
@@ -79,18 +89,21 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"De voorkeuren kunnen niet worden geëxporteerd\n"
+"\n"
+"%s"
 
 #: backup.js:147 backup.js:176 backup.js:199
 msgid "OK"
-msgstr ""
+msgstr "Oké"
 
 #: backup.js:163
 msgid "File not found"
-msgstr ""
+msgstr "Bestand niet aangetroffen"
 
 #: backup.js:170
 msgid "File Not Found"
-msgstr ""
+msgstr "Bestand niet aangetroffen"
 
 #: backup.js:172
 #, javascript-format
@@ -101,10 +114,15 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Het %s-voorkeurenbestand is niet aangetroffen in de persoonlijke map.\n"
+"\n"
+"Controleer of het volgende bestand bestaat:\n"
+"\n"
+"%s"
 
 #: backup.js:189 backup.js:196
 msgid "Import Error"
-msgstr ""
+msgstr "Importfout"
 
 #: backup.js:197
 #, javascript-format
@@ -113,135 +131,138 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"De voorkeuren kunnen niet worden geïmporteerd\n"
+"\n"
+"%s"
 
 #: backup.js:226
 msgid "My Button"
-msgstr ""
+msgstr "Mijn knop"
 
 #: backup.js:273
 #, javascript-format
 msgid "No toggles found in %s."
-msgstr ""
+msgstr "Er zijn geen schakelaars aangetroffen in %s."
 
 #: backup.js:284
 #, javascript-format
 msgid "Successfully imported %d toggle"
 msgid_plural "Successfully imported %d toggles"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Er is %d schakelknop geïmporteerd"
+msgstr[1] "Er zijn %d schakelaars geïmporteerd"
 
 #: backup.js:304
 msgid "All settings reset to defaults"
-msgstr ""
+msgstr "Alle standaardwaarden zijn teruggezet"
 
 #: backup.js:311
 msgid "Failed to reset settings"
-msgstr ""
+msgstr "De standaardwaarden kunnen niet worden teruggezet"
 
 #: keybinding.js:51
 msgid "Set a keyboard shortcut for toggle button"
-msgstr ""
+msgstr "Wijs een sneltoets toe aan deze schakelaar"
 
 #: keybinding.js:60
 msgid "Not assigned"
-msgstr ""
+msgstr "Niet toegewezen"
 
 #: keybinding.js:105
 msgid "Press Esc to cancel or Backspace to disable the shortcut"
-msgstr ""
+msgstr "Druk op escape of backspace om de sneltoets uit te schakelen"
 
 #: prefs.js:53
 msgid "Icon List"
-msgstr ""
+msgstr "Pictogrammenlijst"
 
 #: prefs.js:56
 msgid "About"
-msgstr ""
+msgstr "Over"
 
 #: prefs.js:66
 msgid "Help and resources"
-msgstr ""
+msgstr "Hulp en bronnen"
 
 #: prefs.js:130
 msgid "Toggle Button"
-msgstr ""
+msgstr "Schakelaar"
 
 #: prefs.js:131
 #, javascript-format
 msgid "Button %d"
-msgstr ""
+msgstr "Schakelaar %d"
 
 #: prefs.js:144
 msgid "Appearance"
-msgstr ""
+msgstr "Vormgeving"
 
 #: prefs.js:150 prefs.js:159
 msgid "Hide this toggle"
-msgstr ""
+msgstr "Schakelaar verbergen"
 
 #: prefs.js:150 prefs.js:159
 msgid "Show this toggle"
-msgstr ""
+msgstr "Schakelaar tonen"
 
 #: prefs.js:172
 msgid "Button name:"
-msgstr ""
+msgstr "Naam van schakelaar:"
 
 #: prefs.js:177
 msgid "Icon:"
-msgstr ""
+msgstr "Pictogram:"
 
 #: prefs.js:185
 msgid "Commands"
-msgstr ""
+msgstr "Opdrachten"
 
 #: prefs.js:190
 msgid "Toggle ON Command:"
-msgstr ""
+msgstr "AAN-opdracht:"
 
 #: prefs.js:195
 msgid "Toggle OFF Command:"
-msgstr ""
+msgstr "UIT-opdracht:"
 
 #: prefs.js:200
 msgid "Check Status Command:"
-msgstr ""
+msgstr "Statuscontroleopdracht:"
 
 #: prefs.js:205
 msgid "Check Status Search Term:"
-msgstr ""
+msgstr "Trefwoord(en) binnen statuscontrole:"
 
 #: prefs.js:213
 msgid "Startup Behavior"
-msgstr ""
+msgstr "Opstartgedrag"
 
 #: prefs.js:218
 msgid "On"
-msgstr ""
+msgstr "Aan"
 
 #: prefs.js:218
 msgid "Off"
-msgstr ""
+msgstr "Uit"
 
 #: prefs.js:218
 msgid "Previous state"
-msgstr ""
+msgstr "Vorige status"
 
 #: prefs.js:218
 msgid "Command output"
-msgstr ""
+msgstr "Opdrachtuitvoer"
 
 #: prefs.js:220
 msgid "Initial State"
-msgstr ""
+msgstr "Initiële status"
 
 #: prefs.js:221
 msgid "State of the toggle button at login/startup"
-msgstr ""
+msgstr "De status van de schakelaar na aanmelden/opstarten"
 
 #: prefs.js:228 prefs.js:365
 msgid "Command Configuration"
-msgstr ""
+msgstr "Opdrachtvoorkeuren"
 
 #: prefs.js:230
 msgid ""
@@ -250,82 +271,86 @@ msgid ""
 "button will be set to ON at startup. Otherwise, the button will be set to "
 "OFF."
 msgstr ""
+"Voer de statusopdracht en trefwoord(en) in, in bovenstaande "
+"opdrachtensectie. Als de zoekopdracht voorkomt in de uitvoer, zal de knop "
+"worden aangezet, anders niet."
 
 #: prefs.js:246
 msgid "Run Command at Startup"
-msgstr ""
+msgstr "Opdracht uitvoeren na opstarten"
 
 #: prefs.js:247
 msgid "Run associated toggle command at login/startup"
-msgstr ""
+msgstr "Voer de toegewezen opdracht uit na aanmelden/opstarten"
 
 #: prefs.js:260 prefs.js:272
 msgid "Startup Delay (seconds)"
-msgstr ""
+msgstr "Opstartvertraging (in seconden)"
 
 #: prefs.js:261 prefs.js:273
 msgid "Amount of time to delay command from running after startup"
-msgstr ""
+msgstr "De wachttijd alvorens de opdracht uit te voeren"
 
 #: prefs.js:288
 msgid "Toggle Behavior"
-msgstr ""
+msgstr "Schakelaargedrag"
 
 #: prefs.js:292
 msgid "Always on"
-msgstr ""
+msgstr "Altijd aan"
 
 #: prefs.js:292
 msgid "Always off"
-msgstr ""
+msgstr "Altijd uit"
 
 #: prefs.js:292
 msgid "Toggle"
-msgstr ""
+msgstr "Schakelaar"
 
 #: prefs.js:295
 msgid "Button Click Action"
-msgstr ""
+msgstr "Klikactie"
 
 #: prefs.js:296
 msgid "Button behavior when clicked"
-msgstr ""
+msgstr "De actie na aanklikken van de schakelaar"
 
 #: prefs.js:303
 msgid "Check Command Exit Code"
-msgstr ""
+msgstr "Afsluitcode van controleopdracht"
 
 #: prefs.js:304
 msgid "Only toggle if the command executes successfully (returns exit code 0)"
 msgstr ""
+"Alleen uitvoeren als de opdracht foutloos is uitgevoerd (afsluitcode 0)"
 
 #: prefs.js:325
 msgid "Show Indicator Icon"
-msgstr ""
+msgstr "Indicator tonen"
 
 #: prefs.js:326
 msgid "Show top bar icon when toggle button is switched on"
-msgstr ""
+msgstr "Toon een pictogram op de bovenbalk als de schakelaar aanstaat"
 
 #: prefs.js:332
 msgid "Close Menu After Button Press"
-msgstr ""
+msgstr "Menu sluiten na aanklikken van schakelaar"
 
 #: prefs.js:333
 msgid "Close the system menu immediately after clicking toggle button"
-msgstr ""
+msgstr "Sluit het systeemmenu na aanklikken van de schakelaar"
 
 #: prefs.js:342
 msgid "Command Sync Behavior"
-msgstr ""
+msgstr "Opdrachtsynchronisatie"
 
 #: prefs.js:346
 msgid "Keep Toggle State Synced"
-msgstr ""
+msgstr "Status gesynchroniseerd houden"
 
 #: prefs.js:347
 msgid "Keep toggle button state synced with a command's output"
-msgstr ""
+msgstr "Houdt de schakelaarstatus synchroon met de opdrachtuitvoer"
 
 #: prefs.js:367
 msgid ""
@@ -333,77 +358,89 @@ msgid ""
 "above. If the specified Search Term appears in the command's output, the "
 "button will be set to ON. Otherwise, the button will be set to OFF."
 msgstr ""
+"Voer de statusopdracht en trefwoord(en) in, in bovenstaande "
+"opdrachtensectie. Als de zoekopdracht voorkomt in de uitvoer, zal de knop "
+"worden aangezet, anders niet."
 
 #: prefs.js:376
 msgid "Polling Frequency (seconds)"
-msgstr ""
+msgstr "Controlefrequentie (in seconden)"
 
 #: prefs.js:377
 msgid "How often to check the command output and update button state"
 msgstr ""
+"Hoe vaak de opdrachtuitvoer en schakelaarstatus dienen te worden "
+"gecontroleerd"
 
 #: prefs.js:388
 msgid ""
 "Command sync is disabled. To enable, set the Button Click Action to Toggle."
 msgstr ""
+"Opdrachtsynchronisatie is uitgeschakeld. Stel de klikactie in om dit in te "
+"schakelen."
 
 #: prefs.js:400
 msgid "Keyboard Shortcut"
-msgstr ""
+msgstr "Sneltoets"
 
 #: prefs.js:407
 msgid "Assign Shortcut"
-msgstr ""
+msgstr "Sneltoets toewijzen"
 
 #: prefs.js:454
 msgid "Configuration"
-msgstr ""
+msgstr "Voorkeuren"
 
 #: prefs.js:464
 msgid "Settings"
-msgstr ""
+msgstr "Voorkeuren"
 
 #: prefs.js:469
 msgid "Number of Toggle Buttons"
-msgstr ""
+msgstr "Aantal schakelaars"
 
 #: prefs.js:470
 msgid "Click Apply to save and reinitialize toggle states"
 msgstr ""
+"Klik op toepassen om op te slaan en alle statussen opnieuw te controleren"
 
 #: prefs.js:481
 msgid "Apply"
-msgstr ""
+msgstr "Toepassen"
 
 #: prefs.js:510
 msgid "Backup and Restore"
-msgstr ""
+msgstr "Reservekopie en herstel"
 
 #: prefs.js:515
 msgid "Import Configuration"
-msgstr ""
+msgstr "Voorkeuren importeren"
 
 #: prefs.js:516
 msgid ""
 "Click to import the toggles.ini configuration file from the home directory"
 msgstr ""
+"Klik om het toggles.ini-voorkeurenbestand te importeren uit de persoonlijke "
+"map"
 
 #: prefs.js:529
 msgid "Export Configuration"
-msgstr ""
+msgstr "Voorkeuren exporteren"
 
 #: prefs.js:530
 msgid ""
 "Click to export the toggles.ini configuration file to the home directory"
 msgstr ""
+"Klik om het toggles.ini-voorkeurenbestand te exporteren naar de persoonlijke "
+"map"
 
 #: prefs.js:544
 msgid "Advanced"
-msgstr ""
+msgstr "Geavanceerd"
 
 #: prefs.js:549
 msgid "Detailed Logging"
-msgstr ""
+msgstr "Uitgebreid logboek aanleggen"
 
 #: prefs.js:550
 #, javascript-format
@@ -411,47 +448,55 @@ msgid ""
 "To view output, run the following in a terminal then restart extension:\n"
 "%s"
 msgstr ""
+"Bekijk de uitvoer door het volgende uit te voeren in een terminalvenster en "
+"de extensie te herstarten:\n"
+"%s"
 
 #: prefs.js:557
 msgid "Copy command to clipboard"
-msgstr ""
+msgstr "Opdracht kopiëren naar klembord"
 
 #: prefs.js:570
 msgid "Command copied to clipboard"
-msgstr ""
+msgstr "De opdracht is gekopieerd naar het klembord"
 
 #: prefs.js:577
 msgid "Reset to Defaults"
-msgstr ""
+msgstr "Standaardwaarden herstellen"
 
 #: prefs.js:578
 msgid "Click to restore all toggles and settings to their default values"
 msgstr ""
+"Klik om alle standaardwaarden van schakelaars en voorkeuren terug te zetten"
 
 #: prefs.js:584
 msgid "Confirm Reset"
-msgstr ""
+msgstr "Herstel bevestigen"
 
 #: prefs.js:585
 msgid ""
 "All toggles and extension settings will be reset to their default values. "
 "This action cannot be undone."
 msgstr ""
+"Alle schakelaars en voorkeuren worden teruggezet op de standaardwaarden. "
+"Deze actie is onomkeerbaar."
 
 #: prefs.js:590
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #: prefs.js:591
 msgid "Reset"
-msgstr ""
+msgstr "Standaardwaarden"
 
 #: prefs.js:611
 msgid "Resources"
-msgstr ""
+msgstr "Bronnen"
 
 #: prefs.js:615
 msgid ""
 "Find links to the User Guide, Icon List, and other helpful information in "
 "the menu at the top of this window."
 msgstr ""
+"Links naar de handleiding, pictogrammenlijst en andere nuttige informatie is "
+"te vinden in het menu bovenaan het venster."
