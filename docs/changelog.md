@@ -1,13 +1,12 @@
 <!-- changelog.md -->
 
-## Version 13 (2026-XX-XX)
+## Version 13 (2026-03-10)
 
-**New Features** (work in progress)
+**New Features**
 
-- [ French translation provided by p-sage. ]
-- [ Dutch translation provided by Vistaus. ]
+- Dutch translation provided by Vistaus.
 - Italian translation provided by Kasui92.
-- [ Support for GNOME 50. ]
+- Support for GNOME 50.
 
 ---
 
