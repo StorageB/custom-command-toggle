@@ -34,7 +34,7 @@ Run commands from a custom drop-down menu!
 
 [Custom Command Menu](https://extensions.gnome.org/extension/7024/custom-command-list/) is an extension for GNOME 45+ to run user-defined commands from a customizable drop-down menu at the top bar.
 
-![Screenshot-advanced](screenshots/custom-command-menu-12.png)
+![Screenshot-advanced](screenshots/custom-command-menu-13.png)
 
 <!--[<img src="https://raw.githubusercontent.com/andyholmes/gnome-shell-extensions-badge/master/get-it-on-ego.svg?sanitize=true" alt="Get it on GNOME Extensions" height="100" width="220">](https://extensions.gnome.org/extension/7024/custom-command-list/)-->
 
