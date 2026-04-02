@@ -18,7 +18,7 @@ To view logs of startup behavior, enable detailed logging, disable the extension
 
 ---
 
-# Reset to Defaults
+## Reset to Defaults
 
 To fully reset the extension and restore all default settings, use the _Reset to Defaults_ function under Confuguration Tab and Advanced.
 
@@ -28,7 +28,7 @@ To fully reset the extension and restore all default settings, use the _Reset to
 
 ---
 
-# Bug reporting
+## Bug reporting
 
 To report a bug, open an issue on the GitHub page: 
 
