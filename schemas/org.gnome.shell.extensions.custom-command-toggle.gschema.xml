@@ -2,391 +2,416 @@
 <schemalist>
   <schema id="org.gnome.shell.extensions.custom-command-toggle" path="/org/gnome/shell/extensions/custom-command-toggle/">
 
-    <key name="numbuttons-setting" type="i">
+    <key name="numbuttons" type="i">
       <default>1</default>
       <summary>Number of toggle buttons</summary>
     </key>
-    <key name="debug-setting" type="b">
+    <key name="debug" type="b">
       <default>false</default>
-       <summary>Enable debug logging</summary>
+      <summary>Enable debug logging</summary>
     </key>
     <key name="force-refresh" type="b">
-        <default>false</default>
-        <summary>Forces extension refresh after settings update</summary>
-        <description>
-            This key is toggled to trigger an extension rebuild toggles and refresh indicators.
-        </description>
+      <default>false</default>
+      <summary>Forces extension refresh after settings update</summary>
+      <description>This key is toggled to trigger an extension rebuild toggles and refresh indicators.</description>
     </key>
-    <key name="entryrow1-setting" type="s">
+
+    <!-- Toggle 1 Settings -->
+    <key name="toggle1-command-on" type="s">
       <default>'notify-send "Custom Command Toggle" "Hello world!"'</default>
-      <summary>Button 1 ON command</summary>
+      <summary>Toggle 1 ON command</summary>
     </key>
-    <key name="entryrow2-setting" type="s">
+    <key name="toggle1-command-off" type="s">
       <default>""</default>
-      <summary>Button 1 OFF command</summary>
+      <summary>Toggle 1 OFF command</summary>
     </key>
-    <key name="entryrow3-setting" type="s">
+    <key name="toggle1-title" type="s">
       <default>"My Button"</default>
-      <summary>Button 1 name</summary>
+      <summary>Toggle 1 name</summary>
     </key>
-    <key name="entryrow4-setting" type="s">
+    <key name="toggle1-icons" type="s">
       <default>"face-smile-symbolic"</default>
-      <summary>Button 1 icon</summary>
+      <summary>Toggle 1 icon</summary>
     </key>
-    <key name="initialtogglestate1-setting" type="i">
+    <key name="toggle1-initialstate" type="i">
       <default>2</default>
-      <summary>Button 1 toggle state at startup</summary>
+      <summary>Toggle 1 state at startup</summary>
       <description>0 = On; 1 = Off; 2 = Previous state; 3 = Check command output for state</description>
     </key>
-    <key name="togglestate1-setting" type="b">
+    <key name="toggle1-state" type="b">
       <default>false</default>
-       <summary>Button 1 current state</summary>
+      <summary>Toggle 1 current state</summary>
     </key>
-    <key name="checkcommand1-setting" type="s">
+    <key name="toggle1-checkcommand" type="s">
       <default>""</default>
-      <summary>Button 1 check state command</summary>
-      <description>Command to check state at startup and command sync for button 1</description>
+      <summary>Toggle 1 check state command</summary>
+      <description>Command to check state at startup and command sync</description>
     </key>
-    <key name="checkregex1-setting" type="s">
+    <key name="toggle1-checkregex" type="s">
       <default>""</default>
-      <summary>Button 1 search term</summary>
-      <description>String to search for in the command output to set button state ON at startup for button 1</description>
+      <summary>Toggle 1 search term</summary>
+      <description>String to search for in the command output to set ON state</description>
     </key>    
-    <key name="runcommandatboot1-setting" type="b">
+    <key name="toggle1-runcommandatboot" type="b">
       <default>false</default>
-       <summary>Button 1 run command at boot setting</summary>
+      <summary>Toggle 1 run command at boot setting</summary>
     </key>
-    <key name="delaytime1-setting" type="i">
+    <key name="toggle1-delaytime" type="i">
       <default>3</default>
-      <summary>Button 1 run command at boot delay setting</summary>
+      <summary>Toggle 1 run command at boot delay setting</summary>
     </key>
-    <key name="checkcommanddelaytime1-setting" type="i">
+    <key name="toggle1-checkcommanddelaytime" type="i">
       <default>3</default>
-      <summary>Button 1 check command state at boot delay setting</summary>
+      <summary>Toggle 1 check command state at boot delay setting</summary>
     </key>
-    <key name="checkcommandsync1-setting" type="b">
+    <key name="toggle1-checkcommandsync" type="b">
       <default>false</default>
-       <summary>Check command output at regular intervals</summary>
+      <summary>Check toggle 1 command output at regular intervals</summary>
     </key>
-    <key name="checkcommandinterval1-setting" type="i">
+    <key name="toggle1-checkcommandinterval" type="i">
       <default>10</default>
-      <summary>Check command output interval in seconds</summary>
+      <summary>Check toggle 1 command output interval in seconds</summary>
     </key>
-    <key name="showindicator1-setting" type="b">
+    <key name="toggle1-showindicator" type="b">
       <default>true</default>
-      <summary>Button 1 show top bar indicator setting</summary>
+      <summary>Toggle 1 show top bar indicator setting</summary>
     </key>
-    <key name="buttonclick1-setting" type="i">
+    <key name="toggle1-buttonclick" type="i">
       <default>2</default>
-      <summary>Button 1 toggle action setting</summary>
+      <summary>Toggle 1 action setting</summary>
       <description>0 = Always On; 1 = Always Off; 2 = Toggle On/Off</description>
     </key>
-    <key name="closemenu1-setting" type="b">
+    <key name="toggle1-closemenu" type="b">
       <default>false</default>
-      <summary>Button 1 close menu setting</summary>
+      <summary>Toggle 1 close menu setting</summary>
     </key>
-    <key name='keybinding1-setting' type='as'>
+    <key name="toggle1-keybinding" type="as">
       <default><![CDATA[['']]]></default>
-      <summary>Button 1 keyboard shortcut</summary>
+      <summary>Toggle 1 keyboard shortcut</summary>
     </key>
-    <key name="checkexitcode1-setting" type="b">
+    <key name="toggle1-checkexitcode" type="b">
       <default>false</default>
-      <summary>Button 1 check exit code setting</summary>
+      <summary>Toggle 1 check exit code setting</summary>
     </key>
-    <key name="enabled1-setting" type="b">
+    <key name="toggle1-enabled" type="b">
       <default>true</default>
-      <summary>Enable or disable toggle button 1</summary>
+      <summary>Enable or disable toggle 1</summary>
     </key>
 
-    <key name="entryrow12-setting" type="s">
+    <!-- Toggle 2 Settings -->
+    <key name="toggle2-command-on" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 2 toggled on"'</default>
+      <summary>Toggle 2 ON command</summary>
     </key>
-    <key name="entryrow22-setting" type="s">
+    <key name="toggle2-command-off" type="s">
       <default>""</default>
+      <summary>Toggle 2 OFF command</summary>
     </key>
-    <key name="entryrow32-setting" type="s">
+    <key name="toggle2-title" type="s">
       <default>"My Button 2"</default>
+      <summary>Toggle 2 name</summary>
     </key>
-    <key name="entryrow42-setting" type="s">
+    <key name="toggle2-icons" type="s">
       <default>"face-wink-symbolic"</default>
+      <summary>Toggle 2 icon</summary>
     </key>
-    <key name="initialtogglestate2-setting" type="i">
+    <key name="toggle2-initialstate" type="i">
       <default>2</default>
     </key>
-    <key name="togglestate2-setting" type="b">
+    <key name="toggle2-state" type="b">
       <default>false</default>
     </key>
-    <key name="checkcommand2-setting" type="s">
+    <key name="toggle2-checkcommand" type="s">
       <default>""</default>
     </key>
-    <key name="checkregex2-setting" type="s">
+    <key name="toggle2-checkregex" type="s">
       <default>""</default>
     </key>    
-    <key name="runcommandatboot2-setting" type="b">
+    <key name="toggle2-runcommandatboot" type="b">
       <default>false</default>
     </key>
-    <key name="delaytime2-setting" type="i">
+    <key name="toggle2-delaytime" type="i">
       <default>3</default>
     </key>
-    <key name="checkcommanddelaytime2-setting" type="i">
+    <key name="toggle2-checkcommanddelaytime" type="i">
       <default>3</default>
     </key>
-    <key name="checkcommandsync2-setting" type="b">
+    <key name="toggle2-checkcommandsync" type="b">
       <default>false</default>
     </key>
-    <key name="checkcommandinterval2-setting" type="i">
+    <key name="toggle2-checkcommandinterval" type="i">
       <default>10</default>
     </key>
-    <key name="showindicator2-setting" type="b">
+    <key name="toggle2-showindicator" type="b">
       <default>true</default>
     </key>
-    <key name="buttonclick2-setting" type="i">
+    <key name="toggle2-buttonclick" type="i">
       <default>2</default>
     </key>
-    <key name="closemenu2-setting" type="b">
+    <key name="toggle2-closemenu" type="b">
       <default>false</default>
     </key>
-    <key name='keybinding2-setting' type='as'>
+    <key name="toggle2-keybinding" type="as">
       <default><![CDATA[['']]]></default>
     </key>
-    <key name="checkexitcode2-setting" type="b">
+    <key name="toggle2-checkexitcode" type="b">
       <default>false</default>
     </key>
-    <key name="enabled2-setting" type="b">
+    <key name="toggle2-enabled" type="b">
       <default>true</default>
-    </key>      
+    </key>
 
-    <key name="entryrow13-setting" type="s">
+    <!-- Toggle 3 Settings -->
+    <key name="toggle3-command-on" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 3 toggled on"'</default>
+      <summary>Toggle 3 ON command</summary>
     </key>
-    <key name="entryrow23-setting" type="s">
+    <key name="toggle3-command-off" type="s">
       <default>""</default>
+      <summary>Toggle 3 OFF command</summary>
     </key>
-    <key name="entryrow33-setting" type="s">
+    <key name="toggle3-title" type="s">
       <default>"My Button 3"</default>
+      <summary>Toggle 3 name</summary>
     </key>
-    <key name="entryrow43-setting" type="s">
+    <key name="toggle3-icons" type="s">
       <default>"face-laugh-symbolic"</default>
+      <summary>Toggle 3 icon</summary>
     </key>
-    <key name="initialtogglestate3-setting" type="i">
+    <key name="toggle3-initialstate" type="i">
       <default>2</default>
     </key>
-    <key name="togglestate3-setting" type="b">
+    <key name="toggle3-state" type="b">
       <default>false</default>
     </key>
-    <key name="checkcommand3-setting" type="s">
+    <key name="toggle3-checkcommand" type="s">
       <default>""</default>
     </key>
-    <key name="checkregex3-setting" type="s">
+    <key name="toggle3-checkregex" type="s">
       <default>""</default>
     </key>
-    <key name="runcommandatboot3-setting" type="b">
+    <key name="toggle3-runcommandatboot" type="b">
       <default>false</default>
     </key>
-    <key name="delaytime3-setting" type="i">
+    <key name="toggle3-delaytime" type="i">
       <default>3</default>
     </key>
-    <key name="checkcommanddelaytime3-setting" type="i">
+    <key name="toggle3-checkcommanddelaytime" type="i">
       <default>3</default>
     </key>
-    <key name="checkcommandsync3-setting" type="b">
+    <key name="toggle3-checkcommandsync" type="b">
       <default>false</default>
     </key>
-    <key name="checkcommandinterval3-setting" type="i">
+    <key name="toggle3-checkcommandinterval" type="i">
       <default>10</default>
     </key>
-    <key name="showindicator3-setting" type="b">
+    <key name="toggle3-showindicator" type="b">
       <default>true</default>
     </key>
-    <key name="buttonclick3-setting" type="i">
+    <key name="toggle3-buttonclick" type="i">
       <default>2</default>
     </key>
-    <key name="closemenu3-setting" type="b">
+    <key name="toggle3-closemenu" type="b">
       <default>false</default>
     </key>
-    <key name='keybinding3-setting' type='as'>
+    <key name="toggle3-keybinding" type="as">
       <default><![CDATA[['']]]></default>
     </key>
-    <key name="checkexitcode3-setting" type="b">
+    <key name="toggle3-checkexitcode" type="b">
       <default>false</default>
     </key>
-    <key name="enabled3-setting" type="b">
+    <key name="toggle3-enabled" type="b">
       <default>true</default>
-    </key>  
-  
-    <key name="entryrow14-setting" type="s">
+    </key>
+
+    <!-- Toggle 4 Settings -->
+    <key name="toggle4-command-on" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 4 toggled on"'</default>
+      <summary>Toggle 4 ON command</summary>
     </key>
-    <key name="entryrow24-setting" type="s">
+    <key name="toggle4-command-off" type="s">
       <default>""</default>
+      <summary>Toggle 4 OFF command</summary>
     </key>
-    <key name="entryrow34-setting" type="s">
+    <key name="toggle4-title" type="s">
       <default>"My Button 4"</default>
+      <summary>Toggle 4 name</summary>
     </key>
-    <key name="entryrow44-setting" type="s">
+    <key name="toggle4-icons" type="s">
       <default>"face-smirk-symbolic"</default>
+      <summary>Toggle 4 icon</summary>
     </key>
-    <key name="initialtogglestate4-setting" type="i">
+    <key name="toggle4-initialstate" type="i">
       <default>2</default>
     </key>
-    <key name="togglestate4-setting" type="b">
+    <key name="toggle4-state" type="b">
       <default>false</default>
     </key>
-    <key name="checkcommand4-setting" type="s">
+    <key name="toggle4-checkcommand" type="s">
       <default>""</default>
     </key>
-    <key name="checkregex4-setting" type="s">
+    <key name="toggle4-checkregex" type="s">
       <default>""</default>
     </key>    
-    <key name="runcommandatboot4-setting" type="b">
+    <key name="toggle4-runcommandatboot" type="b">
       <default>false</default>
     </key>
-    <key name="delaytime4-setting" type="i">
+    <key name="toggle4-delaytime" type="i">
       <default>3</default>
     </key>
-    <key name="checkcommanddelaytime4-setting" type="i">
+    <key name="toggle4-checkcommanddelaytime" type="i">
       <default>3</default>
     </key>
-    <key name="checkcommandsync4-setting" type="b">
+    <key name="toggle4-checkcommandsync" type="b">
       <default>false</default>
     </key>
-    <key name="checkcommandinterval4-setting" type="i">
+    <key name="toggle4-checkcommandinterval" type="i">
       <default>10</default>
     </key>
-    <key name="showindicator4-setting" type="b">
+    <key name="toggle4-showindicator" type="b">
       <default>true</default>
     </key>
-    <key name="buttonclick4-setting" type="i">
+    <key name="toggle4-buttonclick" type="i">
       <default>2</default>
     </key>
-    <key name="closemenu4-setting" type="b">
+    <key name="toggle4-closemenu" type="b">
       <default>false</default>
     </key>
-    <key name='keybinding4-setting' type='as'>
+    <key name="toggle4-keybinding" type="as">
       <default><![CDATA[['']]]></default>
     </key>
-    <key name="checkexitcode4-setting" type="b">
+    <key name="toggle4-checkexitcode" type="b">
       <default>false</default>
     </key>
-    <key name="enabled4-setting" type="b">
+    <key name="toggle4-enabled" type="b">
       <default>true</default>
-    </key>    
+    </key>
 
-    <key name="entryrow15-setting" type="s">
+    <!-- Toggle 5 Settings -->
+    <key name="toggle5-command-on" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 5 toggled on"'</default>
+      <summary>Toggle 5 ON command</summary>
     </key>
-    <key name="entryrow25-setting" type="s">
+    <key name="toggle5-command-off" type="s">
       <default>""</default>
+      <summary>Toggle 5 OFF command</summary>
     </key>
-    <key name="entryrow35-setting" type="s">
+    <key name="toggle5-title" type="s">
       <default>"My Button 5"</default>
+      <summary>Toggle 5 name</summary>
     </key>
-    <key name="entryrow45-setting" type="s">
+    <key name="toggle5-icons" type="s">
       <default>"face-surprise-symbolic"</default>
+      <summary>Toggle 5 icon</summary>
     </key>
-    <key name="initialtogglestate5-setting" type="i">
+    <key name="toggle5-initialstate" type="i">
       <default>2</default>
     </key>
-    <key name="togglestate5-setting" type="b">
+    <key name="toggle5-state" type="b">
       <default>false</default>
     </key>
-    <key name="checkcommand5-setting" type="s">
+    <key name="toggle5-checkcommand" type="s">
       <default>""</default>
     </key>
-    <key name="checkregex5-setting" type="s">
+    <key name="toggle5-checkregex" type="s">
       <default>""</default>
     </key>    
-    <key name="runcommandatboot5-setting" type="b">
+    <key name="toggle5-runcommandatboot" type="b">
       <default>false</default>
     </key>
-    <key name="delaytime5-setting" type="i">
+    <key name="toggle5-delaytime" type="i">
       <default>3</default>
     </key>
-    <key name="checkcommanddelaytime5-setting" type="i">
+    <key name="toggle5-checkcommanddelaytime" type="i">
       <default>3</default>
     </key>
-    <key name="checkcommandsync5-setting" type="b">
+    <key name="toggle5-checkcommandsync" type="b">
       <default>false</default>
     </key>
-    <key name="checkcommandinterval5-setting" type="i">
+    <key name="toggle5-checkcommandinterval" type="i">
       <default>10</default>
     </key>
-    <key name="showindicator5-setting" type="b">
+    <key name="toggle5-showindicator" type="b">
       <default>true</default>
     </key>
-    <key name="buttonclick5-setting" type="i">
+    <key name="toggle5-buttonclick" type="i">
       <default>2</default>
     </key>
-    <key name="closemenu5-setting" type="b">
+    <key name="toggle5-closemenu" type="b">
       <default>false</default>
     </key>
-    <key name='keybinding5-setting' type='as'>
+    <key name="toggle5-keybinding" type="as">
       <default><![CDATA[['']]]></default>
     </key>
-    <key name="checkexitcode5-setting" type="b">
+    <key name="toggle5-checkexitcode" type="b">
       <default>false</default>
     </key>
-    <key name="enabled5-setting" type="b">
+    <key name="toggle5-enabled" type="b">
       <default>true</default>
-    </key>  
+    </key>
 
-    <key name="entryrow16-setting" type="s">
+    <!-- Toggle 6 Settings -->
+    <key name="toggle6-command-on" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 6 toggled on"'</default>
+      <summary>Toggle 6 ON command</summary>
     </key>
-    <key name="entryrow26-setting" type="s">
+    <key name="toggle6-command-off" type="s">
       <default>""</default>
+      <summary>Toggle 6 OFF command</summary>
     </key>
-    <key name="entryrow36-setting" type="s">
+    <key name="toggle6-title" type="s">
       <default>"My Button 6"</default>
+      <summary>Toggle 6 name</summary>
     </key>
-    <key name="entryrow46-setting" type="s">
+    <key name="toggle6-icons" type="s">
       <default>"face-worried-symbolic"</default>
+      <summary>Toggle 6 icon</summary>
     </key>
-    <key name="initialtogglestate6-setting" type="i">
+    <key name="toggle6-initialstate" type="i">
       <default>2</default>
     </key>
-    <key name="togglestate6-setting" type="b">
+    <key name="toggle6-state" type="b">
       <default>false</default>
     </key>
-    <key name="checkcommand6-setting" type="s">
+    <key name="toggle6-checkcommand" type="s">
       <default>""</default>
     </key>
-    <key name="checkregex6-setting" type="s">
+    <key name="toggle6-checkregex" type="s">
       <default>""</default>
     </key>    
-    <key name="runcommandatboot6-setting" type="b">
+    <key name="toggle6-runcommandatboot" type="b">
       <default>false</default>
     </key>
-    <key name="delaytime6-setting" type="i">
+    <key name="toggle6-delaytime" type="i">
       <default>3</default>
     </key>
-    <key name="checkcommanddelaytime6-setting" type="i">
+    <key name="toggle6-checkcommanddelaytime" type="i">
       <default>3</default>
     </key>
-    <key name="checkcommandsync6-setting" type="b">
+    <key name="toggle6-checkcommandsync" type="b">
       <default>false</default>
     </key>
-    <key name="checkcommandinterval6-setting" type="i">
+    <key name="toggle6-checkcommandinterval" type="i">
       <default>10</default>
     </key>
-    <key name="showindicator6-setting" type="b">
+    <key name="toggle6-showindicator" type="b">
       <default>true</default>
     </key>
-    <key name="buttonclick6-setting" type="i">
+    <key name="toggle6-buttonclick" type="i">
       <default>2</default>
     </key>
-    <key name="closemenu6-setting" type="b">
+    <key name="toggle6-closemenu" type="b">
       <default>false</default>
     </key>
-    <key name='keybinding6-setting' type='as'>
+    <key name="toggle6-keybinding" type="as">
       <default><![CDATA[['']]]></default>
     </key>
-    <key name="checkexitcode6-setting" type="b">
+    <key name="toggle6-checkexitcode" type="b">
       <default>false</default>
     </key>
-    <key name="enabled6-setting" type="b">
+    <key name="toggle6-enabled" type="b">
       <default>true</default>
-    </key>      
+    </key>
 
   </schema>
 </schemalist>

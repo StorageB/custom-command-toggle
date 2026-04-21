@@ -2,7 +2,7 @@
  *
  * This file is part of the Custom Command Toggle GNOME Shell extension
  * https://github.com/StorageB/custom-command-toggle
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -18,7 +18,7 @@
  *
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
- 
+
 import Gio from 'gi://Gio';
 import Adw from 'gi://Adw';
 import Gtk from 'gi://Gtk';
@@ -32,6 +32,7 @@ import {exportConfiguration} from './backup.js';
 import {importConfiguration} from './backup.js';
 import {reset} from './backup.js';
 import {showAboutDialog} from './about.js';
+import {SettingTypes, getSettingKey} from './settings-utils.js';
 
 let numButtons = 1;
 
@@ -97,14 +98,14 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         const pagesStack = page.get_parent();
         const contentStack = pagesStack.get_parent().get_parent(); // GtkStack
         const preferences = contentStack.get_parent(); // GtkBox
-        
+
         const headerBar = preferences
             .get_first_child()
             .get_next_sibling()
             .get_first_child()
             .get_first_child()
             .get_first_child(); // This gets the AdwHeaderBar
-        
+
             this._window.remove(page);
             headerBar.pack_end(menuButton);
     }
@@ -112,7 +113,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
     //#region Toggle Pages
     populateTogglePages(window) {
-    
+
         if (this._pages) {
             this._pages.forEach(page => {
                 window.remove(page);
@@ -120,8 +121,8 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         }
 
         // Number of toggle buttons to create
-        numButtons = window._settings.get_int('numbuttons-setting');
-        this._pages = []; 
+        numButtons = window._settings.get_int('numbuttons');
+        this._pages = [];
 
         // Loop to create toggle button setting pages
         for (let pageIndex = 1; pageIndex <= numButtons; pageIndex++) {
@@ -130,21 +131,21 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             if (numButtons === 1) { buttonTitle = _("Toggle Button");
             } else { buttonTitle = _("Button %d").format(pageIndex); }
 
-            let isVisible = window._settings.get_boolean(`enabled${pageIndex}-setting`);
+            let isVisible = window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.ENABLED));
 
             const page = new Adw.PreferencesPage({
                 title: buttonTitle,
                 icon_name: isVisible ? 'utilities-terminal-symbolic' : 'view-conceal-symbolic',
             });
             window.add(page);
-        
+
 
             //#region Appearance
             const group2 = new Adw.PreferencesGroup({
                 title: _('Appearance'),
             });
             page.add(group2);
-        
+
             const hideButton = new Gtk.Button({
                 icon_name:    isVisible ? 'view-reveal-symbolic' : 'view-conceal-symbolic',
                 tooltip_text: isVisible ? _('Hide this toggle') : _('Show this toggle'),
@@ -153,12 +154,12 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
             hideButton.connect('clicked', () => {
                 isVisible = !isVisible;
-                window._settings.set_boolean(`enabled${pageIndex}-setting`, isVisible);
+                window._settings.set_boolean(getSettingKey(pageIndex, SettingTypes.ENABLED), isVisible);
 
                 hideButton.icon_name =    isVisible ? 'view-reveal-symbolic' : 'view-conceal-symbolic';
                 hideButton.tooltip_text = isVisible ? _('Hide this toggle') : _('Show this toggle');
 
-                [ entryRow1, entryRow2, entryRow3, entryRow4, checkCommandRow, checkRegexRow,
+                                [ onCommandRow, offCommandRow, buttonNameRow, iconRow, checkCommandRow, checkRegexRow,
                   comboRow, expanderRow, spinRow, spinRow2, comboRow2, switchRow, switchRow2, switchRow3,
                   commandSyncExpanderRow, pollingFreqSpinRow, keybindRow
                 ].forEach(widget => widget.set_sensitive(isVisible));
@@ -167,16 +168,16 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             });
 
             group2.set_header_suffix(hideButton);
-            
-            const entryRow3 = new Adw.EntryRow({
+
+            const buttonNameRow = new Adw.EntryRow({
                 title: _('Button name:'),
             });
-            group2.add(entryRow3);
-        
-            const entryRow4 = new Adw.EntryRow({
+            group2.add(buttonNameRow);
+
+            const iconRow = new Adw.EntryRow({
                 title: _('Icon:'),
             });
-            group2.add(entryRow4);
+            group2.add(iconRow);
             //#endregion Appearance
 
 
@@ -185,16 +186,16 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 title: _('Commands'),
             });
             page.add(group1);
-        
-            const entryRow1 = new Adw.EntryRow({
+
+            const onCommandRow = new Adw.EntryRow({
                 title: _('Toggle ON Command:'),
             });
-            group1.add(entryRow1);
-        
-            const entryRow2 = new Adw.EntryRow({
+            group1.add(onCommandRow);
+
+            const offCommandRow = new Adw.EntryRow({
                 title: _('Toggle OFF Command:'),
             });
-            group1.add(entryRow2);
+            group1.add(offCommandRow);
 
             const checkCommandRow = new Adw.EntryRow({
                 title: _("Check Status Command:"),
@@ -206,7 +207,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             });
             group1.add(checkRegexRow);
             //#endregion Commands
-        
+
 
             //#region Startup Behavior
             const group3 = new Adw.PreferencesGroup({
@@ -220,7 +221,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 title: _('Initial State'),
                 subtitle: _('State of the toggle button at login/startup'),
                 model: optionList,
-                selected: window._settings.get_int(`initialtogglestate${pageIndex}-setting`),
+                selected: window._settings.get_int(getSettingKey(pageIndex, SettingTypes.INITIAL_STATE)),
             });
             group3.add(comboRow);
 
@@ -235,7 +236,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             });
             checkCommandInfo.visible = comboRow.selected === 3;
             group3.add(checkCommandInfo);
-  
+
             comboRow.connect("notify::selected", () => {
                 checkCommandInfo.visible = comboRow.selected === 3;
                 expanderRow.visible =  comboRow.selected === 0 || comboRow.selected === 1 || comboRow.selected === 2;
@@ -246,16 +247,16 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 title: _('Run Command at Startup'),
                 subtitle: _('Run associated toggle command at login/startup'),
                 show_enable_switch: true,
-                expanded: window._settings.get_boolean(`runcommandatboot${pageIndex}-setting`),
-                enable_expansion: window._settings.get_boolean(`runcommandatboot${pageIndex}-setting`),
+                expanded: window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.RUN_COMMAND_AT_BOOT)),
+                enable_expansion: window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.RUN_COMMAND_AT_BOOT)),
             });
             expanderRow.visible =  comboRow.selected === 0 || comboRow.selected === 1 || comboRow.selected === 2;
-            
+
             expanderRow.connect('notify::expanded', widget => {
                 expanderRow.enable_expansion = widget.expanded;
             });
             group3.add(expanderRow);
-        
+
             const spinRow = new Adw.SpinRow({
                 title: _('Startup Delay (seconds)'),
                 subtitle: _('Amount of time to delay command from running after startup'),
@@ -278,7 +279,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                     page_increment: 1,
                 }),
             });
-            spinRow2.visible =  (comboRow.selected === 3 && !window._settings.get_boolean(`checkcommandsync${pageIndex}-setting`));
+            spinRow2.visible =  (comboRow.selected === 3 && !window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_SYNC)));
             group3.add(spinRow2);
             //#endregion Startup Behavior
 
@@ -287,14 +288,15 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             const group4 = new Adw.PreferencesGroup({
                 title: _('Toggle Behavior'),
             });
-            
+
             const toggleList = new Gtk.StringList();
             [_('Always on'), _('Always off'), _('Toggle')].forEach(choice => toggleList.append(choice));
-        
+
             const comboRow2 = new Adw.ComboRow({
                 title: _('Button Click Action'),
                 subtitle: _('Button behavior when clicked'),
                 model: toggleList,
+                selected: window._settings.get_int(getSettingKey(pageIndex, SettingTypes.BUTTON_CLICK)),
             });
             group4.add(comboRow2);
             page.add(group4);
@@ -302,7 +304,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             const switchRow3 = new Adw.SwitchRow({
                 title: _('Check Command Exit Code'),
                 subtitle: _('Only toggle if the command executes successfully (returns exit code 0)'),
-                active: window._settings.get_boolean(`checkexitcode${pageIndex}-setting`),
+                active: window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.CHECK_EXIT_CODE)),
             });
             group4.add(switchRow3);
             switchRow3.visible =  comboRow2.selected === 2;
@@ -316,7 +318,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                     commandSyncExpanderRow.expanded = false;
                 } else {
                     commandSyncExpanderRow.show_enable_switch = true;
-                    commandSyncExpanderRow.enable_expansion = window._settings.get_boolean(`checkcommandsync${pageIndex}-setting`);
+                    commandSyncExpanderRow.enable_expansion = window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_SYNC));
                     commandSyncExpanderRow.expanded = commandSyncExpanderRow.enable_expansion;
                 }
             });
@@ -324,14 +326,14 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             const switchRow = new Adw.SwitchRow({
                 title: _('Show Indicator Icon'),
                 subtitle: _('Show top bar icon when toggle button is switched on'),
-                active: window._settings.get_boolean(`showindicator${pageIndex}-setting`),
+                active: window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.SHOW_INDICATOR)),
             });
             group4.add(switchRow);
 
             const switchRow2 = new Adw.SwitchRow({
                 title: _('Close Menu After Button Press'),
                 subtitle: _('Close the system menu immediately after clicking toggle button'),
-                active: window._settings.get_boolean(`closemenu${pageIndex}-setting`),
+                active: window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.CLOSE_MENU)),
             });
             group4.add(switchRow2);
             //#endregion Toggle Behavior
@@ -346,19 +348,19 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 title: _('Keep Toggle State Synced'),
                 subtitle: _('Keep toggle button state synced with a command\'s output'),
                 show_enable_switch: true,
-                expanded: window._settings.get_boolean(`checkcommandsync${pageIndex}-setting`),
-                enable_expansion: window._settings.get_boolean(`checkcommandsync${pageIndex}-setting`),
+                expanded: window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_SYNC)),
+                enable_expansion: window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_SYNC)),
             });
             if (comboRow2.selected !== 2) {
                 commandSyncExpanderRow.show_enable_switch = false;
                 commandSyncExpanderRow.expanded = false;
             } else {
-                commandSyncExpanderRow.expanded = window._settings.get_boolean(`checkcommandsync${pageIndex}-setting`);
+                commandSyncExpanderRow.expanded = window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_SYNC));
                 commandSyncExpanderRow.show_enable_switch = true;
             }
             commandSyncExpanderRow.connect('notify::expanded', widget => {
                 commandSyncExpanderRow.enable_expansion = widget.expanded;
-            });       
+            });
             group5.add(commandSyncExpanderRow);
 
             const checkCommandInfo2 = new Adw.ActionRow({
@@ -390,7 +392,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             });
             syncDisabledInfo.visible = comboRow2.selected !== 2;
             group5.add(syncDisabledInfo);
-            
+
             page.add(group5);
             //#endregion Sync Behavior
 
@@ -403,7 +405,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
             const keybindRow = new KeybindingRow(
                 window._settings,
-                `keybinding${pageIndex}-setting`,
+                getSettingKey(pageIndex, SettingTypes.KEYBINDING),
                 _('Assign Shortcut')
             );
             keybindRow.add_suffix(keybindRow.resetButton);
@@ -411,27 +413,24 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             //#endregion Shortcut
 
 
-            //#region Bindings 
-            let i = pageIndex;
-            if (pageIndex === 1) {i='';}
+            //#region Bindings
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.COMMAND_ON), onCommandRow, 'text', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.COMMAND_OFF), offCommandRow, 'text', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.TITLE), buttonNameRow, 'text', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.ICONS), iconRow, 'text', Gio.SettingsBindFlags.DEFAULT);
 
-            window._settings.bind(`entryrow1${i}-setting`, entryRow1, 'text', Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`entryrow2${i}-setting`, entryRow2, 'text', Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`entryrow3${i}-setting`, entryRow3, 'text', Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`entryrow4${i}-setting`, entryRow4, 'text', Gio.SettingsBindFlags.DEFAULT);
-            
-            window._settings.bind(`checkcommand${pageIndex}-setting`, checkCommandRow, "text", Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`checkregex${pageIndex}-setting`, checkRegexRow, "text", Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`initialtogglestate${pageIndex}-setting`, comboRow, 'selected', Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`runcommandatboot${pageIndex}-setting`, expanderRow, 'expanded', Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`delaytime${pageIndex}-setting`, spinRow, 'value', Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`checkcommanddelaytime${pageIndex}-setting`, spinRow2, 'value', Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`showindicator${pageIndex}-setting`, switchRow, 'active', Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`closemenu${pageIndex}-setting`, switchRow2, 'active', Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`checkexitcode${pageIndex}-setting`, switchRow3, 'active', Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`buttonclick${pageIndex}-setting`, comboRow2, 'selected', Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`checkcommandinterval${pageIndex}-setting`, pollingFreqSpinRow, 'value', Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(`checkcommandsync${pageIndex}-setting`, commandSyncExpanderRow, 'expanded', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND), checkCommandRow, "text", Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.CHECK_REGEX), checkRegexRow, "text", Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.INITIAL_STATE), comboRow, 'selected', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.RUN_COMMAND_AT_BOOT), expanderRow, 'expanded', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.DELAY_TIME), spinRow, 'value', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_DELAY_TIME), spinRow2, 'value', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.SHOW_INDICATOR), switchRow, 'active', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.CLOSE_MENU), switchRow2, 'active', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.CHECK_EXIT_CODE), switchRow3, 'active', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.BUTTON_CLICK), comboRow2, 'selected', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_INTERVAL), pollingFreqSpinRow, 'value', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_SYNC), commandSyncExpanderRow, 'expanded', Gio.SettingsBindFlags.DEFAULT);
             //#endregion Bindings
 
 
@@ -440,14 +439,14 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
 
             //#region Visibility
-            [   entryRow1, entryRow2, entryRow3, entryRow4, checkCommandRow, checkRegexRow,
+            [   onCommandRow, offCommandRow, buttonNameRow, iconRow, checkCommandRow, checkRegexRow,
                 comboRow, expanderRow, spinRow, spinRow2, comboRow2, switchRow, switchRow2, switchRow3,
                 commandSyncExpanderRow, pollingFreqSpinRow, keybindRow
             ].forEach(widget => widget.set_sensitive(isVisible));
             //#endregion Visibility
 
         }// End of for loop to create toggle button settings pages
-        
+
 
         //#region Config Page
         const infoPage = new Adw.PreferencesPage({
@@ -475,7 +474,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 page_increment: 1,
             }),
         });
-        spinRow0.value = window._settings.get_int('numbuttons-setting');
+        spinRow0.value = window._settings.get_int('numbuttons');
 
         const applyButton = new Gtk.Button({
             label: _('Apply'),
@@ -490,8 +489,8 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         });
 
         applyButton.connect('clicked', () => {
-            if(window._settings.get_int('numbuttons-setting') !== spinRow0.value) {
-                window._settings.set_int('numbuttons-setting', spinRow0.value); 
+            if(window._settings.get_int('numbuttons') !== spinRow0.value) {
+                window._settings.set_int('numbuttons', spinRow0.value);
                 this.populateTogglePages(window);
             }
             const lastIndex = this._pages.length - 1;
@@ -503,14 +502,14 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         spinRow0.activatable_widget = applyButton;
         configGroup0.add(spinRow0);
         //#endregion Settings
-        
+
 
         //#region Backup
         const backupGroup = new Adw.PreferencesGroup({
             title: _('Backup and Restore'),
         });
         infoPage.add(backupGroup);
-        
+
         const importRow = new Adw.ActionRow({
             title: _('Import Configuration'),
             subtitle: _('Click to import the toggles.ini configuration file from the home directory'),
@@ -533,7 +532,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         exportRow.connect('activated', () => {
             exportConfiguration(numButtons, window._settings, window);
         });
-        backupGroup.add(exportRow);        
+        backupGroup.add(exportRow);
         //#endregion Backup
 
 
@@ -548,9 +547,9 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         const debugSwitchRow = new Adw.SwitchRow({
             title: _('Detailed Logging'),
             subtitle: _("To view output, run the following in a terminal then restart extension:\n%s").format(debugCommand),
-            active: window._settings.get_boolean(`debug-setting`),
+            active: window._settings.get_boolean(`debug`),
         });
-        window._settings.bind(`debug-setting`, debugSwitchRow, 'active', Gio.SettingsBindFlags.DEFAULT); 
+        window._settings.bind(`debug`, debugSwitchRow, 'active', Gio.SettingsBindFlags.DEFAULT);
 
         const copyButton = new Gtk.Button({
             icon_name: 'edit-copy-symbolic',
@@ -566,7 +565,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             value.set_string(debugCommand);
             const clipboard = Gdk.Display.get_default().get_clipboard();
             const provider = Gdk.ContentProvider.new_for_value(value);
-            clipboard.set_content(provider); 
+            clipboard.set_content(provider);
             const toast = Adw.Toast.new(_(`Command copied to clipboard`));
             window.add_toast(toast);
         });
