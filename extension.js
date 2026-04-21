@@ -191,7 +191,7 @@ export default class CustomQuickToggleExtension extends Extension {
         refreshIndicator.call(this);
 
         //#region Keybindings
-        for (let i = 1; i <= numToggleButtons; i++) {
+        for (let i = 1; i <= numberOfTogglesAllowed; i++) {
             shortcutIds[i - 1] = Main.wm.addKeybinding(
                 getSettingKey(i, SettingTypes.KEYBINDING), this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
                 () => {
@@ -227,7 +227,7 @@ export default class CustomQuickToggleExtension extends Extension {
             runAtBoot.call(this);
         });
 
-        for (let i = 1; i <= numToggleButtons; i++) {
+        for (let i = 1; i <= numberOfTogglesAllowed; i++) {
             this._settings.connect(`changed::${getSettingKey(i, SettingTypes.ENABLED)}`, () => {
                 if (debug) console.log(`[Custom Command Toggle] Toggle ${i} | ${this._settings.get_boolean(getSettingKey(i, SettingTypes.ENABLED)) ? 'ENABLED' : 'DISABLED'}`);
                 if (this._settings.get_boolean(getSettingKey(i, SettingTypes.ENABLED))) {
@@ -253,7 +253,7 @@ export default class CustomQuickToggleExtension extends Extension {
         }
 
         // Settings connections for toggle commands and display settings
-        for (let i = 1; i <= numToggleButtons; i++) {
+        for (let i = 1; i <= numberOfTogglesAllowed; i++) {
             this._settings.connect(`changed::${getSettingKey(i, SettingTypes.COMMAND_ON)}`, (settings, key) => {
                 toggleCommands[i - 1].on = this._settings.get_string(getSettingKey(i, SettingTypes.COMMAND_ON));
             });
@@ -286,7 +286,7 @@ export default class CustomQuickToggleExtension extends Extension {
             });
         }
 
-        for (let i = 1; i <= numToggleButtons; i++) {
+        for (let i = 1; i <= numberOfTogglesAllowed; i++) {
             this._settings.connect(`changed::${getSettingKey(i, SettingTypes.INITIAL_STATE)}`,           () => debounce(i, () => setupCheckSync.call(this, i)));
             this._settings.connect(`changed::${getSettingKey(i, SettingTypes.CHECK_REGEX)}`,                   () => debounce(i, () => setupCheckSync.call(this, i)));
             this._settings.connect(`changed::${getSettingKey(i, SettingTypes.CHECK_COMMAND)}`,                 () => debounce(i, () => setupCheckSync.call(this, i)));
@@ -573,7 +573,7 @@ export default class CustomQuickToggleExtension extends Extension {
 
             for (let i = 1; i <= numToggleButtons; i++) {
                 if (this._settings.get_boolean(getSettingKey(i, SettingTypes.ENABLED))) {
-                    this[`_indicator${i}`] = new indicatorClasses[i](this.getSettings());
+                    this[`_indicator${i}`] = new indicatorClasses[i](this._settings);
                     Main.panel.statusArea.quickSettings.addExternalIndicator(this[`_indicator${i}`]);
                 }
             }
