@@ -9,10 +9,13 @@ package: $(PACKAGE)
 
 $(PACKAGE):
 	gnome-extensions pack \
+	    --extra-source=icons \
 		--extra-source=about.js \
 		--extra-source=backup.js \
 		--extra-source=keybinding.js \
-		--extra-source=settings-utils.js
+		--extra-source=LICENSE \
+		--extra-source=settings-utils.js \
+		--podir=po
 
 install: $(PACKAGE)
 	gnome-extensions install --force $(PACKAGE)
