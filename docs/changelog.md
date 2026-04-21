@@ -1,5 +1,11 @@
 <!-- changelog.md -->
 
+## Version 14 (2026-XX-XX)
+
+**Improvements**
+
+- Major code refactor and workflow improvements by dromie.
+
 ## Version 13 (2026-03-10)
 
 **New Features**
