@@ -48,7 +48,6 @@ export const SettingTypes = Object.freeze({
 });
 
 // Get setting key by toggle number and setting type
-// All toggles follow the same consistent pattern
 export function getSettingKey(toggleNumber, settingType) {
     return `toggle${toggleNumber}-${settingType}`;
 }

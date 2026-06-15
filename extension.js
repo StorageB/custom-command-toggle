@@ -32,12 +32,15 @@ import Shell from 'gi://Shell';
 
 import {numberOfTogglesAllowed, SettingTypes, getSettingKey} from './settings-utils.js';
 
-// Toggle configuration: stores command on/off for each toggle
+let debug = false;
 let toggleCommands = [];
 let toggleStates = [];
 let initialStates = [];
 let buttonClicks = [];
 let shortcutIds = [];
+let checkIntervals = [];
+let commandTimeouts = [];
+let isRunning = [];
 
 for (let i = 0; i < numberOfTogglesAllowed; i++) {
     toggleCommands[i] = { on: "", off: "" };
@@ -46,10 +49,6 @@ for (let i = 0; i < numberOfTogglesAllowed; i++) {
     buttonClicks[i] = 2;
     shortcutIds[i] = null;
 }
-
-let checkIntervals = []; let commandTimeouts = [];
-let isRunning = [];
-let debug = false;
 
 
 const myQuickToggle = GObject.registerClass(
@@ -127,7 +126,6 @@ function createIndicatorClass(toggleNumber) {
 }
 
 const indicatorClasses = [];
-// Only create classes if they haven't been created yet (prevents re-registration on reload)
 for (let i = 1; i <= numberOfTogglesAllowed; i++) {
     indicatorClasses[i] = createIndicatorClass(i);
 }
@@ -188,7 +186,7 @@ export default class CustomQuickToggleExtension extends Extension {
         if (debug) console.log(`[Custom Command Toggle] `);
         console.log(`[Custom Command Toggle] Extension enabled | Toggles created: ${numToggleButtons} | Detailed logging: ${debug}`);
 
-        refreshIndicator.call(this);
+        //refreshIndicator.call(this);
 
         //#region Keybindings
         for (let i = 1; i <= numberOfTogglesAllowed; i++) {
@@ -210,7 +208,7 @@ export default class CustomQuickToggleExtension extends Extension {
 
             // Remove old intervals
             checkIntervals.forEach((id, i) => {
-                if (id) GLib.source_remove(id);
+                if (id) GLib.Source.remove(id);
                 checkIntervals[i] = 0;
             });
 
@@ -218,7 +216,7 @@ export default class CustomQuickToggleExtension extends Extension {
             isRunning.forEach((_, i) => isRunning[i] = false);
 
             // Remove pending command timeouts
-            commandTimeouts.forEach(id => id && GLib.source_remove(id));
+            commandTimeouts.forEach(id => id && GLib.Source.remove(id));
             commandTimeouts = [];
 
             numToggleButtons = this._settings.get_int('numbuttons');
@@ -236,14 +234,14 @@ export default class CustomQuickToggleExtension extends Extension {
                     runAtBoot.call(this, i);
                 } else {
                     if (checkIntervals[i - 1]) {
-                        GLib.source_remove(checkIntervals[i - 1]);
+                        GLib.Source.remove(checkIntervals[i - 1]);
                         checkIntervals[i - 1] = 0;
                     }
 
                     isRunning[i - 1] = false;
 
                     if (commandTimeouts[i - 1]) {
-                        GLib.source_remove(commandTimeouts[i - 1]);
+                        GLib.Source.remove(commandTimeouts[i - 1]);
                         commandTimeouts[i - 1] = null;
                     }
 
@@ -278,7 +276,7 @@ export default class CustomQuickToggleExtension extends Extension {
         let debounceIds = {};
 
         function debounce(i, func, delay = 500) {
-            if (debounceIds[i]) GLib.source_remove(debounceIds[i]);
+            if (debounceIds[i]) GLib.Source.remove(debounceIds[i]);
             debounceIds[i] = GLib.timeout_add(GLib.PRIORITY_DEFAULT, delay, () => {
                 func();
                 debounceIds[i] = null;
@@ -287,12 +285,12 @@ export default class CustomQuickToggleExtension extends Extension {
         }
 
         for (let i = 1; i <= numberOfTogglesAllowed; i++) {
-            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.INITIAL_STATE)}`,           () => debounce(i, () => setupCheckSync.call(this, i)));
-            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.CHECK_REGEX)}`,                   () => debounce(i, () => setupCheckSync.call(this, i)));
-            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.CHECK_COMMAND)}`,                 () => debounce(i, () => setupCheckSync.call(this, i)));
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.INITIAL_STATE)}`,          () => debounce(i, () => setupCheckSync.call(this, i)));
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.CHECK_REGEX)}`,            () => debounce(i, () => setupCheckSync.call(this, i)));
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.CHECK_COMMAND)}`,          () => debounce(i, () => setupCheckSync.call(this, i)));
             this._settings.connect(`changed::${getSettingKey(i, SettingTypes.CHECK_COMMAND_INTERVAL)}`, () => debounce(i, () => setupCheckSync.call(this, i)));
             this._settings.connect(`changed::${getSettingKey(i, SettingTypes.CHECK_COMMAND_SYNC)}`,     () => debounce(i, () => setupCheckSync.call(this, i)));
-            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.SHOW_INDICATOR)}`,        () => refreshIndicator.call(this));
+            this._settings.connect(`changed::${getSettingKey(i, SettingTypes.SHOW_INDICATOR)}`,         () => refreshIndicator.call(this));
         }
 
         this._settings.connect('changed::debug', () => {
@@ -376,7 +374,7 @@ export default class CustomQuickToggleExtension extends Extension {
             let startupCmd = `sleep ${checkCommandDelayTime} && ( ${cmd} )`;
 
             if (checkIntervals[i - 1]) {
-                GLib.source_remove(checkIntervals[i - 1]);
+                GLib.Source.remove(checkIntervals[i - 1]);
                 checkIntervals[i - 1] = 0;
             }
 
@@ -473,7 +471,7 @@ export default class CustomQuickToggleExtension extends Extension {
                     if (didFinish) return;
                     didFinish = true;
 
-                    try { GLib.source_remove(timeoutId); } catch (_) {}
+                    try { GLib.Source.remove(timeoutId); } catch (_) {}
                     commandTimeouts = commandTimeouts.filter(id => id !== timeoutId);
 
                     try { dataStream.close_async(GLib.PRIORITY_DEFAULT, null, () => {}); } catch (_) {}
@@ -484,6 +482,9 @@ export default class CustomQuickToggleExtension extends Extension {
 
                 function readNext() {
                     dataStream.read_bytes_async(4096, GLib.PRIORITY_DEFAULT, null, (stream, res) => {
+
+                        if (didFinish) return;
+                        
                         try {
                             const bytes = stream.read_bytes_finish(res);
                             if (bytes.get_size() === 0) {
@@ -526,9 +527,10 @@ export default class CustomQuickToggleExtension extends Extension {
                     } catch (e) {
                         if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Error closing process: ${e}`);
                     }
-                    cleanup();
+                    //cleanup();
                     if (useExitCode) {
                         callback(status === 0);
+                        cleanup();
                     }
                 });
 
@@ -581,9 +583,10 @@ export default class CustomQuickToggleExtension extends Extension {
         //#endregion Refresh Indicator
 
 
-        refreshIndicator.call(this);
+        //refreshIndicator.call(this);
         initialSetup.call(this);
         runAtBoot.call(this);
+        refreshIndicator.call(this);
 
         this._timeOut = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 3, () => {
             refreshIndicator.call(this);
@@ -614,26 +617,26 @@ export default class CustomQuickToggleExtension extends Extension {
         }
 
         if (this._timeOut) {
-            GLib.source_remove(this._timeOut);
+            GLib.Source.remove(this._timeOut);
             this._timeOut = null;
         }
 
         if (this._debounceIds) {
             for (let id of Object.values(this._debounceIds)) {
-                if (id) GLib.source_remove(id);
+                if (id) GLib.Source.remove(id);
             }
             this._debounceIds = {};
         }
 
         for (let id of checkIntervals) {
             if (id)
-                GLib.source_remove(id);
+                GLib.Source.remove(id);
         }
         checkIntervals = [];
 
         for (let id of commandTimeouts) {
             if (id)
-                GLib.source_remove(id);
+                GLib.Source.remove(id);
         }
         commandTimeouts = [];
 
