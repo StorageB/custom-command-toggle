@@ -10,7 +10,6 @@ Following the Recommended Installation will ensure you have the latest version a
 
 **Option 2:** Browse for and install this extension through the [GNOME Extension Manager](https://mattjakeman.com/apps/extension-manager).
 
-
 ---
 
 ## Manual Installation
@@ -21,29 +20,23 @@ Following the Recommended Installation will ensure you have the latest version a
         gnome-extensions install --force custom-command-toggle.zip
         
 3. Log out and log back in (or reboot).
-4. Enable the extension using:
+4. To enable the extension, run:
 
         gnome-extensions enable custom-command-toggle@storageb.github.com
 
-5. Configure the extension by running: 
+5. To configure the extension, run: 
 
         gnome-extensions prefs custom-command-toggle@storageb.github.com
 
 
 
-<!--
+---
+
 ## From Source
 
-1. From the [GitHub page](https://github.com/StorageB/custom-command-toggle), download the repository as a ZIP file by selecting the green  Code button and "Download ZIP”.
-2. Rename the ZIP file to "custom-command-toggle.zip"
-3. In the terminal, from the download location run:
-`gnome-extensions install --force custom-command-toggle.zip`
-4. Log out and log back in (or reboot).
+1. Download the repository as a ZIP file from the project's [GitHub page](https://github.com/StorageB/custom-command-toggle) by selecting the green *Code* button and choosing *Download ZIP*.
+2. Extract the files, and from the extracted file location run `make all`
+3. Log out and log back in (or reboot).
+4. To configure the extension, run: 
 
-To enable and configure the extension use:
-```
-gnome-extensions enable custom-command-toggle@storageb.github.com
-gnome-extensions prefs custom-command-toggle@storageb.github.com
-```
--->
-
+        gnome-extensions prefs custom-command-toggle@storageb.github.com
