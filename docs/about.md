@@ -44,7 +44,7 @@ Create a custom time-of-day schedule for the built-in Night Light!
 
 [Night Light Scheduler](https://github.com/StorageB/night-light-scheduler) is an extension for GNOME 45+ that allows you to create a schedule to adjust color temperature throughout the day.
 
-![screenshot](screenshots/night-light-scheduler-00.png)
+![screenshot](screenshots/night-light-scheduler-02.png)
 
 ---
 
