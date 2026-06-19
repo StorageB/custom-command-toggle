@@ -436,6 +436,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Source
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -664,35 +673,29 @@
 <p>Log out and log back in (or reboot).</p>
 </li>
 <li>
-<p>Enable the extension using:</p>
+<p>To enable the extension, run:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">gnome</span><span class="o">-</span><span class="n">extensions</span><span class="w"> </span><span class="n">enable</span><span class="w"> </span><span class="n">custom</span><span class="o">-</span><span class="n">command</span><span class="o">-</span><span class="n">toggle</span><span class="nv">@storageb</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">com</span>
 </code></pre></div>
 
 </li>
 <li>
-<p>Configure the extension by running: </p>
+<p>To configure the extension, run: </p>
 <div class="codehilite"><pre><span></span><code><span class="n">gnome</span><span class="o">-</span><span class="n">extensions</span><span class="w"> </span><span class="n">prefs</span><span class="w"> </span><span class="n">custom</span><span class="o">-</span><span class="n">command</span><span class="o">-</span><span class="n">toggle</span><span class="nv">@storageb</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">com</span>
 </code></pre></div>
 
 </li>
 </ol>
-<!--
-## From Source
-
-1. From the [GitHub page](https://github.com/StorageB/custom-command-toggle), download the repository as a ZIP file by selecting the green  Code button and "Download ZIP”.
-2. Rename the ZIP file to "custom-command-toggle.zip"
-3. In the terminal, from the download location run:
-`gnome-extensions install --force custom-command-toggle.zip`
-4. Log out and log back in (or reboot).
-
-To enable and configure the extension use:
-
-<div class="codehilite"><pre><span></span><code><span class="n">gnome</span><span class="o">-</span><span class="n">extensions</span><span class="w"> </span><span class="n">enable</span><span class="w"> </span><span class="n">custom</span><span class="o">-</span><span class="n">command</span><span class="o">-</span><span class="n">toggle</span><span class="nv">@storageb</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">com</span>
-<span class="n">gnome</span><span class="o">-</span><span class="n">extensions</span><span class="w"> </span><span class="n">prefs</span><span class="w"> </span><span class="n">custom</span><span class="o">-</span><span class="n">command</span><span class="o">-</span><span class="n">toggle</span><span class="nv">@storageb</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">com</span>
+<hr />
+<h2 id="from-source">From Source</h2>
+<ol>
+<li>Download the repository as a ZIP file from the project's <a href="https://github.com/StorageB/custom-command-toggle">GitHub page</a> by selecting the green <em>Code</em> button and choosing <em>Download ZIP</em>.</li>
+<li>Extract the files, and from the extracted file location run <code>make all</code></li>
+<li>Log out and log back in (or reboot).</li>
+<li>To configure the extension, run: <div class="codehilite"><pre><span></span><code><span class="n">gnome</span><span class="o">-</span><span class="n">extensions</span><span class="w"> </span><span class="n">prefs</span><span class="w"> </span><span class="n">custom</span><span class="o">-</span><span class="n">command</span><span class="o">-</span><span class="n">toggle</span><span class="nv">@storageb</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">com</span>
 </code></pre></div>
 
-
--->
+</li>
+</ol>
 
 
 
