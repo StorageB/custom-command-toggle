@@ -64,13 +64,19 @@
       <default>3</default>
       <summary>Toggle 1 check command state at boot delay setting</summary>
     </key>
-    <key name="toggle1-checkcommandsync" type="b">
-      <default>false</default>
-      <summary>Check toggle 1 command output at regular intervals</summary>
+    <key name="toggle1-synctype" type="i">
+      <default>0</default>
+      <summary>Toggle 1 sync type</summary>
+      <description>0 = Disabled; 1 = Command; 2 = Systemd service</description>
     </key>
     <key name="toggle1-checkcommandinterval" type="i">
       <default>10</default>
-      <summary>Check toggle 1 command output interval in seconds</summary>
+      <summary>Check toggle 1 command output interval (polling frequency) in seconds</summary>
+      <description>minimum = 2; maximum = 900</description>
+    </key>
+    <key name="toggle1-systemdservice" type="s">
+      <default>""</default>
+      <summary>Toggle 1 systemd service</summary>
     </key>
     <key name="toggle1-showindicator" type="b">
       <default>true</default>
@@ -101,11 +107,9 @@
     <!-- Toggle 2 Settings -->
     <key name="toggle2-command-on" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 2 toggled on"'</default>
-      <summary>Toggle 2 ON command</summary>
     </key>
     <key name="toggle2-command-off" type="s">
       <default>""</default>
-      <summary>Toggle 2 OFF command</summary>
     </key>
     <key name="toggle2-title" type="s">
       <default>"My Button 2"</default>
@@ -113,7 +117,6 @@
     </key>
     <key name="toggle2-icons" type="s">
       <default>"face-wink-symbolic"</default>
-      <summary>Toggle 2 icon</summary>
     </key>
     <key name="toggle2-initialstate" type="i">
       <default>2</default>
@@ -136,11 +139,14 @@
     <key name="toggle2-checkcommanddelaytime" type="i">
       <default>3</default>
     </key>
-    <key name="toggle2-checkcommandsync" type="b">
-      <default>false</default>
-    </key>
+    <key name="toggle2-synctype" type="i">
+      <default>0</default>
+    </key>    
     <key name="toggle2-checkcommandinterval" type="i">
       <default>10</default>
+    </key>
+    <key name="toggle2-systemdservice" type="s">
+      <default>""</default>
     </key>
     <key name="toggle2-showindicator" type="b">
       <default>true</default>
@@ -164,19 +170,15 @@
     <!-- Toggle 3 Settings -->
     <key name="toggle3-command-on" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 3 toggled on"'</default>
-      <summary>Toggle 3 ON command</summary>
     </key>
     <key name="toggle3-command-off" type="s">
       <default>""</default>
-      <summary>Toggle 3 OFF command</summary>
     </key>
     <key name="toggle3-title" type="s">
       <default>"My Button 3"</default>
-      <summary>Toggle 3 name</summary>
     </key>
     <key name="toggle3-icons" type="s">
       <default>"face-laugh-symbolic"</default>
-      <summary>Toggle 3 icon</summary>
     </key>
     <key name="toggle3-initialstate" type="i">
       <default>2</default>
@@ -199,11 +201,14 @@
     <key name="toggle3-checkcommanddelaytime" type="i">
       <default>3</default>
     </key>
-    <key name="toggle3-checkcommandsync" type="b">
-      <default>false</default>
-    </key>
+    <key name="toggle3-synctype" type="i">
+      <default>0</default>
+    </key>        
     <key name="toggle3-checkcommandinterval" type="i">
       <default>10</default>
+    </key>
+    <key name="toggle3-systemdservice" type="s">
+      <default>""</default>
     </key>
     <key name="toggle3-showindicator" type="b">
       <default>true</default>
@@ -227,19 +232,15 @@
     <!-- Toggle 4 Settings -->
     <key name="toggle4-command-on" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 4 toggled on"'</default>
-      <summary>Toggle 4 ON command</summary>
     </key>
     <key name="toggle4-command-off" type="s">
       <default>""</default>
-      <summary>Toggle 4 OFF command</summary>
     </key>
     <key name="toggle4-title" type="s">
       <default>"My Button 4"</default>
-      <summary>Toggle 4 name</summary>
     </key>
     <key name="toggle4-icons" type="s">
       <default>"face-smirk-symbolic"</default>
-      <summary>Toggle 4 icon</summary>
     </key>
     <key name="toggle4-initialstate" type="i">
       <default>2</default>
@@ -262,11 +263,14 @@
     <key name="toggle4-checkcommanddelaytime" type="i">
       <default>3</default>
     </key>
-    <key name="toggle4-checkcommandsync" type="b">
-      <default>false</default>
-    </key>
+    <key name="toggle4-synctype" type="i">
+      <default>0</default>
+    </key>        
     <key name="toggle4-checkcommandinterval" type="i">
       <default>10</default>
+    </key>
+    <key name="toggle4-systemdservice" type="s">
+      <default>""</default>
     </key>
     <key name="toggle4-showindicator" type="b">
       <default>true</default>
@@ -290,19 +294,15 @@
     <!-- Toggle 5 Settings -->
     <key name="toggle5-command-on" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 5 toggled on"'</default>
-      <summary>Toggle 5 ON command</summary>
     </key>
     <key name="toggle5-command-off" type="s">
       <default>""</default>
-      <summary>Toggle 5 OFF command</summary>
     </key>
     <key name="toggle5-title" type="s">
       <default>"My Button 5"</default>
-      <summary>Toggle 5 name</summary>
     </key>
     <key name="toggle5-icons" type="s">
       <default>"face-surprise-symbolic"</default>
-      <summary>Toggle 5 icon</summary>
     </key>
     <key name="toggle5-initialstate" type="i">
       <default>2</default>
@@ -325,11 +325,14 @@
     <key name="toggle5-checkcommanddelaytime" type="i">
       <default>3</default>
     </key>
-    <key name="toggle5-checkcommandsync" type="b">
-      <default>false</default>
-    </key>
+    <key name="toggle5-synctype" type="i">
+      <default>0</default>
+    </key>        
     <key name="toggle5-checkcommandinterval" type="i">
       <default>10</default>
+    </key>
+    <key name="toggle5-systemdservice" type="s">
+      <default>""</default>
     </key>
     <key name="toggle5-showindicator" type="b">
       <default>true</default>
@@ -353,19 +356,15 @@
     <!-- Toggle 6 Settings -->
     <key name="toggle6-command-on" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 6 toggled on"'</default>
-      <summary>Toggle 6 ON command</summary>
     </key>
     <key name="toggle6-command-off" type="s">
       <default>""</default>
-      <summary>Toggle 6 OFF command</summary>
     </key>
     <key name="toggle6-title" type="s">
       <default>"My Button 6"</default>
-      <summary>Toggle 6 name</summary>
     </key>
     <key name="toggle6-icons" type="s">
       <default>"face-worried-symbolic"</default>
-      <summary>Toggle 6 icon</summary>
     </key>
     <key name="toggle6-initialstate" type="i">
       <default>2</default>
@@ -388,11 +387,14 @@
     <key name="toggle6-checkcommanddelaytime" type="i">
       <default>3</default>
     </key>
-    <key name="toggle6-checkcommandsync" type="b">
-      <default>false</default>
-    </key>
+    <key name="toggle6-synctype" type="i">
+      <default>0</default>
+    </key>        
     <key name="toggle6-checkcommandinterval" type="i">
       <default>10</default>
+    </key>
+    <key name="toggle6-systemdservice" type="s">
+      <default>""</default>
     </key>
     <key name="toggle6-showindicator" type="b">
       <default>true</default>

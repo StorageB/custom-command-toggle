@@ -69,8 +69,6 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
         menuButton.connect('realize', () => {
             const popover = menuButton.get_popover();
-            //popover.halign = Gtk.Align.START;
-            //popover.set_has_arrow(false);
         });
 
         const actionGroup = new Gio.SimpleActionGroup();
@@ -159,9 +157,9 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 hideButton.icon_name =    isVisible ? 'view-reveal-symbolic' : 'view-conceal-symbolic';
                 hideButton.tooltip_text = isVisible ? _('Hide this toggle') : _('Show this toggle');
 
-                                [ onCommandRow, offCommandRow, buttonNameRow, iconRow, checkCommandRow, checkRegexRow,
+                [ buttonNameRow, iconRow, onCommandRow, offCommandRow, checkCommandRow, checkRegexRow,
                   comboRow, expanderRow, spinRow, spinRow2, comboRow2, switchRow, switchRow2, switchRow3,
-                  commandSyncExpanderRow, pollingFreqSpinRow, keybindRow
+                  toggleSyncComboRow, systemdServiceRow, pollingFreqSpinRow, keybindRow
                 ].forEach(widget => widget.set_sensitive(isVisible));
 
                 page.icon_name = isVisible ? 'utilities-terminal-symbolic' : 'view-conceal-symbolic';
@@ -309,20 +307,6 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             group4.add(switchRow3);
             switchRow3.visible =  comboRow2.selected === 2;
 
-            comboRow2.connect("notify::selected", () => {
-                switchRow3.visible =  comboRow2.selected === 2;
-                syncDisabledInfo.visible = comboRow2.selected !== 2;
-                if (comboRow2.selected !== 2) {
-                    commandSyncExpanderRow.show_enable_switch = false;
-                    commandSyncExpanderRow.enable_expansion = false;
-                    commandSyncExpanderRow.expanded = false;
-                } else {
-                    commandSyncExpanderRow.show_enable_switch = true;
-                    commandSyncExpanderRow.enable_expansion = window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_SYNC));
-                    commandSyncExpanderRow.expanded = commandSyncExpanderRow.enable_expansion;
-                }
-            });
-
             const switchRow = new Adw.SwitchRow({
                 title: _('Show Indicator Icon'),
                 subtitle: _('Show top bar icon when toggle button is switched on'),
@@ -341,27 +325,19 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
             //#region Sync Behavior
             const group5 = new Adw.PreferencesGroup({
-                title: _('Command Sync Behavior'),
+                title: _('Toggle Sync Behavior'),
             });
 
-            const commandSyncExpanderRow = new Adw.ExpanderRow({
-                title: _('Keep Toggle State Synced'),
-                subtitle: _('Keep toggle button state synced with a command\'s output'),
-                show_enable_switch: true,
-                expanded: window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_SYNC)),
-                enable_expansion: window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_SYNC)),
+            const syncList = new Gtk.StringList();
+            [_('Disabled'), _('Command'), _('Systemd service')].forEach(choice => syncList.append(choice));
+
+            const toggleSyncComboRow = new Adw.ComboRow({
+                title: _('Toggle Sync Type'),
+                subtitle: _('Sync toggle with a command\'s output or systemd service'),
+                model: syncList,
+                selected: window._settings.get_int(getSettingKey(pageIndex, SettingTypes.SYNC_TYPE)),
             });
-            if (comboRow2.selected !== 2) {
-                commandSyncExpanderRow.show_enable_switch = false;
-                commandSyncExpanderRow.expanded = false;
-            } else {
-                commandSyncExpanderRow.expanded = window._settings.get_boolean(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_SYNC));
-                commandSyncExpanderRow.show_enable_switch = true;
-            }
-            commandSyncExpanderRow.connect('notify::expanded', widget => {
-                commandSyncExpanderRow.enable_expansion = widget.expanded;
-            });
-            group5.add(commandSyncExpanderRow);
+            group5.add(toggleSyncComboRow);
 
             const checkCommandInfo2 = new Adw.ActionRow({
                 title: _('Command Configuration'),
@@ -372,7 +348,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                            ),
                 activatable: false,
             });
-            commandSyncExpanderRow.add_row(checkCommandInfo2);
+            group5.add(checkCommandInfo2);
 
             const pollingFreqSpinRow = new Adw.SpinRow({
                 title: _('Polling Frequency (seconds)'),
@@ -384,15 +360,59 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                     page_increment: 10,
                 }),
             });
-            commandSyncExpanderRow.add_row(pollingFreqSpinRow);
+            group5.add(pollingFreqSpinRow);
 
             const syncDisabledInfo = new Adw.ActionRow({
-                subtitle: _('Command sync is disabled. To enable, set the Button Click Action to Toggle.'),
+                subtitle: _('Toggle sync is disabled. To enable, set the Button Click Action to Toggle.'),
                 activatable: false,
             });
-            syncDisabledInfo.visible = comboRow2.selected !== 2;
             group5.add(syncDisabledInfo);
 
+            const systemdServiceRow = new Adw.EntryRow({
+                title: _("systemd Service Name:"),
+            });
+            group5.add(systemdServiceRow);
+
+            const updateSyncUI = () => {
+                switchRow3.visible = comboRow2.selected === 2;
+                // Button Click Action must be Toggle
+                if (comboRow2.selected !== 2) {
+                    toggleSyncComboRow.visible = false;
+                    checkCommandInfo2.visible = false;
+                    pollingFreqSpinRow.visible = false;
+                    syncDisabledInfo.visible = true;
+                    return;
+                }
+            
+                // Show sync type selector
+                toggleSyncComboRow.visible = true;
+                syncDisabledInfo.visible = false;
+            
+                switch (toggleSyncComboRow.selected) {
+                    case 0: // Disabled
+                        checkCommandInfo2.visible = false;
+                        pollingFreqSpinRow.visible = false;
+                        systemdServiceRow.visible = false;
+                        break;
+            
+                    case 1: // Command
+                        checkCommandInfo2.visible = true;
+                        pollingFreqSpinRow.visible = true;
+                        systemdServiceRow.visible = false;
+                        break;
+            
+                    case 2: // Systemd service
+                        checkCommandInfo2.visible = false;
+                        pollingFreqSpinRow.visible = false;
+                        systemdServiceRow.visible = true;
+                        break;
+                }
+            };
+            
+            comboRow2.connect("notify::selected", updateSyncUI);
+            toggleSyncComboRow.connect("notify::selected", updateSyncUI);
+            updateSyncUI();
+            
             page.add(group5);
             //#endregion Sync Behavior
 
@@ -429,8 +449,10 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             window._settings.bind(getSettingKey(pageIndex, SettingTypes.CLOSE_MENU), switchRow2, 'active', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(getSettingKey(pageIndex, SettingTypes.CHECK_EXIT_CODE), switchRow3, 'active', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(getSettingKey(pageIndex, SettingTypes.BUTTON_CLICK), comboRow2, 'selected', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.SYNC_TYPE), toggleSyncComboRow, 'selected', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_INTERVAL), pollingFreqSpinRow, 'value', Gio.SettingsBindFlags.DEFAULT);
-            window._settings.bind(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_SYNC), commandSyncExpanderRow, 'expanded', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(getSettingKey(pageIndex, SettingTypes.SYSTEMD_SERVICE), systemdServiceRow, 'text', Gio.SettingsBindFlags.DEFAULT);
+            ////////////window._settings.bind(getSettingKey(pageIndex, SettingTypes.CHECK_COMMAND_SYNC), commandSyncExpanderRow, 'expanded', Gio.SettingsBindFlags.DEFAULT);
             //#endregion Bindings
 
 
@@ -439,9 +461,9 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
 
             //#region Visibility
-            [   onCommandRow, offCommandRow, buttonNameRow, iconRow, checkCommandRow, checkRegexRow,
-                comboRow, expanderRow, spinRow, spinRow2, comboRow2, switchRow, switchRow2, switchRow3,
-                commandSyncExpanderRow, pollingFreqSpinRow, keybindRow
+            [ buttonNameRow, iconRow, onCommandRow, offCommandRow, checkCommandRow, checkRegexRow,
+              comboRow, expanderRow, spinRow, spinRow2, comboRow2, switchRow, switchRow2, switchRow3,
+              toggleSyncComboRow, systemdServiceRow, pollingFreqSpinRow, keybindRow
             ].forEach(widget => widget.set_sensitive(isVisible));
             //#endregion Visibility
 

@@ -337,8 +337,14 @@ export default class CustomQuickToggleExtension extends Extension {
                         break;
                 }
 
-                if (initialState !== 3 && this._settings.get_boolean(getSettingKey(i, SettingTypes.CHECK_COMMAND_SYNC))) {
+               /*if (initialState !== 3 && this._settings.get_boolean(getSettingKey(i, SettingTypes.CHECK_COMMAND_SYNC))) {
                     setupCheckSync.call(this, i);
+                }*/
+                if (initialState !== 3) {
+                    switch (this._settings.get_int(getSettingKey(i, SettingTypes.SYNC_TYPE))) {
+                        case 1: setupCheckSync.call(this, i); break;
+                        //case 2: setupSystemdSync.call(this, i); break;
+                    }
                 }
             }
         }
