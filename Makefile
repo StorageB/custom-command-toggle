@@ -14,7 +14,6 @@ $(PACKAGE):
 		--extra-source=backup.js \
 		--extra-source=keybinding.js \
 		--extra-source=LICENSE \
-		--extra-source=settings-utils.js \
 		--podir=po
 
 install: $(PACKAGE)
