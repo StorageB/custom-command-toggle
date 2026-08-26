@@ -70,7 +70,7 @@ msgstr ""
 "avec votre éditeur de texte par défaut en suivant ces étapes :\n"
 "\n"
 "1. Ouvrez le dossier personnel et localisez le fichier toggles.ini\n"
-"2. Faites un clic droit sur le fichier et sélectionnez "Ouvrir avec..."\n"
+"2. Faites un clic droit sur le fichier et sélectionnez \"Ouvrir avec...\"\n"
 "3. Choisissez un éditeur de texte par défaut et sélectionnez l'option \"Toujours utiliser pour ce type de fichier\""
 
 #: backup.js:137 backup.js:144
@@ -372,7 +372,7 @@ msgstr "Fréquence à laquelle vérifier la sortie de la commande et mettre à j
 msgid ""
 "Command sync is disabled. To enable, set the Button Click Action to Toggle."
 msgstr ""
-"La synchronisation avec la commande est désactivée. Pour l'activer, définissez l'action au clic sur le bouton "Basculer"."
+"La synchronisation avec la commande est désactivée. Pour l'activer, définissez l'action au clic sur le bouton \"Basculer\"."
 
 #: prefs.js:400
 msgid "Keyboard Shortcut"
