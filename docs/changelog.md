@@ -1,10 +1,13 @@
 <!-- changelog.md -->
 
-## Version 14 (2026-XX-XX)
+## Version 14 (2026-08-26)
 
-**Improvements**
+**New Features**
 
-- Major code refactor and workflow improvements by dromie.
+- French translation provided by Unacceptable Lobster.
+- Support for GNOME 51.
+
+---
 
 ## Version 13 (2026-03-10)
 
