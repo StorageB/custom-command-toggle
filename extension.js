@@ -21,9 +21,10 @@
 
 import GObject from 'gi://GObject';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
 import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
-import {QuickToggle, SystemIndicator} from 'resource:///org/gnome/shell/ui/quickSettings.js';
+import {QuickToggle, QuickMenuToggle, SystemIndicator} from 'resource:///org/gnome/shell/ui/quickSettings.js';
 
 import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
@@ -65,7 +66,60 @@ class myQuickToggle extends QuickToggle {
             toggleMode: true,
         });
     }
-});
+    });
+
+const myQuickMenuToggle = GObject.registerClass(
+    class myQuickMenuToggle extends QuickMenuToggle {
+        constructor(title, icon) {
+            super({
+                title: title,
+                iconName: icon,
+                toggleMode: true,
+            });
+            this.menu.setHeader(icon, title);
+        }
+    }
+);
+
+function getMenuItems(settings, toggleNumber) {
+    try {
+        const menuItems = JSON.parse(settings.get_string(`menuitems${toggleNumber}-setting`));
+        if (!Array.isArray(menuItems)) return [];
+
+        return menuItems.filter(item =>
+            item &&
+            typeof item === 'object' &&
+            typeof item.name === 'string' &&
+            typeof item.command === 'string' &&
+            item.name.trim() !== ''
+        );
+    } catch (e) {
+        if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Failed to load menu items: ${e}`);
+        return [];
+    }
+}
+
+function addMenuItems(toggle, menuItems, toggleNumber, settings) {
+    const menuSection = new PopupMenu.PopupMenuSection();
+    for (const item of menuItems) {
+        let menuItem;
+
+        if (item.icon && item.icon.trim() !== '') {
+            menuItem = new PopupMenu.PopupImageMenuItem(item.name, item.icon, {});
+        } else {
+            menuItem = new PopupMenu.PopupMenuItem(item.name);
+        }
+
+        menuItem.connect('activate', () => {
+            executeCommand(toggleNumber, true, item.command, item.command, true);
+            if (settings.get_boolean(`closemenu${toggleNumber}-setting`)) {
+                Main.panel.statusArea.quickSettings.menu.close();
+            }
+        });
+        menuSection.addMenuItem(menuItem);
+    }
+    toggle.menu.addMenuItem(menuSection);
+}
 
 
 //#region Create Indicators
@@ -83,32 +137,35 @@ class MyIndicator1 extends SystemIndicator {
         this._indicator = this._addIndicator();
         this._indicator.iconName = toggleStates[0] ? icon1on : icon1off;
 
-        this.toggle1 = new myQuickToggle(title1, toggleStates[0] ? icon1on : icon1off);
+        const menuItems1 = getMenuItems(settings, 1);
+        this.toggle1 = menuItems1.length > 0
+            ? new myQuickMenuToggle(title1, toggleStates[0] ? icon1on : icon1off)
+            : new myQuickToggle(title1, toggleStates[0] ? icon1on : icon1off);
         this.toggle1.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
         this.quickSettingsItems.push(this.toggle1);
         this.toggle1.checked = toggleStates[0];
+        if (menuItems1.length > 0) addMenuItems(this.toggle1, menuItems1, 1, settings);
 
-        this.toggle1ConnectSignal = this.toggle1.connect('notify::checked', () => {
+        this.toggle1ConnectSignal = this.toggle1.connect('clicked', () => {
             if (settings.get_boolean('closemenu1-setting')) {Main.panel.closeQuickSettings();}
             if (settings.get_int('buttonclick1-setting') === 2 && settings.get_boolean('checkexitcode1-setting')) {
                 checkCommandExitCode(1, this.toggle1.checked, entryRow1, entryRow2, (exitCodeResult) => {
                     if (debug) console.log(`[Custom Command Toggle] Toggle 1 | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);              
                     if (!exitCodeResult) {
-                        GObject.signal_handler_block(this.toggle1, this.toggle1ConnectSignal);
                         this.toggle1.checked = !this.toggle1.checked;
                         toggleStates[0] = this.toggle1.checked;
                         settings.set_boolean('togglestate1-setting', toggleStates[0]);
                         this._indicator.iconName = this.toggle1.checked ? icon1on : icon1off;
-                        this.toggle1.iconName = this.toggle1.checked ? icon1on : icon1off;                        
+                        this.toggle1.iconName = this.toggle1.checked ? icon1on : icon1off;
+                        if (this.toggle1 instanceof myQuickMenuToggle) this.toggle1.menu.setHeader(this.toggle1.iconName, title1);
                         if (!showIndicator1) {this._indicator.visible = false;}
-                        GObject.signal_handler_unblock(this.toggle1, this.toggle1ConnectSignal);
                     }
                 });
             } else {
                 switch (buttonClick1) {
-                    case 0: if (this.toggle1.checked)  {executeCommand(1, this.toggle1.checked, entryRow1, entryRow2);} this.toggle1.checked = true; break; 
-                    case 1: if (!this.toggle1.checked) {executeCommand(1, this.toggle1.checked, entryRow1, entryRow2);} this.toggle1.checked = false; break; 
-                    case 2: {executeCommand(1, this.toggle1.checked, entryRow1, entryRow2);} break; 
+                    case 0: executeCommand(1, true, entryRow1, entryRow2); this.toggle1.checked = true; break; 
+                    case 1: executeCommand(1, false, entryRow1, entryRow2); this.toggle1.checked = false; break; 
+                    case 2: executeCommand(1, this.toggle1.checked, entryRow1, entryRow2); break;
                 }
             }
             toggleStates[0] = this.toggle1.checked;
@@ -116,6 +173,7 @@ class MyIndicator1 extends SystemIndicator {
             if (!showIndicator1) this._indicator.visible = false;
             this._indicator.iconName = this.toggle1.checked ? icon1on : icon1off;
             this.toggle1.iconName = this.toggle1.checked ? icon1on : icon1off;
+            if (this.toggle1 instanceof myQuickMenuToggle) this.toggle1.menu.setHeader(this.toggle1.iconName, title1);
         });
         if (!showIndicator1) this._indicator.visible = false;
     }
@@ -135,32 +193,35 @@ class MyIndicator2 extends SystemIndicator {
         this._indicator = this._addIndicator();
         this._indicator.iconName = toggleStates[1] ? icon2on : icon2off;
 
-        this.toggle2 = new myQuickToggle(title2, toggleStates[1] ? icon2on : icon2off);
+        const menuItems2 = getMenuItems(settings, 2);
+        this.toggle2 = menuItems2.length > 0
+            ? new myQuickMenuToggle(title2, toggleStates[1] ? icon2on : icon2off)
+            : new myQuickToggle(title2, toggleStates[1] ? icon2on : icon2off);
         this.toggle2.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
         this.quickSettingsItems.push(this.toggle2);
         this.toggle2.checked = toggleStates[1];
+        if (menuItems2.length > 0) addMenuItems(this.toggle2, menuItems2, 2, settings);
 
-        this.toggle2ConnectSignal = this.toggle2.connect('notify::checked', () => {
+        this.toggle2ConnectSignal = this.toggle2.connect('clicked', () => {
             if (settings.get_boolean('closemenu2-setting')) {Main.panel.closeQuickSettings();}
             if (settings.get_int('buttonclick2-setting') === 2 && settings.get_boolean('checkexitcode2-setting')) {
                 checkCommandExitCode(2, this.toggle2.checked, entryRow12, entryRow22, (exitCodeResult) => {
                     if (debug) console.log(`[Custom Command Toggle] Toggle 2 | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);                    
                     if (!exitCodeResult) {
-                        GObject.signal_handler_block(this.toggle2, this.toggle2ConnectSignal);
                         this.toggle2.checked = !this.toggle2.checked;
                         toggleStates[1] = this.toggle2.checked;
                         settings.set_boolean('togglestate2-setting', toggleStates[1]);
                         this._indicator.iconName = this.toggle2.checked ? icon2on : icon2off;
-                        this.toggle2.iconName = this.toggle2.checked ? icon2on : icon2off;                        
+                        this.toggle2.iconName = this.toggle2.checked ? icon2on : icon2off;
+                        if (this.toggle2 instanceof myQuickMenuToggle) this.toggle2.menu.setHeader(this.toggle2.iconName, title2);
                         if (!showIndicator2) {this._indicator.visible = false;}                        
-                        GObject.signal_handler_unblock(this.toggle2, this.toggle2ConnectSignal);
                     }
                 });
             } else {
                 switch (buttonClick2) {
-                    case 0: if (this.toggle2.checked)  {executeCommand(2, this.toggle2.checked, entryRow12, entryRow22);} this.toggle2.checked = true; break; 
-                    case 1: if (!this.toggle2.checked) {executeCommand(2, this.toggle2.checked, entryRow12, entryRow22);} this.toggle2.checked = false; break; 
-                    case 2: {executeCommand(2, this.toggle2.checked, entryRow12, entryRow22);} break; 
+                    case 0: executeCommand(2, true, entryRow12, entryRow22); this.toggle2.checked = true; break; 
+                    case 1: executeCommand(2, false, entryRow12, entryRow22); this.toggle2.checked = false; break; 
+                    case 2: executeCommand(2, this.toggle2.checked, entryRow12, entryRow22); break;
                 }
             }
             toggleStates[1] = this.toggle2.checked;
@@ -168,6 +229,7 @@ class MyIndicator2 extends SystemIndicator {
             if (!showIndicator2) this._indicator.visible = false;
             this._indicator.iconName = this.toggle2.checked ? icon2on : icon2off;
             this.toggle2.iconName = this.toggle2.checked ? icon2on : icon2off;            
+            if (this.toggle2 instanceof myQuickMenuToggle) this.toggle2.menu.setHeader(this.toggle2.iconName, title2);
         });
         if (!showIndicator2) this._indicator.visible = false;
     }
@@ -187,32 +249,35 @@ class MyIndicator3 extends SystemIndicator {
         this._indicator = this._addIndicator();
         this._indicator.iconName = toggleStates[2] ? icon3on : icon3off;
 
-        this.toggle3 = new myQuickToggle(title3, toggleStates[2] ? icon3on : icon3off);
+        const menuItems3 = getMenuItems(settings, 3);
+        this.toggle3 = menuItems3.length > 0
+            ? new myQuickMenuToggle(title3, toggleStates[2] ? icon3on : icon3off)
+            : new myQuickToggle(title3, toggleStates[2] ? icon3on : icon3off);
         this.toggle3.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
         this.quickSettingsItems.push(this.toggle3);
         this.toggle3.checked = toggleStates[2];
+        if (menuItems3.length > 0) addMenuItems(this.toggle3, menuItems3, 3, settings);
 
-        this.toggle3ConnectSignal = this.toggle3.connect('notify::checked', () => {
+        this.toggle3ConnectSignal = this.toggle3.connect('clicked', () => {
             if (settings.get_boolean('closemenu3-setting')) {Main.panel.closeQuickSettings();}
             if (settings.get_int('buttonclick3-setting') === 2 && settings.get_boolean('checkexitcode3-setting')) {
                 checkCommandExitCode(3, this.toggle3.checked, entryRow13, entryRow23, (exitCodeResult) => {
                     if (debug) console.log(`[Custom Command Toggle] Toggle 3 | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);
                     if (!exitCodeResult) {
-                        GObject.signal_handler_block(this.toggle3, this.toggle3ConnectSignal);
                         this.toggle3.checked = !this.toggle3.checked;
                         toggleStates[2] = this.toggle3.checked;
                         settings.set_boolean('togglestate3-setting', toggleStates[2]);
                         this._indicator.iconName = this.toggle3.checked ? icon3on : icon3off;
-                        this.toggle3.iconName = this.toggle3.checked ? icon3on : icon3off;                        
+                        this.toggle3.iconName = this.toggle3.checked ? icon3on : icon3off;
+                        if (this.toggle3 instanceof myQuickMenuToggle) this.toggle3.menu.setHeader(this.toggle3.iconName, title3);
                         if (!showIndicator3) {this._indicator.visible = false;}                        
-                        GObject.signal_handler_unblock(this.toggle3, this.toggle3ConnectSignal);
                     }
                 });
             } else {
                 switch (buttonClick3) {
-                    case 0: if (this.toggle3.checked)  {executeCommand(3, this.toggle3.checked, entryRow13, entryRow23);} this.toggle3.checked = true; break; 
-                    case 1: if (!this.toggle3.checked) {executeCommand(3, this.toggle3.checked, entryRow13, entryRow23);} this.toggle3.checked = false; break; 
-                    case 2: {executeCommand(3, this.toggle3.checked, entryRow13, entryRow23);} break; 
+                    case 0: executeCommand(3, true, entryRow13, entryRow23); this.toggle3.checked = true; break; 
+                    case 1: executeCommand(3, false, entryRow13, entryRow23); this.toggle3.checked = false; break; 
+                    case 2: executeCommand(3, this.toggle3.checked, entryRow13, entryRow23); break;
                 }
             }
             toggleStates[2] = this.toggle3.checked;
@@ -220,6 +285,7 @@ class MyIndicator3 extends SystemIndicator {
             if (!showIndicator3) this._indicator.visible = false;
             this._indicator.iconName = this.toggle3.checked ? icon3on : icon3off;
             this.toggle3.iconName = this.toggle3.checked ? icon3on : icon3off;
+            if (this.toggle3 instanceof myQuickMenuToggle) this.toggle3.menu.setHeader(this.toggle3.iconName, title3);
         });
         if (!showIndicator3) this._indicator.visible = false;
     }
@@ -239,32 +305,35 @@ class MyIndicator4 extends SystemIndicator {
         this._indicator = this._addIndicator();
         this._indicator.iconName = toggleStates[3] ? icon4on : icon4off;
 
-        this.toggle4 = new myQuickToggle(title4, toggleStates[3] ? icon4on : icon4off);
+        const menuItems4 = getMenuItems(settings, 4);
+        this.toggle4 = menuItems4.length > 0
+            ? new myQuickMenuToggle(title4, toggleStates[3] ? icon4on : icon4off)
+            : new myQuickToggle(title4, toggleStates[3] ? icon4on : icon4off);
         this.toggle4.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
         this.quickSettingsItems.push(this.toggle4);
         this.toggle4.checked = toggleStates[3];
+        if (menuItems4.length > 0) addMenuItems(this.toggle4, menuItems4, 4, settings);
 
-        this.toggle4ConnectSignal = this.toggle4.connect('notify::checked', () => {
+        this.toggle4ConnectSignal = this.toggle4.connect('clicked', () => {
             if (settings.get_boolean('closemenu4-setting')) {Main.panel.closeQuickSettings();}
             if (settings.get_int('buttonclick4-setting') === 2 && settings.get_boolean('checkexitcode4-setting')) {
                 checkCommandExitCode(4, this.toggle4.checked, entryRow14, entryRow24, (exitCodeResult) => {
                     if (debug) console.log(`[Custom Command Toggle] Toggle 4 | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);
                     if (!exitCodeResult) {
-                        GObject.signal_handler_block(this.toggle4, this.toggle4ConnectSignal);
                         this.toggle4.checked = !this.toggle4.checked;
                         toggleStates[3] = this.toggle4.checked;
                         settings.set_boolean('togglestate4-setting', toggleStates[3]);
                         this._indicator.iconName = this.toggle4.checked ? icon4on : icon4off;
-                        this.toggle4.iconName = this.toggle4.checked ? icon4on : icon4off;                        
+                        this.toggle4.iconName = this.toggle4.checked ? icon4on : icon4off;
+                        if (this.toggle4 instanceof myQuickMenuToggle) this.toggle4.menu.setHeader(this.toggle4.iconName, title4);
                         if (!showIndicator4) {this._indicator.visible = false;}                        
-                        GObject.signal_handler_unblock(this.toggle4, this.toggle4ConnectSignal);
                     }
                 });
             } else {
                 switch (buttonClick4) {
-                    case 0: if (this.toggle4.checked)  {executeCommand(4, this.toggle4.checked, entryRow14, entryRow24);} this.toggle4.checked = true; break; 
-                    case 1: if (!this.toggle4.checked) {executeCommand(4, this.toggle4.checked, entryRow14, entryRow24);} this.toggle4.checked = false; break; 
-                    case 2: {executeCommand(4, this.toggle4.checked, entryRow14, entryRow24);} break; 
+                    case 0: executeCommand(4, true, entryRow14, entryRow24); this.toggle4.checked = true; break; 
+                    case 1: executeCommand(4, false, entryRow14, entryRow24); this.toggle4.checked = false; break; 
+                    case 2: executeCommand(4, this.toggle4.checked, entryRow14, entryRow24); break;
                 }
             }
             toggleStates[3] = this.toggle4.checked;
@@ -272,6 +341,7 @@ class MyIndicator4 extends SystemIndicator {
             if (!showIndicator4) this._indicator.visible = false;
             this._indicator.iconName = this.toggle4.checked ? icon4on : icon4off;
             this.toggle4.iconName = this.toggle4.checked ? icon4on : icon4off;
+            if (this.toggle4 instanceof myQuickMenuToggle) this.toggle4.menu.setHeader(this.toggle4.iconName, title4);
         });
         if (!showIndicator4) this._indicator.visible = false;
     }
@@ -291,39 +361,43 @@ class MyIndicator5 extends SystemIndicator {
         this._indicator = this._addIndicator();
         this._indicator.iconName = toggleStates[4] ? icon5on : icon5off;
 
-        this.toggle5 = new myQuickToggle(title5, toggleStates[4] ? icon5on : icon5off);
+        const menuItems5 = getMenuItems(settings, 5);
+        this.toggle5 = menuItems5.length > 0
+            ? new myQuickMenuToggle(title5, toggleStates[4] ? icon5on : icon5off)
+            : new myQuickToggle(title5, toggleStates[4] ? icon5on : icon5off);
         this.toggle5.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
         this.quickSettingsItems.push(this.toggle5);
         this.toggle5.checked = toggleStates[4];
+        if (menuItems5.length > 0) addMenuItems(this.toggle5, menuItems5, 5, settings);
 
-        this.toggle5ConnectSignal = this.toggle5.connect('notify::checked', () => {
+        this.toggle5ConnectSignal = this.toggle5.connect('clicked', () => {
             if (settings.get_boolean('closemenu5-setting')) {Main.panel.closeQuickSettings();}
             if (settings.get_int('buttonclick5-setting') === 2 && settings.get_boolean('checkexitcode5-setting')) {
                 checkCommandExitCode(5, this.toggle5.checked, entryRow15, entryRow25, (exitCodeResult) => {
                     if (debug) console.log(`[Custom Command Toggle] Toggle 5 | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);
                     if (!exitCodeResult) {
-                        GObject.signal_handler_block(this.toggle5, this.toggle5ConnectSignal);
                         this.toggle5.checked = !this.toggle5.checked;
                         toggleStates[4] = this.toggle5.checked;
                         settings.set_boolean('togglestate5-setting', toggleStates[4]);
                         this._indicator.iconName = this.toggle5.checked ? icon5on : icon5off;
-                        this.toggle5.iconName = this.toggle5.checked ? icon5on : icon5off;                        
+                        this.toggle5.iconName = this.toggle5.checked ? icon5on : icon5off;
+                        if (this.toggle5 instanceof myQuickMenuToggle) this.toggle5.menu.setHeader(this.toggle5.iconName, title5);
                         if (!showIndicator5) {this._indicator.visible = false;}                        
-                        GObject.signal_handler_unblock(this.toggle5, this.toggle5ConnectSignal);
                     }
                 });
             } else {
                 switch (buttonClick5) {
-                    case 0: if (this.toggle5.checked)  {executeCommand(5, this.toggle5.checked, entryRow15, entryRow25);} this.toggle5.checked = true; break; 
-                    case 1: if (!this.toggle5.checked) {executeCommand(5, this.toggle5.checked, entryRow15, entryRow25);} this.toggle5.checked = false; break; 
-                    case 2: {executeCommand(5, this.toggle5.checked, entryRow15, entryRow25);} break; 
+                    case 0: executeCommand(5, true, entryRow15, entryRow25); this.toggle5.checked = true; break; 
+                    case 1: executeCommand(5, false, entryRow15, entryRow25); this.toggle5.checked = false; break; 
+                    case 2: executeCommand(5, this.toggle5.checked, entryRow15, entryRow25); break;
                 }
             }
             toggleStates[4] = this.toggle5.checked;
             settings.set_boolean('togglestate5-setting', toggleStates[4]);
             if (!showIndicator5) this._indicator.visible = false;
             this._indicator.iconName = this.toggle5.checked ? icon5on : icon5off;
-            this.toggle5.iconName = this.toggle5.checked ? icon5on : icon5off;            
+            this.toggle5.iconName = this.toggle5.checked ? icon5on : icon5off;
+            if (this.toggle5 instanceof myQuickMenuToggle) this.toggle5.menu.setHeader(this.toggle5.iconName, title5);
         });
         if (!showIndicator5) this._indicator.visible = false;
     }
@@ -343,39 +417,43 @@ class MyIndicator6 extends SystemIndicator {
         this._indicator = this._addIndicator();
         this._indicator.iconName = toggleStates[5] ? icon6on : icon6off;
 
-        this.toggle6 = new myQuickToggle(title6, toggleStates[5] ? icon6on : icon6off);
+        const menuItems6 = getMenuItems(settings, 6);
+        this.toggle6 = menuItems6.length > 0
+            ? new myQuickMenuToggle(title6, toggleStates[5] ? icon6on : icon6off)
+            : new myQuickToggle(title6, toggleStates[5] ? icon6on : icon6off);
         this.toggle6.bind_property('checked', this._indicator, 'visible', GObject.BindingFlags.SYNC_CREATE);
         this.quickSettingsItems.push(this.toggle6);
         this.toggle6.checked = toggleStates[5];
+        if (menuItems6.length > 0) addMenuItems(this.toggle6, menuItems6, 6, settings);
 
-        this.toggle6ConnectSignal = this.toggle6.connect('notify::checked', () => {
+        this.toggle6ConnectSignal = this.toggle6.connect('clicked', () => {
             if (settings.get_boolean('closemenu6-setting')) {Main.panel.closeQuickSettings();}
             if (settings.get_int('buttonclick6-setting') === 2 && settings.get_boolean('checkexitcode6-setting')) {
                 checkCommandExitCode(6, this.toggle6.checked, entryRow16, entryRow26, (exitCodeResult) => {
                     if (debug) console.log(`[Custom Command Toggle] Toggle 6 | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);
                     if (!exitCodeResult) {
-                        GObject.signal_handler_block(this.toggle6, this.toggle6ConnectSignal);
                         this.toggle6.checked = !this.toggle6.checked;
                         toggleStates[5] = this.toggle6.checked;
                         settings.set_boolean('togglestate6-setting', toggleStates[5]);
                         this._indicator.iconName = this.toggle6.checked ? icon6on : icon6off;
                         this.toggle6.iconName = this.toggle6.checked ? icon6on : icon6off;
+                        if (this.toggle6 instanceof myQuickMenuToggle) this.toggle6.menu.setHeader(this.toggle6.iconName, title6);
                         if (!showIndicator6) {this._indicator.visible = false;}                        
-                        GObject.signal_handler_unblock(this.toggle6, this.toggle6ConnectSignal);
                     }
                 });
             } else {
                 switch (buttonClick6) {
-                    case 0: if (this.toggle6.checked)  {executeCommand(6, this.toggle6.checked, entryRow16, entryRow26);} this.toggle6.checked = true; break; 
-                    case 1: if (!this.toggle6.checked) {executeCommand(6, this.toggle6.checked, entryRow16, entryRow26);} this.toggle6.checked = false; break; 
-                    case 2: {executeCommand(6, this.toggle6.checked, entryRow16, entryRow26);} break; 
+                    case 0: executeCommand(6, true, entryRow16, entryRow26); this.toggle6.checked = true; break; 
+                    case 1: executeCommand(6, false, entryRow16, entryRow26); this.toggle6.checked = false; break; 
+                    case 2: executeCommand(6, this.toggle6.checked, entryRow16, entryRow26); break;
                 }
             }
             toggleStates[5] = this.toggle6.checked;
             settings.set_boolean('togglestate6-setting', toggleStates[5]);
             if (!showIndicator6) this._indicator.visible = false;
             this._indicator.iconName = this.toggle6.checked ? icon6on : icon6off;
-            this.toggle6.iconName = this.toggle6.checked ? icon6on : icon6off;            
+            this.toggle6.iconName = this.toggle6.checked ? icon6on : icon6off;
+            if (this.toggle6 instanceof myQuickMenuToggle) this.toggle6.menu.setHeader(this.toggle6.iconName, title6);
         });
         if (!showIndicator6) this._indicator.visible = false;
     }
@@ -384,9 +462,9 @@ class MyIndicator6 extends SystemIndicator {
 
 
 //#region Execute Command
-function executeCommand(toggleNumber, toggleChecked, commandChecked, commandUnchecked) {
+function executeCommand(toggleNumber, toggleChecked, commandChecked, commandUnchecked, menuCommand = false) {
     let command = toggleChecked ? commandChecked : commandUnchecked;
-    if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Attempting to execute toggle command:`);
+    if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Attempting to execute ${menuCommand ? 'menu' : 'toggle'} command:`);
     if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | ${command.trim() === '' ? '(no command provided)' : command}`);
     if (command.trim() === "") return;
 
@@ -442,40 +520,58 @@ export default class CustomQuickToggleExtension extends Extension {
         //#region Keybindings
         shortcutId1 = Main.wm.addKeybinding(
             'keybinding1-setting', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
-            () => this._indicator1.toggle1.checked = !this._indicator1.toggle1.checked
+            () => {
+                this._indicator1.toggle1.checked = !this._indicator1.toggle1.checked; 
+                this._indicator1.toggle1.emit('clicked', null);
+            }
         );
         shortcutId2 = Main.wm.addKeybinding(
             'keybinding2-setting', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
-            () => this._indicator2.toggle2.checked = !this._indicator2.toggle2.checked
+            () => {
+                this._indicator2.toggle2.checked = !this._indicator2.toggle2.checked;
+                this._indicator2.toggle2.emit('clicked', null);
+            }
         );
         shortcutId3 = Main.wm.addKeybinding(
             'keybinding3-setting', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
-            () => this._indicator3.toggle3.checked = !this._indicator3.toggle3.checked
+            () => {
+                this._indicator3.toggle3.checked = !this._indicator3.toggle3.checked;
+                this._indicator3.toggle3.emit('clicked', null);
+            }
         );
         shortcutId4 = Main.wm.addKeybinding(
             'keybinding4-setting', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
-            () => this._indicator4.toggle4.checked = !this._indicator4.toggle4.checked
+            () => {
+                this._indicator4.toggle4.checked = !this._indicator4.toggle4.checked;
+                this._indicator4.toggle4.emit('clicked', null);
+            }
         );
         shortcutId5 = Main.wm.addKeybinding(
             'keybinding5-setting', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
-            () => this._indicator5.toggle5.checked = !this._indicator5.toggle5.checked
+            () => {
+                this._indicator5.toggle5.checked = !this._indicator5.toggle5.checked;
+                this._indicator5.toggle5.emit('clicked', null);
+            }
         );
         shortcutId6 = Main.wm.addKeybinding(
             'keybinding6-setting', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL,
-            () => this._indicator6.toggle6.checked = !this._indicator6.toggle6.checked
+            () => {
+                this._indicator6.toggle6.checked = !this._indicator6.toggle6.checked;
+                this._indicator6.toggle6.emit('clicked', null);
+            }
         );
         //#endregion Keybindings
 
         
         //#region Settings Connections
-        this._settings.connect('changed::force-refresh', () => {
+        this._settings.connectObject('changed::force-refresh', () => {
             if (debug) console.log(`[Custom Command Toggle] `);
             if (debug) console.log(`[Custom Command Toggle] Rebuilding and reinitializing all toggles`);
 
 
             // Remove old intervals
             checkIntervals.forEach((id, i) => {
-                if (id) GLib.source_remove(id);
+                if (id) GLib.Source.remove(id);
                 checkIntervals[i] = 0;
             });
 
@@ -483,17 +579,17 @@ export default class CustomQuickToggleExtension extends Extension {
             isRunning.forEach((_, i) => isRunning[i] = false);
 
             // Remove pending command timeouts
-            commandTimeouts.forEach(id => id && GLib.source_remove(id));
+            commandTimeouts.forEach(id => id && GLib.Source.remove(id));
             commandTimeouts = [];
 
             numToggleButtons = this._settings.get_int('numbuttons-setting');
             initialSetup.call(this);
             refreshIndicator.call(this);
             runAtBoot.call(this);
-        });
+        }, this);
 
         for (let i = 1; i <= numberOfTogglesAllowed; i++) {
-            this._settings.connect(`changed::enabled${i}-setting`, () => {
+            this._settings.connectObject(`changed::enabled${i}-setting`, () => {
                 if (debug) console.log(`[Custom Command Toggle] Toggle ${i} | ${this._settings.get_boolean(`enabled${i}-setting`) ? 'ENABLED' : 'DISABLED'}`);
                 if (this._settings.get_boolean(`enabled${i}-setting`)) {
                     initialSetup.call(this, i);
@@ -501,141 +597,148 @@ export default class CustomQuickToggleExtension extends Extension {
                     runAtBoot.call(this, i);
                 } else {
                     if (checkIntervals[i - 1]) {
-                        GLib.source_remove(checkIntervals[i - 1]);
+                        GLib.Source.remove(checkIntervals[i - 1]);
                         checkIntervals[i - 1] = 0;
                     }
 
                     isRunning[i - 1] = false;
 
                     if (commandTimeouts[i - 1]) {
-                        GLib.source_remove(commandTimeouts[i - 1]);
+                        GLib.Source.remove(commandTimeouts[i - 1]);
                         commandTimeouts[i - 1] = null;
                     }
          
                     refreshIndicator.call(this);
                 }
-            });
+            }, this);
         }
 
-        this._settings.connect('changed::entryrow1-setting', (settings, key) => {
+        for (let i = 1; i <= numberOfTogglesAllowed; i++) {
+            this._settings.connectObject(`changed::menuitems${i}-setting`, () => {
+                refreshIndicator.call(this);
+            }, this);
+        }
+        
+        this._settings.connectObject('changed::entryrow1-setting', (settings, key) => {
             entryRow1 = this._settings.get_string('entryrow1-setting');
-        });
-        this._settings.connect('changed::entryrow2-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow2-setting', (settings, key) => {
             entryRow2 = this._settings.get_string('entryrow2-setting');
-        });
-        this._settings.connect('changed::entryrow3-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow3-setting', (settings, key) => {
             refreshIndicator.call(this);
-        });
-        this._settings.connect('changed::entryrow4-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow4-setting', (settings, key) => {
             refreshIndicator.call(this);
-        });
+        }, this);
 
-        this._settings.connect('changed::entryrow12-setting', (settings, key) => {
+        this._settings.connectObject('changed::entryrow12-setting', (settings, key) => {
             entryRow12 = this._settings.get_string('entryrow12-setting');
-        });
-        this._settings.connect('changed::entryrow22-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow22-setting', (settings, key) => {
             entryRow22 = this._settings.get_string('entryrow22-setting');
-        });
-        this._settings.connect('changed::entryrow32-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow32-setting', (settings, key) => {
             refreshIndicator.call(this);
-        });
-        this._settings.connect('changed::entryrow42-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow42-setting', (settings, key) => {
             refreshIndicator.call(this);
-        });
+        }, this);
 
-        this._settings.connect('changed::entryrow13-setting', (settings, key) => {
+        this._settings.connectObject('changed::entryrow13-setting', (settings, key) => {
             entryRow13 = this._settings.get_string('entryrow13-setting');
-        });
-        this._settings.connect('changed::entryrow23-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow23-setting', (settings, key) => {
             entryRow23 = this._settings.get_string('entryrow23-setting');
-        });
-        this._settings.connect('changed::entryrow33-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow33-setting', (settings, key) => {
             refreshIndicator.call(this);
-        });
-        this._settings.connect('changed::entryrow43-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow43-setting', (settings, key) => {
             refreshIndicator.call(this);
-        });
+        }, this);
 
-        this._settings.connect('changed::entryrow14-setting', (settings, key) => {
+        this._settings.connectObject('changed::entryrow14-setting', (settings, key) => {
             entryRow14 = this._settings.get_string('entryrow14-setting');
-        });
-        this._settings.connect('changed::entryrow24-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow24-setting', (settings, key) => {
             entryRow24 = this._settings.get_string('entryrow24-setting');
-        });
-        this._settings.connect('changed::entryrow34-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow34-setting', (settings, key) => {
             refreshIndicator.call(this);
-        });
-        this._settings.connect('changed::entryrow44-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow44-setting', (settings, key) => {
             refreshIndicator.call(this);
-        });
+        }, this);
 
-        this._settings.connect('changed::entryrow15-setting', (settings, key) => {
+        this._settings.connectObject('changed::entryrow15-setting', (settings, key) => {
             entryRow15 = this._settings.get_string('entryrow15-setting');
-        });
-        this._settings.connect('changed::entryrow25-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow25-setting', (settings, key) => {
             entryRow25 = this._settings.get_string('entryrow25-setting');
-        });
-        this._settings.connect('changed::entryrow35-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow35-setting', (settings, key) => {
             refreshIndicator.call(this);
-        });
-        this._settings.connect('changed::entryrow45-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow45-setting', (settings, key) => {
             refreshIndicator.call(this);
-        });
+        }, this);
 
-        this._settings.connect('changed::entryrow16-setting', (settings, key) => {
+        this._settings.connectObject('changed::entryrow16-setting', (settings, key) => {
             entryRow16 = this._settings.get_string('entryrow16-setting');
-        });
-        this._settings.connect('changed::entryrow26-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow26-setting', (settings, key) => {
             entryRow26 = this._settings.get_string('entryrow26-setting');
-        });
-        this._settings.connect('changed::entryrow36-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow36-setting', (settings, key) => {
             refreshIndicator.call(this);
-        });
-        this._settings.connect('changed::entryrow46-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::entryrow46-setting', (settings, key) => {
             refreshIndicator.call(this);
-        });
+        }, this);
 
-        this._settings.connect('changed::buttonclick1-setting', (settings, key) => {
+        this._settings.connectObject('changed::buttonclick1-setting', (settings, key) => {
             buttonClick1 = this._settings.get_int('buttonclick1-setting');
             if (buttonClick1 === 0) { toggleStates[0] = true;  settings.set_boolean('togglestate1-setting', toggleStates[0]); }
             if (buttonClick1 === 1) { toggleStates[0] = false; settings.set_boolean('togglestate1-setting', toggleStates[0]); }
             refreshIndicator.call(this);
-        });
-        this._settings.connect('changed::buttonclick2-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::buttonclick2-setting', (settings, key) => {
             buttonClick2 = this._settings.get_int('buttonclick2-setting');
             if (buttonClick2 === 0) { toggleStates[1] = true;  settings.set_boolean('togglestate2-setting', toggleStates[1]); }
             if (buttonClick2 === 1) { toggleStates[1] = false; settings.set_boolean('togglestate2-setting', toggleStates[1]); }
             refreshIndicator.call(this);
-        });
-        this._settings.connect('changed::buttonclick3-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::buttonclick3-setting', (settings, key) => {
             buttonClick3 = this._settings.get_int('buttonclick3-setting');
             if (buttonClick3 === 0) { toggleStates[2] = true;  settings.set_boolean('togglestate3-setting', toggleStates[2]); }
             if (buttonClick3 === 1) { toggleStates[2] = false; settings.set_boolean('togglestate3-setting', toggleStates[2]); }
             refreshIndicator.call(this);
-        });
-        this._settings.connect('changed::buttonclick4-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::buttonclick4-setting', (settings, key) => {
             buttonClick4 = this._settings.get_int('buttonclick4-setting');
             if (buttonClick4 === 0) { toggleStates[3] = true;  settings.set_boolean('togglestate4-setting', toggleStates[3]); }
             if (buttonClick4 === 1) { toggleStates[3] = false; settings.set_boolean('togglestate4-setting', toggleStates[3]); }
             refreshIndicator.call(this);
-        });
-        this._settings.connect('changed::buttonclick5-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::buttonclick5-setting', (settings, key) => {
             buttonClick5 = this._settings.get_int('buttonclick5-setting');
             if (buttonClick5 === 0) { toggleStates[4] = true;  settings.set_boolean('togglestate5-setting', toggleStates[4]); }
             if (buttonClick5 === 1) { toggleStates[4] = false; settings.set_boolean('togglestate5-setting', toggleStates[4]); }
             refreshIndicator.call(this);
-        });
-        this._settings.connect('changed::buttonclick6-setting', (settings, key) => {
+        }, this);
+        this._settings.connectObject('changed::buttonclick6-setting', (settings, key) => {
             buttonClick6 = this._settings.get_int('buttonclick6-setting');
             if (buttonClick6 === 0) { toggleStates[5] = true;  settings.set_boolean('togglestate6-setting', toggleStates[5]); }
             if (buttonClick6 === 1) { toggleStates[5] = false; settings.set_boolean('togglestate6-setting', toggleStates[5]); }
             refreshIndicator.call(this);
-        });
+        }, this);
 
         let debounceIds = {};
+        this._debounceIds = debounceIds;
 
         function debounce(i, func, delay = 500) {
-            if (debounceIds[i]) GLib.source_remove(debounceIds[i]);
+            if (debounceIds[i]) GLib.Source.remove(debounceIds[i]);
             debounceIds[i] = GLib.timeout_add(GLib.PRIORITY_DEFAULT, delay, () => {
                 func();
                 debounceIds[i] = null;
@@ -644,17 +747,17 @@ export default class CustomQuickToggleExtension extends Extension {
         }
 
         for (let i = 1; i <= numberOfTogglesAllowed; i++) {
-            this._settings.connect(`changed::initialtogglestate${i}-setting`,   () => debounce(i, () => setupCheckSync.call(this, i)));
-            this._settings.connect(`changed::checkregex${i}-setting`,           () => debounce(i, () => setupCheckSync.call(this, i)));
-            this._settings.connect(`changed::checkcommand${i}-setting`,         () => debounce(i, () => setupCheckSync.call(this, i)));
-            this._settings.connect(`changed::checkcommandinterval${i}-setting`, () => debounce(i, () => setupCheckSync.call(this, i)));
-            this._settings.connect(`changed::checkcommandsync${i}-setting`,     () => debounce(i, () => setupCheckSync.call(this, i)));
-            this._settings.connect(`changed::showindicator${i}-setting`,        () => refreshIndicator.call(this));
+            this._settings.connectObject(`changed::initialtogglestate${i}-setting`,   () => debounce(i, () => setupCheckSync.call(this, i)), this);
+            this._settings.connectObject(`changed::checkregex${i}-setting`,           () => debounce(i, () => setupCheckSync.call(this, i)), this);
+            this._settings.connectObject(`changed::checkcommand${i}-setting`,         () => debounce(i, () => setupCheckSync.call(this, i)), this);
+            this._settings.connectObject(`changed::checkcommandinterval${i}-setting`, () => debounce(i, () => setupCheckSync.call(this, i)), this);
+            this._settings.connectObject(`changed::checkcommandsync${i}-setting`,     () => debounce(i, () => setupCheckSync.call(this, i)), this);
+            this._settings.connectObject(`changed::showindicator${i}-setting`,        () => refreshIndicator.call(this));
         }
 
-        this._settings.connect('changed::debug-setting', () => {
+        this._settings.connectObject('changed::debug-setting', () => {
             debug = this._settings.get_boolean('debug-setting');
-        });
+        }, this);
         //#endregion Settings connections
 
 
@@ -756,7 +859,7 @@ export default class CustomQuickToggleExtension extends Extension {
             let startupCmd = `sleep ${checkCommandDelayTime} && ( ${cmd} )`;
 
             if (checkIntervals[i - 1]) {
-                GLib.source_remove(checkIntervals[i - 1]);
+                GLib.Source.remove(checkIntervals[i - 1]);
                 checkIntervals[i - 1] = 0;
             }
 
@@ -846,14 +949,14 @@ export default class CustomQuickToggleExtension extends Extension {
                     return GLib.SOURCE_REMOVE;
                 });
 
-                commandTimeouts.push(timeoutId);
+                commandTimeouts[toggleNumber - 1] = timeoutId;
 
                 function cleanup() {
                     if (didFinish) return;
                     didFinish = true;
 
-                    try { GLib.source_remove(timeoutId); } catch (_) {}
-                    commandTimeouts = commandTimeouts.filter(id => id !== timeoutId);
+                    try { GLib.Source.remove(timeoutId); } catch (_) {}
+                    if (commandTimeouts[toggleNumber - 1] === timeoutId) commandTimeouts[toggleNumber - 1] = null;
 
                     try { dataStream.close_async(GLib.PRIORITY_DEFAULT, null, () => {}); } catch (_) {}
                     try { baseStream.close_async(GLib.PRIORITY_DEFAULT, null, () => {}); } catch (_) {}
@@ -910,7 +1013,8 @@ export default class CustomQuickToggleExtension extends Extension {
                 if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Error running command: ${e}`);
                 callback(false);
             }
-        }//#endregion Check Output
+        }
+        //#endregion Check Output
 
 
         //#region Output match
@@ -1056,29 +1160,30 @@ export default class CustomQuickToggleExtension extends Extension {
         }
 
         if (this._timeOut) {
-            GLib.source_remove(this._timeOut);
+            GLib.Source.remove(this._timeOut);
             this._timeOut = null;
         }
 
         if (this._debounceIds) {
             for (let id of Object.values(this._debounceIds)) {
-                if (id) GLib.source_remove(id);
+                if (id) GLib.Source.remove(id);
             }
             this._debounceIds = {};
         }        
 
         for (let id of checkIntervals) {
             if (id)
-                GLib.source_remove(id);
+                GLib.Source.remove(id);
         }
         checkIntervals = [];
 
         for (let id of commandTimeouts) {
             if (id)
-                GLib.source_remove(id);
+                GLib.Source.remove(id);
         }
         commandTimeouts = [];        
 
+        this._settings.disconnectObject(this);
         this._settings = null;
 
         console.log(`[Custom Command Toggle] Extension disabled`);

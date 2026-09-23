@@ -17,6 +17,7 @@
             This key is toggled to trigger an extension rebuild toggles and refresh indicators.
         </description>
     </key>
+    
     <key name="entryrow1-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Hello world!"'</default>
       <summary>Button 1 ON command</summary>
@@ -97,6 +98,11 @@
       <default>true</default>
       <summary>Enable or disable toggle button 1</summary>
     </key>
+    <key name="menuitems1-setting" type="s">
+      <default>"[]"</default>
+      <summary>Button 1 dropdown menu items</summary>
+      <description>JSON array for button 1 dropdown menu items</description>
+    </key>
 
     <key name="entryrow12-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 2 toggled on"'</default>
@@ -154,7 +160,10 @@
     </key>
     <key name="enabled2-setting" type="b">
       <default>true</default>
-    </key>      
+    </key>
+    <key name="menuitems2-setting" type="s">
+      <default>"[]"</default>
+    </key>
 
     <key name="entryrow13-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 3 toggled on"'</default>
@@ -212,7 +221,10 @@
     </key>
     <key name="enabled3-setting" type="b">
       <default>true</default>
-    </key>  
+    </key>
+    <key name="menuitems3-setting" type="s">
+      <default>"[]"</default>
+    </key>
   
     <key name="entryrow14-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 4 toggled on"'</default>
@@ -270,7 +282,10 @@
     </key>
     <key name="enabled4-setting" type="b">
       <default>true</default>
-    </key>    
+    </key>
+    <key name="menuitems4-setting" type="s">
+      <default>"[]"</default>
+    </key>
 
     <key name="entryrow15-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 5 toggled on"'</default>
@@ -328,7 +343,10 @@
     </key>
     <key name="enabled5-setting" type="b">
       <default>true</default>
-    </key>  
+    </key>
+    <key name="menuitems5-setting" type="s">
+      <default>"[]"</default>
+    </key>
 
     <key name="entryrow16-setting" type="s">
       <default>'notify-send "Custom Command Toggle" "Button 6 toggled on"'</default>
@@ -386,7 +404,10 @@
     </key>
     <key name="enabled6-setting" type="b">
       <default>true</default>
-    </key>      
+    </key>
+    <key name="menuitems6-setting" type="s">
+      <default>"[]"</default>
+    </key>
 
   </schema>
 </schemalist>

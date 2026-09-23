@@ -66,6 +66,8 @@ export function exportConfiguration(numButtons, settings, window) {
         ` polling-frequency: 2-900 (seconds) \n` + 
         ` keyboard-shortcut: <shortcut> \n` +
         ` enabled: true or false \n` +
+        ` menu-items: <JSON array> \n` +
+        `     [{"name":"<name>","icon":"<icon>","command":"<command>"},{"name":"<name>","icon":"<icon>","command":"<command>"}] \n` +
         ` \n`
     );
     //#endregion Header
@@ -95,6 +97,7 @@ export function exportConfiguration(numButtons, settings, window) {
         const keybindings = settings.get_value(`keybinding${i}-setting`).deep_unpack();
         keyFile.set_string(`Toggle ${i}`, 'keyboard-shortcut', keybindings[0]);
         keyFile.set_string(`Toggle ${i}`, 'enabled', `${settings.get_boolean(`enabled${i}-setting`)}`);
+        keyFile.set_string(`Toggle ${i}`, 'menu-items', settings.get_string(`menuitems${i}-setting`));
     }
     //#endregion Export Settings
 
@@ -241,6 +244,7 @@ export function importConfiguration(settings, window) {
             let polling_frequency    = getInt('polling-frequency', 10);
             let keyboard_shortcut    = getString('keyboard-shortcut', '');
             let enabled              = getBool('enabled', true);
+            let menu_items           = getString('menu-items', '[]');
 
             if (initial_state < 0 || initial_state > 3) initial_state = 2;
             if (startup_delay_time < 0 || startup_delay_time > 10) startup_delay_time = 3;
@@ -266,6 +270,7 @@ export function importConfiguration(settings, window) {
             settings.set_int(`checkcommandinterval${buttonCount}-setting`, polling_frequency);
             settings.set_strv(`keybinding${buttonCount}-setting`, keyboard_shortcut ? [keyboard_shortcut] : ['']);
             settings.set_boolean(`enabled${buttonCount}-setting`, enabled);
+            settings.set_string(`menuitems${buttonCount}-setting`, menu_items);
         } 
     }
 

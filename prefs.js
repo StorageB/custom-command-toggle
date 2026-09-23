@@ -32,6 +32,7 @@ import {exportConfiguration} from './backup.js';
 import {importConfiguration} from './backup.js';
 import {reset} from './backup.js';
 import {showAboutDialog} from './about.js';
+import {createMenuItemsUI} from './menu.js';
 
 let numButtons = 1;
 
@@ -65,12 +66,6 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         menuButton.add_css_class("flat");
         menuButton.set_tooltip_text(_('Help and resources'));
         menuButton.set_menu_model(menuModel);
-
-        menuButton.connect('realize', () => {
-            const popover = menuButton.get_popover();
-            //popover.halign = Gtk.Align.START;
-            //popover.set_has_arrow(false);
-        });
 
         const actionGroup = new Gio.SimpleActionGroup();
 
@@ -140,10 +135,10 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
         
 
             //#region Appearance
-            const group2 = new Adw.PreferencesGroup({
+            const appearanceGroup = new Adw.PreferencesGroup({
                 title: _('Appearance'),
             });
-            page.add(group2);
+            page.add(appearanceGroup);
         
             const hideButton = new Gtk.Button({
                 icon_name:    isVisible ? 'view-reveal-symbolic' : 'view-conceal-symbolic',
@@ -158,61 +153,68 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 hideButton.icon_name =    isVisible ? 'view-reveal-symbolic' : 'view-conceal-symbolic';
                 hideButton.tooltip_text = isVisible ? _('Hide this toggle') : _('Show this toggle');
 
-                [ entryRow1, entryRow2, entryRow3, entryRow4, checkCommandRow, checkRegexRow,
-                  comboRow, expanderRow, spinRow, spinRow2, comboRow2, switchRow, switchRow2, switchRow3,
-                  commandSyncExpanderRow, pollingFreqSpinRow, keybindRow
-                ].forEach(widget => widget.set_sensitive(isVisible));
+                [commandsGroup, startupGroup, behaviorGroup, syncGroup, shortcutsGroup, entryRow4, menuGroup].forEach(widget => widget.set_sensitive(isVisible));
 
                 page.icon_name = isVisible ? 'utilities-terminal-symbolic' : 'view-conceal-symbolic';
             });
 
-            group2.set_header_suffix(hideButton);
+            appearanceGroup.set_header_suffix(hideButton);
             
             const entryRow3 = new Adw.EntryRow({
                 title: _('Button name:'),
             });
-            group2.add(entryRow3);
+            appearanceGroup.add(entryRow3);
         
             const entryRow4 = new Adw.EntryRow({
                 title: _('Icon:'),
             });
-            group2.add(entryRow4);
+            appearanceGroup.add(entryRow4);
             //#endregion Appearance
 
 
             //#region Commands
-            const group1 = new Adw.PreferencesGroup({
+            const commandsGroup = new Adw.PreferencesGroup({
                 title: _('Commands'),
             });
-            page.add(group1);
+            page.add(commandsGroup);
         
             const entryRow1 = new Adw.EntryRow({
                 title: _('Toggle ON Command:'),
             });
-            group1.add(entryRow1);
+            commandsGroup.add(entryRow1);
         
             const entryRow2 = new Adw.EntryRow({
                 title: _('Toggle OFF Command:'),
             });
-            group1.add(entryRow2);
+            commandsGroup.add(entryRow2);
 
             const checkCommandRow = new Adw.EntryRow({
                 title: _("Check Status Command:"),
             });
-            group1.add(checkCommandRow);
+            commandsGroup.add(checkCommandRow);
 
             const checkRegexRow = new Adw.EntryRow({
                 title: _("Check Status Search Term:"),
             });
-            group1.add(checkRegexRow);
+            commandsGroup.add(checkRegexRow);
             //#endregion Commands
         
 
+            //#region Menu
+            const menuGroup = new Adw.PreferencesGroup({
+                title: _('Dropdown Menu Commands'),
+            });
+            page.add(menuGroup);
+            
+            createMenuItemsUI(menuGroup, window._settings, `menuitems${pageIndex}-setting`);
+            //endregion Menu
+            
+
             //#region Startup Behavior
-            const group3 = new Adw.PreferencesGroup({
+            const startupGroup = new Adw.PreferencesGroup({
                 title: _('Startup Behavior'),
             });
-            page.add(group3);
+            page.add(startupGroup);
 
             const optionList = new Gtk.StringList();
             [_('On'), _('Off'), _('Previous state'), _('Command output')].forEach(choice => optionList.append(choice));
@@ -222,7 +224,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 model: optionList,
                 selected: window._settings.get_int(`initialtogglestate${pageIndex}-setting`),
             });
-            group3.add(comboRow);
+            startupGroup.add(comboRow);
 
             const checkCommandInfo = new Adw.ActionRow({
                 title: _('Command Configuration'),
@@ -234,7 +236,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 activatable: false,
             });
             checkCommandInfo.visible = comboRow.selected === 3;
-            group3.add(checkCommandInfo);
+            startupGroup.add(checkCommandInfo);
   
             comboRow.connect("notify::selected", () => {
                 checkCommandInfo.visible = comboRow.selected === 3;
@@ -254,7 +256,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             expanderRow.connect('notify::expanded', widget => {
                 expanderRow.enable_expansion = widget.expanded;
             });
-            group3.add(expanderRow);
+            startupGroup.add(expanderRow);
         
             const spinRow = new Adw.SpinRow({
                 title: _('Startup Delay (seconds)'),
@@ -279,12 +281,12 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 }),
             });
             spinRow2.visible =  (comboRow.selected === 3 && !window._settings.get_boolean(`checkcommandsync${pageIndex}-setting`));
-            group3.add(spinRow2);
+            startupGroup.add(spinRow2);
             //#endregion Startup Behavior
 
 
             //#region Toggle Behavior
-            const group4 = new Adw.PreferencesGroup({
+            const behaviorGroup = new Adw.PreferencesGroup({
                 title: _('Toggle Behavior'),
             });
             
@@ -296,15 +298,15 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 subtitle: _('Button behavior when clicked'),
                 model: toggleList,
             });
-            group4.add(comboRow2);
-            page.add(group4);
+            behaviorGroup.add(comboRow2);
+            page.add(behaviorGroup);
 
             const switchRow3 = new Adw.SwitchRow({
                 title: _('Check Command Exit Code'),
                 subtitle: _('Only toggle if the command executes successfully (returns exit code 0)'),
                 active: window._settings.get_boolean(`checkexitcode${pageIndex}-setting`),
             });
-            group4.add(switchRow3);
+            behaviorGroup.add(switchRow3);
             switchRow3.visible =  comboRow2.selected === 2;
 
             comboRow2.connect("notify::selected", () => {
@@ -326,19 +328,19 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 subtitle: _('Show top bar icon when toggle button is switched on'),
                 active: window._settings.get_boolean(`showindicator${pageIndex}-setting`),
             });
-            group4.add(switchRow);
+            behaviorGroup.add(switchRow);
 
             const switchRow2 = new Adw.SwitchRow({
                 title: _('Close Menu After Button Press'),
                 subtitle: _('Close the system menu immediately after clicking toggle button'),
                 active: window._settings.get_boolean(`closemenu${pageIndex}-setting`),
             });
-            group4.add(switchRow2);
+            behaviorGroup.add(switchRow2);
             //#endregion Toggle Behavior
 
 
             //#region Sync Behavior
-            const group5 = new Adw.PreferencesGroup({
+            const syncGroup = new Adw.PreferencesGroup({
                 title: _('Command Sync Behavior'),
             });
 
@@ -359,7 +361,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             commandSyncExpanderRow.connect('notify::expanded', widget => {
                 commandSyncExpanderRow.enable_expansion = widget.expanded;
             });       
-            group5.add(commandSyncExpanderRow);
+            syncGroup.add(commandSyncExpanderRow);
 
             const checkCommandInfo2 = new Adw.ActionRow({
                 title: _('Command Configuration'),
@@ -389,17 +391,17 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 activatable: false,
             });
             syncDisabledInfo.visible = comboRow2.selected !== 2;
-            group5.add(syncDisabledInfo);
+            syncGroup.add(syncDisabledInfo);
             
-            page.add(group5);
+            page.add(syncGroup);
             //#endregion Sync Behavior
 
 
             //#region Shortcut
-            const group6 = new Adw.PreferencesGroup({
+            const shortcutsGroup = new Adw.PreferencesGroup({
                 title: _('Keyboard Shortcut'),
             });
-            page.add(group6);
+            page.add(shortcutsGroup);
 
             const keybindRow = new KeybindingRow(
                 window._settings,
@@ -407,7 +409,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 _('Assign Shortcut')
             );
             keybindRow.add_suffix(keybindRow.resetButton);
-            group6.add(keybindRow);
+            shortcutsGroup.add(keybindRow);
             //#endregion Shortcut
 
 
@@ -440,10 +442,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
 
             //#region Visibility
-            [   entryRow1, entryRow2, entryRow3, entryRow4, checkCommandRow, checkRegexRow,
-                comboRow, expanderRow, spinRow, spinRow2, comboRow2, switchRow, switchRow2, switchRow3,
-                commandSyncExpanderRow, pollingFreqSpinRow, keybindRow
-            ].forEach(widget => widget.set_sensitive(isVisible));
+            [commandsGroup, startupGroup, behaviorGroup, syncGroup, shortcutsGroup, entryRow4, menuGroup].forEach(widget => widget.set_sensitive(isVisible));
             //#endregion Visibility
 
         }// End of for loop to create toggle button settings pages
