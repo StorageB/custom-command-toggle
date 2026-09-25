@@ -1,5 +1,21 @@
 <!-- changelog.md -->
 
+
+## Version 15 (2026-10-xx)
+
+**New Features**
+
+- Added ability to create custom dropdown menus for toggle buttons.
+
+**Improvements**
+
+- Fixed an issue where command-check timeouts could be associated with the wrong toggle.
+- Improved cleanup of timers and settings signal connections.
+- Minor code revisions to improve code readability.
+- Updated translatsions by <>.
+
+---
+
 ## Version 14 (2026-08-26)
 
 **New Features**
