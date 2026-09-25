@@ -34,7 +34,7 @@ export function createMenuItemsUI(menuGroup, settings, settingName) {
 
     const addMenuButton = new Gtk.Button({
         icon_name: 'list-add-symbolic',
-        tooltip_text: _('Add Menu Item'),
+        tooltip_text: _('Add menu item'),
     });
     addMenuButton.add_css_class('flat');
     menuGroup.set_header_suffix(addMenuButton);
@@ -56,30 +56,31 @@ function createMenuItem(menuGroup, menuItems, emptyMenuRow, settings, settingNam
 
     const row = new Adw.ExpanderRow({
         title: item.name ? GLib.markup_escape_text(item.name, -1) : _('New Menu Item'),
-        subtitle: item.command ? GLib.markup_escape_text(item.command, -1) : _('No command configured'),
     });
 
     const nameRow = new Adw.EntryRow({
-        title: _('Name'),
+        title: _('Name:'),
     });
     nameRow.text = item.name;
     row.add_row(nameRow);
 
     const iconRow = new Adw.EntryRow({
-        title: _('Icon'),
+        title: _('Icon:'),
     });
     iconRow.text = item.icon;
     row.add_row(iconRow);
 
     const commandRow = new Adw.EntryRow({
-        title: _('Command'),
+        title: _('Command:'),
     });
     commandRow.text = item.command;
     row.add_row(commandRow);
 
     const deleteButton = new Gtk.Button({
         icon_name: 'user-trash-symbolic',
-        tooltip_text: _('Remove Menu Item'),
+        tooltip_text: _('Remove menu item'),
+        valign: Gtk.Align.CENTER,
+        halign: Gtk.Align.END,
     });
     deleteButton.add_css_class('flat');
     row.add_suffix(deleteButton);
@@ -97,7 +98,6 @@ function createMenuItem(menuGroup, menuItems, emptyMenuRow, settings, settingNam
 
     commandRow.connect('notify::text', () => {
         item.command = commandRow.text;
-        row.subtitle = item.command ? GLib.markup_escape_text(item.command, -1) : _('No command configured');
         saveMenuItems(menuItems, settings, settingName);
     });
 

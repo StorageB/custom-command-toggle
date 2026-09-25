@@ -202,7 +202,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
 
             //#region Menu
             const menuGroup = new Adw.PreferencesGroup({
-                title: _('Dropdown Menu Commands'),
+                title: _('Menu Commands'),
             });
             page.add(menuGroup);
             

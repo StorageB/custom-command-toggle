@@ -72,9 +72,9 @@ export const KeybindingRow = GObject.registerClass(
                 has_frame: false,
                 valign: Gtk.Align.CENTER,
                 halign: Gtk.Align.END,
+                tooltip_text: _('Remove shortcut'),
             });
             const image = Gtk.Image.new_from_icon_name('edit-delete-symbolic');
-            image.add_css_class('error');
             this.resetButton.set_child(image);
             this.resetButton.connect('clicked', this.resetKeybind.bind(this));
 
