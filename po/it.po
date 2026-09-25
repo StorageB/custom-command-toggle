@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: custom-command-toggle-v13.0\n"
+"Project-Id-Version: custom-command-toggle-v15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-14 14:31-0600\n"
+"POT-Creation-Date: 2026-09-25 14:37-0500\n"
 "PO-Revision-Date: 2026-02-14 14:36-0600\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -29,7 +29,7 @@ msgstr "Pagina GitHub"
 msgid "Extension Page"
 msgstr "Pagina dell'estensione"
 
-#: about.js:55 prefs.js:52
+#: about.js:55 prefs.js:53
 msgid "User Guide"
 msgstr "Guida utente"
 
@@ -37,20 +37,389 @@ msgstr "Guida utente"
 msgid "Discussions"
 msgstr "Discussioni"
 
-#: backup.js:106
+#: menu.js:12
+msgid "Click + to add a menu item"
+msgstr ""
+
+#: menu.js:37
+msgid "Add menu item"
+msgstr ""
+
+#: menu.js:58 menu.js:90
+msgid "New Menu Item"
+msgstr ""
+
+#: menu.js:62
+msgid "Name:"
+msgstr ""
+
+#: menu.js:68 prefs.js:169
+msgid "Icon:"
+msgstr "Icona:"
+
+#: menu.js:74
+#, fuzzy
+msgid "Command:"
+msgstr "Comandi"
+
+#: menu.js:81
+msgid "Remove menu item"
+msgstr ""
+
+#: prefs.js:54
+msgid "Icon List"
+msgstr "Elenco icone"
+
+#: prefs.js:57
+msgid "About"
+msgstr "Informazioni"
+
+#: prefs.js:67
+msgid "Help and resources"
+msgstr "Aiuto e risorse"
+
+#: prefs.js:125
+msgid "Toggle Button"
+msgstr "Pulsante interruttore"
+
+#: prefs.js:126
+#, javascript-format
+msgid "Button %d"
+msgstr "Pulsante %d"
+
+#: prefs.js:139
+msgid "Appearance"
+msgstr "Aspetto"
+
+#: prefs.js:145 prefs.js:154
+msgid "Hide this toggle"
+msgstr "Nascondi questo interruttore"
+
+#: prefs.js:145 prefs.js:154
+msgid "Show this toggle"
+msgstr "Mostra questo interruttore"
+
+#: prefs.js:164
+msgid "Button name:"
+msgstr "Nome pulsante:"
+
+#: prefs.js:177
+msgid "Commands"
+msgstr "Comandi"
+
+#: prefs.js:182
+msgid "Toggle ON Command:"
+msgstr "Comando su attivazione:"
+
+#: prefs.js:187
+msgid "Toggle OFF Command:"
+msgstr "Comando su disattivazione:"
+
+#: prefs.js:192
+msgid "Check Status Command:"
+msgstr "Comando verifica stato:"
+
+#: prefs.js:197
+msgid "Check Status Search Term:"
+msgstr "Termine di ricerca verifica stato:"
+
+#: prefs.js:205
+#, fuzzy
+msgid "Menu Commands"
+msgstr "Comandi"
+
+#: prefs.js:215
+msgid "Startup Behavior"
+msgstr "Comportamento all'avvio"
+
+#: prefs.js:220
+msgid "On"
+msgstr "Attivo"
+
+#: prefs.js:220
+msgid "Off"
+msgstr "Disattivo"
+
+#: prefs.js:220
+msgid "Previous state"
+msgstr "Stato precedente"
+
+#: prefs.js:220
+msgid "Command output"
+msgstr "Output del comando"
+
+#: prefs.js:222
+msgid "Initial State"
+msgstr "Stato iniziale"
+
+#: prefs.js:223
+msgid "State of the toggle button at login/startup"
+msgstr "Stato del pulsante interruttore all'accesso/avvio"
+
+#: prefs.js:230 prefs.js:367
+msgid "Command Configuration"
+msgstr "Configurazione comandi"
+
+#: prefs.js:232
+msgid ""
+"Enter the Check Status Command and Search Term in the Commands section "
+"above. If the specified Search Term appears in the command's output, the "
+"button will be set to ON at startup. Otherwise, the button will be set to "
+"OFF."
+msgstr ""
+"Inserisci il Comando verifica stato e il Termine di ricerca nella sezione "
+"Comandi sopra. Se il Termine di ricerca specificato appare nell'output del "
+"comando, il pulsante verrà impostato su ATTIVO all'avvio. Altrimenti, il "
+"pulsante verrà impostato su DISATTIVO."
+
+#: prefs.js:248
+msgid "Run Command at Startup"
+msgstr "Esegui comando all'avvio"
+
+#: prefs.js:249
+msgid "Run associated toggle command at login/startup"
+msgstr "Esegui il comando associato all'interruttore all'accesso/avvio"
+
+#: prefs.js:262 prefs.js:274
+msgid "Startup Delay (seconds)"
+msgstr "Ritardo avvio (secondi)"
+
+#: prefs.js:263 prefs.js:275
+msgid "Amount of time to delay command from running after startup"
+msgstr "Tempo di attesa prima dell'esecuzione del comando dopo l'avvio"
+
+#: prefs.js:290
+msgid "Toggle Behavior"
+msgstr "Comportamento interruttore"
+
+#: prefs.js:294
+msgid "Always on"
+msgstr "Sempre attivo"
+
+#: prefs.js:294
+msgid "Always off"
+msgstr "Sempre disattivo"
+
+#: prefs.js:294
+msgid "Toggle"
+msgstr "Alterna"
+
+#: prefs.js:297
+msgid "Button Click Action"
+msgstr "Azione al clic del pulsante"
+
+#: prefs.js:298
+msgid "Button behavior when clicked"
+msgstr "Comportamento del pulsante al clic"
+
+#: prefs.js:305
+msgid "Check Command Exit Code"
+msgstr "Verifica codice di uscita del comando"
+
+#: prefs.js:306
+msgid "Only toggle if the command executes successfully (returns exit code 0)"
+msgstr ""
+"Alterna solo se il comando viene eseguito con successo (restituisce codice "
+"di uscita 0)"
+
+#: prefs.js:327
+msgid "Show Indicator Icon"
+msgstr "Mostra icona dell'indicatore"
+
+#: prefs.js:328
+msgid "Show top bar icon when toggle button is switched on"
+msgstr ""
+"Mostra l'icona nella barra superiore quando il pulsante interruttore è attivo"
+
+#: prefs.js:334
+msgid "Close Menu After Button Press"
+msgstr "Chiudi menu dopo la pressione del pulsante"
+
+#: prefs.js:335
+msgid "Close the system menu immediately after clicking toggle button"
+msgstr ""
+"Chiudi immediatamente il menu di sistema dopo aver cliccato il pulsante "
+"interruttore"
+
+#: prefs.js:344
+msgid "Command Sync Behavior"
+msgstr "Comportamento sincronizzazione comando"
+
+#: prefs.js:348
+msgid "Keep Toggle State Synced"
+msgstr "Mantieni lo stato dell'interruttore sincronizzato"
+
+#: prefs.js:349
+msgid "Keep toggle button state synced with a command's output"
+msgstr ""
+"Mantieni lo stato del pulsante interruttore sincronizzato con l'output di un "
+"comando"
+
+#: prefs.js:369
+msgid ""
+"Enter the Check Status Command and Search Term in the Commands section "
+"above. If the specified Search Term appears in the command's output, the "
+"button will be set to ON. Otherwise, the button will be set to OFF."
+msgstr ""
+"Inserisci il Comando verifica stato e il Termine di ricerca nella sezione "
+"Comandi sopra. Se il Termine di ricerca specificato appare nell'output del "
+"comando, il  pulsante verrà impostato su ATTIVO. Altrimenti, il pulsante "
+"verrà impostato su DISATTIVO."
+
+#: prefs.js:378
+msgid "Polling Frequency (seconds)"
+msgstr "Frequenza di polling (secondi)"
+
+#: prefs.js:379
+msgid "How often to check the command output and update button state"
+msgstr ""
+"Frequenza di verifica dell'output del comando e aggiornamento dello stato "
+"del pulsante"
+
+#: prefs.js:390
+msgid ""
+"Command sync is disabled. To enable, set the Button Click Action to Toggle."
+msgstr ""
+"La sincronizzazione dei comandi è disabilitata. Per attivarla, imposta "
+"l'Azione al click del pulsante su Alterna."
+
+#: prefs.js:402
+msgid "Keyboard Shortcut"
+msgstr "Scorciatoia da tastiera"
+
+#: prefs.js:409
+msgid "Assign Shortcut"
+msgstr "Assegna scorciatoia"
+
+#: prefs.js:453
+msgid "Configuration"
+msgstr "Configurazione"
+
+#: prefs.js:463
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: prefs.js:468
+msgid "Number of Toggle Buttons"
+msgstr "Numero di pulsanti interruttore"
+
+#: prefs.js:469
+msgid "Click Apply to save and reinitialize toggle states"
+msgstr ""
+"Clicca Applica per salvare e reinizializzare gli stati dell'interruttore"
+
+#: prefs.js:480
+msgid "Apply"
+msgstr "Applica"
+
+#: prefs.js:509
+msgid "Backup and Restore"
+msgstr "Backup e ripristino"
+
+#: prefs.js:514
+msgid "Import Configuration"
+msgstr "Importa configurazione"
+
+#: prefs.js:515
+msgid ""
+"Click to import the toggles.ini configuration file from the home directory"
+msgstr ""
+"Clicca per importare il file di configurazione toggles.ini dalla directory "
+"home"
+
+#: prefs.js:528
+msgid "Export Configuration"
+msgstr "Esporta configurazione"
+
+#: prefs.js:529
+msgid ""
+"Click to export the toggles.ini configuration file to the home directory"
+msgstr ""
+"Clicca per esportare il file di configurazione toggles.ini nella directory "
+"home"
+
+#: prefs.js:543
+msgid "Advanced"
+msgstr "Avanzate"
+
+#: prefs.js:548
+msgid "Detailed Logging"
+msgstr "Log dettagliato"
+
+#: prefs.js:549
+#, javascript-format
+msgid ""
+"To view output, run the following in a terminal then restart extension:\n"
+"%s"
+msgstr ""
+"Per visualizzare l'output, esegui il seguente comando in un terminale e "
+"riavvia l'estensione:\n"
+"%s"
+
+#: prefs.js:556
+msgid "Copy command to clipboard"
+msgstr "Copia comando negli appunti"
+
+#: prefs.js:569
+msgid "Command copied to clipboard"
+msgstr "Comando copiato negli appunti"
+
+#: prefs.js:576
+msgid "Reset to Defaults"
+msgstr "Ripristina predefiniti"
+
+#: prefs.js:577
+msgid "Click to restore all toggles and settings to their default values"
+msgstr ""
+"Clicca per ripristinare tutti gli interruttori e le impostazioni ai valori "
+"predefiniti"
+
+#: prefs.js:583
+msgid "Confirm Reset"
+msgstr "Conferma ripristino"
+
+#: prefs.js:584
+msgid ""
+"All toggles and extension settings will be reset to their default values. "
+"This action cannot be undone."
+msgstr ""
+"Tutti gli interruttori e le impostazioni dell'estensione verranno "
+"ripristinati ai valori predefiniti. Questa azione non può essere annullata."
+
+#: prefs.js:589
+msgid "Cancel"
+msgstr "Annulla"
+
+#: prefs.js:590
+msgid "Reset"
+msgstr "Ripristina"
+
+#: prefs.js:610
+msgid "Resources"
+msgstr "Risorse"
+
+#: prefs.js:614
+msgid ""
+"Find links to the User Guide, Icon List, and other helpful information in "
+"the menu at the top of this window."
+msgstr ""
+"Trova i link alla Guida utente, all'Elenco icone e ad altre informazioni "
+"utili nel menu in cima a questa finestra."
+
+#: backup.js:109
 #, javascript-format
 msgid "Settings exported to: %s"
 msgstr "Impostazioni esportate in: %s"
 
-#: backup.js:108
+#: backup.js:111
 msgid "Open"
 msgstr "Apri"
 
-#: backup.js:118
+#: backup.js:121
 msgid "Application Not Found"
 msgstr "Applicazione non trovata"
 
-#: backup.js:120
+#: backup.js:123
 msgid ""
 "No default application found to open .ini files.\n"
 "\n"
@@ -65,24 +434,24 @@ msgid ""
 msgstr ""
 "Nessuna applicazione predefinita trovata per aprire i file .ini.\n"
 "\n"
-"Il file toggles.ini può essere aperto e modificato con qualsiasi editor di testo. "
-"Per aprire il file, potrebbe essere necessario associare manualmente il file .ini "
-"all'editor di testo predefinito procedendo come segue:\n"
+"Il file toggles.ini può essere aperto e modificato con qualsiasi editor di "
+"testo. Per aprire il file, potrebbe essere necessario associare manualmente "
+"il file .ini all'editor di testo predefinito procedendo come segue:\n"
 "\n"
 "1. Apri la directory home e individua il file toggles.ini\n"
 "2. Fai clic destro sul file e seleziona \"Apri con...\"\n"
-"3. Scegli un editor di testo predefinito e seleziona l'opzione \"Usa sempre per "
-"questo tipo di file\""
+"3. Scegli un editor di testo predefinito e seleziona l'opzione \"Usa sempre "
+"per questo tipo di file\""
 
-#: backup.js:137 backup.js:144
+#: backup.js:140 backup.js:147
 msgid "Export Error"
 msgstr "Errore di esportazione"
 
-#: backup.js:139 backup.js:165 backup.js:191
+#: backup.js:142 backup.js:168 backup.js:194
 msgid "Details"
 msgstr "Dettagli"
 
-#: backup.js:145
+#: backup.js:148
 #, javascript-format
 msgid ""
 "Failed to export settings\n"
@@ -93,19 +462,19 @@ msgstr ""
 "\n"
 "%s"
 
-#: backup.js:147 backup.js:176 backup.js:199
+#: backup.js:150 backup.js:179 backup.js:202
 msgid "OK"
 msgstr "OK"
 
-#: backup.js:163
+#: backup.js:166
 msgid "File not found"
 msgstr "File non trovato"
 
-#: backup.js:170
+#: backup.js:173
 msgid "File Not Found"
 msgstr "File non trovato"
 
-#: backup.js:172
+#: backup.js:175
 #, javascript-format
 msgid ""
 "The %s configuration file was not found in the user's home directory.\n"
@@ -114,17 +483,18 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Il file di configurazione %s non è stato trovato nella directory home dell'utente.\n"
+"Il file di configurazione %s non è stato trovato nella directory home "
+"dell'utente.\n"
 "\n"
 "Verifica che il seguente file esista:\n"
 "\n"
 "%s"
 
-#: backup.js:189 backup.js:196
+#: backup.js:192 backup.js:199
 msgid "Import Error"
 msgstr "Errore di importazione"
 
-#: backup.js:197
+#: backup.js:200
 #, javascript-format
 msgid ""
 "Failed to import configuration\n"
@@ -135,27 +505,27 @@ msgstr ""
 "\n"
 "%s"
 
-#: backup.js:226
+#: backup.js:229
 msgid "My Button"
 msgstr "Il mio pulsante"
 
-#: backup.js:273
+#: backup.js:278
 #, javascript-format
 msgid "No toggles found in %s."
 msgstr "Nessun interruttore trovato in %s."
 
-#: backup.js:284
+#: backup.js:289
 #, javascript-format
 msgid "Successfully imported %d toggle"
 msgid_plural "Successfully imported %d toggles"
 msgstr[0] "Importato con successo %d interruttore"
 msgstr[1] "Importati con successo %d interruttori"
 
-#: backup.js:304
+#: backup.js:309
 msgid "All settings reset to defaults"
 msgstr "Tutte le impostazioni ripristinate ai valori predefiniti"
 
-#: backup.js:311
+#: backup.js:316
 msgid "Failed to reset settings"
 msgstr "Impossibile ripristinare le impostazioni"
 
@@ -167,329 +537,19 @@ msgstr "Imposta una scorciatoia da tastiera per il pulsante interruttore"
 msgid "Not assigned"
 msgstr "Non assegnato"
 
+#: keybinding.js:75
+#, fuzzy
+msgid "Remove shortcut"
+msgstr "Scorciatoia da tastiera"
+
 #: keybinding.js:105
 msgid "Press Esc to cancel or Backspace to disable the shortcut"
 msgstr "Premi Esc per annullare o Backspace per disabilitare la scorciatoia"
 
-#: prefs.js:53
-msgid "Icon List"
-msgstr "Elenco icone"
-
-#: prefs.js:56
-msgid "About"
-msgstr "Informazioni"
-
-#: prefs.js:66
-msgid "Help and resources"
-msgstr "Aiuto e risorse"
-
-#: prefs.js:130
-msgid "Toggle Button"
-msgstr "Pulsante interruttore"
-
-#: prefs.js:131
-#, javascript-format
-msgid "Button %d"
-msgstr "Pulsante %d"
-
-#: prefs.js:144
-msgid "Appearance"
-msgstr "Aspetto"
-
-#: prefs.js:150 prefs.js:159
-msgid "Hide this toggle"
-msgstr "Nascondi questo interruttore"
-
-#: prefs.js:150 prefs.js:159
-msgid "Show this toggle"
-msgstr "Mostra questo interruttore"
-
-#: prefs.js:172
-msgid "Button name:"
-msgstr "Nome pulsante:"
-
-#: prefs.js:177
-msgid "Icon:"
-msgstr "Icona:"
-
-#: prefs.js:185
-msgid "Commands"
-msgstr "Comandi"
-
-#: prefs.js:190
-msgid "Toggle ON Command:"
-msgstr "Comando su attivazione:"
-
-#: prefs.js:195
-msgid "Toggle OFF Command:"
-msgstr "Comando su disattivazione:"
-
-#: prefs.js:200
-msgid "Check Status Command:"
-msgstr "Comando verifica stato:"
-
-#: prefs.js:205
-msgid "Check Status Search Term:"
-msgstr "Termine di ricerca verifica stato:"
-
-#: prefs.js:213
-msgid "Startup Behavior"
-msgstr "Comportamento all'avvio"
-
-#: prefs.js:218
-msgid "On"
-msgstr "Attivo"
-
-#: prefs.js:218
-msgid "Off"
-msgstr "Disattivo"
-
-#: prefs.js:218
-msgid "Previous state"
-msgstr "Stato precedente"
-
-#: prefs.js:218
-msgid "Command output"
-msgstr "Output del comando"
-
-#: prefs.js:220
-msgid "Initial State"
-msgstr "Stato iniziale"
-
-#: prefs.js:221
-msgid "State of the toggle button at login/startup"
-msgstr "Stato del pulsante interruttore all'accesso/avvio"
-
-#: prefs.js:228 prefs.js:365
-msgid "Command Configuration"
-msgstr "Configurazione comandi"
-
-#: prefs.js:230
-msgid ""
-"Enter the Check Status Command and Search Term in the Commands section "
-"above. If the specified Search Term appears in the command's output, the "
-"button will be set to ON at startup. Otherwise, the button will be set to "
-"OFF."
-msgstr ""
-"Inserisci il Comando verifica stato e il Termine di ricerca nella sezione "
-"Comandi sopra. Se il Termine di ricerca specificato appare nell'output del "
-"comando, il pulsante verrà impostato su ATTIVO all'avvio. Altrimenti, il "
-"pulsante verrà impostato su DISATTIVO."
-
-#: prefs.js:246
-msgid "Run Command at Startup"
-msgstr "Esegui comando all'avvio"
-
-#: prefs.js:247
-msgid "Run associated toggle command at login/startup"
-msgstr "Esegui il comando associato all'interruttore all'accesso/avvio"
-
-#: prefs.js:260 prefs.js:272
-msgid "Startup Delay (seconds)"
-msgstr "Ritardo avvio (secondi)"
-
-#: prefs.js:261 prefs.js:273
-msgid "Amount of time to delay command from running after startup"
-msgstr "Tempo di attesa prima dell'esecuzione del comando dopo l'avvio"
-
-#: prefs.js:288
-msgid "Toggle Behavior"
-msgstr "Comportamento interruttore"
-
-#: prefs.js:292
-msgid "Always on"
-msgstr "Sempre attivo"
-
-#: prefs.js:292
-msgid "Always off"
-msgstr "Sempre disattivo"
-
-#: prefs.js:292
-msgid "Toggle"
-msgstr "Alterna"
-
-#: prefs.js:295
-msgid "Button Click Action"
-msgstr "Azione al clic del pulsante"
-
-#: prefs.js:296
-msgid "Button behavior when clicked"
-msgstr "Comportamento del pulsante al clic"
-
-#: prefs.js:303
-msgid "Check Command Exit Code"
-msgstr "Verifica codice di uscita del comando"
-
-#: prefs.js:304
-msgid "Only toggle if the command executes successfully (returns exit code 0)"
-msgstr "Alterna solo se il comando viene eseguito con successo (restituisce codice di uscita 0)"
-
-#: prefs.js:325
-msgid "Show Indicator Icon"
-msgstr "Mostra icona dell'indicatore"
-
-#: prefs.js:326
-msgid "Show top bar icon when toggle button is switched on"
-msgstr "Mostra l'icona nella barra superiore quando il pulsante interruttore è attivo"
-
-#: prefs.js:332
-msgid "Close Menu After Button Press"
-msgstr "Chiudi menu dopo la pressione del pulsante"
-
-#: prefs.js:333
-msgid "Close the system menu immediately after clicking toggle button"
-msgstr "Chiudi immediatamente il menu di sistema dopo aver cliccato il pulsante interruttore"
-
-#: prefs.js:342
-msgid "Command Sync Behavior"
-msgstr "Comportamento sincronizzazione comando"
-
-#: prefs.js:346
-msgid "Keep Toggle State Synced"
-msgstr "Mantieni lo stato dell'interruttore sincronizzato"
-
-#: prefs.js:347
-msgid "Keep toggle button state synced with a command's output"
-msgstr "Mantieni lo stato del pulsante interruttore sincronizzato con l'output di un comando"
-
-#: prefs.js:367
-msgid ""
-"Enter the Check Status Command and Search Term in the Commands section "
-"above. If the specified Search Term appears in the command's output, the "
-"button will be set to ON. Otherwise, the button will be set to OFF."
-msgstr ""
-"Inserisci il Comando verifica stato e il Termine di ricerca nella sezione "
-"Comandi sopra. Se il Termine di ricerca specificato appare nell'output del "
-"comando, il  pulsante verrà impostato su ATTIVO. Altrimenti, il pulsante "
-"verrà impostato su DISATTIVO."
-
-#: prefs.js:376
-msgid "Polling Frequency (seconds)"
-msgstr "Frequenza di polling (secondi)"
-
-#: prefs.js:377
-msgid "How often to check the command output and update button state"
-msgstr "Frequenza di verifica dell'output del comando e aggiornamento dello stato del pulsante"
-
-#: prefs.js:388
-msgid ""
-"Command sync is disabled. To enable, set the Button Click Action to Toggle."
-msgstr ""
-"La sincronizzazione dei comandi è disabilitata. Per attivarla, imposta l'Azione al click del pulsante su Alterna."
-
-#: prefs.js:400
-msgid "Keyboard Shortcut"
-msgstr "Scorciatoia da tastiera"
-
-#: prefs.js:407
-msgid "Assign Shortcut"
-msgstr "Assegna scorciatoia"
-
-#: prefs.js:454
-msgid "Configuration"
-msgstr "Configurazione"
-
-#: prefs.js:464
-msgid "Settings"
-msgstr "Impostazioni"
-
-#: prefs.js:469
-msgid "Number of Toggle Buttons"
-msgstr "Numero di pulsanti interruttore"
-
-#: prefs.js:470
-msgid "Click Apply to save and reinitialize toggle states"
-msgstr "Clicca Applica per salvare e reinizializzare gli stati dell'interruttore"
-
-#: prefs.js:481
-msgid "Apply"
-msgstr "Applica"
-
-#: prefs.js:510
-msgid "Backup and Restore"
-msgstr "Backup e ripristino"
-
-#: prefs.js:515
-msgid "Import Configuration"
-msgstr "Importa configurazione"
-
-#: prefs.js:516
-msgid ""
-"Click to import the toggles.ini configuration file from the home directory"
-msgstr ""
-"Clicca per importare il file di configurazione toggles.ini dalla directory home"
-
-#: prefs.js:529
-msgid "Export Configuration"
-msgstr "Esporta configurazione"
-
-#: prefs.js:530
-msgid ""
-"Click to export the toggles.ini configuration file to the home directory"
-msgstr ""
-"Clicca per esportare il file di configurazione toggles.ini nella directory home"
-
-#: prefs.js:544
-msgid "Advanced"
-msgstr "Avanzate"
-
-#: prefs.js:549
-msgid "Detailed Logging"
-msgstr "Log dettagliato"
-
-#: prefs.js:550
-#, javascript-format
-msgid ""
-"To view output, run the following in a terminal then restart extension:\n"
-"%s"
-msgstr ""
-"Per visualizzare l'output, esegui il seguente comando in un terminale e riavvia l'estensione:\n"
-"%s"
-
-#: prefs.js:557
-msgid "Copy command to clipboard"
-msgstr "Copia comando negli appunti"
-
-#: prefs.js:570
-msgid "Command copied to clipboard"
-msgstr "Comando copiato negli appunti"
-
-#: prefs.js:577
-msgid "Reset to Defaults"
-msgstr "Ripristina predefiniti"
-
-#: prefs.js:578
-msgid "Click to restore all toggles and settings to their default values"
-msgstr "Clicca per ripristinare tutti gli interruttori e le impostazioni ai valori predefiniti"
-
-#: prefs.js:584
-msgid "Confirm Reset"
-msgstr "Conferma ripristino"
-
-#: prefs.js:585
-msgid ""
-"All toggles and extension settings will be reset to their default values. "
-"This action cannot be undone."
-msgstr ""
-"Tutti gli interruttori e le impostazioni dell'estensione verranno ripristinati ai valori predefiniti. "
-"Questa azione non può essere annullata."
-
-#: prefs.js:590
-msgid "Cancel"
-msgstr "Annulla"
-
-#: prefs.js:591
-msgid "Reset"
-msgstr "Ripristina"
-
-#: prefs.js:611
-msgid "Resources"
-msgstr "Risorse"
-
-#: prefs.js:615
-msgid ""
-"Find links to the User Guide, Icon List, and other helpful information in "
-"the menu at the top of this window."
-msgstr ""
-"Trova i link alla Guida utente, all'Elenco icone e ad altre informazioni utili nel "
-"menu in cima a questa finestra."
+#, fuzzy
+#~ msgid "No command configured"
+#~ msgstr "Configurazione comandi"
+
+#, fuzzy
+#~ msgid "Icon"
+#~ msgstr "Icona:"
