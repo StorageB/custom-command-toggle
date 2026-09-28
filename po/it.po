@@ -39,19 +39,19 @@ msgstr "Discussioni"
 
 #: menu.js:12
 msgid "Click + to add a menu item"
-msgstr ""
+msgstr "Fai clic su + per aggiungere una voce di menu"
 
 #: menu.js:37
 msgid "Add menu item"
-msgstr ""
+msgstr "Aggiungi voce di menu"
 
 #: menu.js:58 menu.js:90
 msgid "New Menu Item"
-msgstr ""
+msgstr "Nuova Voce di Menu"
 
 #: menu.js:62
 msgid "Name:"
-msgstr ""
+msgstr "Nome:"
 
 #: menu.js:68 prefs.js:169
 msgid "Icon:"
@@ -60,11 +60,11 @@ msgstr "Icona:"
 #: menu.js:74
 #, fuzzy
 msgid "Command:"
-msgstr "Comandi"
+msgstr "Comando:"
 
 #: menu.js:81
 msgid "Remove menu item"
-msgstr ""
+msgstr "Rimuovi voce di menu"
 
 #: prefs.js:54
 msgid "Icon List"
