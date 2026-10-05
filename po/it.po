@@ -58,7 +58,6 @@ msgid "Icon:"
 msgstr "Icona:"
 
 #: menu.js:74
-#, fuzzy
 msgid "Command:"
 msgstr "Comando:"
 
@@ -124,7 +123,6 @@ msgid "Check Status Search Term:"
 msgstr "Termine di ricerca verifica stato:"
 
 #: prefs.js:205
-#, fuzzy
 msgid "Menu Commands"
 msgstr "Comandi"
 
@@ -538,7 +536,6 @@ msgid "Not assigned"
 msgstr "Non assegnato"
 
 #: keybinding.js:75
-#, fuzzy
 msgid "Remove shortcut"
 msgstr "Scorciatoia da tastiera"
 
@@ -546,10 +543,8 @@ msgstr "Scorciatoia da tastiera"
 msgid "Press Esc to cancel or Backspace to disable the shortcut"
 msgstr "Premi Esc per annullare o Backspace per disabilitare la scorciatoia"
 
-#, fuzzy
 #~ msgid "No command configured"
 #~ msgstr "Configurazione comandi"
 
-#, fuzzy
 #~ msgid "Icon"
 #~ msgstr "Icona:"
