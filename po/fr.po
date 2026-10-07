@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: custom-command-toggle-v15.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-25 14:37-0500\n"
-"PO-Revision-Date: 2026-08-11 17:03-0600\n"
+"PO-Revision-Date: 2026-10-07 21:03-0600\n"
 "Last-Translator: Unacceptable Lobster\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -39,7 +39,7 @@ msgstr "Discussions"
 
 #: menu.js:12
 msgid "Click + to add a menu item"
-msgstr "Clique + pour ajouter un élément de menu "
+msgstr "Clique + pour ajouter un élément de menu"
 
 #: menu.js:37
 msgid "Add menu item"
@@ -58,9 +58,8 @@ msgid "Icon:"
 msgstr "Icône :"
 
 #: menu.js:74
-#, fuzzy
 msgid "Command:"
-msgstr "Commandes"
+msgstr "Commande :"
 
 #: menu.js:81
 msgid "Remove menu item"
@@ -124,9 +123,8 @@ msgid "Check Status Search Term:"
 msgstr "Terme de recherche pour le statut :"
 
 #: prefs.js:205
-#, fuzzy
 msgid "Menu Commands"
-msgstr "Commandes"
+msgstr "Menu des commandes"
 
 #: prefs.js:215
 msgid "Startup Behavior"
@@ -307,7 +305,7 @@ msgstr "Nombre de boutons de basculement"
 #: prefs.js:469
 msgid "Click Apply to save and reinitialize toggle states"
 msgstr ""
-"Cliqu sur Appliquer pour enregistrer et réinitialiser les états des "
+"Clique sur Appliquer pour enregistrer et réinitialiser les états des "
 "basculements"
 
 #: prefs.js:480
@@ -442,8 +440,8 @@ msgstr ""
 "suivant ces étapes :\n"
 "\n"
 "1. Ouvre le dossier personnel et localise le fichier toggles.ini\n"
-"2. Faites un clic droit sur le fichier et sélectionne \"Ouvrir avec...\"\n"
-"3. Choisisse un éditeur de texte par défaut et sélectionne l'option "
+"2. Fais un clic droit sur le fichier et sélectionne \"Ouvrir avec...\"\n"
+"3. Choisis un éditeur de texte par défaut et sélectionne l'option "
 "\"Toujours utiliser pour ce type de fichier\""
 
 #: backup.js:140 backup.js:147
@@ -540,9 +538,8 @@ msgid "Not assigned"
 msgstr "Non assigné"
 
 #: keybinding.js:75
-#, fuzzy
 msgid "Remove shortcut"
-msgstr "Raccourci clavier"
+msgstr "Supprimer le raccourci"
 
 #: keybinding.js:105
 msgid "Press Esc to cancel or Backspace to disable the shortcut"
