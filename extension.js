@@ -28,6 +28,7 @@ import {QuickToggle, QuickMenuToggle, SystemIndicator} from 'resource:///org/gno
 
 import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
+import GioUnix from 'gi://GioUnix';
 import Meta from 'gi://Meta';
 import Shell from 'gi://Shell';
 
@@ -934,7 +935,7 @@ export default class CustomQuickToggleExtension extends Extension {
                     return;
                 }
 
-                const baseStream = new Gio.UnixInputStream({ fd: stdoutFd, close_fd: true });
+                const baseStream = new GioUnix.InputStream({ fd: stdoutFd, close_fd: true });
                 const dataStream = new Gio.DataInputStream({ base_stream: baseStream });
 
                 let didFinish = false;
