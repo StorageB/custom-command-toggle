@@ -467,6 +467,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dropdown-menu-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dropdown Menu Commands
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#startup-behavior" class="md-nav__link">
     <span class="md-ellipsis">
       Startup Behavior
@@ -749,6 +758,12 @@
 <li>Enable the <em>Check Command Exit Code</em> option under <a href="#toggle-behavior">Toggle Behavior</a> for sudo commands. This will prevent the toggle button from changing status if the wrong password is entered or the command is canceled.</li>
 </ul>
 <hr />
+<h2 id="dropdown-menu-commands">Dropdown Menu Commands</h2>
+<p>Create custom dropdown menu commands for each toggle button.</p>
+<p><img alt="screenshot-dropdown-menu" src="../screenshots/screenshot-dropdown-menu-15.png" /></p>
+<p>Click the + button at the top of the <em>Menu Commands</em> section to add a new menu item. Enter the <em>Name</em>, <em>Icon (optional)</em>, and the <em>Command</em> to run when the menu item is selcted. Click the trash icon to remove a menu item. Refer to the <a href="./#icons">Icons</a> and <a href="./#commands">Commands</a> sections for more detials. </p>
+<p><img alt="screenshot-menu-commands" src="../screenshots/screenshot-menu-commands-15.png" /></p>
+<hr />
 <h2 id="startup-behavior">Startup Behavior</h2>
 <p>Specify the state of each toggle button at startup:</p>
 <ul>
@@ -793,7 +808,7 @@
 <div class="admonition tip">
 <p class="admonition-title">The toggles.ini file can be viewed and edited using any text editor</p>
 </div>
-<p>The following settings are supported in the toggles.ini configuration file:</p>
+<p>The following settings are supported in the <code>toggles.ini</code> configuration file:</p>
 <div class="codehilite"><pre><span></span><code><span class="nv">button</span><span class="o">-</span><span class="nv">name</span>:<span class="w"> </span><span class="o">&lt;</span><span class="nv">text</span><span class="o">&gt;</span>
 <span class="nv">icon</span>:<span class="w"> </span><span class="o">&lt;</span><span class="nv">text</span><span class="o">&gt;</span>
 <span class="nv">toggle</span><span class="o">-</span><span class="nv">on</span><span class="o">-</span><span class="nv">command</span>:<span class="w"> </span><span class="o">&lt;</span><span class="nv">command</span><span class="o">&gt;</span><span class="w"> </span>
@@ -818,7 +833,9 @@
 <span class="nv">command</span><span class="o">-</span><span class="nv">sync</span>:<span class="w"> </span><span class="nv">true</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="nv">false</span><span class="w"> </span>
 <span class="nv">polling</span><span class="o">-</span><span class="nv">frequency</span>:<span class="w"> </span><span class="mi">2</span><span class="o">-</span><span class="mi">900</span><span class="w"> </span><span class="ss">(</span><span class="nv">seconds</span><span class="ss">)</span><span class="w"> </span>
 <span class="nv">keyboard</span><span class="o">-</span><span class="nv">shortcut</span>:<span class="w"> </span><span class="o">&lt;</span><span class="nv">shortcut</span><span class="o">&gt;</span><span class="w"> </span>
-<span class="nv">enabled</span>:<span class="w"> </span><span class="nv">true</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="nv">false</span><span class="w"> </span>
+<span class="nv">enabled</span>:<span class="w"> </span><span class="nv">true</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="nv">false</span>
+<span class="nv">menu</span><span class="o">-</span><span class="nv">items</span>:<span class="w"> </span><span class="o">&lt;</span><span class="nv">JSON</span><span class="w"> </span><span class="nv">array</span><span class="o">&gt;</span><span class="w"> </span>
+<span class="w">    </span>[{<span class="s2">&quot;name&quot;</span>:<span class="s2">&quot;&lt;name&gt;&quot;</span>,<span class="s2">&quot;icon&quot;</span>:<span class="s2">&quot;&lt;icon&gt;&quot;</span>,<span class="s2">&quot;command&quot;</span>:<span class="s2">&quot;&lt;command&gt;&quot;</span>},{<span class="s2">&quot;name&quot;</span>:<span class="s2">&quot;&lt;name&gt;&quot;</span>,<span class="s2">&quot;icon&quot;</span>:<span class="s2">&quot;&lt;icon&gt;&quot;</span>,<span class="s2">&quot;command&quot;</span>:<span class="s2">&quot;&lt;command&gt;&quot;</span>}]<span class="w"> </span>
 </code></pre></div>
 
 <p>Each toggle is defined in its own section. Below is an example configuration for toggle button 1 (up to 6 toggle buttons are supported):</p>
@@ -841,6 +858,7 @@
 <span class="na">polling-frequency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">10</span>
 <span class="na">keyboard-shortcut</span><span class="w"> </span><span class="o">=</span>
 <span class="na">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+<span class="na">menu-items</span><span class="o">=</span><span class="s">[{&quot;name&quot;:&quot;Menu Command&quot;,&quot;icon&quot;:&quot;emoji-objects-symbolic&quot;,&quot;command&quot;:&quot;notify-send \\&quot;Custom Command Toggle\\&quot; \\&quot;Menu command executed\\&quot;&quot;}]</span>
 </code></pre></div>
 
 <hr />
