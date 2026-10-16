@@ -1,7 +1,7 @@
 <!-- changelog.md -->
 
 
-## Version 15 (2026-10-xx)
+## Version 15 (2026-10-16)
 
 **New Features**
 
@@ -11,8 +11,9 @@
 
 - Fixed an issue where command-check timeouts could be associated with the wrong toggle.
 - Improved cleanup of timers and settings signal connections.
+- Fixed compatibility with newer GNOME versions by replacing Gio.UnixInputStream with GioUnix.InputStream for command output checks. Fix provided by MorningStar0709.
 - Minor code revisions to improve code readability.
-- Updated translatsions by <>.
+- Updated translatsions by Vistaus, Kasui92, and unacceptablelobster.
 
 ---
 
@@ -20,7 +21,7 @@
 
 **New Features**
 
-- French translation provided by Unacceptable Lobster.
+- French translation provided by unacceptablelobster.
 - Support for GNOME 51.
 
 ---

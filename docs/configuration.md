@@ -63,6 +63,18 @@ If using the _Command output_ option for the _Initial State_ setting or the _Kee
 
 ---
 
+## Dropdown Menu Commands
+
+Create custom dropdown menu commands for each toggle button.
+
+![screenshot-dropdown-menu](screenshots/screenshot-dropdown-menu-15.png)
+
+Click the + button at the top of the _Menu Commands_ section to add a new menu item. Enter the _Name_, _Icon (optional)_, and the _Command_ to run when the menu item is selcted. Click the trash icon to remove a menu item. Refer to the [Icons](configuration.md/#icons) and [Commands](configuration.md/#commands) sections for more detials. 
+
+![screenshot-menu-commands](screenshots/screenshot-menu-commands-15.png)
+
+---
+
 ## Startup Behavior
 
 Specify the state of each toggle button at startup:
@@ -132,7 +144,7 @@ Configurations are imported from and saved to the user's home directory (`~/togg
 
 !!! tip "The toggles.ini file can be viewed and edited using any text editor"
 
-The following settings are supported in the toggles.ini configuration file:
+The following settings are supported in the `toggles.ini` configuration file:
  
 ```
 button-name: <text>
@@ -159,7 +171,9 @@ close-menu: true or false
 command-sync: true or false 
 polling-frequency: 2-900 (seconds) 
 keyboard-shortcut: <shortcut> 
-enabled: true or false 
+enabled: true or false
+menu-items: <JSON array> 
+    [{"name":"<name>","icon":"<icon>","command":"<command>"},{"name":"<name>","icon":"<icon>","command":"<command>"}] 
 ```
 
 Each toggle is defined in its own section. Below is an example configuration for toggle button 1 (up to 6 toggle buttons are supported):
@@ -184,6 +198,7 @@ command-sync = false
 polling-frequency = 10
 keyboard-shortcut =
 enabled = true
+menu-items=[{"name":"Menu Command","icon":"emoji-objects-symbolic","command":"notify-send \\"Custom Command Toggle\\" \\"Menu command executed\\""}]
 ```
 
 ---
