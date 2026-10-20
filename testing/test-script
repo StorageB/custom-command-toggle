@@ -11,10 +11,10 @@ stop() {
 status() {
     sleep 1
     if [ -f /tmp/custom-command-toggle-test ]; then
-        echo "Custom Command Toggle is running"
+        echo "[Custom Command Toggle] test script is ENABLED"
         exit 0
     else
-        echo "Custom Command Toggle is not running"
+        echo "[Custom Command Toggle] test script is DISABLED"
         exit 1
     fi
 }
