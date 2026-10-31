@@ -469,7 +469,7 @@ function executeCommand(toggleNumber, toggleChecked, commandChecked, commandUnch
     if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | ${command.trim() === '' ? '(no command provided)' : command}`);
     if (command.trim() === "") return;
 
-    let [success, pid] = GLib.spawn_async(null, ["/usr/bin/env", "bash", "-c", command], null, GLib.SpawnFlags.SEARCH_PATH, null);
+    let [success, pid] = GLib.spawn_async(null, ["/bin/sh", "-c", command], null, GLib.SpawnFlags.SEARCH_PATH, null);
     if (!success && debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Failed to spawn command`);
 }
 //#endregion Execute Command
@@ -483,7 +483,7 @@ function checkCommandExitCode(toggleNumber, toggleChecked, commandChecked, comma
     if (command.trim() === "") return;
 
     try {
-        let [success, pid] = GLib.spawn_async(null, ["/usr/bin/env", "bash", "-c", command], null, GLib.SpawnFlags.SEARCH_PATH | GLib.SpawnFlags.DO_NOT_REAP_CHILD | GLib.SpawnFlags.STDOUT_TO_DEV_NULL, null);  
+        let [success, pid] = GLib.spawn_async(null, ["/bin/sh", "-c", command], null, GLib.SpawnFlags.SEARCH_PATH | GLib.SpawnFlags.DO_NOT_REAP_CHILD | GLib.SpawnFlags.STDOUT_TO_DEV_NULL, null);  
         if (success) {
             GLib.child_watch_add(GLib.PRIORITY_DEFAULT, pid, (pid, status) => {
                 try {
@@ -920,7 +920,7 @@ export default class CustomQuickToggleExtension extends Extension {
             try {
                 let [success, pid, stdinFd, stdoutFd, stderrFd] = GLib.spawn_async_with_pipes(
                     null,
-                    ["/usr/bin/env", "bash", "-c", checkCommand],
+                    ["/bin/sh", "-c", checkCommand],
                     null,
                     GLib.SpawnFlags.SEARCH_PATH | GLib.SpawnFlags.DO_NOT_REAP_CHILD,
                     null
