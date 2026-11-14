@@ -2,7 +2,9 @@
 
 ## Version 16 (XXXX-XX-XX)
 
-**NOTICE:** Command execution was changed to use POSIX sh instead of bash. If you use bash specific syntax in your commands, you may need to adapt it or explicitly run your command using Bash (bash -c '...'), or 
+**IMPORTANT NOTE** 
+
+Command execution was changed to use POSIX sh instead of Bash. If you use Bash-specific syntax in your commands, you may need to adapt it or explicitly run your command using Bash (bash -c '...'). Alternatively, you can put your commands in a separate Bash script (with a #!/bin/bash shebang) and execute the script from the extension.
 
 **New Features**
 
