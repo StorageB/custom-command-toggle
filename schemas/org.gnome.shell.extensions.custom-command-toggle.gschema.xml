@@ -73,6 +73,10 @@
       <default>10</default>
       <summary>Check command output interval in seconds</summary>
     </key>
+    <key name="synconclick1-setting" type="b">
+      <default>false</default>
+       <summary>Update state of all toggles on Button 1 click</summary>
+    </key>    
     <key name="showindicator1-setting" type="b">
       <default>true</default>
       <summary>Button 1 show top bar indicator setting</summary>
@@ -143,6 +147,9 @@
     <key name="checkcommandinterval2-setting" type="i">
       <default>10</default>
     </key>
+    <key name="synconclick2-setting" type="b">
+      <default>false</default>
+    </key>    
     <key name="showindicator2-setting" type="b">
       <default>true</default>
     </key>
@@ -204,6 +211,9 @@
     <key name="checkcommandinterval3-setting" type="i">
       <default>10</default>
     </key>
+    <key name="synconclick3-setting" type="b">
+      <default>false</default>
+    </key>        
     <key name="showindicator3-setting" type="b">
       <default>true</default>
     </key>
@@ -265,6 +275,9 @@
     <key name="checkcommandinterval4-setting" type="i">
       <default>10</default>
     </key>
+    <key name="synconclick4-setting" type="b">
+      <default>false</default>
+    </key>        
     <key name="showindicator4-setting" type="b">
       <default>true</default>
     </key>
@@ -326,6 +339,9 @@
     <key name="checkcommandinterval5-setting" type="i">
       <default>10</default>
     </key>
+    <key name="synconclick5-setting" type="b">
+      <default>false</default>
+    </key>        
     <key name="showindicator5-setting" type="b">
       <default>true</default>
     </key>
@@ -387,6 +403,9 @@
     <key name="checkcommandinterval6-setting" type="i">
       <default>10</default>
     </key>
+    <key name="synconclick6-setting" type="b">
+      <default>false</default>
+    </key>        
     <key name="showindicator6-setting" type="b">
       <default>true</default>
     </key>

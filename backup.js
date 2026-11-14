@@ -63,6 +63,7 @@ export function exportConfiguration(numButtons, settings, window) {
         ` show-indicator: true or false \n` +
         ` close-menu: true or false \n` +
         ` command-sync: true or false \n` +
+        ` sync-on-click: true or false \n` +
         ` polling-frequency: 2-900 (seconds) \n` + 
         ` keyboard-shortcut: <shortcut> \n` +
         ` enabled: true or false \n` +
@@ -94,6 +95,7 @@ export function exportConfiguration(numButtons, settings, window) {
         keyFile.set_string(`Toggle ${i}`, 'close-menu', `${settings.get_boolean(`closemenu${i}-setting`)}`); 
         keyFile.set_string(`Toggle ${i}`, 'command-sync', `${settings.get_boolean(`checkcommandsync${i}-setting`)}`); 
         keyFile.set_string(`Toggle ${i}`, 'polling-frequency', `${settings.get_int(`checkcommandinterval${i}-setting`)}`);
+        keyFile.set_string(`Toggle ${i}`, 'sync-on-click', `${settings.get_boolean(`synconclick${i}-setting`)}`);
         const keybindings = settings.get_value(`keybinding${i}-setting`).deep_unpack();
         keyFile.set_string(`Toggle ${i}`, 'keyboard-shortcut', keybindings[0]);
         keyFile.set_string(`Toggle ${i}`, 'enabled', `${settings.get_boolean(`enabled${i}-setting`)}`);
@@ -242,6 +244,7 @@ export function importConfiguration(settings, window) {
             let close_menu           = getBool('close-menu', false);
             let command_sync         = getBool('command-sync', false);
             let polling_frequency    = getInt('polling-frequency', 10);
+            let sync_on_click        = getBool('sync-on-click', false);
             let keyboard_shortcut    = getString('keyboard-shortcut', '');
             let enabled              = getBool('enabled', true);
             let menu_items           = getString('menu-items', '[]');
@@ -268,6 +271,7 @@ export function importConfiguration(settings, window) {
             settings.set_boolean(`closemenu${buttonCount}-setting`, close_menu);
             settings.set_boolean(`checkcommandsync${buttonCount}-setting`, command_sync);
             settings.set_int(`checkcommandinterval${buttonCount}-setting`, polling_frequency);
+            settings.set_boolean(`synconclick${buttonCount}-setting`, sync_on_click);
             settings.set_strv(`keybinding${buttonCount}-setting`, keyboard_shortcut ? [keyboard_shortcut] : ['']);
             settings.set_boolean(`enabled${buttonCount}-setting`, enabled);
             settings.set_string(`menuitems${buttonCount}-setting`, menu_items);

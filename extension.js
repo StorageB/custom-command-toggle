@@ -53,8 +53,10 @@ let buttonClick4 = 2; let buttonClick5 = 2; let buttonClick6 = 2;
 let shortcutId1; let shortcutId2; let shortcutId3; 
 let shortcutId4; let shortcutId5; let shortcutId6;
 
-let checkIntervals = []; let commandTimeouts = [];
-let isRunning = [];
+let checkIntervals = []; let commandTimeouts = []; let isRunning = [];
+
+let syncOtherToggles = null;
+
 let debug = false;
 
 
@@ -152,6 +154,7 @@ class MyIndicator1 extends SystemIndicator {
             if (settings.get_int('buttonclick1-setting') === 2 && settings.get_boolean('checkexitcode1-setting')) {
                 checkCommandExitCode(1, this.toggle1.checked, entryRow1, entryRow2, (exitCodeResult) => {
                     if (debug) console.log(`[Custom Command Toggle] Toggle 1 | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);              
+                    if (exitCodeResult && settings.get_boolean('synconclick1-setting')) syncOtherToggles(1);                    
                     if (!exitCodeResult) {
                         this.toggle1.checked = !this.toggle1.checked;
                         toggleStates[0] = this.toggle1.checked;
@@ -164,9 +167,9 @@ class MyIndicator1 extends SystemIndicator {
                 });
             } else {
                 switch (buttonClick1) {
-                    case 0: executeCommand(1, true, entryRow1, entryRow2); this.toggle1.checked = true; break; 
-                    case 1: executeCommand(1, false, entryRow1, entryRow2); this.toggle1.checked = false; break; 
-                    case 2: executeCommand(1, this.toggle1.checked, entryRow1, entryRow2); break;
+                    case 0: executeCommand(1, true, entryRow1, entryRow2, false, settings.get_boolean('synconclick1-setting')); this.toggle1.checked = true; break; 
+                    case 1: executeCommand(1, false, entryRow1, entryRow2, false, settings.get_boolean('synconclick1-setting')); this.toggle1.checked = false; break; 
+                    case 2: executeCommand(1, this.toggle1.checked, entryRow1, entryRow2, false, settings.get_boolean('synconclick1-setting')); break;
                 }
             }
             toggleStates[0] = this.toggle1.checked;
@@ -208,6 +211,7 @@ class MyIndicator2 extends SystemIndicator {
             if (settings.get_int('buttonclick2-setting') === 2 && settings.get_boolean('checkexitcode2-setting')) {
                 checkCommandExitCode(2, this.toggle2.checked, entryRow12, entryRow22, (exitCodeResult) => {
                     if (debug) console.log(`[Custom Command Toggle] Toggle 2 | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);                    
+                    if (exitCodeResult && settings.get_boolean('synconclick2-setting')) syncOtherToggles(2);
                     if (!exitCodeResult) {
                         this.toggle2.checked = !this.toggle2.checked;
                         toggleStates[1] = this.toggle2.checked;
@@ -220,9 +224,9 @@ class MyIndicator2 extends SystemIndicator {
                 });
             } else {
                 switch (buttonClick2) {
-                    case 0: executeCommand(2, true, entryRow12, entryRow22); this.toggle2.checked = true; break; 
-                    case 1: executeCommand(2, false, entryRow12, entryRow22); this.toggle2.checked = false; break; 
-                    case 2: executeCommand(2, this.toggle2.checked, entryRow12, entryRow22); break;
+                    case 0: executeCommand(2, true, entryRow12, entryRow22, false, settings.get_boolean('synconclick2-setting')); this.toggle2.checked = true; break; 
+                    case 1: executeCommand(2, false, entryRow12, entryRow22, false, settings.get_boolean('synconclick2-setting')); this.toggle2.checked = false; break; 
+                    case 2: executeCommand(2, this.toggle2.checked, entryRow12, entryRow22, false, settings.get_boolean('synconclick2-setting')); break;
                 }
             }
             toggleStates[1] = this.toggle2.checked;
@@ -264,6 +268,7 @@ class MyIndicator3 extends SystemIndicator {
             if (settings.get_int('buttonclick3-setting') === 2 && settings.get_boolean('checkexitcode3-setting')) {
                 checkCommandExitCode(3, this.toggle3.checked, entryRow13, entryRow23, (exitCodeResult) => {
                     if (debug) console.log(`[Custom Command Toggle] Toggle 3 | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);
+                    if (exitCodeResult && settings.get_boolean('synconclick3-setting')) syncOtherToggles(3);                    
                     if (!exitCodeResult) {
                         this.toggle3.checked = !this.toggle3.checked;
                         toggleStates[2] = this.toggle3.checked;
@@ -276,9 +281,9 @@ class MyIndicator3 extends SystemIndicator {
                 });
             } else {
                 switch (buttonClick3) {
-                    case 0: executeCommand(3, true, entryRow13, entryRow23); this.toggle3.checked = true; break; 
-                    case 1: executeCommand(3, false, entryRow13, entryRow23); this.toggle3.checked = false; break; 
-                    case 2: executeCommand(3, this.toggle3.checked, entryRow13, entryRow23); break;
+                    case 0: executeCommand(3, true, entryRow13, entryRow23, false, settings.get_boolean('synconclick3-setting')); this.toggle3.checked = true; break; 
+                    case 1: executeCommand(3, false, entryRow13, entryRow23, false, settings.get_boolean('synconclick3-setting')); this.toggle3.checked = false; break; 
+                    case 2: executeCommand(3, this.toggle3.checked, entryRow13, entryRow23, false, settings.get_boolean('synconclick3-setting')); break;
                 }
             }
             toggleStates[2] = this.toggle3.checked;
@@ -320,6 +325,7 @@ class MyIndicator4 extends SystemIndicator {
             if (settings.get_int('buttonclick4-setting') === 2 && settings.get_boolean('checkexitcode4-setting')) {
                 checkCommandExitCode(4, this.toggle4.checked, entryRow14, entryRow24, (exitCodeResult) => {
                     if (debug) console.log(`[Custom Command Toggle] Toggle 4 | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);
+                    if (exitCodeResult && settings.get_boolean('synconclick4-setting')) syncOtherToggles(4);                    
                     if (!exitCodeResult) {
                         this.toggle4.checked = !this.toggle4.checked;
                         toggleStates[3] = this.toggle4.checked;
@@ -332,9 +338,9 @@ class MyIndicator4 extends SystemIndicator {
                 });
             } else {
                 switch (buttonClick4) {
-                    case 0: executeCommand(4, true, entryRow14, entryRow24); this.toggle4.checked = true; break; 
-                    case 1: executeCommand(4, false, entryRow14, entryRow24); this.toggle4.checked = false; break; 
-                    case 2: executeCommand(4, this.toggle4.checked, entryRow14, entryRow24); break;
+                    case 0: executeCommand(4, true, entryRow14, entryRow24, false, settings.get_boolean('synconclick4-setting')); this.toggle4.checked = true; break; 
+                    case 1: executeCommand(4, false, entryRow14, entryRow24, false, settings.get_boolean('synconclick4-setting')); this.toggle4.checked = false; break; 
+                    case 2: executeCommand(4, this.toggle4.checked, entryRow14, entryRow24, false, settings.get_boolean('synconclick4-setting')); break;
                 }
             }
             toggleStates[3] = this.toggle4.checked;
@@ -376,6 +382,7 @@ class MyIndicator5 extends SystemIndicator {
             if (settings.get_int('buttonclick5-setting') === 2 && settings.get_boolean('checkexitcode5-setting')) {
                 checkCommandExitCode(5, this.toggle5.checked, entryRow15, entryRow25, (exitCodeResult) => {
                     if (debug) console.log(`[Custom Command Toggle] Toggle 5 | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);
+                    if (exitCodeResult && settings.get_boolean('synconclick5-setting')) syncOtherToggles(5);                    
                     if (!exitCodeResult) {
                         this.toggle5.checked = !this.toggle5.checked;
                         toggleStates[4] = this.toggle5.checked;
@@ -388,9 +395,9 @@ class MyIndicator5 extends SystemIndicator {
                 });
             } else {
                 switch (buttonClick5) {
-                    case 0: executeCommand(5, true, entryRow15, entryRow25); this.toggle5.checked = true; break; 
-                    case 1: executeCommand(5, false, entryRow15, entryRow25); this.toggle5.checked = false; break; 
-                    case 2: executeCommand(5, this.toggle5.checked, entryRow15, entryRow25); break;
+                    case 0: executeCommand(5, true, entryRow15, entryRow25, false, settings.get_boolean('synconclick5-setting')); this.toggle5.checked = true; break; 
+                    case 1: executeCommand(5, false, entryRow15, entryRow25, false, settings.get_boolean('synconclick5-setting')); this.toggle5.checked = false; break; 
+                    case 2: executeCommand(5, this.toggle5.checked, entryRow15, entryRow25, false, settings.get_boolean('synconclick5-setting')); break;
                 }
             }
             toggleStates[4] = this.toggle5.checked;
@@ -432,6 +439,7 @@ class MyIndicator6 extends SystemIndicator {
             if (settings.get_int('buttonclick6-setting') === 2 && settings.get_boolean('checkexitcode6-setting')) {
                 checkCommandExitCode(6, this.toggle6.checked, entryRow16, entryRow26, (exitCodeResult) => {
                     if (debug) console.log(`[Custom Command Toggle] Toggle 6 | Exit code check: ${exitCodeResult ? 'passed' : 'failed'}${exitCodeResult ? '' : ' (toggle state not changed)'}`);
+                    if (exitCodeResult && settings.get_boolean('synconclick6-setting')) syncOtherToggles(6);                    
                     if (!exitCodeResult) {
                         this.toggle6.checked = !this.toggle6.checked;
                         toggleStates[5] = this.toggle6.checked;
@@ -444,9 +452,9 @@ class MyIndicator6 extends SystemIndicator {
                 });
             } else {
                 switch (buttonClick6) {
-                    case 0: executeCommand(6, true, entryRow16, entryRow26); this.toggle6.checked = true; break; 
-                    case 1: executeCommand(6, false, entryRow16, entryRow26); this.toggle6.checked = false; break; 
-                    case 2: executeCommand(6, this.toggle6.checked, entryRow16, entryRow26); break;
+                    case 0: executeCommand(6, true, entryRow16, entryRow26, false, settings.get_boolean('synconclick6-setting')); this.toggle6.checked = true; break; 
+                    case 1: executeCommand(6, false, entryRow16, entryRow26, false, settings.get_boolean('synconclick6-setting')); this.toggle6.checked = false; break; 
+                    case 2: executeCommand(6, this.toggle6.checked, entryRow16, entryRow26, false, settings.get_boolean('synconclick6-setting')); break;
                 }
             }
             toggleStates[5] = this.toggle6.checked;
@@ -463,14 +471,33 @@ class MyIndicator6 extends SystemIndicator {
 
 
 //#region Execute Command
-function executeCommand(toggleNumber, toggleChecked, commandChecked, commandUnchecked, menuCommand = false) {
+function executeCommand(toggleNumber, toggleChecked, commandChecked, commandUnchecked, menuCommand = false, syncOnClickEnabled = false) {
     let command = toggleChecked ? commandChecked : commandUnchecked;
     if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Attempting to execute ${menuCommand ? 'menu' : 'toggle'} command:`);
     if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | ${command.trim() === '' ? '(no command provided)' : command}`);
     if (command.trim() === "") return;
 
-    let [success, pid] = GLib.spawn_async(null, ["/bin/sh", "-c", command], null, GLib.SpawnFlags.SEARCH_PATH, null);
-    if (!success && debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Failed to spawn command`);
+    let syncOnClick = !menuCommand && syncOnClickEnabled;
+    let flags = GLib.SpawnFlags.SEARCH_PATH;
+    if (syncOnClick) flags |= GLib.SpawnFlags.DO_NOT_REAP_CHILD;
+    let [success, pid] = GLib.spawn_async(null, ["/bin/sh", "-c", command], null, flags, null);
+    if (!success) {
+        if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Failed to spawn command`);
+        return;
+    }
+
+    if (syncOnClick) {
+        GLib.child_watch_add(GLib.PRIORITY_DEFAULT, pid, (pid, status) => {
+            try {
+                GLib.spawn_check_exit_status(status);
+                syncOtherToggles(toggleNumber);
+            } catch (e) {
+                if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Command failed: ${e}`);
+            } finally {
+                GLib.spawn_close_pid(pid);
+            }
+        });
+    }
 }
 //#endregion Execute Command
 
@@ -492,6 +519,8 @@ function checkCommandExitCode(toggleNumber, toggleChecked, commandChecked, comma
                 } catch (e) {
                     if (debug) console.log(`[Custom Command Toggle] Toggle ${toggleNumber} | Exit code check: ${e}`);
                     exitCodeCallback(false);
+                } finally {
+                    GLib.spawn_close_pid(pid);
                 }
             });
         } else {
@@ -698,37 +727,37 @@ export default class CustomQuickToggleExtension extends Extension {
             refreshIndicator.call(this);
         }, this);
 
-        this._settings.connectObject('changed::buttonclick1-setting', (settings, key) => {
+        this._settings.connectObject('changed::buttonclick1-setting', (settings) => {
             buttonClick1 = this._settings.get_int('buttonclick1-setting');
             if (buttonClick1 === 0) { toggleStates[0] = true;  settings.set_boolean('togglestate1-setting', toggleStates[0]); }
             if (buttonClick1 === 1) { toggleStates[0] = false; settings.set_boolean('togglestate1-setting', toggleStates[0]); }
             refreshIndicator.call(this);
         }, this);
-        this._settings.connectObject('changed::buttonclick2-setting', (settings, key) => {
+        this._settings.connectObject('changed::buttonclick2-setting', (settings) => {
             buttonClick2 = this._settings.get_int('buttonclick2-setting');
             if (buttonClick2 === 0) { toggleStates[1] = true;  settings.set_boolean('togglestate2-setting', toggleStates[1]); }
             if (buttonClick2 === 1) { toggleStates[1] = false; settings.set_boolean('togglestate2-setting', toggleStates[1]); }
             refreshIndicator.call(this);
         }, this);
-        this._settings.connectObject('changed::buttonclick3-setting', (settings, key) => {
+        this._settings.connectObject('changed::buttonclick3-setting', (settings) => {
             buttonClick3 = this._settings.get_int('buttonclick3-setting');
             if (buttonClick3 === 0) { toggleStates[2] = true;  settings.set_boolean('togglestate3-setting', toggleStates[2]); }
             if (buttonClick3 === 1) { toggleStates[2] = false; settings.set_boolean('togglestate3-setting', toggleStates[2]); }
             refreshIndicator.call(this);
         }, this);
-        this._settings.connectObject('changed::buttonclick4-setting', (settings, key) => {
+        this._settings.connectObject('changed::buttonclick4-setting', (settings) => {
             buttonClick4 = this._settings.get_int('buttonclick4-setting');
             if (buttonClick4 === 0) { toggleStates[3] = true;  settings.set_boolean('togglestate4-setting', toggleStates[3]); }
             if (buttonClick4 === 1) { toggleStates[3] = false; settings.set_boolean('togglestate4-setting', toggleStates[3]); }
             refreshIndicator.call(this);
         }, this);
-        this._settings.connectObject('changed::buttonclick5-setting', (settings, key) => {
+        this._settings.connectObject('changed::buttonclick5-setting', (settings) => {
             buttonClick5 = this._settings.get_int('buttonclick5-setting');
             if (buttonClick5 === 0) { toggleStates[4] = true;  settings.set_boolean('togglestate5-setting', toggleStates[4]); }
             if (buttonClick5 === 1) { toggleStates[4] = false; settings.set_boolean('togglestate5-setting', toggleStates[4]); }
             refreshIndicator.call(this);
         }, this);
-        this._settings.connectObject('changed::buttonclick6-setting', (settings, key) => {
+        this._settings.connectObject('changed::buttonclick6-setting', (settings) => {
             buttonClick6 = this._settings.get_int('buttonclick6-setting');
             if (buttonClick6 === 0) { toggleStates[5] = true;  settings.set_boolean('togglestate6-setting', toggleStates[5]); }
             if (buttonClick6 === 1) { toggleStates[5] = false; settings.set_boolean('togglestate6-setting', toggleStates[5]); }
@@ -910,6 +939,45 @@ export default class CustomQuickToggleExtension extends Extension {
         }
         //#endregion Check Sync
 
+        //#region Sync Other Toggles
+        syncOtherToggles = (sourceToggle) => {
+            if (debug) console.log(`[Custom Command Toggle] Toggle ${sourceToggle} | Syncing other toggles`);
+            let pending = 0;
+        
+            for (let i = 1; i <= numToggleButtons; i++) {
+                if (i === sourceToggle) continue;
+                if (!this._settings.get_boolean(`enabled${i}-setting`)) continue;
+                if (this._settings.get_string(`checkcommand${i}-setting`).trim() === '') continue;
+                if (isRunning[i - 1]) continue;
+                pending++;
+            }
+        
+            if (pending === 0) return;
+        
+            for (let i = 1; i <= numToggleButtons; i++) {
+                if (i === sourceToggle) continue;
+                if (!this._settings.get_boolean(`enabled${i}-setting`)) continue;
+                if (isRunning[i - 1]) continue;
+            
+                const command = this._settings.get_string(`checkcommand${i}-setting`);
+                const searchTerm = this._settings.get_string(`checkregex${i}-setting`);
+            
+                if (command.trim() === '') continue;
+            
+                isRunning[i - 1] = true;
+            
+                checkCommandOutput(i, command, searchTerm, result => {
+                    isRunning[i - 1] = false;
+                    toggleStates[i - 1] = result;
+                    this._settings.set_boolean(`togglestate${i}-setting`, result);
+            
+                    pending--;
+                    if (pending === 0)
+                        refreshIndicator.call(this);
+                });
+            }
+        };
+        //#endregion Sync Other Toggles
 
         //#region Check Output
         function checkCommandOutput(toggleNumber, checkCommand, checkRegex, callback) {
@@ -1185,6 +1253,7 @@ export default class CustomQuickToggleExtension extends Extension {
         commandTimeouts = [];        
 
         this._settings.disconnectObject(this);
+        syncOtherToggles = null;
         this._settings = null;
 
         console.log(`[Custom Command Toggle] Extension disabled`);

@@ -316,10 +316,16 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                     commandSyncExpanderRow.show_enable_switch = false;
                     commandSyncExpanderRow.enable_expansion = false;
                     commandSyncExpanderRow.expanded = false;
+                    toggleSyncExpanderRow.show_enable_switch = false;
+                    toggleSyncExpanderRow.enable_expansion = false;
+                    toggleSyncExpanderRow.expanded = false;
                 } else {
                     commandSyncExpanderRow.show_enable_switch = true;
                     commandSyncExpanderRow.enable_expansion = window._settings.get_boolean(`checkcommandsync${pageIndex}-setting`);
                     commandSyncExpanderRow.expanded = commandSyncExpanderRow.enable_expansion;
+                    toggleSyncExpanderRow.show_enable_switch = true;
+                    toggleSyncExpanderRow.enable_expansion = window._settings.get_boolean(`synconclick${pageIndex}-setting`);
+                    toggleSyncExpanderRow.expanded = toggleSyncExpanderRow.enable_expansion;
                 }
             });
 
@@ -344,6 +350,13 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 title: _('Command Sync Behavior'),
             });
 
+            const syncDisabledInfo = new Adw.ActionRow({
+                subtitle: _('Command sync is disabled. To enable, set the Button Click Action to Toggle.'),
+                activatable: false,
+            });
+            syncDisabledInfo.visible = comboRow2.selected !== 2;
+            syncGroup.add(syncDisabledInfo);
+
             const commandSyncExpanderRow = new Adw.ExpanderRow({
                 title: _('Keep Toggle State Synced'),
                 subtitle: _('Keep toggle button state synced with a command\'s output'),
@@ -367,7 +380,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
                 title: _('Command Configuration'),
                 subtitle: _(
                             "Enter the Check Status Command and Search Term in the Commands section above. " +
-                            "If the specified Search Term appears in the command\'s output, the button will be set to ON. " +
+                            "If the Search Term appears in the command\'s output, the button will be set to ON. " +
                             "Otherwise, the button will be set to OFF."
                            ),
                 activatable: false,
@@ -386,12 +399,64 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             });
             commandSyncExpanderRow.add_row(pollingFreqSpinRow);
 
-            const syncDisabledInfo = new Adw.ActionRow({
-                subtitle: _('Command sync is disabled. To enable, set the Button Click Action to Toggle.'),
+
+
+
+
+            
+
+
+
+            const toggleSyncExpanderRow = new Adw.ExpanderRow({
+                title: _('Sync All Buttons on Toggle'),
+                subtitle: _('Update the state of all other toggle buttons when button is clicked'),
+                show_enable_switch: true,
+                expanded: window._settings.get_boolean(`synconclick${pageIndex}-setting`),
+                enable_expansion: window._settings.get_boolean(`synconclick${pageIndex}-setting`),
+            });
+            if (comboRow2.selected !== 2) {
+                toggleSyncExpanderRow.show_enable_switch = false;
+                toggleSyncExpanderRow.expanded = false;
+            } else {
+                toggleSyncExpanderRow.expanded = window._settings.get_boolean(`synconclick${pageIndex}-setting`);
+                toggleSyncExpanderRow.show_enable_switch = true;
+            }
+            toggleSyncExpanderRow.connect('notify::expanded', widget => {
+                toggleSyncExpanderRow.enable_expansion = widget.expanded;
+            });
+            syncGroup.add(toggleSyncExpanderRow);
+
+
+
+            const toggleSyncInfo = new Adw.ActionRow({
+                title: _('Command Configuration'),
+                subtitle: _(
+                            "Enter the Check Status Command and Search Term for each toggle. " +
+                            "If the Search Term appears in the command\'s output, the button will be set to ON. " +
+                            "Otherwise, the button will be set to OFF."
+                           ),
                 activatable: false,
             });
-            syncDisabledInfo.visible = comboRow2.selected !== 2;
-            syncGroup.add(syncDisabledInfo);
+            
+            toggleSyncExpanderRow.add_row(toggleSyncInfo);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
             page.add(syncGroup);
             //#endregion Sync Behavior
@@ -434,6 +499,7 @@ export default class CustomCommandTogglePreferences extends ExtensionPreferences
             window._settings.bind(`buttonclick${pageIndex}-setting`, comboRow2, 'selected', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`checkcommandinterval${pageIndex}-setting`, pollingFreqSpinRow, 'value', Gio.SettingsBindFlags.DEFAULT);
             window._settings.bind(`checkcommandsync${pageIndex}-setting`, commandSyncExpanderRow, 'expanded', Gio.SettingsBindFlags.DEFAULT);
+            window._settings.bind(`synconclick${pageIndex}-setting`, toggleSyncExpanderRow, 'expanded', Gio.SettingsBindFlags.DEFAULT);
             //#endregion Bindings
 
 

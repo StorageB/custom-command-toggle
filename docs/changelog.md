@@ -1,5 +1,20 @@
 <!-- changelog.md -->
 
+## Version 16 (XXXX-XX-XX)
+
+**NOTICE:** Command execution was changed to use POSIX sh instead of bash. If you use bash specific syntax in your commands, you may need to adapt it or explicitly run your command using Bash (bash -c '...'), or 
+
+**New Features**
+
+- Added a Sync All Buttons on Toggle feature to update the state of all other buttons when a button is toggled.
+
+**Improvements**
+
+- Changed from bash to POSIX sh for command execution for compatibility with systems where bash is not installed.
+
+---
+
+
 
 ## Version 15 (2026-10-16)
 
