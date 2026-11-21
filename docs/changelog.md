@@ -4,7 +4,9 @@
 
 **IMPORTANT NOTE** 
 
-Command execution was changed to use POSIX sh instead of Bash. If you use Bash-specific syntax in your commands, you may need to adapt it or explicitly run your command using Bash (bash -c '...'). Alternatively, you can put your commands in a separate Bash script (with a #!/bin/bash shebang) and execute the script from the extension.
+Command execution was changed to use POSIX sh instead of Bash.
+
+If you use Bash-specific syntax in your commands, you may need to adapt it or explicitly run commands using Bash (`bash -c 'command'`). Alternatively, add the commands to a separate Bash script (with a `#!/bin/bash` shebang) and execute the script from the extension.
 
 **New Features**
 
