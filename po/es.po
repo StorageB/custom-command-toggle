@@ -1,0 +1,566 @@
+# Spanish translations for Custom Command Toggle.
+# Copyright (C) 2026 StorageB
+# This file is distributed under the same license as the Custom Command Toggle extension.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: custom-command-toggle-v15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-25 14:37-0500\n"
+"PO-Revision-Date: 2026-11-18 14:03+0100\n"
+"Last-Translator: Pedro Flores\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: about.js:52
+msgid "What's New"
+msgstr "Novedades"
+
+#: about.js:53
+msgid "GitHub Page"
+msgstr "Página de GitHub"
+
+#: about.js:54
+msgid "Extension Page"
+msgstr "Página de la extensión"
+
+#: about.js:55 prefs.js:53
+msgid "User Guide"
+msgstr "Guía del usuario"
+
+#: about.js:56
+msgid "Discussions"
+msgstr "Debates"
+
+#: menu.js:12
+msgid "Click + to add a menu item"
+msgstr "Pulsa + para añadir un elemento al menú"
+
+#: menu.js:37
+msgid "Add menu item"
+msgstr "Añadir elemento de menú"
+
+#: menu.js:58 menu.js:90
+msgid "New Menu Item"
+msgstr "Nuevo elemento de menú"
+
+#: menu.js:62
+msgid "Name:"
+msgstr "Nombre:"
+
+#: menu.js:68 prefs.js:169
+msgid "Icon:"
+msgstr "Icono:"
+
+#: menu.js:74
+msgid "Command:"
+msgstr "Comando:"
+
+#: menu.js:81
+msgid "Remove menu item"
+msgstr "Quitar elemento de menú"
+
+#: prefs.js:54
+msgid "Icon List"
+msgstr "Lista de iconos"
+
+#: prefs.js:57
+msgid "About"
+msgstr "Acerca de"
+
+#: prefs.js:67
+msgid "Help and resources"
+msgstr "Ayuda y recursos"
+
+#: prefs.js:125
+msgid "Toggle Button"
+msgstr "Botón conmutador"
+
+#: prefs.js:126
+#, javascript-format
+msgid "Button %d"
+msgstr "Botón %d"
+
+#: prefs.js:139
+msgid "Appearance"
+msgstr "Apariencia"
+
+#: prefs.js:145 prefs.js:154
+msgid "Hide this toggle"
+msgstr "Ocultar este botón"
+
+#: prefs.js:145 prefs.js:154
+msgid "Show this toggle"
+msgstr "Mostrar este botón"
+
+#: prefs.js:164
+msgid "Button name:"
+msgstr "Nombre del botón:"
+
+#: prefs.js:177
+msgid "Commands"
+msgstr "Comandos"
+
+#: prefs.js:182
+msgid "Toggle ON Command:"
+msgstr "Comando al activar:"
+
+#: prefs.js:187
+msgid "Toggle OFF Command:"
+msgstr "Comando al desactivar:"
+
+#: prefs.js:192
+msgid "Check Status Command:"
+msgstr "Comando de comprobación de estado:"
+
+#: prefs.js:197
+msgid "Check Status Search Term:"
+msgstr "Término de búsqueda del estado:"
+
+#: prefs.js:205
+msgid "Menu Commands"
+msgstr "Comandos del menú"
+
+#: prefs.js:215
+msgid "Startup Behavior"
+msgstr "Comportamiento al iniciar"
+
+#: prefs.js:220
+msgid "On"
+msgstr "Activado"
+
+#: prefs.js:220
+msgid "Off"
+msgstr "Desactivado"
+
+#: prefs.js:220
+msgid "Previous state"
+msgstr "Estado anterior"
+
+#: prefs.js:220
+msgid "Command output"
+msgstr "Salida del comando"
+
+#: prefs.js:222
+msgid "Initial State"
+msgstr "Estado inicial"
+
+#: prefs.js:223
+msgid "State of the toggle button at login/startup"
+msgstr "Estado del botón al iniciar sesión o arrancar"
+
+#: prefs.js:230 prefs.js:367
+msgid "Command Configuration"
+msgstr "Configuración del comando"
+
+#: prefs.js:232
+msgid ""
+"Enter the Check Status Command and Search Term in the Commands section "
+"above. If the specified Search Term appears in the command's output, the "
+"button will be set to ON at startup. Otherwise, the button will be set to "
+"OFF."
+msgstr ""
+"Introduce el comando de comprobación de estado y el término de búsqueda en "
+"la sección «Comandos» de arriba. Si el término de búsqueda indicado aparece "
+"en la salida del comando, el botón se activará al iniciar. De lo contrario, "
+"se desactivará."
+
+#: prefs.js:248
+msgid "Run Command at Startup"
+msgstr "Ejecutar el comando al iniciar"
+
+#: prefs.js:249
+msgid "Run associated toggle command at login/startup"
+msgstr ""
+"Ejecuta el comando correspondiente del botón al iniciar sesión o arrancar"
+
+#: prefs.js:262 prefs.js:274
+msgid "Startup Delay (seconds)"
+msgstr "Retardo al iniciar (segundos)"
+
+#: prefs.js:263 prefs.js:275
+msgid "Amount of time to delay command from running after startup"
+msgstr "Tiempo de espera antes de ejecutar el comando tras el inicio"
+
+#: prefs.js:290
+msgid "Toggle Behavior"
+msgstr "Comportamiento del botón"
+
+#: prefs.js:294
+msgid "Always on"
+msgstr "Siempre activado"
+
+#: prefs.js:294
+msgid "Always off"
+msgstr "Siempre desactivado"
+
+#: prefs.js:294
+msgid "Toggle"
+msgstr "Alternar"
+
+#: prefs.js:297
+msgid "Button Click Action"
+msgstr "Acción al pulsar"
+
+#: prefs.js:298
+msgid "Button behavior when clicked"
+msgstr "Qué hace el botón al pulsarlo"
+
+#: prefs.js:305
+msgid "Check Command Exit Code"
+msgstr "Comprobar el código de salida"
+
+#: prefs.js:306
+msgid "Only toggle if the command executes successfully (returns exit code 0)"
+msgstr ""
+"Solo cambia de estado si el comando se ejecuta correctamente (devuelve el "
+"código de salida 0)"
+
+#: prefs.js:327
+msgid "Show Indicator Icon"
+msgstr "Mostrar icono indicador"
+
+#: prefs.js:328
+msgid "Show top bar icon when toggle button is switched on"
+msgstr "Muestra un icono en la barra superior cuando el botón está activado"
+
+#: prefs.js:334
+msgid "Close Menu After Button Press"
+msgstr "Cerrar el menú al pulsar el botón"
+
+#: prefs.js:335
+msgid "Close the system menu immediately after clicking toggle button"
+msgstr "Cierra el menú del sistema nada más pulsar el botón"
+
+#: prefs.js:344
+msgid "Command Sync Behavior"
+msgstr "Comportamiento de sincronización"
+
+#: prefs.js:348
+msgid "Keep Toggle State Synced"
+msgstr "Mantener el estado sincronizado"
+
+#: prefs.js:349
+msgid "Keep toggle button state synced with a command's output"
+msgstr "Mantiene el estado del botón sincronizado con la salida de un comando"
+
+#: prefs.js:369
+msgid ""
+"Enter the Check Status Command and Search Term in the Commands section "
+"above. If the specified Search Term appears in the command's output, the "
+"button will be set to ON. Otherwise, the button will be set to OFF."
+msgstr ""
+"Introduce el comando de comprobación de estado y el término de búsqueda en "
+"la sección «Comandos» de arriba. Si el término de búsqueda indicado aparece "
+"en la salida del comando, el botón se activará. De lo contrario, se "
+"desactivará."
+
+#: prefs.js:381
+msgid ""
+"Enter the Check Status Command and Search Term in the Commands section "
+"above. If the Search Term appears in the command's output, the button will "
+"be set to ON. Otherwise, the button will be set to OFF."
+msgstr ""
+"Introduce el comando de comprobación de estado y el término de búsqueda en "
+"la sección «Comandos» de arriba. Si el término de búsqueda aparece en la "
+"salida del comando, el botón se activará. De lo contrario, se desactivará."
+
+#: prefs.js:378
+msgid "Polling Frequency (seconds)"
+msgstr "Intervalo de comprobación (segundos)"
+
+#: prefs.js:379
+msgid "How often to check the command output and update button state"
+msgstr ""
+"Cada cuánto se comprueba la salida del comando y se actualiza el estado del "
+"botón"
+
+#: prefs.js:390
+msgid ""
+"Command sync is disabled. To enable, set the Button Click Action to Toggle."
+msgstr ""
+"La sincronización está desactivada. Para activarla, cambia «Acción al "
+"pulsar» a «Alternar»."
+
+#: prefs.js:411
+msgid "Sync All Buttons on Toggle"
+msgstr "Sincronizar todos los botones al pulsar"
+
+#: prefs.js:412
+msgid "Update the state of all other toggle buttons when button is clicked"
+msgstr "Actualiza el estado de los demás botones al pulsar este"
+
+#: prefs.js:433
+msgid ""
+"Enter the Check Status Command and Search Term for each toggle. If the "
+"Search Term appears in the command's output, the button will be set to ON. "
+"Otherwise, the button will be set to OFF."
+msgstr ""
+"Introduce el comando de comprobación de estado y el término de búsqueda de "
+"cada botón. Si el término de búsqueda aparece en la salida del comando, el "
+"botón se activará. De lo contrario, se desactivará."
+
+#: prefs.js:402
+msgid "Keyboard Shortcut"
+msgstr "Atajo de teclado"
+
+#: prefs.js:409
+msgid "Assign Shortcut"
+msgstr "Asignar atajo"
+
+#: prefs.js:453
+msgid "Configuration"
+msgstr "Configuración"
+
+#: prefs.js:463
+msgid "Settings"
+msgstr "Ajustes"
+
+#: prefs.js:468
+msgid "Number of Toggle Buttons"
+msgstr "Número de botones"
+
+#: prefs.js:469
+msgid "Click Apply to save and reinitialize toggle states"
+msgstr "Pulsa «Aplicar» para guardar y reiniciar el estado de los botones"
+
+#: prefs.js:480
+msgid "Apply"
+msgstr "Aplicar"
+
+#: prefs.js:509
+msgid "Backup and Restore"
+msgstr "Copia de seguridad y restauración"
+
+#: prefs.js:514
+msgid "Import Configuration"
+msgstr "Importar configuración"
+
+#: prefs.js:515
+msgid ""
+"Click to import the toggles.ini configuration file from the home directory"
+msgstr ""
+"Pulsa para importar el archivo de configuración toggles.ini desde la carpeta "
+"personal"
+
+#: prefs.js:528
+msgid "Export Configuration"
+msgstr "Exportar configuración"
+
+#: prefs.js:529
+msgid ""
+"Click to export the toggles.ini configuration file to the home directory"
+msgstr ""
+"Pulsa para exportar el archivo de configuración toggles.ini a la carpeta "
+"personal"
+
+#: prefs.js:543
+msgid "Advanced"
+msgstr "Avanzado"
+
+#: prefs.js:548
+msgid "Detailed Logging"
+msgstr "Registro detallado"
+
+#: prefs.js:549
+#, javascript-format
+msgid ""
+"To view output, run the following in a terminal then restart extension:\n"
+"%s"
+msgstr ""
+"Para ver la salida, ejecuta lo siguiente en una terminal y reinicia la "
+"extensión:\n"
+"%s"
+
+#: prefs.js:556
+msgid "Copy command to clipboard"
+msgstr "Copiar el comando al portapapeles"
+
+#: prefs.js:569
+msgid "Command copied to clipboard"
+msgstr "Comando copiado al portapapeles"
+
+#: prefs.js:576
+msgid "Reset to Defaults"
+msgstr "Restablecer valores predeterminados"
+
+#: prefs.js:577
+msgid "Click to restore all toggles and settings to their default values"
+msgstr ""
+"Pulsa para devolver todos los botones y ajustes a sus valores predeterminados"
+
+#: prefs.js:583
+msgid "Confirm Reset"
+msgstr "Confirmar restablecimiento"
+
+#: prefs.js:584
+msgid ""
+"All toggles and extension settings will be reset to their default values. "
+"This action cannot be undone."
+msgstr ""
+"Todos los botones y ajustes de la extensión volverán a sus valores "
+"predeterminados. Esta acción no se puede deshacer."
+
+#: prefs.js:589
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: prefs.js:590
+msgid "Reset"
+msgstr "Restablecer"
+
+#: prefs.js:610
+msgid "Resources"
+msgstr "Recursos"
+
+#: prefs.js:614
+msgid ""
+"Find links to the User Guide, Icon List, and other helpful information in "
+"the menu at the top of this window."
+msgstr ""
+"En el menú de la parte superior de esta ventana encontrarás enlaces a la "
+"Guía del usuario, la Lista de iconos y otra información útil."
+
+#: backup.js:109
+#, javascript-format
+msgid "Settings exported to: %s"
+msgstr "Ajustes exportados a: %s"
+
+#: backup.js:111
+msgid "Open"
+msgstr "Abrir"
+
+#: backup.js:121
+msgid "Application Not Found"
+msgstr "Aplicación no encontrada"
+
+#: backup.js:123
+msgid ""
+"No default application found to open .ini files.\n"
+"\n"
+"The toggles.ini file can be opened and modified in any text editor. To open "
+"the file, it may first be required to manually associate the .ini file with "
+"the default text editor by doing the following:\n"
+"\n"
+"1. Open the home directory and locate the toggles.ini file\n"
+"2. Right-click on the file and select \"Open with...\"\n"
+"3. Choose a default text editor, and select the option \"Always use for this "
+"file type\""
+msgstr ""
+"No se ha encontrado ninguna aplicación predeterminada para abrir "
+"archivos .ini.\n"
+"\n"
+"El archivo toggles.ini se puede abrir y modificar con cualquier editor de "
+"texto. Para abrirlo, puede que primero tengas que asociar manualmente los "
+"archivos .ini con el editor de texto predeterminado de esta forma:\n"
+"\n"
+"1. Abre la carpeta personal y localiza el archivo toggles.ini\n"
+"2. Haz clic derecho en el archivo y selecciona «Abrir con…»\n"
+"3. Elige un editor de texto predeterminado y marca la opción «Usar siempre "
+"para este tipo de archivo»"
+
+#: backup.js:140 backup.js:147
+msgid "Export Error"
+msgstr "Error al exportar"
+
+#: backup.js:142 backup.js:168 backup.js:194
+msgid "Details"
+msgstr "Detalles"
+
+#: backup.js:148
+#, javascript-format
+msgid ""
+"Failed to export settings\n"
+"\n"
+"%s"
+msgstr ""
+"No se han podido exportar los ajustes\n"
+"\n"
+"%s"
+
+#: backup.js:150 backup.js:179 backup.js:202
+msgid "OK"
+msgstr "Aceptar"
+
+#: backup.js:166
+msgid "File not found"
+msgstr "No se ha encontrado el archivo"
+
+#: backup.js:173
+msgid "File Not Found"
+msgstr "Archivo no encontrado"
+
+#: backup.js:175
+#, javascript-format
+msgid ""
+"The %s configuration file was not found in the user's home directory.\n"
+"\n"
+"Verify the following file exists:\n"
+"\n"
+"%s"
+msgstr ""
+"No se ha encontrado el archivo de configuración %s en la carpeta personal "
+"del usuario.\n"
+"\n"
+"Comprueba que existe el siguiente archivo:\n"
+"\n"
+"%s"
+
+#: backup.js:192 backup.js:199
+msgid "Import Error"
+msgstr "Error al importar"
+
+#: backup.js:200
+#, javascript-format
+msgid ""
+"Failed to import configuration\n"
+"\n"
+"%s"
+msgstr ""
+"No se ha podido importar la configuración\n"
+"\n"
+"%s"
+
+#: backup.js:229
+msgid "My Button"
+msgstr "Mi botón"
+
+#: backup.js:278
+#, javascript-format
+msgid "No toggles found in %s."
+msgstr "No se han encontrado botones en %s."
+
+#: backup.js:289
+#, javascript-format
+msgid "Successfully imported %d toggle"
+msgid_plural "Successfully imported %d toggles"
+msgstr[0] "Se ha importado %d botón correctamente"
+msgstr[1] "Se han importado %d botones correctamente"
+
+#: backup.js:309
+msgid "All settings reset to defaults"
+msgstr "Se han restablecido todos los ajustes"
+
+#: backup.js:316
+msgid "Failed to reset settings"
+msgstr "No se han podido restablecer los ajustes"
+
+#: keybinding.js:51
+msgid "Set a keyboard shortcut for toggle button"
+msgstr "Asigna un atajo de teclado al botón"
+
+#: keybinding.js:60
+msgid "Not assigned"
+msgstr "Sin asignar"
+
+#: keybinding.js:75
+msgid "Remove shortcut"
+msgstr "Quitar atajo"
+
+#: keybinding.js:105
+msgid "Press Esc to cancel or Backspace to disable the shortcut"
+msgstr "Pulsa Esc para cancelar o Retroceso para desactivar el atajo"
