@@ -11,6 +11,7 @@ If you use Bash-specific syntax in your commands, you may need to adapt it or ex
 **New Features**
 
 - Added a Sync All Buttons on Toggle feature to update the state of all other buttons when a button is toggled.
+- Spanish translation provided by PedroFlores199.
 
 **Improvements**
 
