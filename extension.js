@@ -782,7 +782,7 @@ export default class CustomQuickToggleExtension extends Extension {
             this._settings.connectObject(`changed::checkcommand${i}-setting`,         () => debounce(i, () => setupCheckSync.call(this, i)), this);
             this._settings.connectObject(`changed::checkcommandinterval${i}-setting`, () => debounce(i, () => setupCheckSync.call(this, i)), this);
             this._settings.connectObject(`changed::checkcommandsync${i}-setting`,     () => debounce(i, () => setupCheckSync.call(this, i)), this);
-            this._settings.connectObject(`changed::showindicator${i}-setting`,        () => refreshIndicator.call(this));
+            this._settings.connectObject(`changed::showindicator${i}-setting`,        () => refreshIndicator.call(this), this);
         }
 
         this._settings.connectObject('changed::debug-setting', () => {

@@ -16,6 +16,7 @@ If you use Bash-specific syntax in your commands, you may need to adapt it or ex
 **Improvements**
 
 - Changed from bash to POSIX sh for command execution for compatibility with systems where bash is not installed.
+- Fixed untracked signal connections that caused redundant toggle rebuilds after enable/disable cycles, such as after screen lock/unlock.
 
 ---
 
